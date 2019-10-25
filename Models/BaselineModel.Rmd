@@ -1,0 +1,40 @@
+---
+title: "Baseline Model"
+output: html_notebook
+---
+```{r}
+library(tscount)
+
+```
+
+```{r}
+#Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/data.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+```
+
+```{r}
+RMSE = function(act, pred){
+  sqrt(mean((act - pred)^2))
+}
+
+train <- df_atleast_50cts[,1:162]
+test <- df_atleast_50cts[,163:204]
+
+for (l in c(1:6)) {
+    for (m in c(6,12)) {
+        errors <- c()
+        for (i in c(1:dim(train)[1])) {
+            fit <- tsglm(as.numeric(train[i,],  model = list(past_obs = l, past_mean = m), distr = "poisson"))
+            pred <- predict(fit, n.ahead=42)
+            rmse <- RMSE(as.numeric(test[i,]),pred$pred)
+            errors <- c(errors,rmse)
+        }
+        print(paste0("Past Obs: ",l," Past Mean: ", m, " RMSE: ", mean(errors)))
+    }
+    
+}
+
+```
+
+
