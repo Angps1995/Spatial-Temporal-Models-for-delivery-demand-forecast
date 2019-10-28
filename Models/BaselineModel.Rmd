@@ -4,7 +4,6 @@ output: html_notebook
 ---
 ```{r}
 library(tscount)
-
 ```
 
 ```{r}
@@ -21,20 +20,80 @@ RMSE = function(act, pred){
 train <- df_atleast_50cts[,1:162]
 test <- df_atleast_50cts[,163:204]
 
-for (l in c(1:6)) {
-    for (m in c(6,12)) {
-        errors <- c()
-        for (i in c(1:dim(train)[1])) {
-            fit <- tsglm(as.numeric(train[i,],  model = list(past_obs = l, past_mean = m), distr = "poisson"))
-            pred <- predict(fit, n.ahead=42)
-            rmse <- RMSE(as.numeric(test[i,]),pred$pred)
-            errors <- c(errors,rmse)
-        }
-        print(paste0("Past Obs: ",l," Past Mean: ", m, " RMSE: ", mean(errors)))
-    }
-    
+
+
+```
+
+```{r}
+library(BigVAR)
+Y = data.matrix(t(train))
+model = constructModel(Y, p = 12, struct = "Basic", gran = c(100,50))
+var_model <- cv.BigVAR(model)
+```
+```{r}
+predictions <- c(predict(var_model, n.ahead = 1))
+for (i in c(2:42)) {
+  pred <- c(predict(var_model, n.ahead = i))
+  predictions <- array(c(predictions, pred), dim = c(42,i))
+}
+errors <- c()
+for (i in c(1:42)) {
+  error <- RMSE(as.numeric(test[i,]), as.numeric(predictions[i,]))
+  errors <- c(errors,error)
+}
+print(mean(errors))
+```
+
+
+```{r}
+plot(var_model@resids)
+```
+
+
+
+
+
+```{r}
+for (obs in c(6,12,18)) {
+  for (m in c(6, 12, 18, 24)) {
+      errors <- c()
+      for (i in c(1:dim(train)[1])) {
+          fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1:obs), past_mean = m)))
+          pred <- predict(fit, n.ahead=42)
+          rmse <- RMSE(as.numeric(test[i,]),pred$pred)
+          errors <- c(errors,rmse)
+      }
+      print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " RMSE: ", mean(errors)))
+  }
 }
 
 ```
 
 
+
+
+
+
+
+```{r}
+library(vars)
+model <- VARselect(t(train[1:32,]))
+model$selection
+model <- VAR(t(train[1:32,]), p = 5, season = NULL, 
+    exog = NULL)
+summary(model)
+```
+```{r}
+train_full <- t(full_df)[1:162,]
+test_full <- t(full_df)[163:204,]
+#On full dataset
+model <- VARselect(train_full)
+model$selection
+model <- VAR(t(train_full), p = 1, season = NULL, exog = NULL)
+summary(model)
+
+#Residual test
+res_test <- serial.test(model, lags.pt = 12, type = "PT.asymptotic")
+res_test
+plot(res_test, names="X1")
+```
