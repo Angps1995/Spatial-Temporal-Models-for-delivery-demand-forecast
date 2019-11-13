@@ -4,6 +4,7 @@ output: html_notebook
 ---
 ```{r}
 library(tscount)
+library(urca)
 ```
 
 ```{r}
@@ -13,10 +14,12 @@ df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv
 ```
 
 ```{r}
+#RMSE function definition
 RMSE = function(act, pred){
   sqrt(mean((act - pred)^2))
 }
 
+#Split into training and test set
 train <- df_atleast_50cts[,1:162]
 test <- df_atleast_50cts[,163:204]
 
@@ -27,7 +30,7 @@ test <- df_atleast_50cts[,163:204]
 ```{r}
 library(BigVAR)
 Y = data.matrix(t(train))
-model = constructModel(Y, p = 12, struct = "Basic", gran = c(100,50))
+model = constructModel(Y, p = 12, struct = "Basic", gran = c(25,10))
 var_model <- cv.BigVAR(model)
 ```
 ```{r}
@@ -46,12 +49,28 @@ print(mean(errors))
 
 
 ```{r}
+var_model
+```
+
+
+```{r}
+var_model@crossval
+```
+
+
+```{r}
 plot(var_model@resids)
 ```
 
 
+```{r}
+plot(var_model)
+```
 
 
+```{r}
+SparsityPlot.BigVAR.results(var_model)
+```
 
 ```{r}
 for (obs in c(6,12,18)) {
@@ -76,24 +95,24 @@ for (obs in c(6,12,18)) {
 
 
 ```{r}
-library(vars)
-model <- VARselect(t(train[1:32,]))
-model$selection
-model <- VAR(t(train[1:32,]), p = 5, season = NULL, 
-    exog = NULL)
-summary(model)
+#library(vars)
+#model <- VARselect(t(train[1:32,]))
+#model$selection
+#model <- VAR(t(train[1:32,]), p = 5, season = NULL, 
+#    exog = NULL)
+#summary(model)
 ```
 ```{r}
-train_full <- t(full_df)[1:162,]
-test_full <- t(full_df)[163:204,]
+#train_full <- t(full_df)[1:162,]
+#test_full <- t(full_df)[163:204,]
 #On full dataset
-model <- VARselect(train_full)
-model$selection
-model <- VAR(t(train_full), p = 1, season = NULL, exog = NULL)
-summary(model)
+#model <- VARselect(train_full)
+#model$selection
+#model <- VAR(t(train_full), p = 1, season = NULL, exog = NULL)
+#summary(model)
 
 #Residual test
-res_test <- serial.test(model, lags.pt = 12, type = "PT.asymptotic")
-res_test
-plot(res_test, names="X1")
+#res_test <- serial.test(model, lags.pt = 12, type = "PT.asymptotic")
+#res_test
+#plot(res_test, names="X1")
 ```
