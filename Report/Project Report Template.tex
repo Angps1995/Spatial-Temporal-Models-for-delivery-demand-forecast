@@ -38,19 +38,41 @@ This paper studies how we can use various spatial-temporal time series model to 
 \section{Introduction}
 Provide background and motivation of your business problem. What exactly is the business problem and your objective in the project? What are the potential applications of your results, and so forth ...
 \section{Data}
-Describe data source, format, variable types. You may also summarize your data by providing descriptive statistics, tables and graphs, e.g. histograms, etc..
-\section{Model/Analysis/Calculation...}
-Discuss how to build the model here. We want to see how you approach the problem properly and adequately.
-\subsection{Model 1}
-Here is model 1...If you make any assumptions in any models, please list them here and ``justify'' whenever possible.
+The data source used was an operational dataset from a food delivery service provider from Shanghai that includes delivery information for a 2-month period (excluding weekends) in 2015. The provider only provides delivery service for 90 minutes during lunchtime and the dataset has split the data into 15-minute time periods, and as such, each day would only consists of demand data for 6 time periods. Hence, our dataset has 839 locations with demand data for 204 time periods in total. 
+
+\subsection{Exploratory Analysis}
+We can see.....
+\section{Baseline Model}
+In this section, we would build a simple baseline model. Following which, we would try other different spatial temporal time series models and compare the results to the baseline model. The main metric used for comparison would be Mean Squared Forecast Error (MSFE). 
+\subsection{Train-Test Split}
+Firstly, we would split the dataset into training and test set by considering the first 27 days as the training set and the next 7 days as the test set. Our training set would then have 162 demand data for each location and test set would have 42 demand data for each location. 
+
+\subsection{Baseline Model}
+A baseline model was first built by building a simple ARIMA model on each of the locations individually. Auto-arima function from Python was used to implement this. The MSFE for this baseline model on the 42 locations is 58.80. 
 \begin{assumption}
 It is because...
 \end{assumption}
 \begin{assumption}
 It is generally true...
 \end{assumption}
-%\section{Model Evaluation}
-%Evaluate your model by the metrics discussed in class, when possible. If your model does not do better than the benchmark, please also discuss. Will your model be improved with extra data sources? If yes, what will the data sources be?
+
+\section{VAR Model}
+\begin{assumption}
+It is because...
+\end{assumption}
+\begin{assumption}
+It is generally true...
+\end{assumption}
+
+\subsection{Results}
+The results from the VAR model implemented by BigVAR using R gives a MSFE of 50.05 on the 42 locations. 
+\section{GLM Model}
+\begin{assumption}
+It is because...
+\end{assumption}
+\begin{assumption}
+It is generally true...
+\end{assumption}
 \subsection{Insights and Implementation}
 Any findings from the results? If there are any benefits or issues in implementing the proposed model...
 \section{Conclusion}

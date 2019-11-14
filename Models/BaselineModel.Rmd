@@ -33,7 +33,26 @@ Y = data.matrix(t(train))
 model = constructModel(Y, p = 12, struct = "Basic", gran = c(25,10))
 var_model <- cv.BigVAR(model)
 ```
+
 ```{r}
+
+# for MSFE
+predictions <- c(predict(var_model, n.ahead = 1))
+for (i in c(2:42)) {
+  pred <- c(predict(var_model, n.ahead = i))
+  predictions <- array(c(predictions, pred), dim = c(42,i))
+}
+errors <- 0
+for (i in c(1:42)) {
+  error <- sum((as.numeric(test[i,]) - as.numeric(predictions[i,])) ^ 2)
+  errors <- errors + error
+}
+print(errors/42)
+```
+
+```{r}
+
+# for RMSE
 predictions <- c(predict(var_model, n.ahead = 1))
 for (i in c(2:42)) {
   pred <- c(predict(var_model, n.ahead = i))
