@@ -27,6 +27,14 @@ test <- df_atleast_50cts[,163:204]
 
 ```
 
+
+```{r}
+df_t <- t(df_atleast_50cts)
+colnames(df_t) = c(1:42)
+stationary_test = ca.jo(df_t, type="trace", K=2, ecdet="none", spec="longrun")
+summary(stationary_test)
+```
+
 ```{r}
 library(BigVAR)
 Y = data.matrix(t(train))
