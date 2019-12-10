@@ -39,7 +39,9 @@ This paper studies how we can use various spatial-temporal time series model to 
 \section{Introduction}
 Having an accurate forecast of delivery demand for food service providers would help them more effectively and efficiently assign orders to drivers to improve the overall delivery time. Currently, most Autoregressive (AR) or Autoregressive Integrated Moving Average (ARIMA) models only consider temporal features when predicting demand. However, we believe including spatial features between the data points might improve forecast accuracy. This paper would focus on and explore models that include both spatial and temporal features to improve forecast accuracy. 
 \section{Data}
-The data source used was an operational dataset from a food delivery service provider from Shanghai that includes delivery information for a 2-month period from 10 August 2015 to 30 September 2015 (excluding weekends) in 2015. The provider only provides delivery service for 90 minutes during lunchtime and the dataset has split the data into 15-minute time periods, and as such, each day would only consists of demand data for 6 time periods. Hence, our dataset has 839 locations with demand data for 204 time periods in total. 
+The data source used was an operational dataset from a food delivery service provider from Shanghai that includes delivery information for a 2-month period from 10 August 2015 to 30 September 2015 (excluding Saturdays) in 2015. The provider only provides delivery service for 90 minutes during lunchtime and the dataset has split the data into 15-minute time periods, and as such, each day would only consists of demand data for 6 time periods. Hence, our dataset has 839 locations with demand data for 204 time periods in total. 
+
+To include other exogenous variables, data from https://www.worldweatheronline.com/shanghai-weather-history/shanghai/cn.aspx was used to include weather and rainfall data as well as encoding of the weekadys for all the respective days. 
 
 \subsection{Exploratory Analysis}
 We can see.....
@@ -70,10 +72,10 @@ To validate if the multi-variate time series is stationary, the Johansen's test 
 The results from the VAR model implemented by BigVAR using R gives a MSFE of 50.05 on the 42 locations. 
 \section{GLM Model}
 \begin{assumption}
-It is because...
+Generalised Linear Models (GLM) are.....
 \end{assumption}
 \begin{assumption}
-It is generally true...
+An assumption is that the data follows a poisson process or a non-homogenous poisson process. 
 \end{assumption}
 \subsection{Insights and Implementation}
 Any findings from the results? If there are any benefits or issues in implementing the proposed model...

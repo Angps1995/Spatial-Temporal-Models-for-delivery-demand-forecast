@@ -20,18 +20,19 @@ RMSE = function(act, pred){
 }
 
 #Split into training and test set
-train <- df_atleast_50cts[,1:162]
-test <- df_atleast_50cts[,163:204]
-
-
+#train <- df_atleast_50cts[,1:162]
+#test <- df_atleast_50cts[,163:204]
+#train <- df_atleast_50cts[c(1:47, 50:55),1:162]
+#test <- df_atleast_50cts[c(1:47, 50:55),163:204]
+train <- df_atleast_50cts[c(1:47, 50:55),]
 
 ```
 
 
 ```{r}
 df_t <- t(df_atleast_50cts)
-colnames(df_t) = c(1:42)
-stationary_test = ca.jo(df_t, type="trace", K=2, ecdet="none", spec="longrun")
+colnames(df_t) = c(1:55)
+stationary_test = ca.jo(df_t, type="eigen", K=2, ecdet="none", spec="longrun")
 summary(stationary_test)
 ```
 
@@ -41,14 +42,27 @@ library(BigVAR)
 Y = data.matrix(t(train))
 VARX = list()
 VARX$k = 42  #endogenous
-VARX$s = 6
-model = constructModel(as.matrix(Y), p = 12, struct="Basic", MN = F, gran = c(25,10), VARX = VARX)
+VARX$s = 1
+model = constructModel(as.matrix(Y), p = 12, struct="EFX", MN = F, gran = c(25,10), VARX = VARX, T1 = 81, T2 = 162)
 var_model <- cv.BigVAR(model)
+```
+```{r}
+var_model
 ```
 
 ```{r}
+library(BigVAR)
+Y = data.matrix(t(train))
+VARX = list()
+VARX$k = 42  #endogenous
+VARX$s = 6
+mod <- VARXFit(Y,6,NULL,VARX = VARX)
+```
+
+
+```{r}
 # for MSFE
-predictions <- c(PredictVARX(var_model, n.ahead = 1))
+predictions <- c(predict(var_model, n.ahead = 1))
 for (i in c(2:42)) {
   pred <- c(predict(var_model, n.ahead = i))
   predictions <- array(c(predictions, pred), dim = c(42,i))
@@ -78,11 +92,6 @@ for (i in c(1:42)) {
   errors <- c(errors,error)
 }
 print(mean(errors))
-```
-
-
-```{r}
-var_model
 ```
 
 

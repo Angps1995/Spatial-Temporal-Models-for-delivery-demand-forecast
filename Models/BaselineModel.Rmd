@@ -20,10 +20,10 @@ RMSE = function(act, pred){
 }
 
 #Split into training and test set
-train <- df_atleast_50cts[,1:162]
-test <- df_atleast_50cts[,163:204]
+#train <- df_atleast_50cts[,1:162]
+#test <- df_atleast_50cts[,163:204]
 
-
+train <- df_atleast_50cts
 
 ```
 
@@ -38,12 +38,16 @@ summary(stationary_test)
 ```{r}
 library(BigVAR)
 Y = data.matrix(t(train))
-model = constructModel(Y, p = 12, struct = "Basic", gran = c(25,10))
+model = constructModel(Y, p = 12, struct = "Basic", gran = c(25,10), T1 = 81, T2 = 162)
 var_model <- cv.BigVAR(model)
 ```
+```{r}
+var_model
+```
+
 
 ```{r}
-
+###WITHOUT EXOGENOUS VARIABLES###
 # for MSFE
 predictions <- c(predict(var_model, n.ahead = 1))
 for (i in c(2:42)) {
@@ -57,6 +61,7 @@ for (i in c(1:42)) {
 }
 print(errors/42)
 ```
+
 
 ```{r}
 
@@ -74,10 +79,6 @@ for (i in c(1:42)) {
 print(mean(errors))
 ```
 
-
-```{r}
-var_model
-```
 
 
 ```{r}
@@ -100,16 +101,18 @@ SparsityPlot.BigVAR.results(var_model)
 ```
 
 ```{r}
+train <- df_atleast_50cts[,1:162]
+test <- df_atleast_50cts[,163:204]
 for (obs in c(6,12,18)) {
   for (m in c(6, 12, 18, 24)) {
-      errors <- c()
-      for (i in c(1:dim(train)[1])) {
+      errors <- 0
+      for (i in c(1:42)) {
           fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1:obs), past_mean = m)))
           pred <- predict(fit, n.ahead=42)
-          rmse <- RMSE(as.numeric(test[i,]),pred$pred)
-          errors <- c(errors,rmse)
+          error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
+          errors <- errors + error
       }
-      print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " RMSE: ", mean(errors)))
+      print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " RMSE: ", errors/42))
   }
 }
 
