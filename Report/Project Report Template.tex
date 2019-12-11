@@ -47,9 +47,24 @@ The data source used was an operational dataset from a food delivery service pro
 To include other exogenous variables, data from https://www.worldweatheronline.com/shanghai-weather-history/shanghai/cn.aspx was used to include weather and rainfall data as well as encoding of the weekadys for all the respective days. 
 
 \subsection{Exploratory Analysis}
-We can see.....
+We can see from the boxplot that most of the locations have extremely low number of non-zero orders, with about 335 locations having just a maximum of one non-zero order throughout the 204 time periods. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Images/boxplot_counts.jpg}
+    \caption{Household Attributes}
+    \label{fig:Household Attributes}
+\end{figure}
+
+The distribution plots for the exogenous variables can be found in the appendix. 
+
+The scatter plot of the mean demand across all locations against the temperature visually display a slight positive relationship between temperature and demand. 
+
 \section{Baseline Model}
-In this section, we would build a simple baseline model. Following which, we would try other different spatial temporal time series models and compare the results to the baseline model. The main metric used for comparison would be Mean Squared Forecast Error (MSFE), which is calculated by ....
+In this section, we would build a simple baseline model. Following which, we would try other different spatial temporal time series models and compare the results to the baseline model. 
+
+\subsection{Metric Used}
+The main metric that would be used for comparison would be Mean Squared Forecast Error (MSFE), which is calculated by ....
 
 \subsection{Train-Test Split}
 Since there are many locations that have no demand or orders for the majority of the time period, the data is very sparse. Hence, to get a better idea of how our models would work, only locations with at least 50 non-zero counts across the time period would b used initially. The dataset was split into training and test set by considering the first 27 days as the training set and the next 7 days as the test set. Our training set would then have 162 demand data for each location and test set would have 42 demand data for each location. 
@@ -62,6 +77,9 @@ As a baseline model, each of the locations was assessed individually and a suita
 
 \section{VAR Model}
 Vector Autoregressive (VAR) models are....
+
+VAR is commonly used in economics and financial time series. 
+
 To validate if the multi-variate time series is stationary, the Johansen's test for cointegrating time series would be performed.
 \begin{assumption}
 The first assumption of a VAR model is....
@@ -74,7 +92,7 @@ It is generally true...
 VAR models can also be extended to include exogenous variables. 
 
 \subsection{Model Checking}
-To validate our model,
+To validate our model, the residuals....
 
 \subsection{Results}
 BigVAR library in R was used to implement the VAR models. The results from the VAR model without exogenous variables gives an out-of-sample MSFE of 46.641 on the 42 locations. 
