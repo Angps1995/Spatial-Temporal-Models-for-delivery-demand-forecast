@@ -103,11 +103,13 @@ SparsityPlot.BigVAR.results(var_model)
 ```{r}
 train <- df_atleast_50cts[,1:162]
 test <- df_atleast_50cts[,163:204]
-for (obs in c(6,12,18)) {
-  for (m in c(6, 12, 18, 24)) {
+#for (obs in c(6,12,18)) {
+  #for (m in c(6, 12, 18, 24)) {
+  for (obs in c(6)) {
+    for (m in c(18)) {
       errors <- 0
       for (i in c(1:42)) {
-          fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1:obs), past_mean = m)))
+          fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1:obs), past_mean = m),distr = "poisson"))
           pred <- predict(fit, n.ahead=42)
           error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
           errors <- errors + error
@@ -118,7 +120,13 @@ for (obs in c(6,12,18)) {
 
 ```
 
+```{r}
+plot(x=fit$fitted.values,y=residuals(fit, type='response'))
+```
 
+```{r}
+plot(x=fit$fitted.values,y=residuals(fit, type='response'), yaxp=c(-5,15,20))
+```
 
 
 

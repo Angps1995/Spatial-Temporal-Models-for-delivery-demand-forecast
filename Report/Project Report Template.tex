@@ -1,4 +1,7 @@
 \documentclass[10pt, letterpaper] {article}
+%\documentclass{article}
+%\usepackage{biblatex}
+%\usepackage{apacite}
 \usepackage{natbib}
 \usepackage{amsmath, amsthm, amssymb, mathrsfs,array}
 \usepackage{graphicx,float,wrapfig,subfigure,color,pdfpages,fixltx2e,url}
@@ -31,7 +34,7 @@
 \begin{document}
 	\title{NUS Business School Honors Dissertation}
 	\author{Peng Seng Ang}
-	\date{You may put a date here}
+	\date{AY 2019/2020 Semester 2}
 	\maketitle
 \begin{abstract}
 This paper studies how we can use various spatial-temporal time series model to better predict demand across different locations. 
@@ -46,30 +49,37 @@ To include other exogenous variables, data from https://www.worldweatheronline.c
 \subsection{Exploratory Analysis}
 We can see.....
 \section{Baseline Model}
-In this section, we would build a simple baseline model. Following which, we would try other different spatial temporal time series models and compare the results to the baseline model. The main metric used for comparison would be Mean Squared Forecast Error (MSFE). 
-\subsection{Train-Test Split}
-Firstly, we would split the dataset into training and test set by considering the first 27 days as the training set and the next 7 days as the test set. Our training set would then have 162 demand data for each location and test set would have 42 demand data for each location. 
+In this section, we would build a simple baseline model. Following which, we would try other different spatial temporal time series models and compare the results to the baseline model. The main metric used for comparison would be Mean Squared Forecast Error (MSFE), which is calculated by ....
 
-\subsection{Baseline Model}
-A baseline model was first built by building a simple ARIMA model on each of the locations individually. Auto-arima function from Python was used to implement this. The MSFE for this baseline model on the 42 locations is 58.80. 
-\begin{assumption}
-It is because...
-\end{assumption}
-\begin{assumption}
-It is generally true...
-\end{assumption}
+\subsection{Train-Test Split}
+Since there are many locations that have no demand or orders for the majority of the time period, the data is very sparse. Hence, to get a better idea of how our models would work, only locations with at least 50 non-zero counts across the time period would b used initially. The dataset was split into training and test set by considering the first 27 days as the training set and the next 7 days as the test set. Our training set would then have 162 demand data for each location and test set would have 42 demand data for each location. 
+
+\subsection{ARIMA models}
+Autoregressive Integrated Moving Average (ARIMA) models.....
+
+\subsection{Baseline ARIMA Result}
+As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSFE for this baseline model on the 42 locations is 58.80. 
 
 \section{VAR Model}
+Vector Autoregressive (VAR) models are....
+To validate if the multi-variate time series is stationary, the Johansen's test for cointegrating time series would be performed.
 \begin{assumption}
-It is because...
+The first assumption of a VAR model is....
 \end{assumption}
 \begin{assumption}
 It is generally true...
 \end{assumption}
-Vector Autoregressive (VAR) models are....
-To validate if the multi-variate time series is stationary, the Johansen's test for cointegrating time series would be performed. 
+
+\subsection{VARX Model}
+VAR models can also be extended to include exogenous variables. 
+
+\subsection{Model Checking}
+To validate our model,
+
 \subsection{Results}
-The results from the VAR model implemented by BigVAR using R gives a MSFE of 50.05 on the 42 locations. 
+BigVAR library in R was used to implement the VAR models. The results from the VAR model without exogenous variables gives an out-of-sample MSFE of 46.641 on the 42 locations. 
+
+
 \section{GLM Model}
 \begin{assumption}
 Generalised Linear Models (GLM) are.....
@@ -77,13 +87,22 @@ Generalised Linear Models (GLM) are.....
 \begin{assumption}
 An assumption is that the data follows a poisson process or a non-homogenous poisson process. 
 \end{assumption}
+
+\subsection{Model Checking}
+To validate our model,
+
 \subsection{Insights and Implementation}
 Any findings from the results? If there are any benefits or issues in implementing the proposed model...
 \section{Conclusion}
 Conclude your efforts and main findings.
 
+\section{Appendix}
+Append extra plots, graphs, analysis, etc. \cite{Williamson2001}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{apa} 
 \bibliography{references}
-\section{Appendix}
-Append extra plots, graphs, analysis, etc.
+
 \end{document}
