@@ -1,0 +1,157 @@
+---
+title: "Baseline Model"
+output: html_notebook
+---
+```{r}
+library(tscount)
+library(urca)
+```
+
+```{r}
+#Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/data.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+```
+
+```{r}
+#RMSE function definition
+RMSE = function(act, pred){
+  sqrt(mean((act - pred)^2))
+}
+
+#Split into training and test set
+#train <- df_atleast_50cts[,1:162]
+#test <- df_atleast_50cts[,163:204]
+
+train <- df_atleast_50cts
+
+```
+
+
+```{r}
+df_t <- t(df_atleast_50cts)
+colnames(df_t) = c(1:42)
+stationary_test = ca.jo(df_t, type="trace", K=2, ecdet="none", spec="longrun")
+summary(stationary_test)
+```
+
+```{r}
+library(BigVAR)
+Y = data.matrix(t(train))
+model = constructModel(Y, p = 12, struct = "Basic", gran = c(25,10), T1 = 81, T2 = 162)
+var_model <- cv.BigVAR(model)
+```
+
+```{r}
+var_model
+```
+
+
+```{r}
+###WITHOUT EXOGENOUS VARIABLES###
+# for MSFE
+predictions <- c(predict(var_model, n.ahead = 1))
+for (i in c(2:42)) {
+  pred <- c(predict(var_model, n.ahead = i))
+  predictions <- array(c(predictions, pred), dim = c(42,i))
+}
+errors <- 0
+for (i in c(1:42)) {
+  error <- sum((as.numeric(test[i,]) - as.numeric(predictions[i,])) ^ 2)
+  errors <- errors + error
+}
+print(errors/42)
+```
+
+
+```{r}
+
+# for RMSE
+predictions <- c(predict(var_model, n.ahead = 1))
+for (i in c(2:42)) {
+  pred <- c(predict(var_model, n.ahead = i))
+  predictions <- array(c(predictions, pred), dim = c(42,i))
+}
+errors <- c()
+for (i in c(1:42)) {
+  error <- RMSE(as.numeric(test[i,]), as.numeric(predictions[i,]))
+  errors <- c(errors,error)
+}
+print(mean(errors))
+```
+
+
+
+```{r}
+var_model@crossval
+```
+
+
+```{r}
+plot(var_model@resids)
+```
+
+
+```{r}
+plot(var_model)
+```
+
+
+```{r}
+SparsityPlot.BigVAR.results(var_model)
+```
+
+```{r}
+train <- df_atleast_50cts[,1:162]
+test <- df_atleast_50cts[,163:204]
+#for (obs in c(6,12,18)) {
+  #for (m in c(6, 12, 18, 24)) {
+  for (obs in c(6)) {
+    for (m in c(18)) {
+      errors <- 0
+      for (i in c(1:42)) {
+          fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1:obs), past_mean = m),distr = "poisson"))
+          pred <- predict(fit, n.ahead=42)
+          error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
+          errors <- errors + error
+      }
+      print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " RMSE: ", errors/42))
+  }
+}
+
+```
+
+```{r}
+plot(x=fit$fitted.values,y=residuals(fit, type='response'))
+```
+
+```{r}
+plot(x=fit$fitted.values,y=residuals(fit, type='response'), yaxp=c(-5,15,20))
+```
+
+
+
+
+
+```{r}
+#library(vars)
+#model <- VARselect(t(train[1:32,]))
+#model$selection
+#model <- VAR(t(train[1:32,]), p = 5, season = NULL, 
+#    exog = NULL)
+#summary(model)
+```
+```{r}
+#train_full <- t(full_df)[1:162,]
+#test_full <- t(full_df)[163:204,]
+#On full dataset
+#model <- VARselect(train_full)
+#model$selection
+#model <- VAR(t(train_full), p = 1, season = NULL, exog = NULL)
+#summary(model)
+
+#Residual test
+#res_test <- serial.test(model, lags.pt = 12, type = "PT.asymptotic")
+#res_test
+#plot(res_test, names="X1")
+```

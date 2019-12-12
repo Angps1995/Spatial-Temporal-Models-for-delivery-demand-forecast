@@ -3,46 +3,60 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: Project Report Template.aux
 The style file: apa.bst
 Database file #1: references.bib
-Warning--empty journal in Williamson2001
-You've used 1 entry,
+Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El Moussami , Abdeslam Lachhab" for entry Jamal2018
+while executing---line 1048 of file apa.bst
+Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El Moussami , Abdeslam Lachhab" for entry Jamal2018
+while executing---line 1048 of file apa.bst
+Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El Moussami , Abdeslam Lachhab" for entry Jamal2018
+while executing---line 1048 of file apa.bst
+Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El Moussami , Abdeslam Lachhab" for entry Jamal2018
+while executing---line 1048 of file apa.bst
+Warning--empty journal in Hilde2000
+Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El Moussami , Abdeslam Lachhab" for entry Jamal2018
+while executing---line 1123 of file apa.bst
+Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El Moussami , Abdeslam Lachhab" for entry Jamal2018
+while executing---line 1123 of file apa.bst
+Warning--empty journal in Jamal2018
+Warning--empty journal in Asha2016
+You've used 3 entries,
             1940 wiz_defined-function locations,
-            478 strings with 3903 characters,
-and the built_in function-call counts, 288 in all, are:
-= -- 24
-> -- 7
-< -- 1
-+ -- 4
-- -- 2
-* -- 20
-:= -- 57
-add.period$ -- 2
-call.type$ -- 1
-change.case$ -- 6
-chr.to.int$ -- 1
-cite$ -- 2
-duplicate$ -- 13
-empty$ -- 21
-format.name$ -- 3
-if$ -- 50
+            488 strings with 4066 characters,
+and the built_in function-call counts, 822 in all, are:
+= -- 72
+> -- 21
+< -- 3
++ -- 8
+- -- 6
+* -- 60
+:= -- 157
+add.period$ -- 6
+call.type$ -- 3
+change.case$ -- 18
+chr.to.int$ -- 3
+cite$ -- 6
+duplicate$ -- 39
+empty$ -- 61
+format.name$ -- 9
+if$ -- 148
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 1
-newline$ -- 7
-num.names$ -- 3
-pop$ -- 7
+missing$ -- 3
+newline$ -- 15
+num.names$ -- 9
+pop$ -- 21
 preamble$ -- 1
-purify$ -- 6
+purify$ -- 18
 quote$ -- 0
-skip$ -- 12
+skip$ -- 34
 stack$ -- 0
-substring$ -- 14
-swap$ -- 1
+substring$ -- 38
+swap$ -- 3
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 6
-warning$ -- 1
-while$ -- 2
+type$ -- 18
+warning$ -- 3
+while$ -- 6
 width$ -- 0
-write$ -- 12
-(There was 1 warning)
+write$ -- 32
+(There were 6 error messages)

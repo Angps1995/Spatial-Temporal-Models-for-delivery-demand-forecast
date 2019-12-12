@@ -1,8 +1,15 @@
 \begin{thebibliography}{}
 
-\bibitem[\protect\astroncite{Walliamson~Zengyi}{2001}]{Williamson2001}
-Walliamson~Zengyi, P, H. (2001).
-\newblock A comparison of synthetic reconstruction and combinatorial
-  optimisation approaches to the creation of small area microdata.
+\bibitem[\protect\astroncite{Bjørnland}{2000}]{Hilde2000}
+Bjørnland, H.~C. (2000).
+\newblock Var models in macroeconomic research.
+
+\bibitem[\protect\astroncite{Jamal~Fattah}{2018}]{Jamal2018}
+Jamal~Fattah, Latifa~Ezzine, Z. A. H. E. M. A.~L. (2018).
+\newblock Forecasting of demand using arima model.
+
+\bibitem[\protect\astroncite{Z.~Asha~Farhath}{2016}]{Asha2016}
+Z.~Asha~Farhath, B.~Arputhamary, L.~A. (2016).
+\newblock A survey on arima forecasting using time series model.
 
 \end{thebibliography}

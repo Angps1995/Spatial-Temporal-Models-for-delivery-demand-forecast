@@ -23,7 +23,7 @@ RMSE = function(act, pred){
 #train <- df_atleast_50cts[,1:162]
 #test <- df_atleast_50cts[,163:204]
 
-train <- df_atleast_50cts
+train <- full_df
 
 ```
 
@@ -38,7 +38,7 @@ summary(stationary_test)
 ```{r}
 library(BigVAR)
 Y = data.matrix(t(train))
-model = constructModel(Y, p = 12, struct = "Basic", gran = c(25,10), T1 = 81, T2 = 162)
+model = constructModel(Y, p = 1, struct = "Basic", gran = c(25,10), T1 = 81, T2 = 162)
 var_model <- cv.BigVAR(model)
 ```
 ```{r}

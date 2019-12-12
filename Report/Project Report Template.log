@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  11 DEC 2019 22:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  13 DEC 2019 00:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -359,46 +359,65 @@ LaTeX Font Info:    Try loading font information for U+rsfs on input line 38.
 
 (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
-)
-Overfull \hbox (5.30145pt too wide) in paragraph at lines 47--48
+) [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (5.30145pt too wide) in paragraph at lines 50--51
 []\OT1/cmr/m/n/10 To in-clude other ex-oge-nous vari-ables, data from https://w
 ww.worldweatheronline.com/shanghai-weather-
  []
 
-[1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 <Images/boxplot_counts.jpg, id=12, 578.16pt x 433.62pt>
 File: Images/boxplot_counts.jpg Graphic file (type jpg)
 <use Images/boxplot_counts.jpg>
-Package pdftex.def Info: Images/boxplot_counts.jpg  used on input line 54.
+Package pdftex.def Info: Images/boxplot_counts.jpg  used on input line 57.
 (pdftex.def)             Requested size: 469.75499pt x 352.31538pt.
- [2 <./Images/boxplot_counts.jpg>] [3] (./Project Report Template.bbl [4]) [5]
-(./Project Report Template.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+[2 <./Images/boxplot_counts.jpg>]
+<Images/temp_mean_demand.jpg, id=16, 578.16pt x 289.08pt>
+File: Images/temp_mean_demand.jpg Graphic file (type jpg)
+<use Images/temp_mean_demand.jpg>
+Package pdftex.def Info: Images/temp_mean_demand.jpg  used on input line 65.
+(pdftex.def)             Requested size: 469.75499pt x 234.8769pt.
+<Images/pressure_mean_demand.jpg, id=17, 578.16pt x 289.08pt>
+File: Images/pressure_mean_demand.jpg Graphic file (type jpg)
+<use Images/pressure_mean_demand.jpg>
+Package pdftex.def Info: Images/pressure_mean_demand.jpg  used on input line 72
+.
+(pdftex.def)             Requested size: 469.75499pt x 234.8769pt.
+ [3 <./Images/temp_mean_demand.jpg> <./Images/pressure_mean_demand.jpg>] [4]
+<Images/forecast_example.jpg, id=30, 578.16pt x 289.08pt>
+File: Images/forecast_example.jpg Graphic file (type jpg)
+<use Images/forecast_example.jpg>
+Package pdftex.def Info: Images/forecast_example.jpg  used on input line 106.
+(pdftex.def)             Requested size: 469.75499pt x 234.8769pt.
+ [5 <./Images/forecast_example.jpg>] [6]
+(./Project Report Template.bbl) [7] (./Project Report Template.aux) ) 
 Here is how much of TeX's memory you used:
- 4127 strings out of 492609
- 56775 string characters out of 6131462
- 126375 words of memory out of 5000000
- 7937 multiletter control sequences out of 15000+600000
- 11251 words of font info for 43 fonts, out of 8000000 for 9000
+ 4165 strings out of 492609
+ 57609 string characters out of 6131462
+ 127467 words of memory out of 5000000
+ 7969 multiletter control sequences out of 15000+600000
+ 13445 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,6n,27p,596b,238s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmti10.pfb>
-Output written on "Project Report Template.pdf" (5 pages, 132262 bytes).
+ 41i,6n,27p,1090b,238s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on "Project Report Template.pdf" (7 pages, 292940 bytes).
 PDF statistics:
- 53 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+ 88 PDF objects out of 1000 (max. 8388607)
+ 60 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
