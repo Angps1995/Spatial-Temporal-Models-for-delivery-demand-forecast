@@ -47,38 +47,6 @@ var_model
 ```
 
 
-```{r}
-###WITHOUT EXOGENOUS VARIABLES###
-# for MSFE
-predictions <- c(predict(var_model, n.ahead = 1))
-for (i in c(2:42)) {
-  pred <- c(predict(var_model, n.ahead = i))
-  predictions <- array(c(predictions, pred), dim = c(42,i))
-}
-errors <- 0
-for (i in c(1:42)) {
-  error <- sum((as.numeric(test[i,]) - as.numeric(predictions[i,])) ^ 2)
-  errors <- errors + error
-}
-print(errors/42)
-```
-
-
-```{r}
-
-# for RMSE
-predictions <- c(predict(var_model, n.ahead = 1))
-for (i in c(2:42)) {
-  pred <- c(predict(var_model, n.ahead = i))
-  predictions <- array(c(predictions, pred), dim = c(42,i))
-}
-errors <- c()
-for (i in c(1:42)) {
-  error <- RMSE(as.numeric(test[i,]), as.numeric(predictions[i,]))
-  errors <- c(errors,error)
-}
-print(mean(errors))
-```
 
 
 
@@ -91,6 +59,14 @@ var_model@crossval
 plot(as.vector(var_model@resids))
 ```
 
+
+```{r}
+acf(as.vector(var_model@resids))
+```
+
+```{r}
+plot(as.vector(var_model@fitted),as.vector(var_model@resids), xlim=c(-5,20))
+```
 
 ```{r}
 plot(var_model)
@@ -130,28 +106,36 @@ plot(x=fit$fitted.values,y=residuals(fit, type='response'), yaxp=c(-5,15,20))
 ```
 
 
-
+```{r}
+###WITHOUT EXOGENOUS VARIABLES###
+# for MSFE
+predictions <- c(predict(var_model, n.ahead = 1))
+for (i in c(2:42)) {
+  pred <- c(predict(var_model, n.ahead = i))
+  predictions <- array(c(predictions, pred), dim = c(42,i))
+}
+errors <- 0
+for (i in c(1:42)) {
+  error <- sum((as.numeric(test[i,]) - as.numeric(predictions[i,])) ^ 2)
+  errors <- errors + error
+}
+print(errors/42)
+```
 
 
 ```{r}
-#library(vars)
-#model <- VARselect(t(train[1:32,]))
-#model$selection
-#model <- VAR(t(train[1:32,]), p = 5, season = NULL, 
-#    exog = NULL)
-#summary(model)
-```
-```{r}
-#train_full <- t(full_df)[1:162,]
-#test_full <- t(full_df)[163:204,]
-#On full dataset
-#model <- VARselect(train_full)
-#model$selection
-#model <- VAR(t(train_full), p = 1, season = NULL, exog = NULL)
-#summary(model)
 
-#Residual test
-#res_test <- serial.test(model, lags.pt = 12, type = "PT.asymptotic")
-#res_test
-#plot(res_test, names="X1")
+# for RMSE
+predictions <- c(predict(var_model, n.ahead = 1))
+for (i in c(2:42)) {
+  pred <- c(predict(var_model, n.ahead = i))
+  predictions <- array(c(predictions, pred), dim = c(42,i))
+}
+errors <- c()
+for (i in c(1:42)) {
+  error <- RMSE(as.numeric(test[i,]), as.numeric(predictions[i,]))
+  errors <- c(errors,error)
+}
+print(mean(errors))
 ```
+

@@ -44,7 +44,7 @@ Having an accurate forecast of delivery demand for food service providers would 
 To be written
 
 \section{Data}
-The data source used was an operational dataset from a food delivery service provider from Shanghai that includes delivery information for a 2-month period from 10 August 2015 to 30 September 2015 (excluding Saturdays) in 2015. The provider only provides delivery service for 90 minutes during lunchtime and the dataset has split the data into 15-minute time periods, and as such, each day would only consists of demand data for 6 time periods. Hence, our dataset has 839 locations with demand data for 204 time periods in total. 
+The data source used was an operational dataset from a food delivery service provider from Shanghai that includes delivery information for a 2-month period from 10 August 2015 to 30 September 2015 (excluding Saturdays) in 2015. The provider only provides delivery service for 90 minutes during lunchtime and the dataset has split the data into 15-minute time periods, and as such, each day would only consists of demand data for 6 time periods. Hence, our dataset has 839 locations with demand count data, in integer, for 204 time periods in total. 
 
 To include other exogenous variables, data from https://www.worldweatheronline.com/shanghai-weather-history/shanghai/cn.aspx was used to include weather and rainfall data as well as encoding of the weekadys for all the respective days. 
 
@@ -142,17 +142,15 @@ To validate and verify if our fitted model is adequate, model checking would be 
 \subsubsection{Whiteness of Residuals}
 To ensure our fitted model is adequate, the resiudals should behave like a white noise series. 
 
+\subsubsection{Correlation of Residuals}
+
+
 \subsection{Results}
 BigVAR library in R was used to implement the VAR models. The results from the VAR model without exogenous variables gives an out-of-sample MSFE of XXX on the 42 locations. 
 
 
 \section{GLM Model}
-\begin{assumption}
-Generalised Linear Models (GLM) are.....
-\end{assumption}
-\begin{assumption}
-An assumption is that the data follows a poisson process or a non-homogenous poisson process. 
-\end{assumption}
+Since the dataset that we are using follows a count time series, it is worth exploring another class of model that is commonly used for this, which is the Generalized Linear Model (GLM). 
 
 \subsection{Model Checking}
 To validate our model,

@@ -105,6 +105,9 @@ var_model@crossval
 plot(as.vector(var_model@resids))
 ```
 
+```{r}
+acf(as.vector(var_model@resids))
+```
 
 ```{r}
 plot(var_model)
