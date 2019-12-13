@@ -1,7 +1,5 @@
+\UseRawInputEncoding
 \documentclass[10pt, letterpaper] {article}
-%\documentclass{article}
-%\usepackage{biblatex}
-%\usepackage{apacite}
 \usepackage{natbib}
 \usepackage{amsmath, amsthm, amssymb, mathrsfs,array}
 \usepackage{graphicx,float,wrapfig,subfigure,color,pdfpages,fixltx2e,url}
@@ -115,29 +113,37 @@ As a baseline model, each of the locations was assessed individually and a suita
 Vector Autoregressive (VAR) models are the most commonly used model for multivariate time series, particularly in economics and financial time series as shown in \cite{Hilde2000}. VAR models are very similar to multivariate linear regression models and methods used to perform inferencing on linear regression models can also be applied to VAR models. VAR(p) represents a VAR model of order p if the time series can be written as: 
 
 \begin{center}
-    $\displaystyle x_t=\sum_{i=1}^{p} \phi_{0}x_{t-i}+\alpha_t$
+    $\displaystyle y_t=v+\sum_{i=1}^{p} \phi_{i}y_{t-i}+\alpha_t$
 \end{center}
 
-where $x_t$ is the value of time $t$, $\phi_0$ is a constant vector and $\phi_i$ are coefficient matrices for $i>0$ and $\alpha_t$ are independent and identically distributed random vectors. 
-To validate if the multi-variate time series is stationary, the Johansen's test for cointegrating time series would be performed. Cointegration refers to 
-\begin{assumption}
-The first assumption of a VAR model is....
-\end{assumption}
-\begin{assumption}
-It is generally true...
-\end{assumption}
+\noindent where $p$ is the number of lagged endogenous variables used, $y_t$ is the value at time $t$, $v$ is a constant vector, $\phi_i$ are coefficient matrices for $i>0$ and $\alpha_t$ are independent and identically distributed random vectors. 
+
+\subsection{Stationarity Condition}
+For a univariate time series, it is important for the time series to be transformed into a stationary series and Augmented Dickey-Fuller (ADF) test can be used to perform unit root test for stationarity, as shown in \cite{Zhijie1998} and \cite{Rizwan2011}. For a multi-variate time series, if the series are unit-root non-stationary, applying the VAR model could lead to spurious regression, as shown in \cite{Baumohl2009}. While it is possible to perform differencing on every series, it might cause over-differencing, as mentioned in \cite{Ruey2014}. In this paper, we would check for cointegration between the series instead. 
+
+\subsubsection{Cointegration}
+\cite{Box1977} shows that it is possible to linearly combine various unit-root nonstationary time series to form a stationary series. The term Cointegration, first mentioned in \cite{Granger1983}, states that although some or all the time series might be unit-root nonstationary individually, these time series can be said to be cointegrated if there exists a possible linear combination of them that would form a stationary series. Intuitively, 2 series are cointegrated if they move together and the distance between them remain stable over time. 
+
+\subsubsection{Johansen Test for Cointegration}
+While Cointegrated Augmented Dickey Fuller Test, commonly used for Pairs Trading, can be used, it is only able to be applied on 2 separate series. In our dataset, we have 839 locations at least, hence we would apply the popular approach to cointegrating tests for VAR model, called the Johansen's Cointegration Test. However, one limitation is that it can only be used to check for cointegration between a maximum of 12 variables. For further elaboration on the Johansen's Cointegration Test, please refer to \cite{Johansen1991}. 
 
 \subsection{VARX Model}
-VAR models can also be extended to include exogenous variables. A VARX(p,s) (with exogenous variables) model can 
+VAR models can also be extended to include exogenous variables. A VARX(p,s) (with exogenous variables) model can be expressed as:
+
+\begin{center}
+    $\displaystyle y_t=v+\sum_{i=1}^{p} \phi_{i}y_{t-i}+\sum_{j=1}^{s} \beta_{j}x_{t-j}+\alpha_t$
+\end{center}
+
+\noindent where $p$ is the number of lagged endogenous variables used, $s$ is the number of lagged exogenous variables used, $y_t$ is the value at time $t$, $v$ is a constant vector, $\phi_i$ are coefficient matrices for endogenous coefficient matrix for $i>0$, $\beta_i$ are coefficient matrices for exogenous coefficient matrix for $i>0$ and $\alpha_t$ are independent and identically distributed random vectors. 
 
 \subsection{Model Checking}
 To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis:
 
-
-
+\subsubsection{Whiteness of Residuals}
+To ensure our fitted model is adequate, the resiudals should behave like a white noise series. 
 
 \subsection{Results}
-BigVAR library in R was used to implement the VAR models. The results from the VAR model without exogenous variables gives an out-of-sample MSFE of 46.641 on the 42 locations. 
+BigVAR library in R was used to implement the VAR models. The results from the VAR model without exogenous variables gives an out-of-sample MSFE of XXX on the 42 locations. 
 
 
 \section{GLM Model}
@@ -153,6 +159,9 @@ To validate our model,
 
 \subsection{Insights and Implementation}
 Any findings from the results? If there are any benefits or issues in implementing the proposed model...
+
+\section{Limitations}
+
 \section{Conclusion}
 Conclude your efforts and main findings.
 

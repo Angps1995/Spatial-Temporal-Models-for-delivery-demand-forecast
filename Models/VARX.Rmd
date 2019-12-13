@@ -43,7 +43,7 @@ Y = data.matrix(t(train))
 VARX = list()
 VARX$k = 42  #endogenous
 VARX$s = 1
-model = constructModel(as.matrix(Y), p = 12, struct="EFX", MN = F, gran = c(25,10), VARX = VARX, T1 = 81, T2 = 162)
+model = constructModel(as.matrix(Y), p = 2, struct="EFX", MN = F, gran = c(25,10), VARX = VARX, T1 = 81, T2 = 162)
 var_model <- cv.BigVAR(model)
 ```
 ```{r}
@@ -101,7 +101,7 @@ var_model@crossval
 
 
 ```{r}
-plot(var_model@resids)
+plot(as.vector(var_model@resids))
 ```
 
 

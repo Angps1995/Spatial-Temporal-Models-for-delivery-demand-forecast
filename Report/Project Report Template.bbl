@@ -1,15 +1,47 @@
 \begin{thebibliography}{}
 
+\bibitem[\protect\astroncite{Baumöhl}{2009}]{Baumohl2009}
+Baumöhl, Eduard, L.~�. (2009).
+\newblock Stationarity of time series and the problem of spurious regression.
+
 \bibitem[\protect\astroncite{Bjørnland}{2000}]{Hilde2000}
 Bjørnland, H.~C. (2000).
 \newblock Var models in macroeconomic research.
+
+\bibitem[\protect\astroncite{Box}{1977}]{Box1977}
+Box, G. E.~P., T. G.~C. (1977).
+\newblock A canonical analysis of multiple time series.
+  biometrika64(2):355–365.
+
+\bibitem[\protect\astroncite{Granger}{1983}]{Granger1983}
+Granger, C. (1983).
+\newblock Co-integrated variables and error-correcting models, ucsd discussion
+  paper 83-13.
 
 \bibitem[\protect\astroncite{Jamal~Fattah}{2018}]{Jamal2018}
 Jamal~Fattah, Latifa~Ezzine, Z. A. H. E. M. A.~L. (2018).
 \newblock Forecasting of demand using arima model.
 
+\bibitem[\protect\astroncite{Johansen}{1991}]{Johansen1991}
+Johansen, S. (1991).
+\newblock Estimation and hypothesis testing of cointegration vectors in
+  gaussian vector autoregressive models.
+
+\bibitem[\protect\astroncite{Mushtaq}{2011}]{Rizwan2011}
+Mushtaq, R. (2011).
+\newblock Augmented dickey fuller test.
+
+\bibitem[\protect\astroncite{Tsay}{2014}]{Ruey2014}
+Tsay, R.~S. (2014).
+\newblock Multivariate time series analysis with r and financial applications.
+
 \bibitem[\protect\astroncite{Z.~Asha~Farhath}{2016}]{Asha2016}
 Z.~Asha~Farhath, B.~Arputhamary, L.~A. (2016).
 \newblock A survey on arima forecasting using time series model.
+
+\bibitem[\protect\astroncite{Zhijie~X.}{1998}]{Zhijie1998}
+Zhijie~X., P. C.~P. (1998).
+\newblock An adf coefficient test for a unit root in arma models of unknown
+  order with empirical applications to the us economy.
 
 \end{thebibliography}
