@@ -1,5 +1,5 @@
 ---
-title: "Baseline Model"
+title: "VAR Model on endogenous"
 output: html_notebook
 ---
 ```{r}
@@ -89,7 +89,7 @@ test <- df_atleast_50cts[,163:204]
           error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
           errors <- errors + error
       }
-      print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " RMSE: ", errors/42))
+      print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " MSFE: ", errors/42))
   }
 }
 

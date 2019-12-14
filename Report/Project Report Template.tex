@@ -150,10 +150,28 @@ BigVAR library in R was used to implement the VAR models. The results from the V
 
 
 \section{GLM Model}
-Since the dataset that we are using follows a count time series, it is worth exploring another class of model that is commonly used for this, which is the Generalized Linear Model (GLM). 
+The dataset that we are using follows a count time series, which means the observations are non-negative integers. A flexible and commonly used model for count time series is the Generalized Linear Model (GLM) \cite{Nelder1972}. GLM can be expressed in the form of:
+
+\begin{center}
+    $\displaystyle y_t=$
+\end{center}
+
+Since there are many locations which have values that are all 0 throughout all the time period, the GLM model would run into an error if applied on those. Hence, only locations with at least 1 non-zero value would be considered. Similar to before, each of the locations was assessed individually and a suitable GLM model was fitted for each location. The out-of-sample MSFE for this baseline model is \textbf{XXX}. 
 
 \subsection{Model Checking}
 To validate our model,
+
+\subsection{Results}
+
+
+\section{VGLM Model}
+VGLM
+
+
+\subsection{Model Checking}
+To validate our model,
+
+\subsection{Results}
 
 \subsection{Insights and Implementation}
 Any findings from the results? If there are any benefits or issues in implementing the proposed model...

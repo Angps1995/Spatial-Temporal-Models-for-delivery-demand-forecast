@@ -1,5 +1,5 @@
 ---
-title: "Baseline Model"
+title: "VARX Model on endogenous and exogenous (Full dataset)"
 output: html_notebook
 ---
 ```{r}

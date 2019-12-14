@@ -1,0 +1,55 @@
+---
+title: "GLM Model"
+output: html_notebook
+---
+
+```{r}
+library(tscount)
+library(urca)
+```
+
+```{r}
+#Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/data.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+```
+
+```{r}
+train <- df_atleast_50cts[,1:162]
+test <- df_atleast_50cts[,163:204]
+#for (obs in c(6,12,18)) {
+  #for (m in c(6, 12, 18, 24)) {
+  for (obs in c(6)) {
+    for (m in c(18)) {
+      errors <- 0
+      for (i in c(1:42)) {
+          fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1:obs), past_mean = m), distr = "poisson"))
+          pred <- predict(fit, n.ahead=42, global=TRUE)
+          error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
+          errors <- errors + error
+      }
+      print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " MSFE: ", errors/42))
+  }
+}
+
+```
+
+```{r}
+plot(x=fit$fitted.values,y=residuals(fit, type='response'))
+```
+
+```{r}
+plot(x=fit$fitted.values,y=residuals(fit, type='response'), yaxp=c(-5,15,20))
+```
+
+```{r}
+acf(residuals(fit), main = "ACF of residuals")
+```
+
+
+```{r}
+summary(fit)
+```
+
+
+

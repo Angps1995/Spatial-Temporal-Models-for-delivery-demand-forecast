@@ -1,5 +1,5 @@
 ---
-title: "Baseline Model"
+title: "VAR Model on endogenous on full dataset"
 output: html_notebook
 ---
 ```{r}
