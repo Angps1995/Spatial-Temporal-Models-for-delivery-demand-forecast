@@ -52,86 +52,37 @@ var_model
 ```
 
 ```{r}
-library(BigVAR)
-Y = data.matrix(t(train))
-VARX = list()
-VARX$k = 42  #endogenous
-VARX$s = 6
-mod <- VARXFit(Y,6,NULL,VARX = VARX)
+plot(as.vector(var_model@resids), main="Residuals plot of VAR model", 
+  xlab="Index", ylab="Residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_resids.jpg");
+dev.off ();
+```
+
+```{r}
+plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
+  xlab="Fitted Values", ylab="Residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_resids_vs_values.jpg");
+dev.off ();
+```
+
+```{r}
+acf(as.vector(var_model@resids), main="ACF plots of residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_acf.jpg");
+dev.off ();
 ```
 
 
 ```{r}
-# for MSFE
-predictions <- c(predict(var_model, n.ahead = 1))
-for (i in c(2:42)) {
-  pred <- c(predict(var_model, n.ahead = i))
-  predictions <- array(c(predictions, pred), dim = c(42,i))
-}
-errors <- 0
-for (i in c(1:42)) {
-  error <- sum((as.numeric(test[i,]) - as.numeric(predictions[i,])) ^ 2)
-  errors <- errors + error
-}
-print(errors/42)
-```
-```{r}
-dim(train)
-```
-
-```{r}
-
-# for RMSE
-predictions <- c(predict(var_model, n.ahead = 1))
-for (i in c(2:42)) {
-  pred <- c(predict(var_model, n.ahead = i))
-  predictions <- array(c(predictions, pred), dim = c(42,i))
-}
-errors <- c()
-for (i in c(1:42)) {
-  error <- RMSE(as.numeric(test[i,]), as.numeric(predictions[i,]))
-  errors <- c(errors,error)
-}
-print(mean(errors))
-```
-
-
-```{r}
-var_model@crossval
-```
-
-
-```{r}
-plot(as.vector(var_model@resids))
-```
-
-```{r}
-acf(as.vector(var_model@resids))
-```
-
-```{r}
-plot(var_model)
+plot(var_model, main = "Penalty Grid Position (VAR Model)")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_pengrid.jpg");
+dev.off();
 ```
 
 
 ```{r}
 SparsityPlot.BigVAR.results(var_model)
-```
-
-```{r}
-for (obs in c(6,12,18)) {
-  for (m in c(6, 12, 18, 24)) {
-      errors <- c()
-      for (i in c(1:dim(train)[1])) {
-          fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1:obs), past_mean = m)))
-          pred <- predict(fit, n.ahead=42)
-          rmse <- RMSE(as.numeric(test[i,]),pred$pred)
-          errors <- c(errors,rmse)
-      }
-      print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " RMSE: ", mean(errors)))
-  }
-}
-
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_sparsity.jpg");
+dev.off();
 ```
 
 

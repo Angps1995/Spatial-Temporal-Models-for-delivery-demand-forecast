@@ -58,27 +58,42 @@ var_model@crossval
 
 ```{r}
 plot(as.vector(var_model@resids), main="Residuals plot of VAR model", 
-  xlab="Index", ylab="Residuals",)
+  xlab="Index", ylab="Residuals")
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VAR_resids.jpg");
 dev.off ();
 ```
 
 ```{r}
-plot(as.vector(var_model@fitted),as.vector(var_model@resids))
+plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
+  xlab="Fitted Values", ylab="Residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VAR_resids_vs_values.jpg");
+dev.off ();
 ```
 
 ```{r}
-acf(as.vector(var_model@resids))
+acf(as.vector(var_model@resids), main="ACF plots of residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VAR_acf.jpg");
+dev.off ();
 ```
 
 ```{r}
-plot(var_model)
+plot(var_model, main = "Penalty Grid Position (VAR Model)")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VAR_pengrid.jpg");
+dev.off();
 ```
 
 
 ```{r}
 SparsityPlot.BigVAR.results(var_model)
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VAR_sparsity.jpg");
+dev.off();
 ```
+
+
+
+
+
+
 
 ```{r}
 train <- df_atleast_50cts[,1:162]

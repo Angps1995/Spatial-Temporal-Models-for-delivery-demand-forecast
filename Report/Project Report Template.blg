@@ -34,48 +34,50 @@ while executing---line 1123 of file apa.bst
 Warning--empty journal in Jamal2018
 Warning--empty journal in Johansen1991
 Warning--empty journal in Rizwan2011
+Warning--empty journal in Nelder1972
+Warning--empty journal in Tobias2017
 Warning--empty journal in Ruey2014
 Warning--empty journal in Asha2016
 Warning--empty journal in Zhijie1998
-You've used 10 entries,
+You've used 12 entries,
             1940 wiz_defined-function locations,
-            523 strings with 4906 characters,
-and the built_in function-call counts, 2699 in all, are:
-= -- 240
-> -- 70
-< -- 10
-+ -- 26
-- -- 20
-* -- 200
-:= -- 507
-add.period$ -- 20
-call.type$ -- 10
-change.case$ -- 60
-chr.to.int$ -- 10
-cite$ -- 20
-duplicate$ -- 130
-empty$ -- 201
-format.name$ -- 30
-if$ -- 491
+            533 strings with 5218 characters,
+and the built_in function-call counts, 3233 in all, are:
+= -- 288
+> -- 84
+< -- 12
++ -- 30
+- -- 24
+* -- 240
+:= -- 607
+add.period$ -- 24
+call.type$ -- 12
+change.case$ -- 72
+chr.to.int$ -- 12
+cite$ -- 24
+duplicate$ -- 156
+empty$ -- 241
+format.name$ -- 36
+if$ -- 589
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 10
-newline$ -- 43
-num.names$ -- 30
-pop$ -- 70
+missing$ -- 12
+newline$ -- 51
+num.names$ -- 36
+pop$ -- 84
 preamble$ -- 1
-purify$ -- 60
+purify$ -- 72
 quote$ -- 0
-skip$ -- 111
+skip$ -- 133
 stack$ -- 0
-substring$ -- 126
-swap$ -- 10
+substring$ -- 150
+swap$ -- 12
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 60
-warning$ -- 10
-while$ -- 20
+type$ -- 72
+warning$ -- 12
+while$ -- 24
 width$ -- 0
-write$ -- 102
+write$ -- 122
 (There were 12 error messages)

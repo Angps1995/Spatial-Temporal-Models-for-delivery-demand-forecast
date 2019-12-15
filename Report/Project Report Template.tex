@@ -163,13 +163,26 @@ The plots below shows the distribution of our residuals for the VAR model and th
 
 \subsubsection{Correlation of Residuals}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight]{Images/VAR_acf.jpg}
+    \caption{ACF of Residuals for VAR Model}
+    \label{fig:Residuals for VAR Model}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight]{Images/VARX_acf.jpg}
+    \caption{ACF of Residuals for VARX Model}
+    \label{fig:Residuals for VARX Model}
+\end{figure}
 
 \subsection{Results}
 BigVAR library in R was used to implement the VAR models. The results from the VAR model without exogenous variables gives an out-of-sample MSFE of XXX on the 42 locations. 
 
 
 \section{GLM Model}
-The dataset that we are using follows a count time series, which means the observations are non-negative integers. A flexible and commonly used model for count time series is the Generalized Linear Model (GLM) \cite{Nelder1972}. GLM can be expressed in the form of:
+The dataset that we are using follows a count time series, which means the observations are non-negative integers. A flexible and commonly used model for count time series is the Generalized Linear Model (GLM) \cite{Nelder1972}. Using the R package from \cite{Tobias2017}, the GLM used can be expressed in the form of:
 
 \begin{center}
     $\displaystyle y_t=$
@@ -179,6 +192,10 @@ Since there are many locations which have values that are all 0 throughout all t
 
 \subsection{Model Checking}
 To validate our model, 
+
+\subsubsection{Whiteness of Residuals}
+
+\subsubsection{Correlation of Residuals}
 
 \subsection{Results}
 

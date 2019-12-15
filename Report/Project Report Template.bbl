@@ -31,6 +31,16 @@ Johansen, S. (1991).
 Mushtaq, R. (2011).
 \newblock Augmented dickey fuller test.
 
+\bibitem[\protect\astroncite{Nelder~JA}{1972}]{Nelder1972}
+Nelder~JA, W.~R. (1972).
+\newblock “generalized linear models.” journal of the royal statistical
+  society a, 135(3), 370–384.
+
+\bibitem[\protect\astroncite{Tobias~Liboschik}{2017}]{Tobias2017}
+Tobias~Liboschik, Konstantinos~Fokianos, R.~F. (2017).
+\newblock tscount: An r package for analysis of count time series following
+  generalized linear models.
+
 \bibitem[\protect\astroncite{Tsay}{2014}]{Ruey2014}
 Tsay, R.~S. (2014).
 \newblock Multivariate time series analysis with r and financial applications.

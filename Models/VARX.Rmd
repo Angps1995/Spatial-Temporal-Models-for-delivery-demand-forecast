@@ -52,25 +52,34 @@ var_model
 
 ```{r}
 plot(as.vector(var_model@resids), main="Residuals plot of VARX model", 
-  xlab="Index", ylab="Residuals",)
+  xlab="Index", ylab="Residuals")
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VARX_resids.jpg");
 dev.off ();
 ```
 
 ```{r}
-plot(as.vector(var_model@fitted),as.vector(var_model@resids))
+plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
+  xlab="Fitted Values", ylab="Residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VARX_resids_vs_values.jpg");
+dev.off ();
 ```
 
 ```{r}
-
-acf(as.vector(var_model@resids))
+acf(as.vector(var_model@resids), main="ACF plots of residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VARX_acf.jpg");
+dev.off ();
 ```
 
-
-
+```{r}
+plot(var_model, main = "Penalty Grid Position (VARX Model)")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VARX_pengrid.jpg");
+dev.off();
+```
 
 ```{r}
 SparsityPlot.BigVAR.results(var_model)
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VARX_sparsity.jpg");
+dev.off();
 ```
 
 ```{r}

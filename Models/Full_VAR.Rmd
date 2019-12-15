@@ -29,9 +29,9 @@ train <- full_df
 
 
 ```{r}
-df_t <- t(df_atleast_50cts)
-colnames(df_t) = c(1:42)
-stationary_test = ca.jo(df_t, type="trace", K=2, ecdet="none", spec="longrun")
+df_t <- t(full_df)
+colnames(df_t) = c(1:839)
+stationary_test = ca.jo(df_t, type="trace", K=800, ecdet="none", spec="longrun")
 summary(stationary_test)
 ```
 
@@ -56,86 +56,38 @@ var_model@crossval
 
 
 ```{r}
-plot(as.vector(var_model@resids))
+plot(as.vector(var_model@resids), main="Residuals plot of VAR model", 
+  xlab="Index", ylab="Residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VAR_resids.jpg");
+dev.off ();
+```
+
+```{r}
+plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
+  xlab="Fitted Values", ylab="Residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VAR_resids_vs_values.jpg");
+dev.off ();
+```
+
+```{r}
+acf(as.vector(var_model@resids), main="ACF plots of residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VAR_acf.jpg");
+dev.off ();
 ```
 
 
 ```{r}
-acf(as.vector(var_model@resids))
-```
-
-```{r}
-plot(as.vector(var_model@fitted),as.vector(var_model@resids), xlim=c(-5,20))
-```
-
-```{r}
-plot(var_model)
+plot(var_model, main = "Penalty Grid Position (VAR Model)")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VAR_pengrid.jpg");
+dev.off();
 ```
 
 
 ```{r}
 SparsityPlot.BigVAR.results(var_model)
-```
-
-```{r}
-train <- df_atleast_50cts[,1:162]
-test <- df_atleast_50cts[,163:204]
-#for (obs in c(6,12,18)) {
-  #for (m in c(6, 12, 18, 24)) {
-  for (obs in c(6)) {
-    for (m in c(18)) {
-      errors <- 0
-      for (i in c(1:42)) {
-          fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1:obs), past_mean = m),distr = "poisson"))
-          pred <- predict(fit, n.ahead=42)
-          error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
-          errors <- errors + error
-      }
-      print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " RMSE: ", errors/42))
-  }
-}
-
-```
-
-```{r}
-plot(x=fit$fitted.values,y=residuals(fit, type='response'))
-```
-
-```{r}
-plot(x=fit$fitted.values,y=residuals(fit, type='response'), yaxp=c(-5,15,20))
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VAR_sparsity.jpg");
+dev.off();
 ```
 
 
-```{r}
-###WITHOUT EXOGENOUS VARIABLES###
-# for MSFE
-predictions <- c(predict(var_model, n.ahead = 1))
-for (i in c(2:42)) {
-  pred <- c(predict(var_model, n.ahead = i))
-  predictions <- array(c(predictions, pred), dim = c(42,i))
-}
-errors <- 0
-for (i in c(1:42)) {
-  error <- sum((as.numeric(test[i,]) - as.numeric(predictions[i,])) ^ 2)
-  errors <- errors + error
-}
-print(errors/42)
-```
-
-
-```{r}
-
-# for RMSE
-predictions <- c(predict(var_model, n.ahead = 1))
-for (i in c(2:42)) {
-  pred <- c(predict(var_model, n.ahead = i))
-  predictions <- array(c(predictions, pred), dim = c(42,i))
-}
-errors <- c()
-for (i in c(1:42)) {
-  error <- RMSE(as.numeric(test[i,]), as.numeric(predictions[i,]))
-  errors <- c(errors,error)
-}
-print(mean(errors))
-```
 
