@@ -1,6 +1,8 @@
 ---
 title: "VAR Model on endogenous"
-output: html_notebook
+output: 
+  pdf_document:
+    keep_tex: yes
 ---
 ```{r}
 library(tscount)
@@ -55,7 +57,10 @@ var_model@crossval
 
 
 ```{r}
-plot(as.vector(var_model@resids))
+plot(as.vector(var_model@resids), main="Residuals plot of VAR model", 
+  xlab="Index", ylab="Residuals",)
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VAR_resids.jpg");
+dev.off ();
 ```
 
 ```{r}

@@ -3,6 +3,8 @@
 \usepackage{natbib}
 \usepackage{amsmath, amsthm, amssymb, mathrsfs,array}
 \usepackage{graphicx,float,wrapfig,subfigure,color,pdfpages,fixltx2e,url}
+
+
 \pagestyle{plain}
 \setlength{\parskip} {11pt}
 \setlength{\parindent} {2em}
@@ -139,8 +141,25 @@ VAR models can also be extended to include exogenous variables. A VARX(p,s) (wit
 \subsection{Model Checking}
 To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis:
 
+
 \subsubsection{Whiteness of Residuals}
 To ensure our fitted model is adequate, the resiudals should behave like a white noise series. 
+
+The plots below shows the distribution of our residuals for the VAR model and the VARX model. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight]{Images/VAR_resids.jpg}
+    \caption{Residuals for VAR Model}
+    \label{fig:Residuals for VAR Model}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight]{Images/VARX_resids.jpg}
+    \caption{Residuals for VARX Model}
+    \label{fig:Residuals for VARX Model}
+\end{figure}
 
 \subsubsection{Correlation of Residuals}
 
@@ -159,7 +178,7 @@ The dataset that we are using follows a count time series, which means the obser
 Since there are many locations which have values that are all 0 throughout all the time period, the GLM model would run into an error if applied on those. Hence, only locations with at least 1 non-zero value would be considered. Similar to before, each of the locations was assessed individually and a suitable GLM model was fitted for each location. The out-of-sample MSFE for this baseline model is \textbf{XXX}. 
 
 \subsection{Model Checking}
-To validate our model,
+To validate our model, 
 
 \subsection{Results}
 
@@ -189,5 +208,6 @@ Append extra plots, graphs, analysis, etc.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{apa} 
 \bibliography{references}
+
 
 \end{document}
