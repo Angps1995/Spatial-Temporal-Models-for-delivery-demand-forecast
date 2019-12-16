@@ -1,0 +1,22 @@
+---
+title: "Zero-Inflated Model"
+output: html_notebook
+---
+
+```{r}
+library(tscount)
+library(urca)
+library(pscl)
+```
+
+```{r}
+#Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/df_>=1cts.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+train <- df_atleast_50cts
+```
+
+```{r}
+df <- data.frame(ts = t[-1], lag1 = t[-length(t)])
+m <- zeroinfl(ts ~ lag1, data = df, dist = 'poisson')
+```

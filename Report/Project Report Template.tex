@@ -182,16 +182,24 @@ BigVAR library in R was used to implement the VAR models. The results from the V
 
 
 \section{GLM Model}
-The dataset that we are using follows a count time series, which means the observations are non-negative integers. A flexible and commonly used model for count time series is the Generalized Linear Model (GLM) \cite{Nelder1972}. Using the R package from \cite{Tobias2017}, the GLM used can be expressed in the form of:
+The dataset that we are using follows a count time series, which means the observations are non-negative integers. A flexible and commonly used model for count time series is the Generalized Linear Model (GLM) \cite{Nelder1972}. GLM normally take the form of:
 
 \begin{center}
-    $\displaystyle y_t=$
+    $\displaystyle g(\lambda_t)= \eta^T X_t$
 \end{center}
+
+\noindent Using the R package from \cite{Tobias2017}, the GLM used would be an extension of the above equation and can be expressed in the form of:
+
+\begin{center}
+    $\displaystyle g(\lambda_t)=\beta_0 + \sum_{k=1}^{p}\beta_k\tilde{g}(Y_{t-i_k}) + \sum_{\mathit{l}=1}^{q}\alpha_\mathit{l} g(\lambda_{t-j_\mathit{l}}) + \eta^T X_t$
+\end{center}
+
+\noindent where $g$ represents a link function and $ \tilde{g}$ represents a transformation function. $\eta$ represents a parameter vector that corresponds to the covariates. 
 
 Since there are many locations which have values that are all 0 throughout all the time period, the GLM model would run into an error if applied on those. Hence, only locations with at least 1 non-zero value would be considered. Similar to before, each of the locations was assessed individually and a suitable GLM model was fitted for each location. The out-of-sample MSFE for this baseline model is \textbf{XXX}. 
 
 \subsection{Model Checking}
-To validate our model, 
+To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis. Note that in this paper, only residuals from a randomly selected number of locations would be shown for conciseness. 	
 
 \subsubsection{Whiteness of Residuals}
 
@@ -201,11 +209,11 @@ To validate our model,
 
 
 \section{VGLM Model}
-VGLM
+Vector Generalised Linear Models (VGLM) 
 
 
 \subsection{Model Checking}
-To validate our model,
+To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis:
 
 \subsection{Results}
 
