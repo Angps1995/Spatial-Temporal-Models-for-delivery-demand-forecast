@@ -22,9 +22,13 @@ test <- df_atleast_50cts[,163:204]
   for (obs in c(6)) {
     for (m in c(18)) {
       errors <- 0
+      error_arr <- c()
+      fitted_val <- c()
       for (i in c(1:42)) {
           fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1:obs), past_mean = m), distr = "poisson"))
           pred <- predict(fit, n.ahead=42, global=TRUE)
+          error_arr <- c(error_arr, c(as.numeric(test[i,]) - pred$pred))
+          fitted_val <- c(fitted_val, pred$pred)
           error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
           errors <- errors + error
       }
@@ -35,15 +39,27 @@ test <- df_atleast_50cts[,163:204]
 ```
 
 ```{r}
-plot(x=fit$fitted.values,y=residuals(fit, type='response'))
+plot(error_arr, main="Residuals plot of GLM model", 
+  xlab="Index", ylab="Residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids.jpg");
+dev.off ();
+
 ```
 
 ```{r}
-plot(x=fit$fitted.values,y=residuals(fit, type='response'), yaxp=c(-5,15,20))
+plot(fitted_val, error_arr, main="Plot of residuals against fitted values", 
+  xlab="Fitted values", ylab="Residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids_vs_fitted.jpg");
+dev.off ();
+
 ```
 
+
+
 ```{r}
-acf(residuals(fit), main = "ACF of residuals")
+acf(error_arr, main="ACF plots of residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_acf.jpg");
+dev.off ();
 ```
 
 

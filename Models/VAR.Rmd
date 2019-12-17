@@ -7,6 +7,7 @@ output:
 ```{r}
 library(tscount)
 library(urca)
+library(vars)
 ```
 
 ```{r}
@@ -29,12 +30,40 @@ train <- df_atleast_50cts
 
 ```
 
+```{r}
+##VECM##
+df_t <- t(df_atleast_50cts)[1:204,31:40]
+colnames(df_t) = c(1:10)
+stationary_test = ca.jo(df_t, type="trace", K=2, ecdet="none", spec="longrun")
+summary(stationary_test)
+m <- vec2var(stationary_test)
+```
+
+
+```{r}
+## DIFFERENCING ##
+df_t <- t(df_atleast_50cts)
+colnames(df_t) = c(1:42)
+diff_df <- t(diff(t(df_t), differences=1))
+#stationary_test = ca.jo(diff_df, type="trace", K=4, ecdet="none", spec="longrun")
+#summary(stationary_test)
+model = constructModel(diff_df, p = 2, struct = "Basic", gran = c(25,10), T1 = 81, T2 = 162)
+var_model <- cv.BigVAR(model)
+
+```
+
+```{r}
+acf(as.vector(var_model@resids), main="ACF plots of residuals")
+```
+
+
 
 ```{r}
 df_t <- t(df_atleast_50cts)
 colnames(df_t) = c(1:42)
-stationary_test = ca.jo(df_t, type="trace", K=2, ecdet="none", spec="longrun")
+stationary_test = ca.jo(df_t, type="trace", K=3, ecdet="none", spec="longrun")
 summary(stationary_test)
+m <- vec2var(stationary_test)
 ```
 
 ```{r}
@@ -50,10 +79,6 @@ var_model
 
 
 
-
-```{r}
-var_model@crossval
-```
 
 
 ```{r}
@@ -98,21 +123,12 @@ dev.off();
 ```{r}
 train <- df_atleast_50cts[,1:162]
 test <- df_atleast_50cts[,163:204]
-#for (obs in c(6,12,18)) {
-  #for (m in c(6, 12, 18, 24)) {
-  for (obs in c(6)) {
-    for (m in c(18)) {
-      errors <- 0
-      for (i in c(1:42)) {
-          fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1:obs), past_mean = m),distr = "poisson"))
-          pred <- predict(fit, n.ahead=42)
-          error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
-          errors <- errors + error
-      }
-      print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " MSFE: ", errors/42))
-  }
-}
+colnames(train) = c(1:42)
+stationary_test = ca.jo(df_atleast_50cts, type="trace", K=2, ecdet="none", spec="longrun")
+summary(stationary_test)
+m <- vec2var(stationary_test)
 
+pred <- predict(m, n.ahead=42)
 ```
 
 ```{r}
