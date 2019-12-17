@@ -1,0 +1,25 @@
+---
+title: "VGLM Model"
+output: html_notebook
+---
+
+```{r}
+library(tscount)
+library(urca)
+library(VGAM)
+```
+
+```{r}
+#Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/df_>=1cts.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+```
+
+```{r}
+train <- df_atleast_50cts[1:42,1:162]
+test <- df_atleast_50cts[1:42,163:204]
+```
+
+```{r}
+model <- vglm(cbind())
+```
