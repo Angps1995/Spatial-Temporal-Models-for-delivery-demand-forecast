@@ -1,0 +1,42 @@
+---
+title: "VARMA Model on endogenous"
+output: 
+  pdf_document:
+    keep_tex: yes
+---
+```{r}
+library(tscount)
+library(urca)
+library(vars)
+library(BigVAR)
+library(BBmisc)
+library(MTS)
+```
+
+```{r}
+#Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/data.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+```
+
+```{r}
+#RMSE function definition
+RMSE = function(act, pred){
+  sqrt(mean((act - pred)^2))
+}
+
+#Split into training and test set
+#train <- df_atleast_50cts[,1:162]
+#test <- df_atleast_50cts[,163:204]
+
+train <- df_atleast_50cts
+```
+
+```{r}
+train <- t(train)
+model <- VARMA()
+```
+
+
+
+

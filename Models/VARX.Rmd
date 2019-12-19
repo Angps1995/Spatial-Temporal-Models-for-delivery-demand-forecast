@@ -55,6 +55,7 @@ plot(as.vector(var_model@resids), main="Residuals plot of VARX model",
   xlab="Index", ylab="Residuals")
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VARX_resids.jpg");
 dev.off ();
+hist(var_model@resids)
 ```
 
 ```{r}

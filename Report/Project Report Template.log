@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  17 DEC 2019 17:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  19 DEC 2019 23:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -373,64 +373,86 @@ Overfull \hbox (5.30145pt too wide) in paragraph at lines 51--52
 ww.worldweatheronline.com/shanghai-weather-
  []
 
-<Images/boxplot_counts.jpg, id=12, 578.16pt x 433.62pt>
+<Images/example_all_ts.jpg, id=12, 481.8pt x 481.8pt>
+File: Images/example_all_ts.jpg Graphic file (type jpg)
+<use Images/example_all_ts.jpg>
+Package pdftex.def Info: Images/example_all_ts.jpg  used on input line 58.
+(pdftex.def)             Requested size: 375.81718pt x 307.15262pt.
+<Images/example_ts.jpg, id=13, 481.8pt x 481.8pt>
+File: Images/example_ts.jpg Graphic file (type jpg)
+<use Images/example_ts.jpg>
+Package pdftex.def Info: Images/example_ts.jpg  used on input line 66.
+(pdftex.def)             Requested size: 375.81718pt x 245.71474pt.
+[2 <./Images/example_all_ts.jpg>]
+<Images/boxplot_counts.jpg, id=17, 578.16pt x 433.62pt>
 File: Images/boxplot_counts.jpg Graphic file (type jpg)
 <use Images/boxplot_counts.jpg>
-Package pdftex.def Info: Images/boxplot_counts.jpg  used on input line 58.
-(pdftex.def)             Requested size: 469.75499pt x 352.31538pt.
-[2 <./Images/boxplot_counts.jpg>]
-<Images/temp_mean_demand.jpg, id=16, 578.16pt x 289.08pt>
+Package pdftex.def Info: Images/boxplot_counts.jpg  used on input line 74.
+(pdftex.def)             Requested size: 446.26086pt x 245.71695pt.
+ [3 <./Images/example_ts.jpg> <./Images/boxplot_counts.jpg>]
+<Images/temp_mean_demand.jpg, id=21, 578.16pt x 289.08pt>
 File: Images/temp_mean_demand.jpg Graphic file (type jpg)
 <use Images/temp_mean_demand.jpg>
-Package pdftex.def Info: Images/temp_mean_demand.jpg  used on input line 66.
-(pdftex.def)             Requested size: 469.75499pt x 234.8769pt.
-<Images/pressure_mean_demand.jpg, id=17, 578.16pt x 289.08pt>
+Package pdftex.def Info: Images/temp_mean_demand.jpg  used on input line 84.
+(pdftex.def)             Requested size: 446.26086pt x 215.00536pt.
+<Images/pressure_mean_demand.jpg, id=22, 578.16pt x 289.08pt>
 File: Images/pressure_mean_demand.jpg Graphic file (type jpg)
 <use Images/pressure_mean_demand.jpg>
-Package pdftex.def Info: Images/pressure_mean_demand.jpg  used on input line 73
+Package pdftex.def Info: Images/pressure_mean_demand.jpg  used on input line 91
 .
-(pdftex.def)             Requested size: 469.75499pt x 234.8769pt.
- [3 <./Images/temp_mean_demand.jpg> <./Images/pressure_mean_demand.jpg>] [4]
-<Images/forecast_example.jpg, id=30, 578.16pt x 289.08pt>
+(pdftex.def)             Requested size: 446.26086pt x 215.00536pt.
+ [4 <./Images/temp_mean_demand.jpg> <./Images/pressure_mean_demand.jpg>] [5]
+<Images/forecast_example.jpg, id=35, 578.16pt x 289.08pt>
 File: Images/forecast_example.jpg Graphic file (type jpg)
 <use Images/forecast_example.jpg>
-Package pdftex.def Info: Images/forecast_example.jpg  used on input line 107.
+Package pdftex.def Info: Images/forecast_example.jpg  used on input line 125.
 (pdftex.def)             Requested size: 469.75499pt x 234.8769pt.
+ [6 <./Images/forecast_example.jpg>]
+<Images/GLM_resids.jpg, id=40, 481.8pt x 481.8pt>
+File: Images/GLM_resids.jpg Graphic file (type jpg)
+<use Images/GLM_resids.jpg>
+Package pdftex.def Info: Images/GLM_resids.jpg  used on input line 155.
+(pdftex.def)             Requested size: 375.81718pt x 215.00684pt.
+ [7]
+<Images/GLM_resids_vs_fitted.jpg, id=48, 481.8pt x 481.8pt>
+File: Images/GLM_resids_vs_fitted.jpg Graphic file (type jpg)
+<use Images/GLM_resids_vs_fitted.jpg>
+Package pdftex.def Info: Images/GLM_resids_vs_fitted.jpg  used on input line 16
+4.
+(pdftex.def)             Requested size: 375.81718pt x 215.00684pt.
 Missing character: There is no √ in font cmr10!
 Missing character: There is no ∏ in font cmr10!
- [5 <./Images/forecast_example.jpg>]
+ [8 <./Images/GLM_resids.jpg> <./Images/GLM_resids_vs_fitted.jpg>]
 Missing character: There is no √ in font cmr10!
 Missing character: There is no ∂ in font cmr10!
- [6]
-<Images/VAR_resids.jpg, id=39, 481.8pt x 481.8pt>
+ [9]
+<Images/VAR_resids.jpg, id=55, 481.8pt x 481.8pt>
 File: Images/VAR_resids.jpg Graphic file (type jpg)
 <use Images/VAR_resids.jpg>
-Package pdftex.def Info: Images/VAR_resids.jpg  used on input line 152.
+Package pdftex.def Info: Images/VAR_resids.jpg  used on input line 208.
 (pdftex.def)             Requested size: 375.81718pt x 245.71474pt.
- [7]
-<Images/VARX_resids.jpg, id=44, 481.8pt x 481.8pt>
+ [10]
+<Images/VARX_resids.jpg, id=59, 481.8pt x 481.8pt>
 File: Images/VARX_resids.jpg Graphic file (type jpg)
 <use Images/VARX_resids.jpg>
-Package pdftex.def Info: Images/VARX_resids.jpg  used on input line 159.
+Package pdftex.def Info: Images/VARX_resids.jpg  used on input line 215.
 (pdftex.def)             Requested size: 375.81718pt x 245.71474pt.
-<Images/VAR_acf.jpg, id=45, 481.8pt x 481.8pt>
+<Images/VAR_acf.jpg, id=60, 481.8pt x 481.8pt>
 File: Images/VAR_acf.jpg Graphic file (type jpg)
 <use Images/VAR_acf.jpg>
-Package pdftex.def Info: Images/VAR_acf.jpg  used on input line 168.
+Package pdftex.def Info: Images/VAR_acf.jpg  used on input line 224.
 (pdftex.def)             Requested size: 281.86288pt x 184.28421pt.
-
-[8 <./Images/VAR_resids.jpg> <./Images/VARX_resids.jpg>]
-<Images/VARX_acf.jpg, id=49, 481.8pt x 481.8pt>
+ [11 <./Images/VAR_resids.jpg> <./Images/VARX_resids.jpg>]
+<Images/VARX_acf.jpg, id=64, 481.8pt x 481.8pt>
 File: Images/VARX_acf.jpg Graphic file (type jpg)
 <use Images/VARX_acf.jpg>
-Package pdftex.def Info: Images/VARX_acf.jpg  used on input line 175.
+Package pdftex.def Info: Images/VARX_acf.jpg  used on input line 231.
 (pdftex.def)             Requested size: 281.86288pt x 184.28421pt.
- [9 <./Images/VAR_acf.jpg> <./Images/VARX_acf.jpg>] [10] (./Project Report Temp
-late.bbl
+ [12 <./Images/VAR_acf.jpg> <./Images/VARX_acf.jpg>]
+(./Project Report Template.bbl
 Missing character: There is no √ in font cmr10!
 Missing character: There is no ∂ in font cmr10!
 Missing character: There is no ≈ in font cmr10!
- [11]
 Missing character: There is no √ in font cmr10!
 Missing character: There is no ∏ in font cmr10!
 Missing character: There is no ‚ in font cmr10!
@@ -445,20 +467,19 @@ Missing character: There is no ù in font cmr10!
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ì in font cmr10!
-) [12]
-(./Project Report Template.aux)
+) [13] (./Project Report Template.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4217 strings out of 492609
- 58632 string characters out of 6131462
- 127356 words of memory out of 5000000
- 8016 multiletter control sequences out of 15000+600000
+ 4241 strings out of 492609
+ 59396 string characters out of 6131462
+ 127392 words of memory out of 5000000
+ 8036 multiletter control sequences out of 15000+600000
  14143 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,6n,27p,1090b,245s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,7n,27p,1090b,245s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texli
@@ -474,10 +495,10 @@ r7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb>
-Output written on "Project Report Template.pdf" (12 pages, 404816 bytes).
+Output written on "Project Report Template.pdf" (13 pages, 504333 bytes).
 PDF statistics:
- 115 PDF objects out of 1000 (max. 8388607)
- 76 compressed objects within 1 object stream
+ 123 PDF objects out of 1000 (max. 8388607)
+ 79 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

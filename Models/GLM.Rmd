@@ -39,11 +39,23 @@ test <- df_atleast_50cts[,163:204]
 ```
 
 ```{r}
+fit <- suppressWarnings(tsglm(as.numeric(train[22,]), model = list(past_obs = c(1:6), past_mean = 18), distr = "poisson"))
+```
+
+```{r}
+hist(fit$residuals)
+```
+
+```{r}
+plot(fit$fitted.values,fit$residuals)
+```
+
+```{r}
 plot(error_arr, main="Residuals plot of GLM model", 
   xlab="Index", ylab="Residuals")
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids.jpg");
 dev.off ();
-
+hist(error_arr)
 ```
 
 ```{r}

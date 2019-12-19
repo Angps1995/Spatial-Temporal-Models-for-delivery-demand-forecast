@@ -8,6 +8,8 @@ output:
 library(tscount)
 library(urca)
 library(vars)
+library(BigVAR)
+library(BBmisc)
 ```
 
 ```{r}
@@ -30,31 +32,95 @@ train <- df_atleast_50cts
 
 ```
 
+
 ```{r}
-##VECM##
-df_t <- t(df_atleast_50cts)[1:204,31:40]
-colnames(df_t) = c(1:10)
-stationary_test = ca.jo(df_t, type="trace", K=2, ecdet="none", spec="longrun")
-summary(stationary_test)
-m <- vec2var(stationary_test)
+#par(mfrow=c(1,2))
+ts.plot(t(full_df),gpars= list(col=rainbow(839)))
+#ts.plot(t(train),gpars= list(col=rainbow(42)))
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/example_all_ts.jpg");
+dev.off ();
 ```
 
+```{r}
+ts.plot(t(train),gpars= list(col=rainbow(42)))
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/example_42_ts.jpg");
+dev.off ();
+```
+
+```{r}
+par(mfrow=c(1,2))
+plot.ts(train[,24], ylab="Orders", main="Orders for Location X")
+plot.ts(train[,10], ylab="Orders", main="Orders for Location Y")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/example_ts.jpg");
+dev.off ();
+```
 
 ```{r}
 ## DIFFERENCING ##
 df_t <- t(df_atleast_50cts)
 colnames(df_t) = c(1:42)
-diff_df <- t(diff(t(df_t), differences=1))
+diff_df <- diff(df_t, differences=1)
+#diff_df <- normalize(df_t, margin=1L)
 #stationary_test = ca.jo(diff_df, type="trace", K=4, ecdet="none", spec="longrun")
 #summary(stationary_test)
 model = constructModel(diff_df, p = 2, struct = "Basic", gran = c(25,10), T1 = 81, T2 = 162)
 var_model <- cv.BigVAR(model)
+var_model
+```
 
+```{r}
+#Predict using differencing
+prev_pred <- df_atleast_50cts[1:42, 162]
+pred <- c()
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:42)) {
+  diff <- c(predict(var_model, n.ahead = i))
+  curr_pred <- prev_pred + diff
+  act <- df_atleast_50cts[1:42, 162 + i]
+  error_arr <- c(error_arr, c(curr_pred - act))
+  fitted_val <- c(fitted_val, curr_pred)
+  error <- sum((curr_pred - act) ^ 2)
+  errors <- errors + error
+  prev_pred <- curr_pred
+}
+print(paste0(" MSFE: ", errors/42))
+```
+
+
+```{r}
+hist(error_arr)
+```
+
+```{r}
+plot(fitted_val, error_arr)
+```
+
+```{r}
+acf(error_arr)
+```
+
+```{r}
+plot(as.vector(var_model@resids))
+hist(var_model@resids)
+```
+
+```{r}
+plot(as.vector(var_model@fitted),as.vector(var_model@resids))
 ```
 
 ```{r}
 acf(as.vector(var_model@resids), main="ACF plots of residuals")
 ```
+
+
+
+
+
+
+
+
 
 
 
@@ -67,7 +133,7 @@ m <- vec2var(stationary_test)
 ```
 
 ```{r}
-library(BigVAR)
+
 Y = data.matrix(t(train))
 model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 81, T2 = 162)
 var_model <- cv.BigVAR(model)
@@ -86,6 +152,7 @@ plot(as.vector(var_model@resids), main="Residuals plot of VAR model",
   xlab="Index", ylab="Residuals")
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VAR_resids.jpg");
 dev.off ();
+hist(var_model@resids)
 ```
 
 ```{r}

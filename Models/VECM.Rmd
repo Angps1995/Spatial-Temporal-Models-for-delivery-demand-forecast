@@ -1,0 +1,74 @@
+---
+title: "VECM Model on endogenous"
+output: 
+  pdf_document:
+    keep_tex: yes
+---
+
+```{r}
+library(tscount)
+library(urca)
+library(vars)
+library(BigVAR)
+library(BBmisc)
+library(tsDyn)
+```
+
+```{r}
+#Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/data.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+```
+
+```{r}
+#RMSE function definition
+RMSE = function(act, pred){
+  sqrt(mean((act - pred)^2))
+}
+
+#Split into training and test set
+#train <- df_atleast_50cts[,1:162]
+#test <- df_atleast_50cts[,163:204]
+
+train <- df_atleast_50cts[,1:162]
+```
+
+```{r}
+model <- VECM(t(train), lag=2)
+```
+
+```{r}
+#start <- df_atleast_50cts[, 1:2]
+pred <- t(predict(model, n.ahead=42))
+act <- as.vector(df_atleast_50cts[,163:204])
+msfe <- sum((pred-act)^2)/42
+resid <- unlist(pred-act)
+fitted <- c(pred)
+print(paste0(" MSFE: ", msfe))
+
+```
+
+```{r}
+plot(resid)
+```
+
+```{r}
+plot(fitted, resid)
+```
+
+```{r}
+acf(resid)
+```
+
+```{r}
+plot(model$residuals)
+```
+
+```{r}
+plot(model$fitted, model$residuals)
+```
+
+```{r}
+acf(c(model$residuals))
+```
+

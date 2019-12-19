@@ -51,33 +51,51 @@ The data source used was an operational dataset from a food delivery service pro
 To include other exogenous variables, data from https://www.worldweatheronline.com/shanghai-weather-history/shanghai/cn.aspx was used to include weather and rainfall data as well as encoding of the weekadys for all the respective days. 
 
 \subsection{Exploratory Analysis}
-We would first do some exploratory analysis and check if there are any obvious relationships between the variables.
+We would first do some exploratory analysis and check if there are any obvious relationships between the variables. 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Images/boxplot_counts.jpg}
+    \includegraphics[width=0.8\textwidth, height=0.5\textheight]{Images/example_all_ts.jpg}
+    \caption{All time series in dataset}
+    \label{fig:All time series in dataset}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight] {Images/example_ts.jpg}
+    \caption{Most locations have very sparse time series (left) while some have relatively more dense time series (right)}
+    \label{fig:Most locations have very sparse time series (left) while some have relatively more dense time series (right)}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth, height=0.4\textheight]{Images/boxplot_counts.jpg}
     \caption{Boxplot of counts}
     \label{fig:Boxplot of counts}
 \end{figure}
-We can see from the boxplot that most of the locations have extremely low number of non-zero orders, with about 335 locations having just a maximum of one non-zero order throughout the 204 time periods. 
 
+\noindent We can see from the boxplot in Figure 3 that most of the locations have extremely low number of non-zero orders and further analysis showed that about 335 locations have just a maximum of one non-zero order throughout the 204 time periods. 
+
+\noindent Analysis on some exogenous factors were performed too. 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Images/temp_mean_demand.jpg}
+    \includegraphics[width=0.95\textwidth, height=0.35\textheight]{Images/temp_mean_demand.jpg}
     \caption{Scatter plot of mean counts against temperature}
     \label{fig:Scatter plot of mean counts against temperature}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{Images/pressure_mean_demand.jpg}
+    \includegraphics[width=0.95\textwidth, height=0.35\textheight]{Images/pressure_mean_demand.jpg}
     \caption{Scatter plot of mean counts against pressure}
     \label{fig:Scatter plot of mean counts against pressure}
 \end{figure}
 
-The scatter plot in Figure 2 visually display a slight positive relationship between temperature and mean demand across all locations whereas Figure 3 visually display a slight negative relationship between pressure and mean demand across all locations. 
+\noindent The scatter plot in Figure 4 visually display a slight positive relationship between temperature and mean demand across all locations whereas Figure 5 visually display a slight negative relationship between pressure and mean demand across all locations. 
 
-The distribution plots for the rest of the exogenous variables can be found in the appendix. 
+\noindent The distribution plots for the rest of the exogenous variables can be found in the appendix. 
 
 
 \section{Baseline Model}
@@ -109,6 +127,47 @@ As a baseline model, each of the locations was assessed individually and a suita
     \label{fig:ARIMA forecast on a random location}
 \end{figure}
 
+
+\section{GLM Model}
+The dataset that we are using follows a count time series, which means the observations are non-negative integers. A flexible and commonly used model for count time series is the Generalized Linear Model (GLM) \cite{Nelder1972}. GLM normally take the form of:
+
+\begin{center}
+    $\displaystyle g(\lambda_t)= \eta^T X_t$
+\end{center}
+
+\noindent Using the R package from \cite{Tobias2017}, the GLM used would be an extension of the above equation and can be expressed in the form of:
+
+\begin{center}
+    $\displaystyle g(\lambda_t)=\beta_0 + \sum_{k=1}^{p}\beta_k\tilde{g}(Y_{t-i_k}) + \sum_{\mathit{l}=1}^{q}\alpha_\mathit{l} g(\lambda_{t-j_\mathit{l}}) + \eta^T X_t$
+\end{center}
+
+\noindent where $g$ represents a link function and $ \tilde{g}$ represents a transformation function. $\eta$ represents a parameter vector that corresponds to the covariates. 
+
+\subsection{Model Implementation}
+\noindent Since there are many locations which have values that are all 0 throughout all the time period, the GLM model would run into an error if applied on those. Hence, only locations with at least 1 non-zero value would be considered. Similar to before, each of the locations was assessed individually and a suitable GLM model was fitted for each location. The out-of-sample MSFE for this baseline model is \textbf{51.384}. 
+
+\subsection{Model Diagnostics}
+To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis. Note that in this paper, only residuals from a randomly selected number of locations would be shown for conciseness. 	
+
+\subsubsection{Normality of Residuals}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.35\textheight]{Images/GLM_resids.jpg}
+    \caption{Residuals for GLM Model}
+    \label{fig:Residuals for GLM Model}
+\end{figure}
+
+\subsubsection{Residuals against fitted values}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.35\textheight]{Images/GLM_resids_vs_fitted.jpg}
+    \caption{Residuals against Fitted values for GLM Model}
+    \label{fig:Residuals against Fitted values for GLM Model}
+\end{figure}
+
+\subsection{Model Limitation}
 
 
 \section{VAR Model}
@@ -180,46 +239,10 @@ The plots below shows the distribution of our residuals for the VAR model and th
 \subsection{Results}
 BigVAR library in R was used to implement the VAR models. The results from the VAR model without exogenous variables gives an out-of-sample MSFE of XXX on the 42 locations. 
 
-
-\section{GLM Model}
-The dataset that we are using follows a count time series, which means the observations are non-negative integers. A flexible and commonly used model for count time series is the Generalized Linear Model (GLM) \cite{Nelder1972}. GLM normally take the form of:
-
-\begin{center}
-    $\displaystyle g(\lambda_t)= \eta^T X_t$
-\end{center}
-
-\noindent Using the R package from \cite{Tobias2017}, the GLM used would be an extension of the above equation and can be expressed in the form of:
-
-\begin{center}
-    $\displaystyle g(\lambda_t)=\beta_0 + \sum_{k=1}^{p}\beta_k\tilde{g}(Y_{t-i_k}) + \sum_{\mathit{l}=1}^{q}\alpha_\mathit{l} g(\lambda_{t-j_\mathit{l}}) + \eta^T X_t$
-\end{center}
-
-\noindent where $g$ represents a link function and $ \tilde{g}$ represents a transformation function. $\eta$ represents a parameter vector that corresponds to the covariates. 
-
-Since there are many locations which have values that are all 0 throughout all the time period, the GLM model would run into an error if applied on those. Hence, only locations with at least 1 non-zero value would be considered. Similar to before, each of the locations was assessed individually and a suitable GLM model was fitted for each location. The out-of-sample MSFE for this baseline model is \textbf{XXX}. 
-
-\subsection{Model Checking}
-To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis. Note that in this paper, only residuals from a randomly selected number of locations would be shown for conciseness. 	
-
-\subsubsection{Whiteness of Residuals}
-
-\subsubsection{Correlation of Residuals}
-
-\subsection{Results}
+\subsection{VECM}
+VECM model was used since 
 
 
-\section{VGLM Model}
-
-One limitation of GLM models is that they are only confined to parameter distributions from the exponential family. Vector Generalised Linear Models (VGLM), on the other hand, provides more flexibility. 
-
-
-\subsection{Model Checking}
-To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis:
-
-\subsection{Results}
-
-\subsection{Insights and Implementation}
-Any findings from the results? If there are any benefits or issues in implementing the proposed model...
 
 \section{Limitations}
 
