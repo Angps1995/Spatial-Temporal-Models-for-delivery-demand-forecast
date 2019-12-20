@@ -188,6 +188,11 @@ For a univariate time series, it is important for the time series to be transfor
 \subsubsection{Johansen Test for Cointegration}
 While Cointegrated Augmented Dickey Fuller Test, commonly used for Pairs Trading, can be used, it is only able to be applied on 2 separate series. In our dataset, we have 839 locations at least, hence we would apply the popular approach to cointegrating tests for VAR model, called the Johansen's Cointegration Test. However, one limitation is that it can only be used to check for cointegration between a maximum of 12 variables. For further elaboration on the Johansen's Cointegration Test, please refer to \cite{Johansen1991}. 
 
+\subsection{VECM}
+VECM model was used since 
+
+
+
 \subsection{VARX Model}
 VAR models can also be extended to include exogenous variables. A VARX(p,s) (with exogenous variables) model can be expressed as:
 
@@ -238,9 +243,6 @@ The plots below shows the distribution of our residuals for the VAR model and th
 
 \subsection{Results}
 BigVAR library in R was used to implement the VAR models. The results from the VAR model without exogenous variables gives an out-of-sample MSFE of XXX on the 42 locations. 
-
-\subsection{VECM}
-VECM model was used since 
 
 
 

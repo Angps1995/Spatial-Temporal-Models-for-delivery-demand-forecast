@@ -17,12 +17,12 @@ train <- df_atleast_50cts
 ```
 
 ```{r}
-t <- train[1,]
-ts <- as.numeric(t[-1])
-lag1 <- as.numeric(t[-length(t)])
-df <- data.frame(ts, lag1)
+#t <- train[1,]
+#ts <- as.numeric(t[-1])
+#lag1 <- as.numeric(t[-length(t)])
+#df <- data.frame(ts, lag1)
 
-m <- zeroinfl(ts ~ lag1, data = df, dist = 'poisson')
+#m <- zeroinfl(ts ~ lag1, data = df, dist = 'poisson')
 
 
 train <- df_atleast_50cts[,1:162]
@@ -33,7 +33,7 @@ for (i in c(1:dim(train)[1])) {
     lag1 <- as.numeric(t[-length(t)])
     df <- data.frame(ts, lag1)
     fit <- zeroinfl(ts ~ lag1, data = df, dist = 'poisson')
-    pred <- predict(fit, t[162])
+    pred <- predict(fit, as.data.frame(t))
     error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
     errors <- errors + error
 }

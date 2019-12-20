@@ -1770,17 +1770,34 @@ train &lt;- df_atleast_50cts</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudCA8LSB0cmFpblsxLF1cbnRzIDwtIGFzLm51bWVyaWModFstMV0pXG5sYWcxIDwtIGFzLm51bWVyaWModFstbGVuZ3RoKHQpXSlcbmRmIDwtIGRhdGEuZnJhbWUodHMsIGxhZzEpXG5cbm0gPC0gemVyb2luZmwodHMgfiBsYWcxLCBkYXRhID0gZGYsIGRpc3QgPSAncG9pc3NvbicpXG5gYGAifQ== -->
-<pre class="r"><code>t &lt;- train[1,]
-ts &lt;- as.numeric(t[-1])
-lag1 &lt;- as.numeric(t[-length(t)])
-df &lt;- data.frame(ts, lag1)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3QgPC0gdHJhaW5bMSxdXG4jdHMgPC0gYXMubnVtZXJpYyh0Wy0xXSlcbiNsYWcxIDwtIGFzLm51bWVyaWModFstbGVuZ3RoKHQpXSlcbiNkZiA8LSBkYXRhLmZyYW1lKHRzLCBsYWcxKVxuXG4jbSA8LSB6ZXJvaW5mbCh0cyB+IGxhZzEsIGRhdGEgPSBkZiwgZGlzdCA9ICdwb2lzc29uJylcblxuXG50cmFpbiA8LSBkZl9hdGxlYXN0XzUwY3RzWywxOjE2Ml1cbnRlc3QgPC0gZGZfYXRsZWFzdF81MGN0c1ssMTYzOjIwNF1cbmZvciAoaSBpbiBjKDE6ZGltKHRyYWluKVsxXSkpIHtcbiAgICB0IDwtIHRyYWluW2ksXSAgICBcbiAgICB0cyA8LSBhcy5udW1lcmljKHRbLTFdKVxuICAgIGxhZzEgPC0gYXMubnVtZXJpYyh0Wy1sZW5ndGgodCldKVxuICAgIGRmIDwtIGRhdGEuZnJhbWUodHMsIGxhZzEpXG4gICAgZml0IDwtIHplcm9pbmZsKHRzIH4gbGFnMSwgZGF0YSA9IGRmLCBkaXN0ID0gJ3BvaXNzb24nKVxuICAgIHByZWQgPC0gcHJlZGljdChmaXQsIGFzLmRhdGEuZnJhbWUodCkpXG4gICAgZXJyb3IgPC0gc3VtKCgoYXMubnVtZXJpYyh0ZXN0W2ksXSkgLSBwcmVkJHByZWQpKSBeIDIpXG4gICAgZXJyb3JzIDwtIGVycm9ycyArIGVycm9yXG59XG5gYGAifQ== -->
+<pre class="r"><code>#t &lt;- train[1,]
+#ts &lt;- as.numeric(t[-1])
+#lag1 &lt;- as.numeric(t[-length(t)])
+#df &lt;- data.frame(ts, lag1)
 
-m &lt;- zeroinfl(ts ~ lag1, data = df, dist = 'poisson')</code></pre>
+#m &lt;- zeroinfl(ts ~ lag1, data = df, dist = 'poisson')
+
+
+train &lt;- df_atleast_50cts[,1:162]
+test &lt;- df_atleast_50cts[,163:204]
+for (i in c(1:dim(train)[1])) {
+    t &lt;- train[i,]    
+    ts &lt;- as.numeric(t[-1])
+    lag1 &lt;- as.numeric(t[-length(t)])
+    df &lt;- data.frame(ts, lag1)
+    fit &lt;- zeroinfl(ts ~ lag1, data = df, dist = 'poisson')
+    pred &lt;- predict(fit, as.data.frame(t))
+    error &lt;- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
+    errors &lt;- errors + error
+}</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJ25ld2RhdGEnIGhhZCAxIHJvdyBidXQgdmFyaWFibGVzIGZvdW5kIGhhdmUgMTYxIHJvd3NFcnJvcjogJCBvcGVyYXRvciBpcyBpbnZhbGlkIGZvciBhdG9taWMgdmVjdG9yc1xuIn0= -->
+<pre><code>'newdata' had 1 row but variables found have 161 rowsError: $ operator is invalid for atomic vectors</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiWmVyby1JbmZsYXRlZCBNb2RlbCIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkodHNjb3VudCkKbGlicmFyeSh1cmNhKQpsaWJyYXJ5KHBzY2wpCmBgYAoKYGBge3J9CiNMb2FkIGRhdGFzZXQKZnVsbF9kZiA8LSByZWFkLmNzdigiL2hvbWUvYW5ncHMvRG9jdW1lbnRzL1RoZXNpcy9EYXRhL2RmXz49MWN0cy5jc3YiKQpkZl9hdGxlYXN0XzUwY3RzIDwtIHJlYWQuY3N2KCIvaG9tZS9hbmdwcy9Eb2N1bWVudHMvVGhlc2lzL0RhdGEvZGF0YV8+PTUwY3RzLmNzdiIpCnRyYWluIDwtIGRmX2F0bGVhc3RfNTBjdHMKYGBgCgpgYGB7cn0KdCA8LSB0cmFpblsxLF0KdHMgPC0gYXMubnVtZXJpYyh0Wy0xXSkKbGFnMSA8LSBhcy5udW1lcmljKHRbLWxlbmd0aCh0KV0pCmRmIDwtIGRhdGEuZnJhbWUodHMsIGxhZzEpCgptIDwtIHplcm9pbmZsKHRzIH4gbGFnMSwgZGF0YSA9IGRmLCBkaXN0ID0gJ3BvaXNzb24nKQoKCnRyYWluIDwtIGRmX2F0bGVhc3RfNTBjdHNbLDE6MTYyXQp0ZXN0IDwtIGRmX2F0bGVhc3RfNTBjdHNbLDE2MzoyMDRdCmZvciAoaSBpbiBjKDE6ZGltKHRyYWluKVsxXSkpIHsKICAgIHQgPC0gdHJhaW5baSxdICAgIAogICAgdHMgPC0gYXMubnVtZXJpYyh0Wy0xXSkKICAgIGxhZzEgPC0gYXMubnVtZXJpYyh0Wy1sZW5ndGgodCldKQogICAgZGYgPC0gZGF0YS5mcmFtZSh0cywgbGFnMSkKICAgIGZpdCA8LSB6ZXJvaW5mbCh0cyB+IGxhZzEsIGRhdGEgPSBkZiwgZGlzdCA9ICdwb2lzc29uJykKICAgIHByZWQgPC0gcHJlZGljdChmaXQsIHRbMTYyXSkKICAgIGVycm9yIDwtIHN1bSgoKGFzLm51bWVyaWModGVzdFtpLF0pIC0gcHJlZCRwcmVkKSkgXiAyKQogICAgZXJyb3JzIDwtIGVycm9ycyArIGVycm9yCn0KcHJpbnQocGFzdGUwKCJNYXggUGFzdCBPYnNMICIsIG9icyAsIiBQYXN0IE1lYW46ICIsIG0sICIgTVNGRTogIiwgZXJyb3JzLzQyKSkKCmBgYA==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiWmVyby1JbmZsYXRlZCBNb2RlbCIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkodHNjb3VudCkKbGlicmFyeSh1cmNhKQpsaWJyYXJ5KHBzY2wpCmBgYAoKYGBge3J9CiNMb2FkIGRhdGFzZXQKZnVsbF9kZiA8LSByZWFkLmNzdigiL2hvbWUvYW5ncHMvRG9jdW1lbnRzL1RoZXNpcy9EYXRhL2RmXz49MWN0cy5jc3YiKQpkZl9hdGxlYXN0XzUwY3RzIDwtIHJlYWQuY3N2KCIvaG9tZS9hbmdwcy9Eb2N1bWVudHMvVGhlc2lzL0RhdGEvZGF0YV8+PTUwY3RzLmNzdiIpCnRyYWluIDwtIGRmX2F0bGVhc3RfNTBjdHMKYGBgCgpgYGB7cn0KI3QgPC0gdHJhaW5bMSxdCiN0cyA8LSBhcy5udW1lcmljKHRbLTFdKQojbGFnMSA8LSBhcy5udW1lcmljKHRbLWxlbmd0aCh0KV0pCiNkZiA8LSBkYXRhLmZyYW1lKHRzLCBsYWcxKQoKI20gPC0gemVyb2luZmwodHMgfiBsYWcxLCBkYXRhID0gZGYsIGRpc3QgPSAncG9pc3NvbicpCgoKdHJhaW4gPC0gZGZfYXRsZWFzdF81MGN0c1ssMToxNjJdCnRlc3QgPC0gZGZfYXRsZWFzdF81MGN0c1ssMTYzOjIwNF0KZm9yIChpIGluIGMoMTpkaW0odHJhaW4pWzFdKSkgewogICAgdCA8LSB0cmFpbltpLF0gICAgCiAgICB0cyA8LSBhcy5udW1lcmljKHRbLTFdKQogICAgbGFnMSA8LSBhcy5udW1lcmljKHRbLWxlbmd0aCh0KV0pCiAgICBkZiA8LSBkYXRhLmZyYW1lKHRzLCBsYWcxKQogICAgZml0IDwtIHplcm9pbmZsKHRzIH4gbGFnMSwgZGF0YSA9IGRmLCBkaXN0ID0gJ3BvaXNzb24nKQogICAgcHJlZCA8LSBwcmVkaWN0KGZpdCwgYXMuZGF0YS5mcmFtZSh0KSkKICAgIGVycm9yIDwtIHN1bSgoKGFzLm51bWVyaWModGVzdFtpLF0pIC0gcHJlZCRwcmVkKSkgXiAyKQogICAgZXJyb3JzIDwtIGVycm9ycyArIGVycm9yCn0KcHJpbnQocGFzdGUwKCJNYXggUGFzdCBPYnNMICIsIG9icyAsIiBQYXN0IE1lYW46ICIsIG0sICIgTVNGRTogIiwgZXJyb3JzLzQyKSkKCmBgYA==</div>
 
 
 
