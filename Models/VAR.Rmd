@@ -136,6 +136,7 @@ m <- vec2var(stationary_test)
 
 Y = data.matrix(t(train))
 model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 81, T2 = 162)
+#model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
 var_model <- cv.BigVAR(model)
 ```
 
