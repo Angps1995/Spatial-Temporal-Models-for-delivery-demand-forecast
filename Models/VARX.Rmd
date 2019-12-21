@@ -11,6 +11,7 @@ library(urca)
 #Load dataset
 full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
 df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
+df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
 ```
 
 ```{r}
@@ -43,7 +44,7 @@ Y = data.matrix(t(train))
 VARX = list()
 VARX$k = 42  #endogenous
 VARX$s = 1
-model = constructModel(as.matrix(Y), p = 2, struct="EFX", MN = F, gran = c(25,10), VARX = VARX, T1 = 81, T2 = 162)
+model = constructModel(as.matrix(Y), p = 9, struct="EFX", MN = F, gran = c(25,10), VARX = VARX, T1 = 156, T2 = 198)
 var_model <- cv.BigVAR(model)
 ```
 ```{r}
@@ -83,47 +84,85 @@ dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VARX_sparsity
 dev.off();
 ```
 
+
+
 ```{r}
-for (obs in c(6,12,18)) {
-  for (m in c(6, 12, 18, 24)) {
-      errors <- c()
-      for (i in c(1:dim(train)[1])) {
-          fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1:obs), past_mean = m)))
-          pred <- predict(fit, n.ahead=42)
-          rmse <- RMSE(as.numeric(test[i,]),pred$pred)
-          errors <- c(errors,rmse)
-      }
-      print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " RMSE: ", mean(errors)))
-  }
+## DIFFERENCING ##
+df_t <- t(df_atleast_50cts_endo)
+colnames(df_t) = c(1:42)
+diff_df <- diff(df_t, differences=1)
+exo <- t(df_atleast_50cts[43:55,2:204])
+diff_df <- cbind(diff_df, exo)
+#diff_df <- normalize(df_t, margin=1L)
+stationary_test = ca.jo(diff_df, type="trace", K=3, ecdet="none", spec="longrun")
+summary(stationary_test)
+```
+
+```{r}
+###WITH EXOGENOUS VARIABLES###
+library(BigVAR)
+train <- t(diff_df)[c(1:47, 50:55),]
+Y = data.matrix(t(train))
+VARX = list()
+VARX$k = 42  #endogenous
+VARX$s = 1
+model = constructModel(as.matrix(Y), p = 9, struct="EFX", MN = F, gran = c(25,10), VARX = VARX, T1 = 156, T2 = 198)
+var_model <- cv.BigVAR(model)
+```
+
+```{r}
+var_model
+```
+
+```{r}
+#Predict using differencing
+prev_pred <- t(df_atleast_50cts[1:42, 1:198])
+pred <- c()
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+  diff <- c(predict(var_model, n.ahead = i, newxreg = prev_pred, ncol=42))
+  curr_pred <- prev_pred + diff
+  act <- df_atleast_50cts[1:42, 198 + i]
+  error_arr <- c(error_arr, c(curr_pred - act))
+  fitted_val <- c(fitted_val, curr_pred)
+  error <- sum((curr_pred - act) ^ 2)
+  errors <- errors + error
+  prev_pred <- t(df_atleast_50cts[1:42, 1+i:198+i])
 }
-
+print(paste0(" MSFE: ", errors/6))
 ```
 
-
-
-
-
-
-
 ```{r}
-#library(vars)
-#model <- VARselect(t(train[1:32,]))
-#model$selection
-#model <- VAR(t(train[1:32,]), p = 5, season = NULL, 
-#    exog = NULL)
-#summary(model)
+plot(as.vector(var_model@resids), main="Residuals plot of VARX model", 
+  xlab="Index", ylab="Residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VARX_resids.jpg");
+dev.off ();
+hist(var_model@resids)
 ```
-```{r}
-#train_full <- t(full_df)[1:162,]
-#test_full <- t(full_df)[163:204,]
-#On full dataset
-#model <- VARselect(train_full)
-#model$selection
-#model <- VAR(t(train_full), p = 1, season = NULL, exog = NULL)
-#summary(model)
 
-#Residual test
-#res_test <- serial.test(model, lags.pt = 12, type = "PT.asymptotic")
-#res_test
-#plot(res_test, names="X1")
+```{r}
+plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
+  xlab="Fitted Values", ylab="Residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VARX_resids_vs_values.jpg");
+dev.off ();
+```
+
+```{r}
+acf(as.vector(var_model@resids), main="ACF plots of residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VARX_acf.jpg");
+dev.off ();
+```
+
+```{r}
+plot(var_model, main = "Penalty Grid Position (VARX Model)")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VARX_pengrid.jpg");
+dev.off();
+```
+
+```{r}
+SparsityPlot.BigVAR.results(var_model)
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VARX_sparsity.jpg");
+dev.off();
 ```

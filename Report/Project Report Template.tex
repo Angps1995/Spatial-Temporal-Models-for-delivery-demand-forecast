@@ -112,13 +112,13 @@ where \textit{n} is the number of data points, $\hat{y_t}$ is the predicted dema
 
 
 \subsection{Train-Test Split}
-From Figure 1 in Section 3.1, the data is very sparse as there are many locations that have no demand counts for the majority of the time period. Hence, to get a better idea of how our models would work, only locations with at least 50 non-zero counts across the time period would be used initially, leaving us with 42 locations that meet this criteria. The dataset was then split into training and test set by considering the first 27 days as the training set and the next 7 days as the test set. Our training set would then have 162 demand data for each location and test set would have 42 demand data for each location. 
+From Figure 1 in Section 3.1, the data is very sparse as there are many locations that have no demand counts for the majority of the time period. Hence, to get a better idea of how our models would work, only locations with at least 50 non-zero counts across the time period would be used initially, leaving us with 42 locations that meet this criteria. The dataset was then split into training and test set by considering the first 33 days as the training set and the next 1 day as the test set. Our training set would then have 198 demand data for each location and test set would have 6 demand data for each location. 
 
 \subsection{ARIMA models}
 Autoregressive Integrated Moving Average (ARIMA) models are one of the most commonly used models for time series (\cite{Asha2016}). ARIMA models are made up of 3 processes, mainly the Autoregressive (AR) process, the Integrated (I) process and the Moving Average (MA) process (\cite{Jamal2018}). The AR process assumes that each observation can be expressed as a linear combination of its past values.  An AR(x) process would mean using x lagged values. The MA process assumes that each observation can be expressed as a linear combination of its current error term as well as its past error terms. The Integrated Process states that the time series can undergo differencing to ensure that the series is stationary. A MA(x) process would mean using x number of past observations. Hence, an ARIMA model is usually represented by ARIMA(p,d,q), where \textit{p} represents the number of autoregressive terms, \textit{d} represents the number of differences needed for stationarity, and \textit{q} represents the number of lagged forecast errors. 
 
 \subsection{Baseline ARIMA Result}
-As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSFE for this baseline model on the 42 locations is \textbf{58.80}. A sample forecast plot is shown below:
+As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSFE for this baseline model on the 42 locations is \textbf{47.60}. A sample forecast plot is shown below:
 
 \begin{figure}[H]
     \centering
@@ -149,26 +149,31 @@ The dataset that we are using follows a count time series, which means the obser
 \subsection{Model Diagnostics}
 To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis. Note that in this paper, only residuals from a randomly selected number of locations would be shown for conciseness. 	
 
-\subsubsection{Normality of Residuals}
+\subsubsection{Residuals plots}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.35\textheight]{Images/GLM_resids.jpg}
+    \includegraphics[width=\textwidth, height=0.6\textheight]{Images/GLM_resids.jpg}
     \caption{Residuals for GLM Model}
     \label{fig:Residuals for GLM Model}
 \end{figure}
 
-\subsubsection{Residuals against fitted values}
+\noindent Figure 7 diagnostic plots shows that while the residuals roughly randomly scattered, the GLM model produces residuals that does not follow the normal distribution well. This is expected as we assume that the distribution is poisson and not normal. 
+
+\subsubsection{Residuals against Predicted values}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.35\textheight]{Images/GLM_resids_vs_fitted.jpg}
-    \caption{Residuals against Fitted values for GLM Model}
-    \label{fig:Residuals against Fitted values for GLM Model}
+    \includegraphics[width=0.85\textwidth, height=0.6\textheight]{Images/GLM_resids_vs_fitted.jpg}
+    \caption{Residuals against Predicted values for GLM Model}
+    \label{fig:Residuals against Predicted values for GLM Model}
 \end{figure}
+
+\noindent The above plot of residuals against the predicted values suggests heteroscedasticity between residuals, or non-constant variance between the residuals as the predicted value increases, which is expected in a Poisson GLM, as mentioned in \cite{Dylan2017}. For a normal regression model, this is a bad sign but since we are assuming that our count data follows a Poisson distribution, the residuals are bound to display heteroscadasticity. 
 
 \subsection{Model Limitation}
 
+The MSFE of the GLM model is better than that of the baseline model and there do not seem to have . However, each GLM only fits on one location and it doesn't take into account data from the other locations. The next section explores another type of model which would use data from other locations. 
 
 \section{VAR Model}
 Vector Autoregressive (VAR) models are the most commonly used model for multivariate time series, particularly in economics and financial time series as shown in \cite{Hilde2000}. VAR models are very similar to multivariate linear regression models and methods used to perform inferencing on linear regression models can also be applied to VAR models. VAR(p) represents a VAR model of order p if the time series can be written as: 
@@ -187,10 +192,6 @@ For a univariate time series, it is important for the time series to be transfor
 
 \subsubsection{Johansen Test for Cointegration}
 While Cointegrated Augmented Dickey Fuller Test, commonly used for Pairs Trading, can be used, it is only able to be applied on 2 separate series. In our dataset, we have 839 locations at least, hence we would apply the popular approach to cointegrating tests for VAR model, called the Johansen's Cointegration Test. However, one limitation is that it can only be used to check for cointegration between a maximum of 12 variables. For further elaboration on the Johansen's Cointegration Test, please refer to \cite{Johansen1991}. 
-
-\subsection{VECM}
-VECM model was used since 
-
 
 
 \subsection{VARX Model}

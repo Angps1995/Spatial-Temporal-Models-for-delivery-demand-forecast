@@ -15,8 +15,8 @@ df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv
 ```
 
 ```{r}
-train <- df_atleast_50cts[,1:162]
-test <- df_atleast_50cts[,163:204]
+train <- df_atleast_50cts[,1:198]
+test <- df_atleast_50cts[,199:204]
 #for (obs in c(6,12,18)) {
   #for (m in c(6, 12, 18, 24)) {
   for (obs in c(6)) {
@@ -26,16 +26,60 @@ test <- df_atleast_50cts[,163:204]
       fitted_val <- c()
       for (i in c(1:42)) {
           fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1:obs), past_mean = m), distr = "poisson"))
-          pred <- predict(fit, n.ahead=42, global=TRUE)
-          error_arr <- c(error_arr, c(as.numeric(test[i,]) - pred$pred))
-          fitted_val <- c(fitted_val, pred$pred)
+          pred <- predict(fit, n.ahead=6, global=TRUE)
+          #error_arr <- c(error_arr, c(as.numeric(test[i,]) - pred$pred))
+          #fitted_val <- c(fitted_val, pred$pred)
+          error_arr <- c(error_arr, residuals(fit, type='pearson'))
+          fitted_val <- c(fitted_val, fit$fitted.values)
           error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
           errors <- errors + error
       }
-      print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " MSFE: ", errors/42))
+      print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " MSFE: ", errors/6))
   }
 }
 
+```
+
+
+
+```{r}
+par(mfrow=c(2,2))
+plot(error_arr, main="Residuals plot of GLM model", 
+  xlab="Index", ylab="Residuals")
+hist(error_arr, main = "Historgram of residuals")
+qqnorm(error_arr)
+qqline(error_arr)
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids.jpg");
+dev.off ();
+
+```
+
+```{r}
+plot(fitted_val, error_arr, main="Plot of residuals against predicted values", 
+  xlab="Predicted values", ylab="Residuals", xlim=c(-10,40), ylim=c(-10,40))
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids_vs_fitted.jpg");
+dev.off ();
+
+```
+
+```{r}
+library(AER)
+res <- error_arr
+plot(log(fitted_val), res)
+abline(h=0, lty=2)
+qqnorm(res)
+qqline(res)
+```
+
+```{r}
+acf(error_arr, main="ACF plots of residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_acf.jpg");
+dev.off ();
+```
+
+
+```{r}
+summary(fit)
 ```
 
 ```{r}
@@ -49,35 +93,4 @@ hist(fit$residuals)
 ```{r}
 plot(fit$fitted.values,fit$residuals)
 ```
-
-```{r}
-plot(error_arr, main="Residuals plot of GLM model", 
-  xlab="Index", ylab="Residuals")
-dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids.jpg");
-dev.off ();
-hist(error_arr)
-```
-
-```{r}
-plot(fitted_val, error_arr, main="Plot of residuals against fitted values", 
-  xlab="Fitted values", ylab="Residuals")
-dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids_vs_fitted.jpg");
-dev.off ();
-
-```
-
-
-
-```{r}
-acf(error_arr, main="ACF plots of residuals")
-dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_acf.jpg");
-dev.off ();
-```
-
-
-```{r}
-summary(fit)
-```
-
-
 

@@ -27,6 +27,11 @@ Johansen, S. (1991).
 \newblock Estimation and hypothesis testing of cointegration vectors in
   gaussian vector autoregressive models.
 
+\bibitem[\protect\astroncite{Molenaar and Bolsinova}{2017}]{Dylan2017}
+Molenaar, D. and Bolsinova, M. (2017).
+\newblock A heteroscedastic generalized linear model with a non‐normal speed
+  factor for responses and response times.
+
 \bibitem[\protect\astroncite{Mushtaq}{2011}]{Rizwan2011}
 Mushtaq, R. (2011).
 \newblock Augmented dickey fuller test.

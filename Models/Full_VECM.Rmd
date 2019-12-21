@@ -30,7 +30,7 @@ RMSE = function(act, pred){
 #train <- df_atleast_50cts[,1:162]
 #test <- df_atleast_50cts[,163:204]
 
-train <- full_df[,1:162]
+train <- full_df[,1:198]
 ```
 
 ```{r}

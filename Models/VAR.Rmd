@@ -55,79 +55,12 @@ dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/example_ts.jp
 dev.off ();
 ```
 
-```{r}
-## DIFFERENCING ##
-df_t <- t(df_atleast_50cts)
-colnames(df_t) = c(1:42)
-diff_df <- diff(df_t, differences=1)
-#diff_df <- normalize(df_t, margin=1L)
-#stationary_test = ca.jo(diff_df, type="trace", K=4, ecdet="none", spec="longrun")
-#summary(stationary_test)
-model = constructModel(diff_df, p = 2, struct = "Basic", gran = c(25,10), T1 = 81, T2 = 162)
-var_model <- cv.BigVAR(model)
-var_model
-```
-
-```{r}
-#Predict using differencing
-prev_pred <- df_atleast_50cts[1:42, 162]
-pred <- c()
-errors <- 0
-error_arr <- c()
-fitted_val <- c()
-for (i in c(1:42)) {
-  diff <- c(predict(var_model, n.ahead = i))
-  curr_pred <- prev_pred + diff
-  act <- df_atleast_50cts[1:42, 162 + i]
-  error_arr <- c(error_arr, c(curr_pred - act))
-  fitted_val <- c(fitted_val, curr_pred)
-  error <- sum((curr_pred - act) ^ 2)
-  errors <- errors + error
-  prev_pred <- curr_pred
-}
-print(paste0(" MSFE: ", errors/42))
-```
-
-
-```{r}
-hist(error_arr)
-```
-
-```{r}
-plot(fitted_val, error_arr)
-```
-
-```{r}
-acf(error_arr)
-```
-
-```{r}
-plot(as.vector(var_model@resids))
-hist(var_model@resids)
-```
-
-```{r}
-plot(as.vector(var_model@fitted),as.vector(var_model@resids))
-```
-
-```{r}
-acf(as.vector(var_model@resids), main="ACF plots of residuals")
-```
-
-
-
-
-
-
-
-
-
 
 
 ```{r}
 df_t <- t(df_atleast_50cts)
 colnames(df_t) = c(1:42)
-stationary_test = ca.jo(df_t, type="trace", K=3, ecdet="none", spec="longrun")
+stationary_test = ca.jo(df_t, type="trace", K=2, ecdet="none", spec="longrun")
 summary(stationary_test)
 m <- vec2var(stationary_test)
 ```
@@ -135,7 +68,7 @@ m <- vec2var(stationary_test)
 ```{r}
 
 Y = data.matrix(t(train))
-model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 81, T2 = 162)
+model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
 #model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
 var_model <- cv.BigVAR(model)
 ```
@@ -158,7 +91,7 @@ hist(var_model@resids)
 
 ```{r}
 plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
-  xlab="Fitted Values", ylab="Residuals")
+  xlab="Fitted Values", ylab="Residuals", xlim=c(-10,35), ylim = c(-10,35))
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VAR_resids_vs_values.jpg");
 dev.off ();
 ```
@@ -182,66 +115,65 @@ dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/VAR_sparsity.
 dev.off();
 ```
 
-
-
-
-
-
-
 ```{r}
-train <- df_atleast_50cts[,1:162]
-test <- df_atleast_50cts[,163:204]
-colnames(train) = c(1:42)
-stationary_test = ca.jo(df_atleast_50cts, type="trace", K=2, ecdet="none", spec="longrun")
+## DIFFERENCING ##
+df_t <- t(df_atleast_50cts)
+colnames(df_t) = c(1:42)
+diff_df <- diff(df_t, differences=1)
+#diff_df <- normalize(df_t, margin=1L)
+stationary_test = ca.jo(diff_df, type="trace", K=4, ecdet="none", spec="longrun")
 summary(stationary_test)
-m <- vec2var(stationary_test)
-
-pred <- predict(m, n.ahead=42)
 ```
 
 ```{r}
-plot(x=fit$fitted.values,y=residuals(fit, type='response'))
+
+model = constructModel(diff_df, p = 9, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
+var_model <- cv.BigVAR(model)
+var_model
 ```
 
 ```{r}
-plot(x=fit$fitted.values,y=residuals(fit, type='response'), yaxp=c(-5,15,20))
-```
-
-
-
-
-
-```{r}
-###WITHOUT EXOGENOUS VARIABLES###
-# for MSFE
-predictions <- c(predict(var_model, n.ahead = 1))
-for (i in c(2:42)) {
-  pred <- c(predict(var_model, n.ahead = i))
-  predictions <- array(c(predictions, pred), dim = c(42,i))
-}
+#Predict using differencing
+prev_pred <- df_atleast_50cts[1:42, 198]
+pred <- c()
 errors <- 0
-for (i in c(1:42)) {
-  error <- sum((as.numeric(test[i,]) - as.numeric(predictions[i,])) ^ 2)
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+  diff <- c(predict(var_model, n.ahead = i))
+  curr_pred <- prev_pred + diff
+  act <- df_atleast_50cts[1:42, 198 + i]
+  error_arr <- c(error_arr, c(curr_pred - act))
+  fitted_val <- c(fitted_val, curr_pred)
+  error <- sum((curr_pred - act) ^ 2)
   errors <- errors + error
+  prev_pred <- curr_pred
 }
-print(errors/42)
+print(paste0(" MSFE: ", errors/6))
 ```
 
 
 ```{r}
-
-# for RMSE
-predictions <- c(predict(var_model, n.ahead = 1))
-for (i in c(2:42)) {
-  pred <- c(predict(var_model, n.ahead = i))
-  predictions <- array(c(predictions, pred), dim = c(42,i))
-}
-errors <- c()
-for (i in c(1:42)) {
-  error <- RMSE(as.numeric(test[i,]), as.numeric(predictions[i,]))
-  errors <- c(errors,error)
-}
-print(mean(errors))
+hist(error_arr)
 ```
 
+```{r}
+plot(fitted_val, error_arr)
+```
 
+```{r}
+acf(error_arr)
+```
+
+```{r}
+plot(as.vector(var_model@resids))
+hist(var_model@resids)
+```
+
+```{r}
+plot(as.vector(var_model@fitted),as.vector(var_model@resids), xlim=c(-30,25), ylim=c(-30,25))
+```
+
+```{r}
+acf(as.vector(var_model@resids), main="ACF plots of residuals")
+```

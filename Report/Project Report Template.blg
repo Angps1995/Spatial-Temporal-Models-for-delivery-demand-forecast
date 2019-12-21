@@ -33,51 +33,52 @@ Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El 
 while executing---line 1123 of file apa.bst
 Warning--empty journal in Jamal2018
 Warning--empty journal in Johansen1991
+Warning--empty journal in Dylan2017
 Warning--empty journal in Rizwan2011
 Warning--empty journal in Nelder1972
 Warning--empty journal in Tobias2017
 Warning--empty journal in Ruey2014
 Warning--empty journal in Asha2016
 Warning--empty journal in Zhijie1998
-You've used 12 entries,
+You've used 13 entries,
             1940 wiz_defined-function locations,
-            533 strings with 5218 characters,
-and the built_in function-call counts, 3233 in all, are:
-= -- 288
-> -- 84
-< -- 12
-+ -- 30
-- -- 24
-* -- 240
-:= -- 607
-add.period$ -- 24
-call.type$ -- 12
-change.case$ -- 72
-chr.to.int$ -- 12
-cite$ -- 24
-duplicate$ -- 156
-empty$ -- 241
-format.name$ -- 36
-if$ -- 589
+            537 strings with 5378 characters,
+and the built_in function-call counts, 3545 in all, are:
+= -- 316
+> -- 97
+< -- 13
++ -- 36
+- -- 28
+* -- 266
+:= -- 663
+add.period$ -- 26
+call.type$ -- 13
+change.case$ -- 79
+chr.to.int$ -- 13
+cite$ -- 26
+duplicate$ -- 169
+empty$ -- 261
+format.name$ -- 43
+if$ -- 646
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 12
-newline$ -- 51
-num.names$ -- 36
-pop$ -- 84
+missing$ -- 13
+newline$ -- 55
+num.names$ -- 39
+pop$ -- 92
 preamble$ -- 1
-purify$ -- 72
+purify$ -- 79
 quote$ -- 0
-skip$ -- 133
+skip$ -- 144
 stack$ -- 0
-substring$ -- 150
-swap$ -- 12
+substring$ -- 164
+swap$ -- 13
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 72
-warning$ -- 12
-while$ -- 24
+type$ -- 78
+warning$ -- 13
+while$ -- 26
 width$ -- 0
-write$ -- 122
+write$ -- 132
 (There were 12 error messages)
