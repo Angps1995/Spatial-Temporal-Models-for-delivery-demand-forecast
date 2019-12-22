@@ -9,7 +9,7 @@ library(urca)
 
 ```{r}
 #Load dataset
-full_df <- read.csv("/home/angps/Documents/Thesis/Data/data.csv")
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/df_>=1cts.csv")
 df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
 ```
 
@@ -30,7 +30,7 @@ train <- full_df
 
 ```{r}
 df_t <- t(full_df)
-colnames(df_t) = c(1:839)
+colnames(df_t) = c(1:713)
 stationary_test = ca.jo(df_t, type="trace", K=2, ecdet="none", spec="longrun")
 summary(stationary_test)
 ```
@@ -92,7 +92,7 @@ dev.off();
 ```{r}
 ## DIFFERENCING ##
 df_t <- t(full_df)
-colnames(df_t) = c(1:839)
+colnames(df_t) = c(1:713)
 diff_df <- diff(df_t, differences=1)
 #diff_df <- normalize(df_t, margin=1L)
 stationary_test = ca.jo(diff_df, type="trace", K=4, ecdet="none", spec="longrun")
@@ -108,7 +108,7 @@ var_model
 
 ```{r}
 #Predict using differencing
-prev_pred <- full_df[1:839, 198]
+prev_pred <- full_df[1:713, 198]
 pred <- c()
 errors <- 0
 error_arr <- c()
@@ -116,7 +116,7 @@ fitted_val <- c()
 for (i in c(1:6)) {
   diff <- c(predict(var_model, n.ahead = i))
   curr_pred <- prev_pred + diff
-  act <- full_df[1:839, 198 + i]
+  act <- full_df[1:713, 198 + i]
   error_arr <- c(error_arr, c(curr_pred - act))
   fitted_val <- c(fitted_val, curr_pred)
   error <- sum((curr_pred - act) ^ 2)

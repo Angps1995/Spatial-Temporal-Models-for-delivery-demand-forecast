@@ -9,7 +9,7 @@ library(urca)
 
 ```{r}
 #Load dataset
-full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/df_>=1_with_exo.csv")
 df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
 ```
 
@@ -88,11 +88,11 @@ dev.off();
 
 ```{r}
 ## DIFFERENCING ##
-full_df_endo <- full_df[1:839,]
+full_df_endo <- full_df[1:713,]
 df_t <- t(full_df_endo)
-colnames(df_t) = c(1:839)
+colnames(df_t) = c(1:713)
 diff_df <- diff(df_t, differences=1)
-exo <- t(full_df[840:852,2:204])
+exo <- t(full_df[713:726,2:204])
 diff_df <- cbind(diff_df, exo)
 #diff_df <- normalize(df_t, margin=1L)
 stationary_test = ca.jo(diff_df, type="trace", K=3, ecdet="none", spec="longrun")
@@ -106,7 +106,7 @@ library(BigVAR)
 train <- t(diff_df)
 Y = data.matrix(t(train))
 VARX = list()
-VARX$k = 839  #endogenous
+VARX$k = 713  #endogenous
 VARX$s = 1
 model = constructModel(as.matrix(Y), p = 2, struct="EFX", MN = F, gran = c(25,10), VARX = VARX, T1 = 156, T2 = 198)
 var_model <- cv.BigVAR(model)
@@ -125,12 +125,13 @@ errors <- 0
 error_arr <- c()
 fitted_val <- c()
 for (i in c(1:6)) {
-  diff <- as.vector(predict(var_model, n.ahead=i, newxreg=matrix(prev_pred),ncol=852))
-  curr_pred <- as.vector(prev_pred[2:2,1:839]) + diff
+  diff <- as.vector(predict(var_model, n.ahead=i, newxreg=matrix(prev_pred),ncol=726))
+  curr_pred <- as.vector(prev_pred[2:2,1:713]) + diff
+  #curr_pred <- as.vector(prev_pred[1:1,1:713]) + diff
   if (length(prev_diff) > 0) {
     curr_pred <- curr_pred + prev_diff
   }
-  act <- full_df[1:839, 198 + i]
+  act <- full_df[1:713, 198 + i]
   error_arr <- c(error_arr, c(curr_pred - act))
   fitted_val <- c(fitted_val, curr_pred)
   error <- sum((curr_pred - act) ^ 2)

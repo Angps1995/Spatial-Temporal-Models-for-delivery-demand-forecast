@@ -1,5 +1,5 @@
 \UseRawInputEncoding
-\documentclass[10pt, letterpaper] {article}
+\documentclass[12pt, letterpaper] {article}
 \usepackage{natbib}
 \usepackage{amsmath, amsthm, amssymb, mathrsfs,array}
 \usepackage{graphicx,float,wrapfig,subfigure,color,pdfpages,fixltx2e,url}
@@ -40,7 +40,12 @@
 This paper studies how we can use various spatial-temporal time series model to better predict demand across different locations. 
 \end{abstract}
 \section{Introduction}
-Having an accurate forecast of delivery demand for food service providers would help them more effectively and efficiently assign orders to drivers to improve the overall delivery time. Currently, most Autoregressive (AR) or Autoregressive Integrated Moving Average (ARIMA) models only consider temporal features when predicting demand. However, we believe including spatial features between the data points might improve forecast accuracy. This paper would focus on and explore models that include both spatial and temporal features to improve forecast accuracy. 
+
+The motivation for this paper comes from \cite{Long2018}, where their focus is to optimise assignments of orders to drivers in order to minimize the total delay of all drivers. The dataset used in both \cite{Long2018} and this paper are from a food service provider in China that allows customer to place orders before a cutoff time in the day (e.g 10.00am) and the customer can expect to recieve their orders by a deadline (e.g anytime from 10.30am to 11.45am). 
+
+\noindent The problem is not only restricted to the abovementioned food provider. With the rise of e-commerce and the food ordering and delivery services, like GrabFood and FoodPanda, demand prediction and driver assignment problem would be an everyday concern for them too. 
+
+\noindent In reality, demand is never deterministic and hence, having an accurate forecast of demand for the food service providers would help them more effectively and efficiently assign orders to drivers to improve the overall delivery time. As such, the focus of this paper would be to accurately model and forecast the demand at the different locations and time. Currently, most Autoregressive (AR) or Autoregressive Integrated Moving Average (ARIMA) models only consider temporal features when predicting demand. However, we believe including spatial features between the data points might improve forecast accuracy. This paper would focus on and explore models that include both spatial and temporal features to improve forecast accuracy. 
 
 \section{Literature Review}
 To be written
@@ -48,7 +53,7 @@ To be written
 \section{Data}
 The data source used was an operational dataset from a food delivery service provider from Shanghai that includes delivery information for a 2-month period from 10 August 2015 to 30 September 2015 (excluding Saturdays) in 2015. The provider only provides delivery service for 90 minutes during lunchtime and the dataset has split the data into 15-minute time periods, and as such, each day would only consists of demand data for 6 time periods. Hence, our dataset has 839 locations with demand count data, in integer, for 204 time periods in total. 
 
-To include other exogenous variables, data from https://www.worldweatheronline.com/shanghai-weather-history/shanghai/cn.aspx was used to include weather and rainfall data as well as encoding of the weekadys for all the respective days. 
+\noindent To include other exogenous variables, data from https://www.worldweatheronline.com/shanghai-weather-history/shanghai/cn.aspx was used to include weather and rainfall data as well as encoding of the weekadys for all the respective days. 
 
 \subsection{Exploratory Analysis}
 We would first do some exploratory analysis and check if there are any obvious relationships between the variables. 
@@ -144,7 +149,7 @@ The dataset that we are using follows a count time series, which means the obser
 \noindent where $g$ represents a link function and $ \tilde{g}$ represents a transformation function. $\eta$ represents a parameter vector that corresponds to the covariates. 
 
 \subsection{Model Implementation}
-\noindent Since there are many locations which have values that are all 0 throughout all the time period, the GLM model would run into an error if applied on those. Hence, only locations with at least 1 non-zero value would be considered. Similar to before, each of the locations was assessed individually and a suitable GLM model was fitted for each location. The out-of-sample MSFE for this baseline model is \textbf{38.16/57.34}. 
+\noindent Since there are many locations which have values that are all 0 throughout all the time period, the GLM model would run into an error if applied on those. Hence, only locations with at least 1 non-zero value would be considered. Similar to before, each of the locations was assessed individually and a suitable GLM model was fitted for each location. The out-of-sample MSFE for this baseline model is \textbf{38.16/82.42}. 
 
 \subsection{Model Diagnostics}
 To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis. Note that in this paper, only residuals from a randomly selected number of locations would be shown for conciseness. 	
@@ -283,8 +288,25 @@ BigVAR library in R was used to implement the VAR models. The results for the VA
 
 \section{Limitations}
 
-\section{Conclusion}
-Conclude your efforts and main findings.
+
+\section{Conclusion and Future Work}
+The table below summarises the results of our models. 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+                                   & \textbf{MSFE} \\ \hline
+\multicolumn{1}{|c|}{\textbf{ARIMA}} & xx            \\ \hline
+\textbf{GLM}                      & xx            \\ \hline
+\textbf{VAR}                      & xx            \\ \hline
+\textbf{VARX}                      & xx            \\ \hline
+\end{tabular}
+\end{table}
+
+The model which has the best MSFE is ..... . However, 
+
+\noindent The model diagnostics for the models are... 
 
 \section{Appendix}
 Append extra plots, graphs, analysis, etc. 

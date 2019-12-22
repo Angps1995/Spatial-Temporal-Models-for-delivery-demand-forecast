@@ -15,8 +15,8 @@ df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv
 ```
 
 ```{r}
-train <- df_atleast_50cts[,1:198]
-test <- df_atleast_50cts[,199:204]
+train <- full_df[,1:198]
+test <- full_df[,199:204]
 #for (obs in c(6,12,18)) {
   #for (m in c(6, 12, 18, 24)) {
 for (obs in c(1)) {
