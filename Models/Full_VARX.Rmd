@@ -24,14 +24,15 @@ RMSE = function(act, pred){
 #test <- df_atleast_50cts[,163:204]
 #train <- df_atleast_50cts[c(1:47, 50:55),1:162]
 #test <- df_atleast_50cts[c(1:47, 50:55),163:204]
-train <- full_df[c(1:844, 846:852),]
+#train <- full_df[c(1:844, 846:852),]
+train <- full_df
 
 ```
 
 
 ```{r}
-df_t <- t(df_atleast_50cts)
-colnames(df_t) = c(1:55)
+df_t <- t(full_df)
+colnames(df_t) = c(1:852)
 stationary_test = ca.jo(df_t, type="eigen", K=2, ecdet="none", spec="longrun")
 summary(stationary_test)
 ```
@@ -43,7 +44,7 @@ Y = data.matrix(t(train))
 VARX = list()
 VARX$k = 839  #endogenous
 VARX$s = 1
-model = constructModel(as.matrix(Y), p = 1, struct="EFX", MN = F, gran = c(25,10), VARX = VARX, T1 = 81, T2 = 162)
+model = constructModel(as.matrix(Y), p = 2, struct="EFX", MN = F, gran = c(25,10), VARX = VARX, T1 = 81, T2 = 162)
 var_model <- cv.BigVAR(model)
 ```
 
@@ -85,31 +86,97 @@ dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_spa
 dev.off();
 ```
 
-
-
-
-
-
-
 ```{r}
-#library(vars)
-#model <- VARselect(t(train[1:32,]))
-#model$selection
-#model <- VAR(t(train[1:32,]), p = 5, season = NULL, 
-#    exog = NULL)
-#summary(model)
+## DIFFERENCING ##
+full_df_endo <- full_df[1:839,]
+df_t <- t(full_df_endo)
+colnames(df_t) = c(1:839)
+diff_df <- diff(df_t, differences=1)
+exo <- t(full_df[840:852,2:204])
+diff_df <- cbind(diff_df, exo)
+#diff_df <- normalize(df_t, margin=1L)
+stationary_test = ca.jo(diff_df, type="trace", K=3, ecdet="none", spec="longrun")
+summary(stationary_test)
 ```
-```{r}
-#train_full <- t(full_df)[1:162,]
-#test_full <- t(full_df)[163:204,]
-#On full dataset
-#model <- VARselect(train_full)
-#model$selection
-#model <- VAR(t(train_full), p = 1, season = NULL, exog = NULL)
-#summary(model)
 
-#Residual test
-#res_test <- serial.test(model, lags.pt = 12, type = "PT.asymptotic")
-#res_test
-#plot(res_test, names="X1")
+```{r}
+###WITH EXOGENOUS VARIABLES###
+library(BigVAR)
+#train <- t(diff_df)[c(1:47, 50:55),]
+train <- t(diff_df)
+Y = data.matrix(t(train))
+VARX = list()
+VARX$k = 839  #endogenous
+VARX$s = 1
+model = constructModel(as.matrix(Y), p = 2, struct="EFX", MN = F, gran = c(25,10), VARX = VARX, T1 = 156, T2 = 198)
+var_model <- cv.BigVAR(model)
+```
+
+```{r}
+var_model
+```
+
+```{r}
+#Predict using differencing
+#prev_pred <- t(df_atleast_50cts[c(1:47, 50:55), 190:198])
+prev_pred <- t(full_df[, 197:198])
+prev_diff <- c()
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+  diff <- as.vector(predict(var_model, n.ahead=i, newxreg=matrix(prev_pred),ncol=852))
+  curr_pred <- as.vector(prev_pred[2:2,1:839]) + diff
+  if (length(prev_diff) > 0) {
+    curr_pred <- curr_pred + prev_diff
+  }
+  act <- full_df[1:839, 198 + i]
+  error_arr <- c(error_arr, c(curr_pred - act))
+  fitted_val <- c(fitted_val, curr_pred)
+  error <- sum((curr_pred - act) ^ 2)
+  errors <- errors + error
+  if (length(prev_diff) > 0) {
+    prev_diff <- prev_diff + diff
+  } else {
+    prev_diff <- diff
+  }
+  #prev_pred <- t(df_atleast_50cts[c(1:47, 50:55), (190+i):(198+i)])
+}
+print(paste0(" MSFE: ", errors/6))
+```
+
+```{r}
+par(mfrow=c(2,2))
+plot(as.vector(var_model@resids), main="Residuals plot of VARX model", 
+  xlab="Index", ylab="Residuals")
+hist(as.vector(var_model@resids), main = "Historgram of residuals")
+qqnorm(as.vector(var_model@resids))
+qqline(as.vector(var_model@resids))
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_resids.jpg");
+dev.off ();
+```
+
+```{r}
+plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
+  xlab="Fitted Values", ylab="Residuals")
+    dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_resids_vs_values.jpg");
+dev.off ();
+```
+
+```{r}
+acf(as.vector(var_model@resids), main="ACF plots of residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_acf.jpg");
+dev.off ();
+```
+
+```{r}
+plot(var_model, main = "Penalty Grid Position (VARX Model)")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_pengrid.jpg");
+dev.off();
+```
+
+```{r}
+SparsityPlot.BigVAR.results(var_model)
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_sparsity.jpg");
+dev.off();
 ```

@@ -31,14 +31,14 @@ train <- full_df
 ```{r}
 df_t <- t(full_df)
 colnames(df_t) = c(1:839)
-stationary_test = ca.jo(df_t, type="trace", K=800, ecdet="none", spec="longrun")
+stationary_test = ca.jo(df_t, type="trace", K=2, ecdet="none", spec="longrun")
 summary(stationary_test)
 ```
 
 ```{r}
 library(BigVAR)
 Y = data.matrix(t(train))
-model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 81, T2 = 162)
+model = constructModel(Y, p = 2, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
 var_model <- cv.BigVAR(model)
 ```
 
@@ -89,5 +89,85 @@ dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VAR_spar
 dev.off();
 ```
 
+```{r}
+## DIFFERENCING ##
+df_t <- t(full_df)
+colnames(df_t) = c(1:839)
+diff_df <- diff(df_t, differences=1)
+#diff_df <- normalize(df_t, margin=1L)
+stationary_test = ca.jo(diff_df, type="trace", K=4, ecdet="none", spec="longrun")
+summary(stationary_test)
+```
+
+```{r}
+
+model = constructModel(diff_df, p = 2, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
+var_model <- cv.BigVAR(model)
+var_model
+```
+
+```{r}
+#Predict using differencing
+prev_pred <- full_df[1:839, 198]
+pred <- c()
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+  diff <- c(predict(var_model, n.ahead = i))
+  curr_pred <- prev_pred + diff
+  act <- full_df[1:839, 198 + i]
+  error_arr <- c(error_arr, c(curr_pred - act))
+  fitted_val <- c(fitted_val, curr_pred)
+  error <- sum((curr_pred - act) ^ 2)
+  errors <- errors + error
+  prev_pred <- curr_pred
+}
+print(paste0(" MSFE: ", errors/6))
+```
 
 
+
+```{r}
+plot(fitted_val, error_arr)
+```
+
+```{r}
+acf(error_arr)
+```
+
+```{r}
+par(mfrow=c(2,2))
+plot(as.vector(var_model@resids), main="Residuals plot of VAR model", 
+  xlab="Index", ylab="Residuals")
+hist(as.vector(var_model@resids), main = "Historgram of residuals")
+qqnorm(as.vector(var_model@resids))
+qqline(as.vector(var_model@resids))
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VAR_diff_resids.jpg");
+dev.off ();
+```
+
+```{r}
+plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
+  xlab="Fitted Values", ylab="Residuals", xlim=c(-25,25), ylim=c(-25,25))
+    dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VAR_diff_resids_vs_values.jpg");
+dev.off ();
+```
+
+```{r}
+acf(as.vector(var_model@resids), main="ACF plots of residuals")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VAR_diff_acf.jpg");
+dev.off ();
+```
+
+```{r}
+plot(var_model, main = "Penalty Grid Position (VAR Model)")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VAR_diff_pengrid.jpg");
+dev.off();
+```
+
+```{r}
+SparsityPlot.BigVAR.results(var_model)
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VAR_diff_sparsity.jpg");
+dev.off();
+```

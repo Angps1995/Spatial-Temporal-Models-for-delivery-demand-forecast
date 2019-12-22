@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  21 DEC 2019 23:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  22 DEC 2019 17:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -262,14 +262,7 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 \c@assumption=\count119
 \c@observation=\count120
 
-(./Project Report Template.aux
-
-LaTeX Warning: Label `fig:Residuals for VAR Model' multiply defined.
-
-
-LaTeX Warning: Label `fig:Residuals for VARX Model' multiply defined.
-
-)
+(./Project Report Template.aux)
 \openout1 = `"Project Report Template.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
@@ -284,7 +277,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
 LaTeX Font Info:    ... okay on input line 34.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
 LaTeX Font Info:    ... okay on input line 34.
- (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count121
 \scratchdimen=\dimen124
@@ -408,53 +402,66 @@ File: Images/forecast_example.jpg Graphic file (type jpg)
 Package pdftex.def Info: Images/forecast_example.jpg  used on input line 125.
 (pdftex.def)             Requested size: 469.75499pt x 234.8769pt.
  [6 <./Images/forecast_example.jpg>]
-<Images/GLM_resids.jpg, id=40, 481.8pt x 481.8pt>
-File: Images/GLM_resids.jpg Graphic file (type jpg)
-<use Images/GLM_resids.jpg>
-Package pdftex.def Info: Images/GLM_resids.jpg  used on input line 156.
+<Images/Full_GLM_resids.jpg, id=40, 481.8pt x 481.8pt>
+File: Images/Full_GLM_resids.jpg Graphic file (type jpg)
+<use Images/Full_GLM_resids.jpg>
+Package pdftex.def Info: Images/Full_GLM_resids.jpg  used on input line 156.
 (pdftex.def)             Requested size: 469.77148pt x 368.5905pt.
  [7]
-<Images/GLM_resids_vs_fitted.jpg, id=48, 481.8pt x 481.8pt>
-File: Images/GLM_resids_vs_fitted.jpg Graphic file (type jpg)
-<use Images/GLM_resids_vs_fitted.jpg>
-Package pdftex.def Info: Images/GLM_resids_vs_fitted.jpg  used on input line 16
-7.
+<Images/Full_GLM_resids_vs_fitted.jpg, id=48, 481.8pt x 481.8pt>
+File: Images/Full_GLM_resids_vs_fitted.jpg Graphic file (type jpg)
+<use Images/Full_GLM_resids_vs_fitted.jpg>
+Package pdftex.def Info: Images/Full_GLM_resids_vs_fitted.jpg  used on input li
+ne 167.
 (pdftex.def)             Requested size: 399.30576pt x 368.5905pt.
- [8 <./Images/GLM_resids.jpg>]
-
-Package natbib Warning: Citation `Dylan2017' on page 9 undefined on input line 
-172.
-
-[9 <./Images/GLM_resids_vs_fitted.jpg>]
+ [8 <./Images/Full_GLM_resids.jpg>] [9 <./Images/Full_GLM_resids_vs_fitted.jpg>
+]
 Missing character: There is no √ in font cmr10!
 Missing character: There is no ∏ in font cmr10!
 Missing character: There is no √ in font cmr10!
 Missing character: There is no ∂ in font cmr10!
  [10]
-<Images/VAR_resids.jpg, id=58, 481.8pt x 481.8pt>
-File: Images/VAR_resids.jpg Graphic file (type jpg)
-<use Images/VAR_resids.jpg>
-Package pdftex.def Info: Images/VAR_resids.jpg  used on input line 221.
-(pdftex.def)             Requested size: 375.81718pt x 245.71474pt.
- [11]
-<Images/VARX_resids.jpg, id=62, 481.8pt x 481.8pt>
-File: Images/VARX_resids.jpg Graphic file (type jpg)
-<use Images/VARX_resids.jpg>
-Package pdftex.def Info: Images/VARX_resids.jpg  used on input line 228.
-(pdftex.def)             Requested size: 375.81718pt x 245.71474pt.
-<Images/VAR_acf.jpg, id=63, 481.8pt x 481.8pt>
-File: Images/VAR_acf.jpg Graphic file (type jpg)
-<use Images/VAR_acf.jpg>
-Package pdftex.def Info: Images/VAR_acf.jpg  used on input line 237.
+<Images/Johansen.jpg, id=58, 1130.2225pt x 851.18pt>
+File: Images/Johansen.jpg Graphic file (type jpg)
+<use Images/Johansen.jpg>
+Package pdftex.def Info: Images/Johansen.jpg  used on input line 198.
+(pdftex.def)             Requested size: 399.29166pt x 368.58485pt.
+ [11 <./Images/johansen.jpg>]
+<Images/stationarity.jpg, id=62, 394.47375pt x 763.85374pt>
+File: Images/stationarity.jpg Graphic file (type jpg)
+<use Images/stationarity.jpg>
+Package pdftex.def Info: Images/stationarity.jpg  used on input line 209.
+(pdftex.def)             Requested size: 375.8073pt x 491.44058pt.
+ [12 <./Images/stationarity.jpg>]
+<Images/Full_VAR_diff_resids.jpg, id=66, 481.8pt x 481.8pt>
+File: Images/Full_VAR_diff_resids.jpg Graphic file (type jpg)
+<use Images/Full_VAR_diff_resids.jpg>
+Package pdftex.def Info: Images/Full_VAR_diff_resids.jpg  used on input line 23
+8.
+(pdftex.def)             Requested size: 375.81718pt x 258.00673pt.
+ [13]
+<Images/Full_VARX_diff_resids.jpg, id=71, 481.8pt x 481.8pt>
+File: Images/Full_VARX_diff_resids.jpg Graphic file (type jpg)
+<use Images/Full_VARX_diff_resids.jpg>
+Package pdftex.def Info: Images/Full_VARX_diff_resids.jpg  used on input line 2
+45.
+(pdftex.def)             Requested size: 375.81718pt x 258.00673pt.
+ [14 <./Images/Full_VAR_diff_resids.jpg> <./Images/Full_VARX_diff_resids.jpg>]
+<Images/Full_VAR_diff_resids_vs_values.jpg, id=75, 481.8pt x 481.8pt>
+File: Images/Full_VAR_diff_resids_vs_values.jpg Graphic file (type jpg)
+<use Images/Full_VAR_diff_resids_vs_values.jpg>
+Package pdftex.def Info: Images/Full_VAR_diff_resids_vs_values.jpg  used on inp
+ut line 257.
 (pdftex.def)             Requested size: 281.86288pt x 184.28421pt.
- [12 <./Images/VAR_resids.jpg> <./Images/VARX_resids.jpg>]
-<Images/VARX_acf.jpg, id=67, 481.8pt x 481.8pt>
-File: Images/VARX_acf.jpg Graphic file (type jpg)
-<use Images/VARX_acf.jpg>
-Package pdftex.def Info: Images/VARX_acf.jpg  used on input line 244.
+<Images/Full_VARX_diff_resids_vs_values.jpg, id=76, 481.8pt x 481.8pt>
+File: Images/Full_VARX_diff_resids_vs_values.jpg Graphic file (type jpg)
+<use Images/Full_VARX_diff_resids_vs_values.jpg>
+Package pdftex.def Info: Images/Full_VARX_diff_resids_vs_values.jpg  used on in
+put line 264.
 (pdftex.def)             Requested size: 281.86288pt x 184.28421pt.
- [13 <./Images/VAR_acf.jpg> <./Images/VARX_acf.jpg>] (./Project Report Template
-.bbl
+ [15 <./Images/Full_VAR_diff_resids_vs_values.jpg> <./Images/Full_VARX_diff_res
+ids_vs_values.jpg>]
+(./Project Report Template.bbl
 Missing character: There is no √ in font cmr10!
 Missing character: There is no ∂ in font cmr10!
 Missing character: There is no ≈ in font cmr10!
@@ -466,6 +473,7 @@ Missing character: There is no ì in font cmr10!
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ê in font cmr10!
+ [16]
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ú in font cmr10!
@@ -475,47 +483,35 @@ Missing character: There is no ù in font cmr10!
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ì in font cmr10!
-)
-
-Package natbib Warning: There were undefined citations.
-
-[14] (./Project Report Template.aux
-
-Package natbib Warning: Citation(s) may have changed.
-(natbib)                Rerun to get citations correct.
-
-)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+) [17] (./Project Report Template.aux) ) 
 Here is how much of TeX's memory you used:
- 4244 strings out of 492609
- 59450 string characters out of 6131462
- 127392 words of memory out of 5000000
- 8039 multiletter control sequences out of 15000+600000
+ 4259 strings out of 492609
+ 60268 string characters out of 6131462
+ 128434 words of memory out of 5000000
+ 8052 multiletter control sequences out of 15000+600000
  14143 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,7n,27p,1090b,245s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb>
-Output written on "Project Report Template.pdf" (14 pages, 495849 bytes).
+ 41i,9n,27p,1090b,245s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmti7.pfb>
+Output written on "Project Report Template.pdf" (17 pages, 655514 bytes).
 PDF statistics:
- 126 PDF objects out of 1000 (max. 8388607)
- 81 compressed objects within 1 object stream
+ 137 PDF objects out of 1000 (max. 8388607)
+ 87 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 

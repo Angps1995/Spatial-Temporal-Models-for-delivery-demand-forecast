@@ -118,7 +118,7 @@ From Figure 1 in Section 3.1, the data is very sparse as there are many location
 Autoregressive Integrated Moving Average (ARIMA) models are one of the most commonly used models for time series (\cite{Asha2016}). ARIMA models are made up of 3 processes, mainly the Autoregressive (AR) process, the Integrated (I) process and the Moving Average (MA) process (\cite{Jamal2018}). The AR process assumes that each observation can be expressed as a linear combination of its past values.  An AR(x) process would mean using x lagged values. The MA process assumes that each observation can be expressed as a linear combination of its current error term as well as its past error terms. The Integrated Process states that the time series can undergo differencing to ensure that the series is stationary. A MA(x) process would mean using x number of past observations. Hence, an ARIMA model is usually represented by ARIMA(p,d,q), where \textit{p} represents the number of autoregressive terms, \textit{d} represents the number of differences needed for stationarity, and \textit{q} represents the number of lagged forecast errors. 
 
 \subsection{Baseline ARIMA Result}
-As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSFE for this baseline model on the 42 locations is \textbf{47.60}. A sample forecast plot is shown below:
+As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSFE for this baseline model on the 42 locations is \textbf{47.60/73.29}. A sample forecast plot is shown below:
 
 \begin{figure}[H]
     \centering
@@ -144,7 +144,7 @@ The dataset that we are using follows a count time series, which means the obser
 \noindent where $g$ represents a link function and $ \tilde{g}$ represents a transformation function. $\eta$ represents a parameter vector that corresponds to the covariates. 
 
 \subsection{Model Implementation}
-\noindent Since there are many locations which have values that are all 0 throughout all the time period, the GLM model would run into an error if applied on those. Hence, only locations with at least 1 non-zero value would be considered. Similar to before, each of the locations was assessed individually and a suitable GLM model was fitted for each location. The out-of-sample MSFE for this baseline model is \textbf{51.384}. 
+\noindent Since there are many locations which have values that are all 0 throughout all the time period, the GLM model would run into an error if applied on those. Hence, only locations with at least 1 non-zero value would be considered. Similar to before, each of the locations was assessed individually and a suitable GLM model was fitted for each location. The out-of-sample MSFE for this baseline model is \textbf{38.16/57.34}. 
 
 \subsection{Model Diagnostics}
 To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis. Note that in this paper, only residuals from a randomly selected number of locations would be shown for conciseness. 	
@@ -153,7 +153,7 @@ To validate and verify if our fitted model is adequate, model checking would be 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.6\textheight]{Images/GLM_resids.jpg}
+    \includegraphics[width=\textwidth, height=0.6\textheight]{Images/Full_GLM_resids.jpg}
     \caption{Residuals for GLM Model}
     \label{fig:Residuals for GLM Model}
 \end{figure}
@@ -164,7 +164,7 @@ To validate and verify if our fitted model is adequate, model checking would be 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth, height=0.6\textheight]{Images/GLM_resids_vs_fitted.jpg}
+    \includegraphics[width=0.85\textwidth, height=0.6\textheight]{Images/Full_GLM_resids_vs_fitted.jpg}
     \caption{Residuals against Predicted values for GLM Model}
     \label{fig:Residuals against Predicted values for GLM Model}
 \end{figure}
@@ -185,14 +185,34 @@ Vector Autoregressive (VAR) models are the most commonly used model for multivar
 \noindent where $p$ is the number of lagged endogenous variables used, $y_t$ is the value at time $t$, $v$ is a constant vector, $\phi_i$ are coefficient matrices for $i>0$ and $\alpha_t$ are independent and identically distributed random vectors. 
 
 \subsection{Stationarity Condition}
-For a univariate time series, it is important for the time series to be transformed into a stationary series and Augmented Dickey-Fuller (ADF) test can be used to perform unit root test for stationarity, as shown in \cite{Zhijie1998} and \cite{Rizwan2011}. For a multi-variate time series, if the series are unit-root non-stationary, applying the VAR model could lead to spurious regression, as shown in \cite{Baumohl2009}. While it is possible to perform differencing on every series, it might cause over-differencing, as mentioned in \cite{Ruey2014}. In this paper, we would check for cointegration between the series instead. 
+For a univariate time series, it is important for the time series to be transformed into a stationary series and Augmented Dickey-Fuller (ADF) test can be used to perform unit root test for stationarity, as shown in \cite{Zhijie1998} and \cite{Rizwan2011}. For a multi-variate time series, if the series are unit-root non-stationary, applying the VAR model could lead to spurious regression, as shown in \cite{Baumohl2009}.  
 
 \subsubsection{Cointegration}
 \cite{Box1977} shows that it is possible to linearly combine various unit-root nonstationary time series to form a stationary series. The term Cointegration, first mentioned in \cite{Granger1983}, states that although some or all the time series might be unit-root nonstationary individually, these time series can be said to be cointegrated if there exists a possible linear combination of them that would form a stationary series. Intuitively, 2 series are cointegrated if they move together and the distance between them remain stable over time. 
 
 \subsubsection{Johansen Test for Cointegration}
-While Cointegrated Augmented Dickey Fuller Test, commonly used for Pairs Trading, can be used, it is only able to be applied on 2 separate series. In our dataset, we have 839 locations at least, hence we would apply the popular approach to cointegrating tests for VAR model, called the Johansen's Cointegration Test. However, one limitation is that it can only be used to check for cointegration between a maximum of 12 variables. For further elaboration on the Johansen's Cointegration Test, please refer to \cite{Johansen1991}. 
+While Cointegrated Augmented Dickey Fuller Test, commonly used for Pairs Trading, can be used, it is only able to be applied on 2 separate series. In our dataset, we have 839 locations at least, hence we would apply the popular approach to cointegrating tests for VAR model, called the Johansen's Cointegration Test. However, one limitation is that it can only be used to check for cointegration between a maximum of 12 variables. For further elaboration on the Johansen's Cointegration Test, please refer to \cite{Johansen1991}. Since our dataset has 839 variables (locations), we are unable to accurately calculate the significant values of more than 12 variables and hence unable to determine correctly the number of cointegration vectors needed. A snapshot of the output of Johansen Cointegration test in R is shown here:
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth, height=0.6\textheight]{Images/Johansen.jpg}
+    \caption{Johansen Cointegration test output}
+    \label{fig:Johansen Cointegration test output}
+\end{figure}
+
+
+\subsubsection{Differencing}
+Instead, differencing would be performed on every series to make the series levels stationary. After differencing, ADF test was performed on each series and the following result shows that all the series are stationary. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.8\textheight]{Images/stationarity.jpg}
+    \caption{Stationarity of time series after differencing}
+    \label{fig:Stationarity of time series after differencing}
+\end{figure}
+
+\noindent Although Figure 10 only shows the results for 4 variables (locations), the rest of the locations have also been checked and are stationary. 
+While it is possible to perform differencing on every series, it might cause over-differencing, as mentioned in \cite{Ruey2014}.
 
 \subsection{VARX Model}
 VAR models can also be extended to include exogenous variables. A VARX(p,s) (with exogenous variables) model can be expressed as:
@@ -203,49 +223,63 @@ VAR models can also be extended to include exogenous variables. A VARX(p,s) (wit
 
 \noindent where $p$ is the number of lagged endogenous variables used, $s$ is the number of lagged exogenous variables used, $y_t$ is the value at time $t$, $v$ is a constant vector, $\phi_i$ are coefficient matrices for endogenous coefficient matrix for $i>0$, $\beta_i$ are coefficient matrices for exogenous coefficient matrix for $i>0$ and $\alpha_t$ are independent and identically distributed random vectors. 
 
+\noindent Our dataset uses additional exogenous variables like temperature, wind, gust, cloud, humidity, precipitation, pressure as well as one-hot encoding of the day of the week. Our dataset now would have 839 endogenous variables/locations and 13 exogenous variables.  
+
 \subsection{Model Checking}
 To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis:
 
 
 \subsubsection{Whiteness of Residuals}
 To ensure our fitted model is adequate, the resiudals should behave like a white noise series. 
-
 The plots below shows the distribution of our residuals for the VAR model and the VARX model. 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.4\textheight]{Images/VAR_resids.jpg}
+    \includegraphics[width=0.8\textwidth, height=0.42\textheight]{Images/Full_VAR_diff_resids.jpg}
     \caption{Residuals for VAR Model}
     \label{fig:Residuals for VAR Model}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.4\textheight]{Images/VARX_resids.jpg}
+    \includegraphics[width=0.8\textwidth, height=0.42\textheight]{Images/Full_VARX_diff_resids.jpg}
     \caption{Residuals for VARX Model}
     \label{fig:Residuals for VARX Model}
 \end{figure}
 
-\subsubsection{Correlation of Residuals}
+From Figure 11 and 12, we can see that the residuals are mostly randomly scattered and they roughly follow a normal distribution, although it performs rather badly on the lower end and higher end of the outliers. 
+
+
+\subsubsection{Residuals against Fitted Values}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/VAR_acf.jpg}
-    \caption{ACF of Residuals for VAR Model}
-    \label{fig:Residuals for VAR Model}
+    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/Full_VAR_diff_resids_vs_values.jpg}
+    \caption{Residuals against Fitted Values for VAR Model}
+    \label{fig:Residuals against Fitted Values for VAR Model}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/VARX_acf.jpg}
-    \caption{ACF of Residuals for VARX Model}
-    \label{fig:Residuals for VARX Model}
+    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/Full_VARX_diff_resids_vs_values.jpg}
+    \caption{Residuals against Fitted Values for VARX Model}
+    \label{fig:Residuals against Fitted Values for VARX Model}
 \end{figure}
+
+Figure 13 and 14 shows that heteroscadasticity occurs at the lower and higher ends of the predicted values, whereas in the middle range, the residuals tend to be roughly randomly scattered.
 
 \subsection{Results}
-BigVAR library in R was used to implement the VAR models. The results from the VAR model without exogenous variables gives an out-of-sample MSFE of XXX on the 42 locations. 
+BigVAR library in R was used to implement the VAR models. The results for the VAR and VARX models are shown here:
 
-
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+                                   & \textbf{MSFE} \\ \hline
+\multicolumn{1}{|c|}{\textbf{VAR}} & xx            \\ \hline
+\textbf{VARX}                      & xx            \\ \hline
+\end{tabular}
+\end{table}
 
 \section{Limitations}
 

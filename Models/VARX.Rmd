@@ -101,7 +101,8 @@ summary(stationary_test)
 ```{r}
 ###WITH EXOGENOUS VARIABLES###
 library(BigVAR)
-train <- t(diff_df)[c(1:47, 50:55),]
+#train <- t(diff_df)[c(1:47, 50:55),]
+train <- t(diff_df)
 Y = data.matrix(t(train))
 VARX = list()
 VARX$k = 42  #endogenous
@@ -116,20 +117,29 @@ var_model
 
 ```{r}
 #Predict using differencing
-prev_pred <- t(df_atleast_50cts[1:42, 1:198])
-pred <- c()
+#prev_pred <- t(df_atleast_50cts[c(1:47, 50:55), 190:198])
+prev_pred <- t(df_atleast_50cts[, 190:198])
+prev_diff <- c()
 errors <- 0
 error_arr <- c()
 fitted_val <- c()
 for (i in c(1:6)) {
-  diff <- c(predict(var_model, n.ahead = i, newxreg = prev_pred, ncol=42))
-  curr_pred <- prev_pred + diff
+  diff <- as.vector(predict(var_model, n.ahead=i, newxreg=matrix(prev_pred),ncol=53))
+  curr_pred <- as.vector(prev_pred[9:9,1:42]) + diff
+  if (length(prev_diff) > 0) {
+    curr_pred <- curr_pred + prev_diff
+  }
   act <- df_atleast_50cts[1:42, 198 + i]
   error_arr <- c(error_arr, c(curr_pred - act))
   fitted_val <- c(fitted_val, curr_pred)
   error <- sum((curr_pred - act) ^ 2)
   errors <- errors + error
-  prev_pred <- t(df_atleast_50cts[1:42, 1+i:198+i])
+  if (length(prev_diff) > 0) {
+    prev_diff <- prev_diff + diff
+  } else {
+    prev_diff <- diff
+  }
+  #prev_pred <- t(df_atleast_50cts[c(1:47, 50:55), (190+i):(198+i)])
 }
 print(paste0(" MSFE: ", errors/6))
 ```

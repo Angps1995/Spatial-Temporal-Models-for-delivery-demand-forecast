@@ -27,8 +27,10 @@ for (obs in c(1)) {
       for (i in c(1:dim(train)[1])) {
           fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1:obs), past_mean = m), distr = "poisson"))
           pred <- predict(fit, n.ahead=6, global=TRUE)
-          error_arr <- c(error_arr, c(as.numeric(test[i,]) - pred$pred))
-          fitted_val <- c(fitted_val, pred$pred)
+          #error_arr <- c(error_arr, c(as.numeric(test[i,]) - pred$pred))
+          #fitted_val <- c(fitted_val, pred$pred)
+          error_arr <- c(error_arr, residuals(fit, type='pearson'))
+          fitted_val <- c(fitted_val, fit$fitted.values)
           error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
           errors <- errors + error
       }
@@ -45,7 +47,7 @@ plot(error_arr, main="Residuals plot of GLM model",
 hist(error_arr, main = "Historgram of residuals")
 qqnorm(error_arr)
 qqline(error_arr)
-dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids.jpg");
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_GLM_resids.jpg");
 dev.off ();
 
 ```
