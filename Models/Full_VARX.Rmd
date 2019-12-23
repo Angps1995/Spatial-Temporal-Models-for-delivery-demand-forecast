@@ -25,7 +25,7 @@ RMSE = function(act, pred){
 #train <- df_atleast_50cts[c(1:47, 50:55),1:162]
 #test <- df_atleast_50cts[c(1:47, 50:55),163:204]
 #train <- full_df[c(1:844, 846:852),]
-train <- full_df
+train <- full_df[c(1:47, 50:55),]
 
 ```
 
@@ -108,7 +108,7 @@ Y = data.matrix(t(train))
 VARX = list()
 VARX$k = 713  #endogenous
 VARX$s = 1
-model = constructModel(as.matrix(Y), p = 2, struct="EFX", MN = F, gran = c(25,10), VARX = VARX, T1 = 156, T2 = 198)
+model = constructModel(as.matrix(Y), p = 6, struct="EFX", MN = F, gran = c(25,10), VARX = VARX, T1 = 156, T2 = 198)
 var_model <- cv.BigVAR(model)
 ```
 
@@ -119,28 +119,28 @@ var_model
 ```{r}
 #Predict using differencing
 #prev_pred <- t(df_atleast_50cts[c(1:47, 50:55), 190:198])
-prev_pred <- t(full_df[, 197:198])
+prev_pred <- t(full_df[, 193:198])
 prev_diff <- c()
 errors <- 0
 error_arr <- c()
 fitted_val <- c()
 for (i in c(1:6)) {
   diff <- as.vector(predict(var_model, n.ahead=i, newxreg=matrix(prev_pred),ncol=726))
-  curr_pred <- as.vector(prev_pred[2:2,1:713]) + diff
+  curr_pred <- as.vector(prev_pred[6:6,1:713]) + diff
   #curr_pred <- as.vector(prev_pred[1:1,1:713]) + diff
-  if (length(prev_diff) > 0) {
-    curr_pred <- curr_pred + prev_diff
-  }
+  #if (length(prev_diff) > 0) {
+  #  curr_pred <- curr_pred + prev_diff
+  #}
   act <- full_df[1:713, 198 + i]
   error_arr <- c(error_arr, c(curr_pred - act))
   fitted_val <- c(fitted_val, curr_pred)
   error <- sum((curr_pred - act) ^ 2)
   errors <- errors + error
-  if (length(prev_diff) > 0) {
-    prev_diff <- prev_diff + diff
-  } else {
-    prev_diff <- diff
-  }
+  #if (length(prev_diff) > 0) {
+  #  prev_diff <- prev_diff + diff
+  #} else {
+  #  prev_diff <- diff
+  #}
   #prev_pred <- t(df_atleast_50cts[c(1:47, 50:55), (190+i):(198+i)])
 }
 print(paste0(" MSFE: ", errors/6))

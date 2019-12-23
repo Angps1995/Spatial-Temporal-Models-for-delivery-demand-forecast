@@ -26,6 +26,7 @@ Warning--empty journal in Hilde2000
 Too many commas in name 1 of "Box, G. E. P., Tiao, G. C." for entry Box1977
 while executing---line 1123 of file apa.bst
 Warning--empty journal in Box1977
+Warning--empty journal in Xavier2005
 Warning--empty journal in Granger1983
 Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El Moussami , Abdeslam Lachhab" for entry Jamal2018
 while executing---line 1123 of file apa.bst
@@ -33,52 +34,56 @@ Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El 
 while executing---line 1123 of file apa.bst
 Warning--empty journal in Jamal2018
 Warning--empty journal in Johansen1991
+Warning--empty journal in Long2018
+Warning--empty journal in Marina2016
+Warning--empty journal in Nunes2015
 Warning--empty journal in Dylan2017
 Warning--empty journal in Rizwan2011
 Warning--empty journal in Nelder1972
 Warning--empty journal in Tobias2017
 Warning--empty journal in Ruey2014
+Warning--empty journal in William2017
 Warning--empty journal in Asha2016
 Warning--empty journal in Zhijie1998
-You've used 13 entries,
+You've used 18 entries,
             1940 wiz_defined-function locations,
-            537 strings with 5378 characters,
-and the built_in function-call counts, 3545 in all, are:
-= -- 316
-> -- 97
-< -- 13
-+ -- 36
-- -- 28
-* -- 266
-:= -- 663
-add.period$ -- 26
-call.type$ -- 13
-change.case$ -- 79
-chr.to.int$ -- 13
-cite$ -- 26
-duplicate$ -- 169
-empty$ -- 261
-format.name$ -- 43
-if$ -- 646
+            559 strings with 6022 characters,
+and the built_in function-call counts, 4962 in all, are:
+= -- 444
+> -- 144
+< -- 18
++ -- 50
+- -- 42
+* -- 378
+:= -- 925
+add.period$ -- 36
+call.type$ -- 18
+change.case$ -- 111
+chr.to.int$ -- 18
+cite$ -- 36
+duplicate$ -- 234
+empty$ -- 361
+format.name$ -- 66
+if$ -- 907
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 13
-newline$ -- 55
-num.names$ -- 39
-pop$ -- 92
+missing$ -- 18
+newline$ -- 75
+num.names$ -- 54
+pop$ -- 129
 preamble$ -- 1
-purify$ -- 79
+purify$ -- 111
 quote$ -- 0
-skip$ -- 144
+skip$ -- 199
 stack$ -- 0
-substring$ -- 164
-swap$ -- 13
+substring$ -- 224
+swap$ -- 18
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 78
-warning$ -- 13
-while$ -- 26
+type$ -- 108
+warning$ -- 18
+while$ -- 36
 width$ -- 0
-write$ -- 132
+write$ -- 182
 (There were 12 error messages)

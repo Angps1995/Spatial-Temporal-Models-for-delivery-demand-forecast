@@ -13,6 +13,11 @@ Box, G. E.~P., T. G.~C. (1977).
 \newblock A canonical analysis of multiple time series.
   biometrika64(2):355–365.
 
+\bibitem[\protect\astroncite{de~Luna and Genton}{2005}]{Xavier2005}
+de~Luna, X. and Genton, M.~G. (2005).
+\newblock Predictive spatio-temporal models for spatially sparse enviromental
+  data.
+
 \bibitem[\protect\astroncite{Granger}{1983}]{Granger1983}
 Granger, C. (1983).
 \newblock Co-integrated variables and error-correcting models, ucsd discussion
@@ -26,6 +31,19 @@ Jamal~Fattah, Latifa~Ezzine, Z. A. H. E. M. A.~L. (2018).
 Johansen, S. (1991).
 \newblock Estimation and hypothesis testing of cointegration vectors in
   gaussian vector autoregressive models.
+
+\bibitem[\protect\astroncite{Long~He}{2018}]{Long2018}
+Long~He, Sheng~Liu, Z.-J. M.~S. (2018).
+\newblock On-time last mile delivery: Order assignment with travel time
+  predictors.
+
+\bibitem[\protect\astroncite{Marina~Knight and Nason}{2016}]{Marina2016}
+Marina~Knight, M.~N. and Nason, G. (2016).
+\newblock Modelling, detrending and decorrelation of network time series.
+
+\bibitem[\protect\astroncite{Matthew A.~Nunes}{2015}]{Nunes2015}
+Matthew A.~Nunes, Marina I.~Knight, G. P.~N. (2015).
+\newblock Modelling and prediction of time series arising on a graph.
 
 \bibitem[\protect\astroncite{Molenaar and Bolsinova}{2017}]{Dylan2017}
 Molenaar, D. and Bolsinova, M. (2017).
@@ -49,6 +67,11 @@ Tobias~Liboschik, Konstantinos~Fokianos, R.~F. (2017).
 \bibitem[\protect\astroncite{Tsay}{2014}]{Ruey2014}
 Tsay, R.~S. (2014).
 \newblock Multivariate time series analysis with r and financial applications.
+
+\bibitem[\protect\astroncite{William~Nicholson}{2017}]{William2017}
+William~Nicholson, David~Matteson, J.~B. (2017).
+\newblock Bigvar: Tools for modeling sparse high-dimensional multivariate time
+  series.
 
 \bibitem[\protect\astroncite{Z.~Asha~Farhath}{2016}]{Asha2016}
 Z.~Asha~Farhath, B.~Arputhamary, L.~A. (2016).

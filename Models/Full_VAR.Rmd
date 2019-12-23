@@ -5,6 +5,7 @@ output: html_notebook
 ```{r}
 library(tscount)
 library(urca)
+library(BigVAR)
 ```
 
 ```{r}
@@ -38,7 +39,7 @@ summary(stationary_test)
 ```{r}
 library(BigVAR)
 Y = data.matrix(t(train))
-model = constructModel(Y, p = 2, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
+model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
 var_model <- cv.BigVAR(model)
 ```
 
@@ -101,7 +102,7 @@ summary(stationary_test)
 
 ```{r}
 
-model = constructModel(diff_df, p = 2, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
+model = constructModel(diff_df, p = 6, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
 var_model <- cv.BigVAR(model)
 var_model
 ```

@@ -37,7 +37,8 @@
 	\date{AY 2019/2020 Semester 2}
 	\maketitle
 \begin{abstract}
-This paper studies how we can use various spatial-temporal time series model to better predict demand across different locations. 
+\noindent Many real life scenarios and data do not only consist of continuous variables but many of them are count variables, like number of orders, number of transactions and number of days. This paper studies how we can apply time series model to count variables as well as including spatial features in our model to improve forecast accuracy. 
+
 \end{abstract}
 \section{Introduction}
 
@@ -48,7 +49,9 @@ The motivation for this paper comes from \cite{Long2018}, where their focus is t
 \noindent In reality, demand is never deterministic and hence, having an accurate forecast of demand for the food service providers would help them more effectively and efficiently assign orders to drivers to improve the overall delivery time. As such, the focus of this paper would be to accurately model and forecast the demand at the different locations and time. Currently, most Autoregressive (AR) or Autoregressive Integrated Moving Average (ARIMA) models only consider temporal features when predicting demand. However, we believe including spatial features between the data points might improve forecast accuracy. This paper would focus on and explore models that include both spatial and temporal features to improve forecast accuracy. 
 
 \section{Literature Review}
-To be written
+\cite{Marina2016} describes and shows how they implemented a network autoregressive moving average model to model the number of cases of Mumps in UK counties. In their example, they also showed that they might achieve a better result by modelling the series separately as univariate time series, also suggested in \cite{Nunes2015} since the neighbouring counties does not provide a substantial amount of explanatory power.  Other related literature includes \cite{Xavier2005} where they propose a model building strategy for spatially sparse but temporally rich data. 
+
+\noindent BigVAR and tscount are 2 libraries that would be used in this paper. \cite{Tobias2017} provides the mathematical background and implementation of Generalised Linear Models (GLM) for count time series as a library (tscount) in R while \cite{William2017} extensively descibes the background and implementation of the VAR models and BigVAR library for multi-variate time series. 
 
 \section{Data}
 The data source used was an operational dataset from a food delivery service provider from Shanghai that includes delivery information for a 2-month period from 10 August 2015 to 30 September 2015 (excluding Saturdays) in 2015. The provider only provides delivery service for 90 minutes during lunchtime and the dataset has split the data into 15-minute time periods, and as such, each day would only consists of demand data for 6 time periods. Hence, our dataset has 839 locations with demand count data, in integer, for 204 time periods in total. 
@@ -281,7 +284,7 @@ BigVAR library in R was used to implement the VAR models. The results for the VA
 \begin{tabular}{|l|l|}
 \hline
                                    & \textbf{MSFE} \\ \hline
-\multicolumn{1}{|c|}{\textbf{VAR}} & xx            \\ \hline
+\multicolumn{1}{|c|}{\textbf{VAR}} & 76.72            \\ \hline
 \textbf{VARX}                      & xx            \\ \hline
 \end{tabular}
 \end{table}
@@ -297,14 +300,14 @@ The table below summarises the results of our models.
 \begin{tabular}{|l|l|}
 \hline
                                    & \textbf{MSFE} \\ \hline
-\multicolumn{1}{|c|}{\textbf{ARIMA}} & xx            \\ \hline
-\textbf{GLM}                      & xx            \\ \hline
-\textbf{VAR}                      & xx            \\ \hline
-\textbf{VARX}                      & xx            \\ \hline
+\multicolumn{1}{|c|}{\textbf{ARIMA}} & 73.29            \\ \hline
+\textbf{GLM}                      & 82.42            \\ \hline
+\textbf{VAR}                      & 76.72            \\ \hline
+\textbf{VARX}                      & 95.98            \\ \hline
 \end{tabular}
 \end{table}
 
-The model which has the best MSFE is ..... . However, 
+The model which has the best MSFE is actually the ARIMA baseline model followed by the  . However, 
 
 \noindent The model diagnostics for the models are... 
 

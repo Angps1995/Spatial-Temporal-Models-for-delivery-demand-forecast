@@ -47,6 +47,9 @@ VARX$s = 1
 model = constructModel(as.matrix(Y), p = 9, struct="EFX", MN = F, gran = c(25,10), VARX = VARX, T1 = 156, T2 = 198)
 var_model <- cv.BigVAR(model)
 ```
+
+
+
 ```{r}
 var_model
 ```
