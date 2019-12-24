@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  24 DEC 2019 00:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  25 DEC 2019 01:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -463,7 +463,12 @@ Package pdftex.def Info: Images/Full_VARX_diff_resids_vs_values.jpg  used on in
 put line 272.
 (pdftex.def)             Requested size: 281.86288pt x 184.28421pt.
  [19 <./Images/Full_VAR_diff_resids_vs_values.jpg> <./Images/Full_VARX_diff_res
-ids_vs_values.jpg>] (./Project Report Template.bbl [20]
+ids_vs_values.jpg>]
+Overfull \hbox (46.25627pt too wide) in paragraph at lines 299--307
+[][] 
+ []
+
+[20] (./Project Report Template.bbl
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no ¶ in font cmr12!
 Missing character: There is no Å in font cmr12!
@@ -478,10 +483,10 @@ Underfull \hbox (badness 1472) in paragraph at lines 12--15
 mul-ti-ple time se-ries.
  []
 
+[21]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
-[21]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no œ in font cmr12!
@@ -515,7 +520,7 @@ nts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmti7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmti8.pfb>
-Output written on "Project Report Template.pdf" (22 pages, 646398 bytes).
+Output written on "Project Report Template.pdf" (22 pages, 647248 bytes).
 PDF statistics:
  149 PDF objects out of 1000 (max. 8388607)
  95 compressed objects within 1 object stream

@@ -296,18 +296,17 @@ BigVAR library in R was used to implement the VAR models. The results for the VA
 The table below summarises the results of our models. 
 
 \begin{table}[H]
-\centering
-\begin{tabular}{|l|l|}
+\begin{tabular}{|l|l|l|}
 \hline
-                                   & \textbf{MSFE} \\ \hline
-\multicolumn{1}{|c|}{\textbf{ARIMA}} & 73.29            \\ \hline
-\textbf{GLM}                      & 82.42            \\ \hline
-\textbf{VAR}                      & 76.72            \\ \hline
-\textbf{VARX}                      & 95.98            \\ \hline
+                                     & \textbf{MSFE (Locations with at least 50 non-zero counts)} & \textbf{MSFE (All locations)} \\ \hline
+\multicolumn{1}{|c|}{\textbf{ARIMA}} & 47.60                                                      & 73.29                         \\ \hline
+\textbf{GLM}                         & 38.16                                                      & 82.42                         \\ \hline
+\textbf{VAR}                         & 42.76                                                      & 76.72                         \\ \hline
+\textbf{VARX}                        & 41.73                                                      & 95.98                         \\ \hline
 \end{tabular}
 \end{table}
 
-The model which has the best MSFE is actually the ARIMA baseline model followed by the  . However, 
+\noindent The model which has the best MSFE when fitted on all the locations is actually the ARIMA baseline model. However, one drawback of using the baseline ARIMA is that it will produce 0 for all the predictions for locations which are relatively sparse. This would theoretically give a better MSFE score but we want the model to output also the 'probability' that the location would have an order at the time period. 
 
 \noindent The model diagnostics for the models are... 
 

@@ -25,7 +25,7 @@ RMSE = function(act, pred){
 #test <- df_atleast_50cts[,163:204]
 #train <- df_atleast_50cts[c(1:47, 50:55),1:162]
 #test <- df_atleast_50cts[c(1:47, 50:55),163:204]
-train <- df_atleast_50cts[c(1:47, 50:55),]
+train <- df_atleast_50cts[c(1:47),]
 
 ```
 
@@ -121,7 +121,7 @@ var_model
 ```{r}
 #Predict using differencing
 #prev_pred <- t(df_atleast_50cts[c(1:47, 50:55), 190:198])
-prev_pred <- t(df_atleast_50cts[, 190:198])
+prev_pred <- t(df_atleast_50cts[c(1:47), 190:198])
 prev_diff <- c()
 errors <- 0
 error_arr <- c()
