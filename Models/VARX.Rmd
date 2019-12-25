@@ -25,7 +25,7 @@ RMSE = function(act, pred){
 #test <- df_atleast_50cts[,163:204]
 #train <- df_atleast_50cts[c(1:47, 50:55),1:162]
 #test <- df_atleast_50cts[c(1:47, 50:55),163:204]
-train <- df_atleast_50cts[c(1:47),]
+train <- df_atleast_50cts
 
 ```
 
@@ -94,7 +94,7 @@ dev.off();
 df_t <- t(df_atleast_50cts_endo)
 colnames(df_t) = c(1:42)
 diff_df <- diff(df_t, differences=1)
-exo <- t(df_atleast_50cts[43:55,2:204])
+exo <- t(df_atleast_50cts[c(43:55),2:204])
 diff_df <- cbind(diff_df, exo)
 #diff_df <- normalize(df_t, margin=1L)
 stationary_test = ca.jo(diff_df, type="trace", K=3, ecdet="none", spec="longrun")
@@ -142,10 +142,11 @@ for (i in c(1:6)) {
   } else {
     prev_diff <- diff
   }
-  #prev_pred <- t(df_atleast_50cts[c(1:47, 50:55), (190+i):(198+i)])
+  #prev_pred <- t(df_atleast_50cts[c(1:47), (190+i):(198+i)])
 }
 print(paste0(" MSFE: ", errors/6))
 ```
+
 
 ```{r}
 plot(as.vector(var_model@resids), main="Residuals plot of VARX model", 

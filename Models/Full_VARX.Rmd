@@ -92,7 +92,7 @@ full_df_endo <- full_df[1:713,]
 df_t <- t(full_df_endo)
 colnames(df_t) = c(1:713)
 diff_df <- diff(df_t, differences=1)
-exo <- t(full_df[713:726,2:204])
+exo <- t(full_df[c(714:718, 721:726),2:204])
 diff_df <- cbind(diff_df, exo)
 #diff_df <- normalize(df_t, margin=1L)
 stationary_test = ca.jo(diff_df, type="trace", K=3, ecdet="none", spec="longrun")
@@ -119,7 +119,7 @@ var_model
 ```{r}
 #Predict using differencing
 #prev_pred <- t(df_atleast_50cts[c(1:47, 50:55), 190:198])
-prev_pred <- t(full_df[, 193:198])
+prev_pred <- t(full_df[c(1:718, 721:726), 193:198])
 prev_diff <- c()
 errors <- 0
 error_arr <- c()
@@ -128,19 +128,19 @@ for (i in c(1:6)) {
   diff <- as.vector(predict(var_model, n.ahead=i, newxreg=matrix(prev_pred),ncol=726))
   curr_pred <- as.vector(prev_pred[6:6,1:713]) + diff
   #curr_pred <- as.vector(prev_pred[1:1,1:713]) + diff
-  #if (length(prev_diff) > 0) {
-  #  curr_pred <- curr_pred + prev_diff
-  #}
+  if (length(prev_diff) > 0) {
+    curr_pred <- curr_pred + prev_diff
+  }
   act <- full_df[1:713, 198 + i]
   error_arr <- c(error_arr, c(curr_pred - act))
   fitted_val <- c(fitted_val, curr_pred)
   error <- sum((curr_pred - act) ^ 2)
   errors <- errors + error
-  #if (length(prev_diff) > 0) {
-  #  prev_diff <- prev_diff + diff
-  #} else {
-  #  prev_diff <- diff
-  #}
+  if (length(prev_diff) > 0) {
+    prev_diff <- prev_diff + diff
+  } else {
+    prev_diff <- diff
+  }
   #prev_pred <- t(df_atleast_50cts[c(1:47, 50:55), (190+i):(198+i)])
 }
 print(paste0(" MSFE: ", errors/6))
@@ -159,7 +159,7 @@ dev.off ();
 
 ```{r}
 plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
-  xlab="Fitted Values", ylab="Residuals")
+  xlab="Fitted Values", ylab="Residuals", xlim=c(-30,30), ylim=c(-10,10))
     dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_resids_vs_values.jpg");
 dev.off ();
 ```

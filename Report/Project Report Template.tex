@@ -89,14 +89,14 @@ We would first do some exploratory analysis and check if there are any obvious r
 \noindent Analysis on some exogenous factors were performed too. 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth, height=0.35\textheight]{Images/temp_mean_demand.jpg}
+    \includegraphics[width=0.95\textwidth, height=0.32\textheight]{Images/temp_mean_demand.jpg}
     \caption{Scatter plot of mean counts against temperature}
     \label{fig:Scatter plot of mean counts against temperature}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth, height=0.35\textheight]{Images/pressure_mean_demand.jpg}
+    \includegraphics[width=0.95\textwidth, height=0.32\textheight]{Images/pressure_mean_demand.jpg}
     \caption{Scatter plot of mean counts against pressure}
     \label{fig:Scatter plot of mean counts against pressure}
 \end{figure}
@@ -299,10 +299,10 @@ The table below summarises the results of our models.
 \begin{tabular}{|l|l|l|}
 \hline
                                      & \textbf{MSFE (Locations with at least 50 non-zero counts)} & \textbf{MSFE (All locations)} \\ \hline
-\multicolumn{1}{|c|}{\textbf{ARIMA}} & 47.60                                                      & 73.29                         \\ \hline
+\multicolumn{1}{|c|}{\textbf{ARIMA}} & 47.60                                                      & 72.48                        \\ \hline
 \textbf{GLM}                         & 38.16                                                      & 82.42                         \\ \hline
 \textbf{VAR}                         & 42.76                                                      & 76.72                         \\ \hline
-\textbf{VARX}                        & 41.73                                                      & 95.98                         \\ \hline
+\textbf{VARX}                        & 41.73                                                      & 75.63                        \\ \hline
 \end{tabular}
 \end{table}
 
@@ -311,7 +311,85 @@ The table below summarises the results of our models.
 \noindent The model diagnostics for the models are... 
 
 \section{Appendix}
-Append extra plots, graphs, analysis, etc. 
+\subsection{Distribution Plots of Exogenous Variables}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/distplot_cloud.png}
+    \caption{Distribution of Cloud}
+    \label{fig:Distribution of Cloud}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/distplot_gust.png}
+    \caption{Distribution of Gust}
+    \label{fig:Distribution of Gust}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/distplot_humidity.png}
+    \caption{Distribution of Humidity}
+    \label{fig:Distribution of Humidity}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/distplot_pressure.png}
+    \caption{Distribution of Pressure}
+    \label{fig:Distribution of Pressure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/distplot_temp.png}
+    \caption{Distribution of Temperature}
+    \label{fig:Distribution of Temperature}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/distplot_wind.png}
+    \caption{Distribution of Wind}
+    \label{fig:Distribution of Wind}
+\end{figure}
+
+\subsection{Mean Demand Against Exogenous Variables}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/wind_mean_demand.jpg}
+    \caption{Mean Demand against Wind}
+    \label{fig:Mean Demand against Wind}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/gust_mean_demand.jpg}
+    \caption{Mean Demand against Gust}
+    \label{fig:Mean Demand against Gust}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/cloud_mean_demand.jpg}
+    \caption{Mean Demand against Cloud}
+    \label{fig:Mean Demand against Cloud}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/humidity_mean_demand.jpg}
+    \caption{Mean Demand against Humidity}
+    \label{fig:Mean Demand against Humidity}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/prec_mean_demand.jpg}
+    \caption{Mean Demand against Precipitation}
+    \label{fig:Mean Demand against Precipitation}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Bibliography
