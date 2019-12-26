@@ -71,7 +71,7 @@ We would first do some exploratory analysis and check if there are any obvious r
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.4\textheight] {Images/example_ts.jpg}
+    \includegraphics[width=0.8\textwidth, height=0.3\textheight] {Images/example_ts.jpg}
     \caption{Most locations have very sparse time series (left) while some have relatively more dense time series (right)}
     \label{fig:Most locations have very sparse time series (left) while some have relatively more dense time series (right)}
 \end{figure}
@@ -105,6 +105,10 @@ We would first do some exploratory analysis and check if there are any obvious r
 
 \noindent The distribution plots for the rest of the exogenous variables can be found in the appendix. 
 
+\subsection{Train-Test Split}
+From Figure 1 in Section 3.1, the data is very sparse as there are many locations that have no demand counts for the majority of the time period. Hence, to get a better idea of how our models would work, only locations with at least 50 non-zero counts across the time period would be used initially, leaving us with 42 locations that meet this criteria. After the model is tested on the smaller dataset, we would then use the full dataset for location with at least one non-zero count to test and fit our model. 
+
+\noindent The dataset was then split into training and test set by considering the first 33 days as the training set and the next 1 day as the test set. Our training set would then have 198 demand data for each location and test set would have 6 demand data for each location. 
 
 \section{Baseline Model}
 In this section, we would build a simple baseline model. Following which, we would try other different spatial temporal time series models and compare the results to the baseline model. 
@@ -119,14 +123,11 @@ The main metric that would be used for comparison would be Mean Squared Forecast
 where \textit{n} is the number of data points, $\hat{y_t}$ is the predicted demand at time t and ${y_t}$ is the actual demand at time t.
 
 
-\subsection{Train-Test Split}
-From Figure 1 in Section 3.1, the data is very sparse as there are many locations that have no demand counts for the majority of the time period. Hence, to get a better idea of how our models would work, only locations with at least 50 non-zero counts across the time period would be used initially, leaving us with 42 locations that meet this criteria. The dataset was then split into training and test set by considering the first 33 days as the training set and the next 1 day as the test set. Our training set would then have 198 demand data for each location and test set would have 6 demand data for each location. 
-
 \subsection{ARIMA models}
 Autoregressive Integrated Moving Average (ARIMA) models are one of the most commonly used models for time series (\cite{Asha2016}). ARIMA models are made up of 3 processes, mainly the Autoregressive (AR) process, the Integrated (I) process and the Moving Average (MA) process (\cite{Jamal2018}). The AR process assumes that each observation can be expressed as a linear combination of its past values.  An AR(x) process would mean using x lagged values. The MA process assumes that each observation can be expressed as a linear combination of its current error term as well as its past error terms. The Integrated Process states that the time series can undergo differencing to ensure that the series is stationary. A MA(x) process would mean using x number of past observations. Hence, an ARIMA model is usually represented by ARIMA(p,d,q), where \textit{p} represents the number of autoregressive terms, \textit{d} represents the number of differences needed for stationarity, and \textit{q} represents the number of lagged forecast errors. 
 
 \subsection{Baseline ARIMA Result}
-As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSFE for this baseline model on the 42 locations is \textbf{47.60/73.29}. A sample forecast plot is shown below:
+As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSFE for this baseline model on the 42 locations is \textbf{73.29}. A sample forecast plot is shown below:
 
 \begin{figure}[H]
     \centering
@@ -152,16 +153,16 @@ The dataset that we are using follows a count time series, which means the obser
 \noindent where $g$ represents a link function and $ \tilde{g}$ represents a transformation function. $\eta$ represents a parameter vector that corresponds to the covariates. 
 
 \subsection{Model Implementation}
-\noindent Since there are many locations which have values that are all 0 throughout all the time period, the GLM model would run into an error if applied on those. Hence, only locations with at least 1 non-zero value would be considered. Similar to before, each of the locations was assessed individually and a suitable GLM model was fitted for each location. The out-of-sample MSFE for this baseline model is \textbf{38.16/82.42}. 
+\noindent Since there are many locations which have values that are all 0 throughout all the time period, the GLM model would run into an error if applied on those. Hence, only locations with at least 1 non-zero value would be considered. Similar to before, each of the locations was assessed individually and a suitable GLM model was fitted for each location. The out-of-sample MSFE for this baseline model is \textbf{82.42}. 
 
 \subsection{Model Diagnostics}
-To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis. Note that in this paper, only residuals from a randomly selected number of locations would be shown for conciseness. 	
+To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis.	
 
 \subsubsection{Residuals plots}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.6\textheight]{Images/Full_GLM_resids.jpg}
+    \includegraphics[width=\textwidth, height=0.4\textheight]{Images/Full_GLM_resids.jpg}
     \caption{Residuals for GLM Model}
     \label{fig:Residuals for GLM Model}
 \end{figure}
@@ -277,22 +278,10 @@ From Figure 11 and 12, we can see that the residuals are mostly randomly scatter
 Figure 13 and 14 shows that heteroscadasticity occurs at the lower and higher ends of the predicted values, whereas in the middle range, the residuals tend to be roughly randomly scattered.
 
 \subsection{Results}
-BigVAR library in R was used to implement the VAR models. The results for the VAR and VARX models are shown here:
-
-\begin{table}[H]
-\centering
-\begin{tabular}{|l|l|}
-\hline
-                                   & \textbf{MSFE} \\ \hline
-\multicolumn{1}{|c|}{\textbf{VAR}} & 76.72            \\ \hline
-\textbf{VARX}                      & xx            \\ \hline
-\end{tabular}
-\end{table}
-
-\section{Limitations}
+BigVAR library in R was used to implement the VAR models. The MSFE for the VAR model is 76.72 and MSFE for VARX model is 75.63. This shows that the exogenous variables used do have a moderate amount of explanatory power. 
 
 
-\section{Conclusion and Future Work}
+\section{Conclusion}
 The table below summarises the results of our models. 
 
 \begin{table}[H]
@@ -306,9 +295,12 @@ The table below summarises the results of our models.
 \end{tabular}
 \end{table}
 
-\noindent The model which has the best MSFE when fitted on all the locations is actually the ARIMA baseline model. However, one drawback of using the baseline ARIMA is that it will produce 0 for all the predictions for locations which are relatively sparse. This would theoretically give a better MSFE score but we want the model to output also the 'probability' that the location would have an order at the time period. 
+\noindent We can see that the VAR and VARX model performs better than the GLM models on the full dataset, suggesting that the spatial relationship between locations are useful in forecasting. Also, VARX performs better than VAR model in both cases, suggesting the exogenous variables have some explanatory power and do improve the forecast accuracy. 
 
-\noindent The model diagnostics for the models are... 
+\noindent Although the model with the best MSFE is the ARIMA model, one drawback of using the baseline ARIMA is that it will produce 0 for all the predictions for locations which are relatively sparse. This would theoretically give a better MSFE score but we want the model to output also the 'probability' that the location would have a demand at the time period. 
+
+\section{Limitations and Future Work}
+Our VARX model display decent MSFE result, although the residual plots still display signs of non-normality aas well as heterocadasticity in the upper and lower range of values. Future work could include using neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models to use spatial-temporal features to forecast the demand across locations.
 
 \section{Appendix}
 \subsection{Distribution Plots of Exogenous Variables}

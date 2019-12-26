@@ -25,8 +25,10 @@ RMSE = function(act, pred){
 #train <- df_atleast_50cts[c(1:47, 50:55),1:162]
 #test <- df_atleast_50cts[c(1:47, 50:55),163:204]
 #train <- full_df[c(1:844, 846:852),]
-train <- full_df[c(1:718, 721:726),]
 
+
+#train <- full_df[c(1:718, 721:726),]
+train <- full_df
 ```
 
 
@@ -93,6 +95,7 @@ df_t <- t(full_df_endo)
 colnames(df_t) = c(1:713)
 diff_df <- diff(df_t, differences=1)
 exo <- t(full_df[c(714:718, 721:726),2:204])
+#exo <- t(full_df[c(714:726),2:204])
 diff_df <- cbind(diff_df, exo)
 #diff_df <- normalize(df_t, margin=1L)
 stationary_test = ca.jo(diff_df, type="trace", K=3, ecdet="none", spec="longrun")
@@ -118,8 +121,8 @@ var_model
 
 ```{r}
 #Predict using differencing
-#prev_pred <- t(df_atleast_50cts[c(1:47, 50:55), 190:198])
 prev_pred <- t(full_df[c(1:718, 721:726), 193:198])
+#prev_pred <- t(full_df[1:726,193:198])
 prev_diff <- c()
 errors <- 0
 error_arr <- c()
