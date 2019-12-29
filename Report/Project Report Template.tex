@@ -105,6 +105,17 @@ We would first do some exploratory analysis and check if there are any obvious r
 
 \noindent The distribution plots for the rest of the exogenous variables can be found in the appendix. 
 
+\subsection{Spatial Correlation Heatmap}
+
+We can also observe from the spatial correlation heatmap below that there exist some correlation between the locations. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=0.8\textheight]{Images/heatmap.jpg}
+    \caption{Spatial Correlation Heatmap. Axes represent locations}
+    \label{fig:Spatial Correlation Heatmap. Axes represent locations}
+\end{figure}
+
 \subsection{Train-Test Split}
 From Figure 1 in Section 3.1, the data is very sparse as there are many locations that have no demand counts for the majority of the time period. Hence, to get a better idea of how our models would work, only locations with at least 50 non-zero counts across the time period would be used initially, leaving us with 42 locations that meet this criteria. After the model is tested on the smaller dataset, we would then use the full dataset for location with at least one non-zero count to test and fit our model. 
 
