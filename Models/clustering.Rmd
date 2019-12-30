@@ -1,0 +1,83 @@
+---
+title: "Clustering"
+output: html_notebook
+---
+
+```{r}
+library(tscount)
+library(urca)
+library(factoextra)
+library(vars)
+library(BigVAR)
+library(BBmisc)
+```
+
+```{r}
+#Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
+df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+```
+
+```{r}
+fviz_nbclust(df_atleast_50cts_endo, kmeans, method = "wss", k.max = 24) + theme_minimal() + ggtitle("the Elbow Method")
+```
+
+```{r}
+### Perform Clustering ####
+num_clusters <- 6
+km <- kmeans(df_atleast_50cts_endo, centers = num_clusters)
+str(km)
+```
+
+```{r}
+#### Allocate locs to cluster ###
+cluster_1 <- which(km$cluster %in% c(1))
+cluster_2 <- which(km$cluster %in% c(2))
+cluster_3 <- which(km$cluster %in% c(3))
+cluster_4 <- which(km$cluster %in% c(4))
+cluster_5 <- which(km$cluster %in% c(5))
+cluster_6 <- which(km$cluster %in% c(6))
+```
+
+```{r}
+#### Combine clusters orders into datafrmae ###
+cluster_1_orders <- colSums(df_atleast_50cts_endo[cluster_1,])
+cluster_2_orders <- colSums(df_atleast_50cts_endo[cluster_2,])
+cluster_3_orders <- colSums(df_atleast_50cts_endo[cluster_3,])
+cluster_4_orders <- colSums(df_atleast_50cts_endo[cluster_4,])
+cluster_5_orders <- colSums(df_atleast_50cts_endo[cluster_5,])
+cluster_6_orders <- colSums(df_atleast_50cts_endo[cluster_6,])
+
+cluster_df <- data.frame(cluster_1_orders, cluster_2_orders, cluster_3_orders, cluster_4_orders, cluster_5_orders, cluster_6_orders)
+```
+
+```{r}
+#### Test for stationarity  ###
+stationary_test = ca.jo(cluster_df, type="trace", K=2, ecdet="none", spec="longrun")
+summary(stationary_test)
+```
+
+```{r}
+#### Train VAR model on it  ###
+Y = data.matrix(cluster_df)
+model = constructModel(Y, p = 12, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
+#model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
+var_model <- cv.BigVAR(model)
+var_model
+```
+
+```{r}
+plot(as.vector(var_model@resids), main="Residuals plot of VAR model", 
+  xlab="Index", ylab="Residuals")
+```
+
+
+
+
+
+
+
+
+
+
