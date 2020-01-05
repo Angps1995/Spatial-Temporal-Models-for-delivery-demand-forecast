@@ -137,11 +137,29 @@ print(paste0(" MSFE: ", errors/6))
 ```
 
 
+```{r}
+par(mfrow=c(2,2))
+plot(error_arr, main="Residuals plot of Clustering model", 
+  xlab="Index", ylab="Residuals")
+hist(error_arr, main = "Historgram of residuals")
+qqnorm(error_arr)
+qqline(error_arr)
+#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids.jpg");
+#dev.off ();
 
+```
 
+```{r}
+plot(fitted_val, error_arr, main="Plot of residuals against predicted values", 
+  xlab="Predicted values", ylab="Residuals")
+#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids_vs_fitted.jpg");
+#dev.off ();
 
+```
 
-
+```{r}
+acf(error_arr, main="ACF plots of residuals")
+```
 
 
 
