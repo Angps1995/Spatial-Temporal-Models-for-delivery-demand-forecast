@@ -1,0 +1,185 @@
+---
+title: "Clustering"
+output: html_notebook
+---
+
+```{r}
+library(tscount)
+library(urca)
+library(factoextra)
+library(vars)
+library(BigVAR)
+library(BBmisc)
+
+set.seed(1234)
+```
+
+```{r}
+#Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
+df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+
+train <- full_df[1:839,1:198]
+test <- full_df[1:839,199:204]
+```
+
+```{r}
+fviz_nbclust(train, kmeans, method = "wss", k.max = 24) + theme_minimal() + ggtitle("Elbow Method")
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/elbow.jpg");
+dev.off ();
+```
+
+```{r}
+### Perform Clustering ####
+num_clusters <- 9
+km <- kmeans(train, centers = num_clusters)
+str(km)
+```
+
+```{r}
+#### Allocate locs to cluster ###
+cluster_1 <- which(km$cluster %in% c(1))
+cluster_2 <- which(km$cluster %in% c(2))
+cluster_3 <- which(km$cluster %in% c(3))
+cluster_4 <- which(km$cluster %in% c(4))
+cluster_5 <- which(km$cluster %in% c(5))
+cluster_6 <- which(km$cluster %in% c(6))
+cluster_7 <- which(km$cluster %in% c(7))
+cluster_8 <- which(km$cluster %in% c(8))
+cluster_9 <- which(km$cluster %in% c(9))
+
+clusters <- list()
+clusters[[1]] <- cluster_1
+clusters[[2]] <- cluster_2
+clusters[[3]] <- cluster_3
+clusters[[4]] <- cluster_4
+clusters[[5]] <- cluster_5
+clusters[[6]] <- cluster_6
+clusters[[7]] <- cluster_7
+clusters[[8]] <- cluster_8
+clusters[[9]] <- cluster_9
+```
+
+```{r}
+#### Combine clusters orders into datafrmae ###
+cluster_1_orders <- colSums(full_df[cluster_1,])
+cluster_2_orders <- colSums(full_df[cluster_2,])
+cluster_3_orders <- colSums(full_df[cluster_3,])
+cluster_4_orders <- colSums(full_df[cluster_4,])
+cluster_5_orders <- colSums(full_df[cluster_5,])
+cluster_6_orders <- colSums(full_df[cluster_6,])
+cluster_7_orders <- colSums(full_df[cluster_7,])
+cluster_8_orders <- colSums(full_df[cluster_8,])
+cluster_9_orders <- colSums(full_df[cluster_9,])
+
+cluster_df <- data.frame(cluster_1_orders, cluster_2_orders, cluster_3_orders, cluster_4_orders, cluster_5_orders, cluster_6_orders,
+                         cluster_7_orders,cluster_8_orders,cluster_9_orders)
+```
+
+```{r}
+#### Test for stationarity  ###
+stationary_test = ca.jo(cluster_df, type="trace", K=6, ecdet="none", spec="longrun")
+summary(stationary_test)
+```
+
+```{r}
+#### Train VAR model on it  ###
+Y = data.matrix(cluster_df)
+model = constructModel(Y, p = 12, struct = "Basic", gran = c(50,25), T1 = 156, T2 = 198)
+#model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
+var_model <- cv.BigVAR(model)
+var_model
+```
+
+```{r}
+plot(as.vector(var_model@resids), main="Residuals plot of VAR model", 
+  xlab="Index", ylab="Residuals")
+```
+
+```{r}
+plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
+  xlab="Fitted Values", ylab="Residuals", xlim=c(-10,35), ylim = c(-10,35))
+```
+
+
+```{r}
+# Predict Cluster demand 
+cluster_pred <- tail(var_model@fitted,6)
+```
+
+```{r}
+# Function to assign demand to location
+assign_clust_demand = function(clust_pred){
+  num_clust <- dim(clust_pred)[2]
+  pred <- matrix(0, nrow = 6, ncol = 839)  
+  for (i in c(1:num_clust)) {
+      clust_ind <- clusters[[i]]  
+      clust_order_by_loc <- rowSums(train[clust_ind,])
+      for (j in c(1:length(clust_ind))) {
+          loc_prop <- clust_order_by_loc[j]/sum(clust_order_by_loc)
+          for (t in c(1:6)) {
+              clust_total_order <- clust_pred[t, i]
+              ind <- clust_ind[j]
+              pred[t, ind] <- loc_prop * clust_total_order
+          }
+      }
+  }
+  return (pred) 
+}
+
+
+# Assign demand to locations
+
+pred <- assign_clust_demand(cluster_pred)
+
+```
+
+```{r}
+# calculate error
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+    curr_pred <- pred[i, 1:839]
+    act <- full_df[1:839,198 + i]
+    error_arr <- c(error_arr, c(curr_pred - act))
+    fitted_val <- c(fitted_val, curr_pred)
+    error <- sum((curr_pred - act) ^ 2)
+    errors <- errors + error
+    prev_pred <- curr_pred
+}
+
+print(paste0(" MSFE: ", errors/6))
+```
+
+
+```{r}
+par(mfrow=c(2,2))
+plot(error_arr, main="Residuals plot of Clustering model", 
+  xlab="Index", ylab="Residuals")
+hist(error_arr, main = "Historgram of residuals")
+qqnorm(error_arr)
+
+qqline(error_arr)
+#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids.jpg");
+#dev.off ();
+
+```
+
+```{r}
+plot(fitted_val, error_arr, main="Plot of residuals against predicted values", 
+  xlab="Predicted values", ylab="Residuals")
+#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids_vs_fitted.jpg");
+#dev.off ();
+
+```
+
+```{r}
+acf(error_arr, main="ACF plots of residuals")
+```
+
+
+
+
+

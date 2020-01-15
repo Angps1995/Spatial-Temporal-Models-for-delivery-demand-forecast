@@ -293,14 +293,43 @@ BigVAR library in R was used to implement the VAR models. The MSFE for the VAR m
 
 \section{3-step Approach}
 
-We could then explore an alternative 3-step approach. We would first cluster the locations, then use VAR/VARX to predict the total demand of each cluster, and then assign the total demand to each individual locations. 
+We could then explore an alternative 3-step approach. We would first cluster the locations, then use VAR/VARX to predict the total demand of each cluster, and then assign the total demand to each individual locations. Similar methods can be found in \cite{Paul2015} and \cite{Chi2014}
 
 \subsection{Clustering of locations}
 
+A simple K-means clustering was first done on the locations using their time series data in the training set.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight]{Images/elbow.jpg}
+    \caption{Elbow method for K-Means Clustering}
+    \label{fig:Elbow method for K-Means Clustering}
+\end{figure}
+
+Based on the plot above, we would choose 9 as the optimal number of clusters. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=0.8\textheight]{Images/cluster_corr_heatmap.jpg}
+    \caption{Correlation heatmap for 9 clusters}
+    \label{fig:Correlation heatmap for 9 clusters}
+\end{figure}
+
+We can see that there exists storng correlation between certain cluster (like cluster 1,5 and cluster 6,9). 
+
 \subsection{Predicting total demand for each cluster}
+
+VAR model was then trained on the 9 clusters and the model was used to predict the total demand for each of the 9 clusters.
 
 \subsection{Assigning total cluster demand to individual locations}
 
+The predicted demand for each cluster would then be reallocated to each individual location in the cluster by:
+
+\begin{center}
+    $\displaystyle y_{i} = D_{C(i)} * \frac{(\sum_{j=1}^{n}x_{ij})}{\sum_{l\epsilon C(i)}\sum_{j=1}^{n}x_{lj}}$
+\end{center}
+
+\noindent where $y_i$ represents the predicted demand for location i, C(i) represents the cluster which location i belongs to, $D_C(i)$ represents the total demand (from training set) of the cluster C(i), $x_ij$ represents the training set demand at location i at time j
 
 \section{Conclusion}
 The table below summarises the results of our models. 
@@ -313,16 +342,16 @@ The table below summarises the results of our models.
 \textbf{GLM}                         & 38.16                                                      & 82.42                         \\ \hline
 \textbf{VAR}                         & 42.76                                                      & 76.72                         \\ \hline
 \textbf{VARX}                        & 41.73                                                      & 75.63                        \\ \hline
-\textbf{3-step forecast}                        & 39.67 & Not tested                       \\ \hline
+\textbf{3-step forecast}                        & 39.67 & 60.29                     \\ \hline
 \end{tabular}
 \end{table}
 
 \noindent We can see that the VAR and VARX model performs better than the GLM models on the full dataset, suggesting that the spatial relationship between locations are useful in forecasting. Also, VARX performs better than VAR model in both cases, suggesting the exogenous variables have some explanatory power and do improve the forecast accuracy. 
 
-\noindent Although the model with the best MSFE is the ARIMA model, one drawback of using the baseline ARIMA is that it will produce 0 for all the predictions for locations which are relatively sparse. This would theoretically give a better MSFE score but we want the model to output also the 'probability' that the location would have a demand at the time period. 
+\noindent Applying the 3-step forecast also gives a much improved result. This might be due to using a more reliable and reasonable model to predict total demands for just 9 clusters and then re-assigning it to individual locations, rather than having a model to predict all 839 locations, which would intuitively have higher error rate. 
 
 \section{Limitations and Future Work}
-Our VARX model display decent MSFE result, although the residual plots still display signs of non-normality aas well as heterocadasticity in the upper and lower range of values. Future work could include using neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models to use spatial-temporal features to forecast the demand across locations.
+Our 3-step approach model display decent MSFE result. Future work could include using neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models to use spatial-temporal features to forecast the demand across locations.
 
 \section{Appendix}
 \subsection{Distribution Plots of Exogenous Variables}

@@ -26,6 +26,7 @@ Warning--empty journal in Hilde2000
 Too many commas in name 1 of "Box, G. E. P., Tiao, G. C." for entry Box1977
 while executing---line 1123 of file apa.bst
 Warning--empty journal in Box1977
+Warning--empty journal in Chi2014
 Warning--empty journal in Xavier2005
 Warning--empty journal in Granger1983
 Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El Moussami , Abdeslam Lachhab" for entry Jamal2018
@@ -40,50 +41,51 @@ Warning--empty journal in Nunes2015
 Warning--empty journal in Dylan2017
 Warning--empty journal in Rizwan2011
 Warning--empty journal in Nelder1972
+Warning--empty journal in Paul2015
 Warning--empty journal in Tobias2017
 Warning--empty journal in Ruey2014
 Warning--empty journal in William2017
 Warning--empty journal in Asha2016
 Warning--empty journal in Zhijie1998
-You've used 18 entries,
+You've used 20 entries,
             1940 wiz_defined-function locations,
-            559 strings with 6022 characters,
-and the built_in function-call counts, 4962 in all, are:
-= -- 444
-> -- 144
-< -- 18
-+ -- 50
-- -- 42
-* -- 378
-:= -- 925
-add.period$ -- 36
-call.type$ -- 18
-change.case$ -- 111
-chr.to.int$ -- 18
-cite$ -- 36
-duplicate$ -- 234
-empty$ -- 361
-format.name$ -- 66
-if$ -- 907
+            567 strings with 6311 characters,
+and the built_in function-call counts, 5500 in all, are:
+= -- 492
+> -- 158
+< -- 20
++ -- 56
+- -- 46
+* -- 418
+:= -- 1025
+add.period$ -- 40
+call.type$ -- 20
+change.case$ -- 123
+chr.to.int$ -- 20
+cite$ -- 40
+duplicate$ -- 260
+empty$ -- 401
+format.name$ -- 72
+if$ -- 1005
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 18
-newline$ -- 75
-num.names$ -- 54
-pop$ -- 129
+missing$ -- 20
+newline$ -- 83
+num.names$ -- 60
+pop$ -- 143
 preamble$ -- 1
-purify$ -- 111
+purify$ -- 123
 quote$ -- 0
-skip$ -- 199
+skip$ -- 221
 stack$ -- 0
-substring$ -- 224
-swap$ -- 18
+substring$ -- 250
+swap$ -- 20
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 108
-warning$ -- 18
-while$ -- 36
+type$ -- 120
+warning$ -- 20
+while$ -- 40
 width$ -- 0
-write$ -- 182
+write$ -- 202
 (There were 12 error messages)

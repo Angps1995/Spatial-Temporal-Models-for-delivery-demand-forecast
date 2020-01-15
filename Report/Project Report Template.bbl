@@ -13,6 +13,11 @@ Box, G. E.~P., T. G.~C. (1977).
 \newblock A canonical analysis of multiple time series.
   biometrika64(2):355–365.
 
+\bibitem[\protect\astroncite{Chi-Jie~Lu}{2014}]{Chi2014}
+Chi-Jie~Lu, C.-C.~C. (2014).
+\newblock A hybrid sales forecasting scheme by combining independent component
+  analysis with k-means clustering and support vector regression.
+
 \bibitem[\protect\astroncite{de~Luna and Genton}{2005}]{Xavier2005}
 de~Luna, X. and Genton, M.~G. (2005).
 \newblock Predictive spatio-temporal models for spatially sparse enviromental
@@ -58,6 +63,10 @@ Mushtaq, R. (2011).
 Nelder~JA, W.~R. (1972).
 \newblock “generalized linear models.” journal of the royal statistical
   society a, 135(3), 370–384.
+
+\bibitem[\protect\astroncite{Paul~W.Murraya}{2015}]{Paul2015}
+Paul~W.Murraya, Bruno~Agardb, M.~A. (2015).
+\newblock Forecasting supply chain demand by clustering customers.
 
 \bibitem[\protect\astroncite{Tobias~Liboschik}{2017}]{Tobias2017}
 Tobias~Liboschik, Konstantinos~Fokianos, R.~F. (2017).
