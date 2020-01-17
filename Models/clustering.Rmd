@@ -20,25 +20,29 @@ full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
 df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
 df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
 loc_df <- read.csv("/home/angps/Documents/Thesis/Data/location_map.csv")
-
+index_loc_atleast42 <- c(19,  23,  38,  43,  44,  53,  58,  62,  79,  89,  90,  93,  98,
+            105, 109, 111, 123, 141, 155, 159, 162, 163, 233, 241, 243, 301,
+            368, 397, 413, 441, 511, 559, 577, 680, 684, 688, 696, 707, 732,
+            753, 777, 795)
+mini_loc_df <- loc_df[index_loc_atleast42,]
 train <- df_atleast_50cts_endo[,1:198]
 test <- df_atleast_50cts_endo[,199:204]
 ```
 
 ```{r}
-rownames(loc_df) <- loc_df$location
+rownames(mini_loc_df) <- mini_loc_df$location
 ```
 
 ```{r}
 ## CLUSTERING BY LOCATION
-fviz_nbclust(loc_df, kmeans, method = "wss", k.max = 24) + theme_minimal() + ggtitle("the Elbow Method")
+fviz_nbclust(mini_loc_df, kmeans, method = "wss", k.max = 24) + theme_minimal() + ggtitle("the Elbow Method")
 
 ```
 
 ```{r}
 ### Perform Clustering on locations ####
 num_clusters <- 3
-km <- kmeans(loc_df, centers = num_clusters)
+km <- kmeans(mini_loc_df, centers = num_clusters)
 str(km)
 ```
 
