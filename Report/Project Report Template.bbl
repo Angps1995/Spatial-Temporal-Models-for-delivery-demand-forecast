@@ -37,11 +37,6 @@ Johansen, S. (1991).
 \newblock Estimation and hypothesis testing of cointegration vectors in
   gaussian vector autoregressive models.
 
-\bibitem[\protect\astroncite{Long~He}{2018}]{Long2018}
-Long~He, Sheng~Liu, Z.-J. M.~S. (2018).
-\newblock On-time last mile delivery: Order assignment with travel time
-  predictors.
-
 \bibitem[\protect\astroncite{Marina~Knight and Nason}{2016}]{Marina2016}
 Marina~Knight, M.~N. and Nason, G. (2016).
 \newblock Modelling, detrending and decorrelation of network time series.
@@ -67,6 +62,11 @@ Nelder~JA, W.~R. (1972).
 \bibitem[\protect\astroncite{Paul~W.Murraya}{2015}]{Paul2015}
 Paul~W.Murraya, Bruno~Agardb, M.~A. (2015).
 \newblock Forecasting supply chain demand by clustering customers.
+
+\bibitem[\protect\astroncite{Sheng~Liu}{2018}]{Sheng2018}
+Sheng~Liu, Long~He, Z.-J. M.~S. (2018).
+\newblock On-time last mile delivery: Order assignment with travel time
+  predictors.
 
 \bibitem[\protect\astroncite{Tobias~Liboschik}{2017}]{Tobias2017}
 Tobias~Liboschik, Konstantinos~Fokianos, R.~F. (2017).

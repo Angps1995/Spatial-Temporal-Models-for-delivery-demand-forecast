@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  18 JAN 2020 00:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  18 JAN 2020 19:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -371,183 +371,183 @@ Overfull \hbox (20.67186pt too wide) in paragraph at lines 59--60
 File: Images/example_all_ts.jpg Graphic file (type jpg)
 <use Images/example_all_ts.jpg>
 Package pdftex.def Info: Images/example_all_ts.jpg  used on input line 66.
-(pdftex.def)             Requested size: 375.81718pt x 307.15262pt.
+(pdftex.def)             Requested size: 446.27556pt x 430.01367pt.
 [3]
 <Images/example_ts.jpg, id=18, 481.8pt x 481.8pt>
 File: Images/example_ts.jpg Graphic file (type jpg)
 <use Images/example_ts.jpg>
 Package pdftex.def Info: Images/example_ts.jpg  used on input line 74.
-(pdftex.def)             Requested size: 375.81718pt x 184.28421pt.
-<Images/boxplot_counts.jpg, id=19, 578.16pt x 433.62pt>
+(pdftex.def)             Requested size: 469.77148pt x 245.71474pt.
+ [4 <./Images/example_all_ts.jpg>]
+<Images/boxplot_counts.jpg, id=22, 578.16pt x 433.62pt>
 File: Images/boxplot_counts.jpg Graphic file (type jpg)
 <use Images/boxplot_counts.jpg>
 Package pdftex.def Info: Images/boxplot_counts.jpg  used on input line 82.
 (pdftex.def)             Requested size: 446.26086pt x 245.71695pt.
- [4 <./Images/example_all_ts.jpg> <./Images/example_ts.jpg>]
-<Images/temp_mean_demand.jpg, id=23, 578.16pt x 289.08pt>
+ [5 <./Images/example_ts.jpg> <./Images/boxplot_counts.jpg>]
+<Images/temp_mean_demand.jpg, id=26, 578.16pt x 289.08pt>
 File: Images/temp_mean_demand.jpg Graphic file (type jpg)
 <use Images/temp_mean_demand.jpg>
 Package pdftex.def Info: Images/temp_mean_demand.jpg  used on input line 92.
 (pdftex.def)             Requested size: 446.26086pt x 196.5762pt.
- [5 <./Images/boxplot_counts.jpg>]
 <Images/pressure_mean_demand.jpg, id=27, 578.16pt x 289.08pt>
 File: Images/pressure_mean_demand.jpg Graphic file (type jpg)
 <use Images/pressure_mean_demand.jpg>
 Package pdftex.def Info: Images/pressure_mean_demand.jpg  used on input line 99
 .
 (pdftex.def)             Requested size: 446.26086pt x 196.5762pt.
-<Images/heatmap.jpg, id=28, 1445.4pt x 1445.4pt>
-File: Images/heatmap.jpg Graphic file (type jpg)
-<use Images/heatmap.jpg>
-Package pdftex.def Info: Images/heatmap.jpg  used on input line 114.
-(pdftex.def)             Requested size: 469.74944pt x 491.4295pt.
- [6 <./Images/temp_mean_demand.jpg> <./Images/pressure_mean_demand.jpg>] [7 <./
-Images/heatmap.jpg>] [8]
-<Images/forecast_example.jpg, id=45, 578.16pt x 289.08pt>
+ [6 <./Images/temp_mean_demand.jpg> <./Images/pressure_mean_demand.jpg>] [7]
+<Images/forecast_example.jpg, id=35, 578.16pt x 289.08pt>
 File: Images/forecast_example.jpg Graphic file (type jpg)
 <use Images/forecast_example.jpg>
-Package pdftex.def Info: Images/forecast_example.jpg  used on input line 145.
+Package pdftex.def Info: Images/forecast_example.jpg  used on input line 135.
 (pdftex.def)             Requested size: 469.75499pt x 234.8769pt.
- [9] [10 <./Images/forecast_example.jpg>]
-<Images/Full_GLM_resids.jpg, id=56, 481.8pt x 481.8pt>
+ [8] [9 <./Images/forecast_example.jpg>]
+<Images/Full_GLM_resids.jpg, id=52, 481.8pt x 481.8pt>
 File: Images/Full_GLM_resids.jpg Graphic file (type jpg)
 <use Images/Full_GLM_resids.jpg>
-Package pdftex.def Info: Images/Full_GLM_resids.jpg  used on input line 176.
+Package pdftex.def Info: Images/Full_GLM_resids.jpg  used on input line 166.
 (pdftex.def)             Requested size: 469.77148pt x 245.71474pt.
- [11 <./Images/Full_GLM_resids.jpg>]
-<Images/Full_GLM_resids_vs_fitted.jpg, id=60, 481.8pt x 481.8pt>
+ [10 <./Images/Full_GLM_resids.jpg>]
+<Images/Full_GLM_resids_vs_fitted.jpg, id=56, 481.8pt x 481.8pt>
 File: Images/Full_GLM_resids_vs_fitted.jpg Graphic file (type jpg)
 <use Images/Full_GLM_resids_vs_fitted.jpg>
 Package pdftex.def Info: Images/Full_GLM_resids_vs_fitted.jpg  used on input li
-ne 187.
+ne 177.
 (pdftex.def)             Requested size: 399.30576pt x 368.5905pt.
- [12 <./Images/Full_GLM_resids_vs_fitted.jpg>]
+ [11 <./Images/Full_GLM_resids_vs_fitted.jpg>]
+<Images/heatmap.jpg, id=60, 1445.4pt x 1445.4pt>
+File: Images/heatmap.jpg Graphic file (type jpg)
+<use Images/heatmap.jpg>
+Package pdftex.def Info: Images/heatmap.jpg  used on input line 196.
+(pdftex.def)             Requested size: 469.74944pt x 552.85268pt.
+ [12] [13 <./Images/heatmap.jpg>]
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no ¸ in font cmr12!
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no ¶ in font cmr12!
- [13]
-<Images/Johansen.jpg, id=68, 1130.2225pt x 851.18pt>
+ [14]
+<Images/Johansen.jpg, id=71, 1130.2225pt x 851.18pt>
 File: Images/Johansen.jpg Graphic file (type jpg)
 <use Images/Johansen.jpg>
-Package pdftex.def Info: Images/Johansen.jpg  used on input line 218.
+Package pdftex.def Info: Images/Johansen.jpg  used on input line 224.
 (pdftex.def)             Requested size: 399.29166pt x 368.58485pt.
- [14]
-<Images/stationarity.jpg, id=72, 394.47375pt x 763.85374pt>
+ [15]
+<Images/stationarity.jpg, id=75, 394.47375pt x 763.85374pt>
 File: Images/stationarity.jpg Graphic file (type jpg)
 <use Images/stationarity.jpg>
-Package pdftex.def Info: Images/stationarity.jpg  used on input line 229.
+Package pdftex.def Info: Images/stationarity.jpg  used on input line 235.
 (pdftex.def)             Requested size: 375.8073pt x 491.44058pt.
- [15 <./Images/johansen.jpg>] [16 <./Images/stationarity.jpg>]
-<Images/Full_VAR_diff_resids.jpg, id=79, 481.8pt x 481.8pt>
+ [16 <./Images/johansen.jpg>] [17 <./Images/stationarity.jpg>]
+<Images/Full_VAR_diff_resids.jpg, id=82, 481.8pt x 481.8pt>
 File: Images/Full_VAR_diff_resids.jpg Graphic file (type jpg)
 <use Images/Full_VAR_diff_resids.jpg>
-Package pdftex.def Info: Images/Full_VAR_diff_resids.jpg  used on input line 25
-8.
+Package pdftex.def Info: Images/Full_VAR_diff_resids.jpg  used on input line 26
+4.
 (pdftex.def)             Requested size: 375.81718pt x 258.00673pt.
-[17]
-<Images/Full_VARX_diff_resids.jpg, id=83, 481.8pt x 481.8pt>
+ [18]
+<Images/Full_VARX_diff_resids.jpg, id=86, 481.8pt x 481.8pt>
 File: Images/Full_VARX_diff_resids.jpg Graphic file (type jpg)
 <use Images/Full_VARX_diff_resids.jpg>
 Package pdftex.def Info: Images/Full_VARX_diff_resids.jpg  used on input line 2
-65.
+71.
 (pdftex.def)             Requested size: 375.81718pt x 258.00673pt.
- [18 <./Images/Full_VAR_diff_resids.jpg> <./Images/Full_VARX_diff_resids.jpg>]
-<Images/Full_VAR_diff_resids_vs_values.jpg, id=87, 481.8pt x 481.8pt>
+ [19 <./Images/Full_VAR_diff_resids.jpg> <./Images/Full_VARX_diff_resids.jpg>]
+<Images/Full_VAR_diff_resids_vs_values.jpg, id=91, 481.8pt x 481.8pt>
 File: Images/Full_VAR_diff_resids_vs_values.jpg Graphic file (type jpg)
 <use Images/Full_VAR_diff_resids_vs_values.jpg>
 Package pdftex.def Info: Images/Full_VAR_diff_resids_vs_values.jpg  used on inp
-ut line 277.
+ut line 283.
 (pdftex.def)             Requested size: 281.86288pt x 184.28421pt.
-<Images/Full_VARX_diff_resids_vs_values.jpg, id=88, 481.8pt x 481.8pt>
+<Images/Full_VARX_diff_resids_vs_values.jpg, id=92, 481.8pt x 481.8pt>
 File: Images/Full_VARX_diff_resids_vs_values.jpg Graphic file (type jpg)
 <use Images/Full_VARX_diff_resids_vs_values.jpg>
 Package pdftex.def Info: Images/Full_VARX_diff_resids_vs_values.jpg  used on in
-put line 284.
+put line 290.
 (pdftex.def)             Requested size: 281.86288pt x 184.28421pt.
- [19 <./Images/Full_VAR_diff_resids_vs_values.jpg> <./Images/Full_VARX_diff_res
+ [20 <./Images/Full_VAR_diff_resids_vs_values.jpg> <./Images/Full_VARX_diff_res
 ids_vs_values.jpg>]
-<Images/elbow.jpg, id=93, 481.8pt x 481.8pt>
+<Images/elbow.jpg, id=96, 481.8pt x 481.8pt>
 File: Images/elbow.jpg Graphic file (type jpg)
 <use Images/elbow.jpg>
-Package pdftex.def Info: Images/elbow.jpg  used on input line 304.
+Package pdftex.def Info: Images/elbow.jpg  used on input line 310.
 (pdftex.def)             Requested size: 375.81718pt x 245.71474pt.
- [20]
-<Images/cluster_corr_heatmap.jpg, id=97, 867.24pt x 867.24pt>
+ [21]
+<Images/cluster_corr_heatmap.jpg, id=100, 867.24pt x 867.24pt>
 File: Images/cluster_corr_heatmap.jpg Graphic file (type jpg)
 <use Images/cluster_corr_heatmap.jpg>
 Package pdftex.def Info: Images/cluster_corr_heatmap.jpg  used on input line 31
-3.
+9.
 (pdftex.def)             Requested size: 469.75827pt x 491.44716pt.
- [21 <./Images/elbow.jpg>] [22 <./Images/cluster_corr_heatmap.jpg>]
-Overfull \hbox (55.0313pt too wide) in paragraph at lines 338--348
+ [22 <./Images/elbow.jpg>] [23 <./Images/cluster_corr_heatmap.jpg>]
+Overfull \hbox (55.0313pt too wide) in paragraph at lines 344--354
 [][] 
  []
 
-[23]
-<Images/distplot_cloud.png, id=107, 578.16pt x 289.08pt>
+[24]
+<Images/distplot_cloud.png, id=110, 578.16pt x 289.08pt>
 File: Images/distplot_cloud.png Graphic file (type png)
 <use Images/distplot_cloud.png>
-Package pdftex.def Info: Images/distplot_cloud.png  used on input line 360.
+Package pdftex.def Info: Images/distplot_cloud.png  used on input line 366.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
- [24]
-<Images/distplot_gust.png, id=112, 578.16pt x 289.08pt>
+ [25]
+<Images/distplot_gust.png, id=116, 578.16pt x 289.08pt>
 File: Images/distplot_gust.png Graphic file (type png)
 <use Images/distplot_gust.png>
-Package pdftex.def Info: Images/distplot_gust.png  used on input line 367.
+Package pdftex.def Info: Images/distplot_gust.png  used on input line 373.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
-<Images/distplot_humidity.png, id=113, 578.16pt x 289.08pt>
+<Images/distplot_humidity.png, id=117, 578.16pt x 289.08pt>
 File: Images/distplot_humidity.png Graphic file (type png)
 <use Images/distplot_humidity.png>
-Package pdftex.def Info: Images/distplot_humidity.png  used on input line 374.
+Package pdftex.def Info: Images/distplot_humidity.png  used on input line 380.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
- [25 <./Images/distplot_cloud.png> <./Images/distplot_gust.png>]
-<Images/distplot_pressure.png, id=120, 578.16pt x 289.08pt>
+ [26 <./Images/distplot_cloud.png> <./Images/distplot_gust.png>]
+<Images/distplot_pressure.png, id=123, 578.16pt x 289.08pt>
 File: Images/distplot_pressure.png Graphic file (type png)
 <use Images/distplot_pressure.png>
-Package pdftex.def Info: Images/distplot_pressure.png  used on input line 381.
+Package pdftex.def Info: Images/distplot_pressure.png  used on input line 387.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
-<Images/distplot_temp.png, id=121, 578.16pt x 289.08pt>
+<Images/distplot_temp.png, id=124, 578.16pt x 289.08pt>
 File: Images/distplot_temp.png Graphic file (type png)
 <use Images/distplot_temp.png>
-Package pdftex.def Info: Images/distplot_temp.png  used on input line 388.
+Package pdftex.def Info: Images/distplot_temp.png  used on input line 394.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
 
-[26 <./Images/distplot_humidity.png> <./Images/distplot_pressure.png>]
-<Images/distplot_wind.png, id=127, 578.16pt x 289.08pt>
+[27 <./Images/distplot_humidity.png> <./Images/distplot_pressure.png>]
+<Images/distplot_wind.png, id=130, 578.16pt x 289.08pt>
 File: Images/distplot_wind.png Graphic file (type png)
 <use Images/distplot_wind.png>
-Package pdftex.def Info: Images/distplot_wind.png  used on input line 395.
+Package pdftex.def Info: Images/distplot_wind.png  used on input line 401.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
-<Images/wind_mean_demand.jpg, id=128, 578.16pt x 289.08pt>
+<Images/wind_mean_demand.jpg, id=131, 578.16pt x 289.08pt>
 File: Images/wind_mean_demand.jpg Graphic file (type jpg)
 <use Images/wind_mean_demand.jpg>
-Package pdftex.def Info: Images/wind_mean_demand.jpg  used on input line 404.
+Package pdftex.def Info: Images/wind_mean_demand.jpg  used on input line 410.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
- [27 <./Images/distplot_temp.png> <./Images/distplot_wind.png>]
-<Images/gust_mean_demand.jpg, id=134, 578.16pt x 289.08pt>
+ [28 <./Images/distplot_temp.png> <./Images/distplot_wind.png>]
+<Images/gust_mean_demand.jpg, id=137, 578.16pt x 289.08pt>
 File: Images/gust_mean_demand.jpg Graphic file (type jpg)
 <use Images/gust_mean_demand.jpg>
-Package pdftex.def Info: Images/gust_mean_demand.jpg  used on input line 411.
+Package pdftex.def Info: Images/gust_mean_demand.jpg  used on input line 417.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
-<Images/cloud_mean_demand.jpg, id=135, 578.16pt x 289.08pt>
+<Images/cloud_mean_demand.jpg, id=138, 578.16pt x 289.08pt>
 File: Images/cloud_mean_demand.jpg Graphic file (type jpg)
 <use Images/cloud_mean_demand.jpg>
-Package pdftex.def Info: Images/cloud_mean_demand.jpg  used on input line 418.
+Package pdftex.def Info: Images/cloud_mean_demand.jpg  used on input line 424.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
- [28 <./Images/wind_mean_demand.jpg> <./Images/gust_mean_demand.jpg>]
-<Images/humidity_mean_demand.jpg, id=139, 578.16pt x 289.08pt>
+ [29 <./Images/wind_mean_demand.jpg> <./Images/gust_mean_demand.jpg>]
+<Images/humidity_mean_demand.jpg, id=142, 578.16pt x 289.08pt>
 File: Images/humidity_mean_demand.jpg Graphic file (type jpg)
 <use Images/humidity_mean_demand.jpg>
-Package pdftex.def Info: Images/humidity_mean_demand.jpg  used on input line 42
-5.
+Package pdftex.def Info: Images/humidity_mean_demand.jpg  used on input line 43
+1.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
-<Images/prec_mean_demand.jpg, id=140, 578.16pt x 289.08pt>
+<Images/prec_mean_demand.jpg, id=143, 578.16pt x 289.08pt>
 File: Images/prec_mean_demand.jpg Graphic file (type jpg)
 <use Images/prec_mean_demand.jpg>
-Package pdftex.def Info: Images/prec_mean_demand.jpg  used on input line 432.
+Package pdftex.def Info: Images/prec_mean_demand.jpg  used on input line 438.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
- [29 <./Images/cloud_mean_demand.jpg> <./Images/humidity_mean_demand.jpg>] (./P
+ [30 <./Images/cloud_mean_demand.jpg> <./Images/humidity_mean_demand.jpg>] (./P
 roject Report Template.bbl
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no ¶ in font cmr12!
@@ -563,7 +563,7 @@ Underfull \hbox (badness 1472) in paragraph at lines 12--15
 mul-ti-ple time se-ries.
  []
 
-[30 <./Images/prec_mean_demand.jpg>]
+[31 <./Images/prec_mean_demand.jpg>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
@@ -576,11 +576,11 @@ Missing character: There is no  in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no “ in font cmr12!
-) [31] (./Project Report Template.aux) ) 
+) [32] (./Project Report Template.aux) ) 
 Here is how much of TeX's memory you used:
  4365 strings out of 492609
- 63123 string characters out of 6131462
- 128846 words of memory out of 5000000
+ 63238 string characters out of 6131462
+ 128848 words of memory out of 5000000
  8146 multiletter control sequences out of 15000+600000
  15049 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -600,10 +600,10 @@ nts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmti7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmti8.pfb>
-Output written on "Project Report Template.pdf" (31 pages, 1865453 bytes).
+Output written on "Project Report Template.pdf" (32 pages, 1870532 bytes).
 PDF statistics:
- 200 PDF objects out of 1000 (max. 8388607)
- 116 compressed objects within 2 object streams
+ 203 PDF objects out of 1000 (max. 8388607)
+ 118 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  141 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -77,7 +77,7 @@ summary(stationary_test)
 ```{r}
 #### Train VAR model on it  ###
 Y = data.matrix(cluster_df)
-model = constructModel(Y, p = 12, struct = "Basic", gran = c(50,25), T1 = 156, T2 = 198)
+model = constructModel(Y, p = 6, struct = "Basic", gran = c(50,25), T1 = 156, T2 = 198)
 #model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
 var_model <- cv.BigVAR(model)
 var_model
@@ -147,6 +147,10 @@ print(paste0(" MSFE: ", errors/6))
 
 
 
+
+
+
+
 ```{r}
 #Clustering by time series
 fviz_nbclust(train, kmeans, method = "wss", k.max = 24) + theme_minimal() + ggtitle("the Elbow Method")
@@ -191,14 +195,14 @@ cluster_df <- data.frame(cluster_1_orders, cluster_2_orders, cluster_3_orders, c
 
 ```{r}
 #### Test for stationarity  ###
-stationary_test = ca.jo(cluster_df, type="trace", K=12, ecdet="none", spec="longrun")
+stationary_test = ca.jo(cluster_df, type="trace", K=6, ecdet="none", spec="longrun")
 summary(stationary_test)
 ```
 
 ```{r}
 #### Train VAR model on it  ###
 Y = data.matrix(cluster_df)
-model = constructModel(Y, p = 12, struct = "Basic", gran = c(50,25), T1 = 156, T2 = 198)
+model = constructModel(Y, p = 6, struct = "Basic", gran = c(50,25), T1 = 156, T2 = 198)
 #model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
 var_model <- cv.BigVAR(model)
 var_model

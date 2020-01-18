@@ -3,6 +3,7 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: Project Report Template.aux
 The style file: apa.bst
 Database file #1: references.bib
+Warning--I didn't find a database entry for "Long2018"
 Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El Moussami , Abdeslam Lachhab" for entry Jamal2018
 while executing---line 1048 of file apa.bst
 Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El Moussami , Abdeslam Lachhab" for entry Jamal2018
@@ -35,13 +36,13 @@ Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El 
 while executing---line 1123 of file apa.bst
 Warning--empty journal in Jamal2018
 Warning--empty journal in Johansen1991
-Warning--empty journal in Long2018
 Warning--empty journal in Marina2016
 Warning--empty journal in Nunes2015
 Warning--empty journal in Dylan2017
 Warning--empty journal in Rizwan2011
 Warning--empty journal in Nelder1972
 Warning--empty journal in Paul2015
+Warning--empty journal in Sheng2018
 Warning--empty journal in Tobias2017
 Warning--empty journal in Ruey2014
 Warning--empty journal in William2017
@@ -49,7 +50,7 @@ Warning--empty journal in Asha2016
 Warning--empty journal in Zhijie1998
 You've used 20 entries,
             1940 wiz_defined-function locations,
-            567 strings with 6311 characters,
+            569 strings with 6329 characters,
 and the built_in function-call counts, 5500 in all, are:
 = -- 492
 > -- 158

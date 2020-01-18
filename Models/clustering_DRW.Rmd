@@ -1,0 +1,519 @@
+---
+title: "Clustering using DRW full dataset"
+output: html_notebook
+---
+
+```{r}
+library(tscount)
+library(urca)
+library(factoextra)
+library(vars)
+library(BigVAR)
+library(BBmisc)
+
+set.seed(1234)
+```
+
+```{r}
+#Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
+df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+
+train <- full_df[1:839,1:198]
+test <- full_df[1:839,199:204]
+```
+
+
+```{r}
+### Cluster group using DRW in python ####
+#### Allocate locs to cluster ###
+cluster_1 <- c(685)
+cluster_2 <- c(3,  17,  29,  38,  58,  61,  73,  74,  77,  78,  82,  88,  93,
+        95,  97,  98, 117, 121, 123, 128, 132, 136, 137, 139, 140, 141,
+       149, 171, 172, 175, 194, 200, 206, 211, 213, 216, 217, 230, 233,
+       241, 247, 248, 249, 253, 258, 262, 266, 267, 274, 277, 285, 289,
+       292, 300, 308, 316, 329, 336, 348, 352, 359, 378, 382, 387, 392,
+       400, 401, 402, 406, 413, 416, 436, 440, 449, 456, 457, 458, 459,
+       466, 477, 479, 487, 496, 500, 503, 515, 522, 525, 533, 534, 546,
+       557, 564, 565, 569, 570, 571, 573, 584, 586, 591, 600, 620, 621,
+       622, 631, 647, 649, 650, 652, 655, 656, 659, 662, 663, 672, 674,
+       675, 677, 683, 690, 693, 699, 700, 703, 704, 710, 711, 719, 722,
+       724, 734, 736, 737, 738, 740, 743, 744, 751, 752, 753, 758, 765,
+       767, 770, 771, 772, 774, 787, 792, 793, 794, 795, 797, 801, 805,
+       806, 815, 823, 830, 831, 832)
+cluster_3 <- c(512)
+cluster_4 <- c(681)
+cluster_5 <- c(1,   2,   4,   5,   6,   7,   8,   9,  10,  11,  12,  13,  14,
+        15,  16,  18,  19,  21,  22,  25,  26,  27,  28,  30,  31,  32,
+        33,  34,  35,  36,  40,  41,  42,  43,  46,  47,  48,  49,  50,
+        51,  52,  53,  55,  56,  57,  60,  62,  64,  65,  66,  67,  68,
+        70,  71,  72,  75,  76,  79,  81,  83,  84,  85,  87,  89,  92,
+        96, 101, 102, 103, 104, 105, 107, 108, 109, 111, 113, 114, 115,
+       116, 118, 119, 120, 122, 126, 127, 130, 131, 133, 134, 135, 138,
+       143, 144, 146, 147, 148, 150, 152, 153, 155, 157, 158, 159, 161,
+       162, 165, 166, 167, 168, 169, 170, 173, 174, 176, 177, 179, 180,
+       181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193,
+       195, 196, 197, 198, 199, 201, 202, 203, 204, 205, 208, 209, 210,
+       212, 214, 215, 218, 219, 220, 221, 222, 223, 224, 226, 227, 228,
+       229, 232, 235, 236, 237, 238, 240, 243, 245, 246, 250, 251, 252,
+       254, 255, 256, 257, 260, 261, 263, 264, 265, 268, 269, 270, 271,
+       272, 273, 276, 278, 279, 280, 281, 282, 283, 284, 286, 287, 288,
+       293, 294, 295, 296, 297, 298, 299, 301, 303, 304, 305, 306, 307,
+       310, 311, 312, 313, 314, 315, 317, 318, 319, 320, 321, 322, 323,
+       324, 325, 326, 327, 328, 330, 331, 332, 333, 334, 335, 337, 338,
+       339, 340, 341, 342, 343, 344, 345, 346, 349, 350, 351, 353, 354,
+       355, 356, 357, 358, 360, 361, 362, 363, 364, 365, 366, 367, 368,
+       371, 372, 373, 374, 375, 376, 377, 379, 380, 381, 383, 384, 385,
+       386, 388, 389, 391, 393, 394, 396, 397, 399, 403, 405, 407, 408,
+       409, 410, 411, 412, 415, 417, 418, 419, 420, 421, 422, 423, 425,
+       426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 437, 438, 441,
+       443, 444, 445, 447, 448, 450, 451, 452, 453, 454, 455, 460, 461,
+       462, 463, 464, 465, 467, 468, 469, 470, 471, 472, 473, 474, 475,
+       476, 478, 480, 481, 482, 483, 484, 485, 486, 488, 489, 490, 491,
+       492, 493, 494, 495, 497, 498, 499, 501, 502, 504, 505, 507, 508,
+       509, 510, 511, 513, 514, 516, 517, 518, 519, 520, 521, 523, 524,
+       526, 527, 528, 529, 530, 531, 532, 535, 536, 537, 538, 539, 541,
+       542, 543, 544, 547, 548, 549, 550, 551, 552, 553, 554, 555, 556,
+       559, 561, 562, 566, 567, 568, 572, 574, 575, 576, 577, 579, 580,
+       581, 582, 583, 585, 587, 588, 590, 592, 593, 594, 595, 596, 597,
+       599, 601, 602, 603, 604, 605, 606, 607, 608, 609, 610, 611, 612,
+       613, 614, 615, 616, 617, 618, 619, 623, 624, 625, 626, 627, 628,
+       629, 630, 632, 633, 634, 636, 637, 639, 640, 641, 642, 643, 644,
+       645, 646, 648, 651, 653, 654, 657, 658, 660, 661, 664, 667, 668,
+       669, 670, 673, 676, 678, 679, 680, 682, 684, 686, 687, 691, 694,
+       695, 696, 698, 701, 702, 706, 709, 712, 713, 715, 716, 717, 718,
+       720, 721, 723, 726, 727, 728, 729, 731, 732, 735, 739, 741, 742,
+       746, 747, 748, 749, 750, 755, 757, 759, 760, 761, 762, 763, 764,
+       768, 769, 773, 775, 776, 777, 780, 781, 782, 783, 784, 785, 786,
+       788, 789, 790, 791, 798, 799, 800, 803, 807, 808, 809, 810, 811,
+       813, 814, 816, 817, 818, 819, 820, 821, 822, 824, 825, 826, 827,
+       828, 829, 833, 834, 835, 836, 837, 838, 839)
+cluster_6 <- c(24,  45,  54,  90,  99, 124, 160, 163, 178, 239, 242, 244, 302,
+       414, 442, 446, 578, 666, 733, 778)
+cluster_7 <- c(20,  94, 164)
+cluster_8 <- c(23,  37,  63,  69,  86,  91, 100, 110, 112, 125, 129, 142, 145,
+       151, 154, 156, 207, 225, 231, 234, 259, 275, 290, 291, 309, 347,
+       369, 370, 390, 395, 398, 404, 424, 439, 506, 540, 545, 558, 560,
+       563, 589, 598, 635, 638, 665, 671, 688, 689, 692, 697, 705, 707,
+       708, 714, 725, 730, 745, 754, 756, 766, 779, 802, 804, 812)
+cluster_9 <- c(44)
+cluster_10 <- c(59)
+cluster_11 <- c(80, 796)
+cluster_12 <- c(39, 106)
+
+clusters <- list()
+clusters[[1]] <- cluster_1
+clusters[[2]] <- cluster_2
+clusters[[3]] <- cluster_3
+clusters[[4]] <- cluster_4
+clusters[[5]] <- cluster_5
+clusters[[6]] <- cluster_6
+clusters[[7]] <- cluster_7
+clusters[[8]] <- cluster_8
+clusters[[9]] <- cluster_9
+clusters[[10]] <- cluster_10
+clusters[[11]] <- cluster_11
+clusters[[12]] <- cluster_12
+```
+
+```{r}
+#### Combine clusters orders into datafrmae ###
+cluster_1_orders <- colSums(full_df[cluster_1,])
+cluster_2_orders <- colSums(full_df[cluster_2,])
+cluster_3_orders <- colSums(full_df[cluster_3,])
+cluster_4_orders <- colSums(full_df[cluster_4,])
+cluster_5_orders <- colSums(full_df[cluster_5,])
+cluster_6_orders <- colSums(full_df[cluster_6,])
+cluster_7_orders <- colSums(full_df[cluster_7,])
+cluster_8_orders <- colSums(full_df[cluster_8,])
+cluster_9_orders <- colSums(full_df[cluster_9,])
+cluster_10_orders <- colSums(full_df[cluster_10,])
+cluster_11_orders <- colSums(full_df[cluster_11,])
+cluster_12_orders <- colSums(full_df[cluster_12,])
+
+cluster_df <- data.frame(cluster_1_orders, cluster_2_orders, cluster_3_orders, cluster_4_orders, cluster_5_orders, cluster_6_orders,
+                         cluster_7_orders,cluster_8_orders,cluster_9_orders, cluster_10_orders, cluster_11_orders, cluster_12_orders)
+```
+
+```{r}
+#### Test for stationarity  ###
+stationary_test = ca.jo(cluster_df, type="trace", K=6, ecdet="none", spec="longrun")
+summary(stationary_test)
+```
+
+```{r}
+#### Train VAR model on it  ###
+Y = data.matrix(cluster_df)
+model = constructModel(Y, p = 6, struct = "Basic", gran = c(50,25), T1 = 156, T2 = 198)
+#model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
+var_model <- cv.BigVAR(model)
+var_model
+```
+
+```{r}
+plot(as.vector(var_model@resids), main="Residuals plot of VAR model", 
+  xlab="Index", ylab="Residuals")
+```
+
+```{r}
+plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
+  xlab="Fitted Values", ylab="Residuals", xlim=c(-10,35), ylim = c(-10,35))
+```
+
+
+```{r}
+# Predict Cluster demand 
+cluster_pred <- tail(var_model@fitted,6)
+```
+
+```{r}
+# Function to assign demand to location
+assign_clust_demand = function(clust_pred){
+  num_clust <- dim(clust_pred)[2]
+  pred <- matrix(0, nrow = 6, ncol = 839)  
+  for (i in c(1:num_clust)) {
+      clust_ind <- clusters[[i]]  
+      clust_order_by_loc <- rowSums(train[clust_ind,])
+      for (j in c(1:length(clust_ind))) {
+          loc_prop <- clust_order_by_loc[j]/sum(clust_order_by_loc)
+          for (t in c(1:6)) {
+              clust_total_order <- clust_pred[t, i]
+              ind <- clust_ind[j]
+              pred[t, ind] <- loc_prop * clust_total_order
+          }
+      }
+  }
+  return (pred) 
+}
+
+
+# Assign demand to locations
+
+pred <- assign_clust_demand(cluster_pred)
+
+```
+
+```{r}
+# calculate error
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+    curr_pred <- pred[i, 1:839]
+    act <- full_df[1:839,198 + i]
+    error_arr <- c(error_arr, c(curr_pred - act))
+    fitted_val <- c(fitted_val, curr_pred)
+    error <- sum((curr_pred - act) ^ 2)
+    errors <- errors + error
+    prev_pred <- curr_pred
+}
+
+print(paste0(" MSFE: ", errors/6))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+### Cluster group using DRW in python ####
+#### Allocate locs to cluster ###
+cluster_1 <- c(685, 796)
+cluster_2 <- c(3,  17,  29,  38,  58,  61,  73,  74,  77,  78,  82,  88,  93,
+        95,  97,  98, 117, 121, 123, 128, 132, 136, 137, 139, 140, 141,
+       149, 171, 172, 175, 194, 200, 206, 211, 213, 216, 217, 230, 233,
+       241, 247, 248, 249, 253, 258, 262, 266, 267, 274, 277, 285, 289,
+       292, 300, 308, 316, 329, 336, 348, 352, 359, 378, 382, 387, 392,
+       400, 401, 402, 406, 413, 416, 436, 440, 449, 456, 457, 458, 459,
+       466, 477, 479, 487, 496, 500, 503, 515, 522, 525, 533, 534, 546,
+       557, 564, 565, 569, 570, 571, 573, 584, 586, 591, 600, 620, 621,
+       622, 631, 647, 649, 650, 652, 655, 656, 659, 662, 663, 672, 674,
+       675, 677, 683, 690, 693, 699, 700, 703, 704, 710, 711, 719, 722,
+       724, 734, 736, 737, 738, 740, 743, 744, 751, 752, 753, 758, 765,
+       767, 770, 771, 772, 774, 787, 792, 793, 794, 795, 797, 801, 805,
+       806, 815, 823, 830, 831, 832)
+cluster_3 <- c(512)
+cluster_4 <- c(681)
+cluster_5 <- c(1,   2,   4,   5,   6,   7,   8,   9,  10,  11,  12,  13,  14,
+        15,  16,  18,  19,  21,  22,  25,  26,  27,  28,  30,  31,  32,
+        33,  34,  35,  36,  40,  41,  42,  43,  46,  47,  48,  49,  50,
+        51,  52,  53,  55,  56,  57,  60,  62,  64,  65,  66,  67,  68,
+        70,  71,  72,  75,  76,  79,  81,  83,  84,  85,  87,  89,  92,
+        96, 101, 102, 103, 104, 105, 107, 108, 109, 111, 113, 114, 115,
+       116, 118, 119, 120, 122, 126, 127, 130, 131, 133, 134, 135, 138,
+       143, 144, 146, 147, 148, 150, 152, 153, 155, 157, 158, 159, 161,
+       162, 165, 166, 167, 168, 169, 170, 173, 174, 176, 177, 179, 180,
+       181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193,
+       195, 196, 197, 198, 199, 201, 202, 203, 204, 205, 208, 209, 210,
+       212, 214, 215, 218, 219, 220, 221, 222, 223, 224, 226, 227, 228,
+       229, 232, 235, 236, 237, 238, 240, 243, 245, 246, 250, 251, 252,
+       254, 255, 256, 257, 260, 261, 263, 264, 265, 268, 269, 270, 271,
+       272, 273, 276, 278, 279, 280, 281, 282, 283, 284, 286, 287, 288,
+       293, 294, 295, 296, 297, 298, 299, 301, 303, 304, 305, 306, 307,
+       310, 311, 312, 313, 314, 315, 317, 318, 319, 320, 321, 322, 323,
+       324, 325, 326, 327, 328, 330, 331, 332, 333, 334, 335, 337, 338,
+       339, 340, 341, 342, 343, 344, 345, 346, 349, 350, 351, 353, 354,
+       355, 356, 357, 358, 360, 361, 362, 363, 364, 365, 366, 367, 368,
+       371, 372, 373, 374, 375, 376, 377, 379, 380, 381, 383, 384, 385,
+       386, 388, 389, 391, 393, 394, 396, 397, 399, 403, 405, 407, 408,
+       409, 410, 411, 412, 415, 417, 418, 419, 420, 421, 422, 423, 425,
+       426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 437, 438, 441,
+       443, 444, 445, 447, 448, 450, 451, 452, 453, 454, 455, 460, 461,
+       462, 463, 464, 465, 467, 468, 469, 470, 471, 472, 473, 474, 475,
+       476, 478, 480, 481, 482, 483, 484, 485, 486, 488, 489, 490, 491,
+       492, 493, 494, 495, 497, 498, 499, 501, 502, 504, 505, 507, 508,
+       509, 510, 511, 513, 514, 516, 517, 518, 519, 520, 521, 523, 524,
+       526, 527, 528, 529, 530, 531, 532, 535, 536, 537, 538, 539, 541,
+       542, 543, 544, 547, 548, 549, 550, 551, 552, 553, 554, 555, 556,
+       559, 561, 562, 566, 567, 568, 572, 574, 575, 576, 577, 579, 580,
+       581, 582, 583, 585, 587, 588, 590, 592, 593, 594, 595, 596, 597,
+       599, 601, 602, 603, 604, 605, 606, 607, 608, 609, 610, 611, 612,
+       613, 614, 615, 616, 617, 618, 619, 623, 624, 625, 626, 627, 628,
+       629, 630, 632, 633, 634, 636, 637, 639, 640, 641, 642, 643, 644,
+       645, 646, 648, 651, 653, 654, 657, 658, 660, 661, 664, 667, 668,
+       669, 670, 673, 676, 678, 679, 680, 682, 684, 686, 687, 691, 694,
+       695, 696, 698, 701, 702, 706, 709, 712, 713, 715, 716, 717, 718,
+       720, 721, 723, 726, 727, 728, 729, 731, 732, 735, 739, 741, 742,
+       746, 747, 748, 749, 750, 755, 757, 759, 760, 761, 762, 763, 764,
+       768, 769, 773, 775, 776, 777, 780, 781, 782, 783, 784, 785, 786,
+       788, 789, 790, 791, 798, 799, 800, 803, 807, 808, 809, 810, 811,
+       813, 814, 816, 817, 818, 819, 820, 821, 822, 824, 825, 826, 827,
+       828, 829, 833, 834, 835, 836, 837, 838, 839)
+cluster_6 <- c(24,  39,  45,  54,  90,  99, 124, 160, 163, 244, 302, 414, 442,
+       446, 578, 666, 733, 778)
+cluster_7 <- c(20,  80,  94, 106, 164)
+cluster_8 <- c(23,  37,  63,  69,  86,  91, 100, 110, 112, 125, 129, 142, 145,
+       151, 154, 156, 178, 207, 225, 231, 234, 239, 242, 259, 275, 290,
+       291, 309, 347, 369, 370, 390, 395, 398, 404, 424, 439, 506, 540,
+       545, 558, 560, 563, 589, 598, 635, 638, 665, 671, 688, 689, 692,
+       697, 705, 707, 708, 714, 725, 730, 745, 754, 756, 766, 779, 802,
+       804, 812)
+cluster_9 <- c(44, 59)
+
+clusters <- list()
+clusters[[1]] <- cluster_1
+clusters[[2]] <- cluster_2
+clusters[[3]] <- cluster_3
+clusters[[4]] <- cluster_4
+clusters[[5]] <- cluster_5
+clusters[[6]] <- cluster_6
+clusters[[7]] <- cluster_7
+clusters[[8]] <- cluster_8
+clusters[[9]] <- cluster_9
+```
+
+```{r}
+#### Combine clusters orders into datafrmae ###
+cluster_1_orders <- colSums(full_df[cluster_1,])
+cluster_2_orders <- colSums(full_df[cluster_2,])
+cluster_3_orders <- colSums(full_df[cluster_3,])
+cluster_4_orders <- colSums(full_df[cluster_4,])
+cluster_5_orders <- colSums(full_df[cluster_5,])
+cluster_6_orders <- colSums(full_df[cluster_6,])
+cluster_7_orders <- colSums(full_df[cluster_7,])
+cluster_8_orders <- colSums(full_df[cluster_8,])
+cluster_9_orders <- colSums(full_df[cluster_9,])
+
+cluster_df <- data.frame(cluster_1_orders, cluster_2_orders, cluster_3_orders, cluster_4_orders, cluster_5_orders, cluster_6_orders,
+                         cluster_7_orders,cluster_8_orders,cluster_9_orders)
+```
+
+```{r}
+#### Test for stationarity  ###
+stationary_test = ca.jo(cluster_df, type="trace", K=6, ecdet="none", spec="longrun")
+summary(stationary_test)
+```
+
+```{r}
+#### Train VAR model on it  ###
+Y = data.matrix(cluster_df)
+model = constructModel(Y, p = 12, struct = "Basic", gran = c(50,25), T1 = 156, T2 = 198)
+#model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
+var_model <- cv.BigVAR(model)
+var_model
+```
+
+```{r}
+plot(as.vector(var_model@resids), main="Residuals plot of VAR model", 
+  xlab="Index", ylab="Residuals")
+```
+
+```{r}
+plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
+  xlab="Fitted Values", ylab="Residuals", xlim=c(-10,35), ylim = c(-10,35))
+```
+
+
+```{r}
+# Predict Cluster demand 
+cluster_pred <- tail(var_model@fitted,6)
+```
+
+```{r}
+# Function to assign demand to location
+assign_clust_demand = function(clust_pred){
+  num_clust <- dim(clust_pred)[2]
+  pred <- matrix(0, nrow = 6, ncol = 839)  
+  for (i in c(1:num_clust)) {
+      clust_ind <- clusters[[i]]  
+      clust_order_by_loc <- rowSums(train[clust_ind,])
+      for (j in c(1:length(clust_ind))) {
+          loc_prop <- clust_order_by_loc[j]/sum(clust_order_by_loc)
+          for (t in c(1:6)) {
+              clust_total_order <- clust_pred[t, i]
+              ind <- clust_ind[j]
+              pred[t, ind] <- loc_prop * clust_total_order
+          }
+      }
+  }
+  return (pred) 
+}
+
+
+# Assign demand to locations
+
+pred <- assign_clust_demand(cluster_pred)
+
+```
+
+```{r}
+# calculate error
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+    curr_pred <- pred[i, 1:839]
+    act <- full_df[1:839,198 + i]
+    error_arr <- c(error_arr, c(curr_pred - act))
+    fitted_val <- c(fitted_val, curr_pred)
+    error <- sum((curr_pred - act) ^ 2)
+    errors <- errors + error
+    prev_pred <- curr_pred
+}
+
+print(paste0(" MSFE: ", errors/6))
+```
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+par(mfrow=c(2,2))
+plot(error_arr, main="Residuals plot of Clustering model", 
+  xlab="Index", ylab="Residuals")
+hist(error_arr, main = "Historgram of residuals")
+qqnorm(error_arr)
+
+qqline(error_arr)
+#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids.jpg");
+#dev.off ();
+
+```
+
+```{r}
+plot(fitted_val, error_arr, main="Plot of residuals against predicted values", 
+  xlab="Predicted values", ylab="Residuals")
+#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids_vs_fitted.jpg");
+#dev.off ();
+
+```
+
+```{r}
+acf(error_arr, main="ACF plots of residuals")
+```
+
+```{r}
+## DIFFERENCING ##
+#df_t <- t(df_atleast_50cts)
+colnames(cluster_df) = c(1:9)
+rownames(cluster_df) <- c(1:204)
+diff_df <- data.frame(diff(as.matrix(cluster_df), differences=1))
+#diff_df <- normalize(df_t, margin=1L)
+stationary_test = ca.jo(diff_df, type="trace", K=6, ecdet="none", spec="longrun")
+summary(stationary_test)
+```
+
+```{r}
+model = constructModel(as.matrix(diff_df), p = 6, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
+var_model <- cv.BigVAR(model)
+var_model
+```
+
+```{r}
+# Predict Cluster demand 
+cluster_diff_pred <- tail(var_model@fitted,6)
+prev <- cluster_df[198,1:9]
+cluster_pred <- prev + cluster_diff_pred[1, 1:9]
+prev <- prev + cluster_diff_pred[1, 1:9]
+for (i in c(2:6)) {
+  cluster_pred <-rbind(cluster_pred, prev + cluster_diff_pred[i, 1:9])
+  prev <- prev + cluster_diff_pred[i, 1:9]
+}
+```
+
+```{r}
+# Function to assign demand to location
+assign_clust_demand = function(clust_pred){
+  num_clust <- dim(clust_pred)[2]
+  pred <- matrix(0, nrow = 6, ncol = 839)  
+  for (i in c(1:num_clust)) {
+      clust_ind <- clusters[[i]]  
+      clust_order_by_loc <- rowSums(train[clust_ind,])
+      for (j in c(1:length(clust_ind))) {
+          loc_prop <- clust_order_by_loc[j]/sum(clust_order_by_loc)
+          for (t in c(1:6)) {
+              clust_total_order <- clust_pred[t, i]
+              ind <- clust_ind[j]
+              pred[t, ind] <- loc_prop * clust_total_order
+          }
+      }
+  }
+  return (pred) 
+}
+
+
+# Assign demand to locations
+
+pred <- assign_clust_demand(cluster_pred)
+
+```
+
+```{r}
+# calculate error
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+    curr_pred <- pred[i, 1:839]
+    act <- full_df[1:839,198 + i]
+    error_arr <- c(error_arr, c(curr_pred - act))
+    fitted_val <- c(fitted_val, curr_pred)
+    error <- sum((curr_pred - act) ^ 2)
+    errors <- errors + error
+    prev_pred <- curr_pred
+}
+
+print(paste0(" MSFE: ", errors/6))
+```
+
+
