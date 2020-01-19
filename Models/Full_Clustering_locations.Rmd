@@ -1,0 +1,406 @@
+---
+title: "Clustering"
+output: html_notebook
+---
+
+```{r}
+library(tscount)
+library(urca)
+library(factoextra)
+library(vars)
+library(BigVAR)
+library(BBmisc)
+library(amap)
+set.seed(1234)
+```
+
+```{r}
+#Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
+df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+loc_df <- read.csv("/home/angps/Documents/Thesis/Data/location_map.csv")
+train <- full_df[1:839,1:198]
+test <- full_df[1:839,199:204]
+
+lag <- 50
+```
+
+```{r}
+rownames(loc_df) <- loc_df$location
+```
+
+```{r}
+## CLUSTERING BY LOCATION
+fviz_nbclust(loc_df, kmeans, method = "wss", k.max = 24) + theme_minimal() + ggtitle("the Elbow Method")
+
+```
+
+```{r}
+### Perform Clustering on locations ####
+num_clusters <- 3
+km <- kmeans(loc_df, centers = num_clusters)
+
+#### Allocate locs to cluster ###
+cluster_1 <- which(km$cluster %in% c(1))
+cluster_2 <- which(km$cluster %in% c(2))
+cluster_3 <- which(km$cluster %in% c(3))
+
+
+clusters <- list()
+clusters[[1]] <- cluster_1
+clusters[[2]] <- cluster_2
+clusters[[3]] <- cluster_3
+
+
+#### Combine clusters orders into datafrmae ###
+cluster_1_orders <- colSums(full_df[cluster_1,])
+cluster_2_orders <- colSums(full_df[cluster_2,])
+cluster_3_orders <- colSums(full_df[cluster_3,])
+
+
+cluster_df <- data.frame(cluster_1_orders, cluster_2_orders, cluster_3_orders)
+
+#### Test for stationarity  ###
+#stationary_test = ca.jo(cluster_df, type="trace", K=6, ecdet="none", spec="longrun")
+#summary(stationary_test)
+
+#### Train VAR model on it  ###
+Y = data.matrix(cluster_df)
+model = constructModel(Y, p = lag, struct = "Basic", gran = c(50,25), T1 = 156, T2 = 198)
+#model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
+var_model <- cv.BigVAR(model)
+
+# Predict Cluster demand 
+cluster_pred <- tail(var_model@fitted,6)
+
+# Function to assign demand to location
+assign_clust_demand = function(clust_pred){
+  num_clust <- dim(clust_pred)[2]
+  pred <- matrix(0, nrow = 6, ncol = 839)  
+  for (i in c(1:num_clust)) {
+      clust_ind <- clusters[[i]]  
+      clust_order_by_loc <- rowSums(train[clust_ind,])
+      for (j in c(1:length(clust_ind))) {
+          loc_prop <- clust_order_by_loc[j]/sum(clust_order_by_loc)
+          for (t in c(1:6)) {
+              clust_total_order <- clust_pred[t, i]
+              ind <- clust_ind[j]
+              pred[t, ind] <- loc_prop * clust_total_order
+          }
+      }
+  }
+  return (pred) 
+}
+
+
+# Assign demand to locations
+
+pred <- assign_clust_demand(cluster_pred)
+
+# calculate error
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+    curr_pred <- pred[i, 1:839]
+    act <- full_df[1:839,198 + i]
+    error_arr <- c(error_arr, c(curr_pred - act))
+    fitted_val <- c(fitted_val, curr_pred)
+    error <- sum((curr_pred - act) ^ 2)
+    errors <- errors + error
+    prev_pred <- curr_pred
+}
+
+print(paste0(" MSFE: ", errors/6))
+```
+
+```{r}
+### Perform Clustering on locations ####
+num_clusters <- 6
+km <- kmeans(loc_df, centers = num_clusters)
+
+#### Allocate locs to cluster ###
+cluster_1 <- which(km$cluster %in% c(1))
+cluster_2 <- which(km$cluster %in% c(2))
+cluster_3 <- which(km$cluster %in% c(3))
+cluster_4 <- which(km$cluster %in% c(4))
+cluster_5 <- which(km$cluster %in% c(5))
+cluster_6 <- which(km$cluster %in% c(6))
+
+clusters <- list()
+clusters[[1]] <- cluster_1
+clusters[[2]] <- cluster_2
+clusters[[3]] <- cluster_3
+clusters[[4]] <- cluster_4
+clusters[[5]] <- cluster_5
+clusters[[6]] <- cluster_6
+
+#### Combine clusters orders into datafrmae ###
+cluster_1_orders <- colSums(full_df[cluster_1,])
+cluster_2_orders <- colSums(full_df[cluster_2,])
+cluster_3_orders <- colSums(full_df[cluster_3,])
+cluster_4_orders <- colSums(full_df[cluster_4,])
+cluster_5_orders <- colSums(full_df[cluster_5,])
+cluster_6_orders <- colSums(full_df[cluster_6,])
+
+cluster_df <- data.frame(cluster_1_orders, cluster_2_orders, cluster_3_orders, cluster_4_orders, cluster_5_orders, cluster_6_orders)
+
+#### Test for stationarity  ###
+#stationary_test = ca.jo(cluster_df, type="trace", K=6, ecdet="none", spec="longrun")
+#summary(stationary_test)
+
+#### Train VAR model on it  ###
+Y = data.matrix(cluster_df)
+model = constructModel(Y, p = lag, struct = "Basic", gran = c(50,25), T1 = 156, T2 = 198)
+#model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
+var_model <- cv.BigVAR(model)
+
+# Predict Cluster demand 
+cluster_pred <- tail(var_model@fitted,6)
+
+# Function to assign demand to location
+assign_clust_demand = function(clust_pred){
+  num_clust <- dim(clust_pred)[2]
+  pred <- matrix(0, nrow = 6, ncol = 839)  
+  for (i in c(1:num_clust)) {
+      clust_ind <- clusters[[i]]  
+      clust_order_by_loc <- rowSums(train[clust_ind,])
+      for (j in c(1:length(clust_ind))) {
+          loc_prop <- clust_order_by_loc[j]/sum(clust_order_by_loc)
+          for (t in c(1:6)) {
+              clust_total_order <- clust_pred[t, i]
+              ind <- clust_ind[j]
+              pred[t, ind] <- loc_prop * clust_total_order
+          }
+      }
+  }
+  return (pred) 
+}
+
+
+# Assign demand to locations
+
+pred <- assign_clust_demand(cluster_pred)
+
+# calculate error
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+    curr_pred <- pred[i, 1:839]
+    act <- full_df[1:839,198 + i]
+    error_arr <- c(error_arr, c(curr_pred - act))
+    fitted_val <- c(fitted_val, curr_pred)
+    error <- sum((curr_pred - act) ^ 2)
+    errors <- errors + error
+    prev_pred <- curr_pred
+}
+
+print(paste0(" MSFE: ", errors/6))
+```
+
+```{r}
+### Perform Clustering on locations ####
+num_clusters <- 9
+km <- kmeans(loc_df, centers = num_clusters)
+
+#### Allocate locs to cluster ###
+cluster_1 <- which(km$cluster %in% c(1))
+cluster_2 <- which(km$cluster %in% c(2))
+cluster_3 <- which(km$cluster %in% c(3))
+cluster_4 <- which(km$cluster %in% c(4))
+cluster_5 <- which(km$cluster %in% c(5))
+cluster_6 <- which(km$cluster %in% c(6))
+cluster_7 <- which(km$cluster %in% c(7))
+cluster_8 <- which(km$cluster %in% c(8))
+cluster_9 <- which(km$cluster %in% c(9))
+
+clusters <- list()
+clusters[[1]] <- cluster_1
+clusters[[2]] <- cluster_2
+clusters[[3]] <- cluster_3
+clusters[[4]] <- cluster_4
+clusters[[5]] <- cluster_5
+clusters[[6]] <- cluster_6
+clusters[[7]] <- cluster_7
+clusters[[8]] <- cluster_8
+clusters[[9]] <- cluster_9
+
+#### Combine clusters orders into datafrmae ###
+cluster_1_orders <- colSums(full_df[cluster_1,])
+cluster_2_orders <- colSums(full_df[cluster_2,])
+cluster_3_orders <- colSums(full_df[cluster_3,])
+cluster_4_orders <- colSums(full_df[cluster_4,])
+cluster_5_orders <- colSums(full_df[cluster_5,])
+cluster_6_orders <- colSums(full_df[cluster_6,])
+cluster_7_orders <- colSums(full_df[cluster_7,])
+cluster_8_orders <- colSums(full_df[cluster_8,])
+cluster_9_orders <- colSums(full_df[cluster_9,])
+
+cluster_df <- data.frame(cluster_1_orders, cluster_2_orders, cluster_3_orders, cluster_4_orders, cluster_5_orders, cluster_6_orders,
+                         cluster_7_orders,cluster_8_orders,cluster_9_orders)
+
+#### Test for stationarity  ###
+#stationary_test = ca.jo(cluster_df, type="trace", K=6, ecdet="none", spec="longrun")
+#summary(stationary_test)
+
+#### Train VAR model on it  ###
+Y = data.matrix(cluster_df)
+model = constructModel(Y, p = lag, struct = "Basic", gran = c(50,25), T1 = 156, T2 = 198)
+#model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
+var_model <- cv.BigVAR(model)
+
+# Predict Cluster demand 
+cluster_pred <- tail(var_model@fitted,6)
+
+# Function to assign demand to location
+assign_clust_demand = function(clust_pred){
+  num_clust <- dim(clust_pred)[2]
+  pred <- matrix(0, nrow = 6, ncol = 839)  
+  for (i in c(1:num_clust)) {
+      clust_ind <- clusters[[i]]  
+      clust_order_by_loc <- rowSums(train[clust_ind,])
+      for (j in c(1:length(clust_ind))) {
+          loc_prop <- clust_order_by_loc[j]/sum(clust_order_by_loc)
+          for (t in c(1:6)) {
+              clust_total_order <- clust_pred[t, i]
+              ind <- clust_ind[j]
+              pred[t, ind] <- loc_prop * clust_total_order
+          }
+      }
+  }
+  return (pred) 
+}
+
+
+# Assign demand to locations
+
+pred <- assign_clust_demand(cluster_pred)
+
+# calculate error
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+    curr_pred <- pred[i, 1:839]
+    act <- full_df[1:839,198 + i]
+    error_arr <- c(error_arr, c(curr_pred - act))
+    fitted_val <- c(fitted_val, curr_pred)
+    error <- sum((curr_pred - act) ^ 2)
+    errors <- errors + error
+    prev_pred <- curr_pred
+}
+
+print(paste0(" MSFE: ", errors/6))
+```
+
+
+
+```{r}
+### Perform Clustering on locations ####
+num_clusters <- 12
+km <- kmeans(loc_df, centers = num_clusters)
+
+#### Allocate locs to cluster ###
+cluster_1 <- which(km$cluster %in% c(1))
+cluster_2 <- which(km$cluster %in% c(2))
+cluster_3 <- which(km$cluster %in% c(3))
+cluster_4 <- which(km$cluster %in% c(4))
+cluster_5 <- which(km$cluster %in% c(5))
+cluster_6 <- which(km$cluster %in% c(6))
+cluster_7 <- which(km$cluster %in% c(7))
+cluster_8 <- which(km$cluster %in% c(8))
+cluster_9 <- which(km$cluster %in% c(9))
+cluster_10 <- which(km$cluster %in% c(10))
+cluster_11 <- which(km$cluster %in% c(11))
+cluster_12 <- which(km$cluster %in% c(12))
+
+clusters <- list()
+clusters[[1]] <- cluster_1
+clusters[[2]] <- cluster_2
+clusters[[3]] <- cluster_3
+clusters[[4]] <- cluster_4
+clusters[[5]] <- cluster_5
+clusters[[6]] <- cluster_6
+clusters[[7]] <- cluster_7
+clusters[[8]] <- cluster_8
+clusters[[9]] <- cluster_9
+clusters[[10]] <- cluster_10
+clusters[[11]] <- cluster_11
+clusters[[12]] <- cluster_12
+#### Combine clusters orders into datafrmae ###
+cluster_1_orders <- colSums(full_df[cluster_1,])
+cluster_2_orders <- colSums(full_df[cluster_2,])
+cluster_3_orders <- colSums(full_df[cluster_3,])
+cluster_4_orders <- colSums(full_df[cluster_4,])
+cluster_5_orders <- colSums(full_df[cluster_5,])
+cluster_6_orders <- colSums(full_df[cluster_6,])
+cluster_7_orders <- colSums(full_df[cluster_7,])
+cluster_8_orders <- colSums(full_df[cluster_8,])
+cluster_9_orders <- colSums(full_df[cluster_9,])
+cluster_10_orders <- colSums(full_df[cluster_10,])
+cluster_11_orders <- colSums(full_df[cluster_11,])
+cluster_12_orders <- colSums(full_df[cluster_12,])
+
+cluster_df <- data.frame(cluster_1_orders, cluster_2_orders, cluster_3_orders, cluster_4_orders, cluster_5_orders, cluster_6_orders,
+                         cluster_7_orders,cluster_8_orders,cluster_9_orders, cluster_10_orders,cluster_11_orders,cluster_12_orders)
+
+#### Test for stationarity  ###
+#stationary_test = ca.jo(cluster_df, type="trace", K=6, ecdet="none", spec="longrun")
+#summary(stationary_test)
+
+#### Train VAR model on it  ###
+Y = data.matrix(cluster_df)
+model = constructModel(Y, p = lag, struct = "Basic", gran = c(50,25), T1 = 156, T2 = 198)
+#model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
+var_model <- cv.BigVAR(model)
+
+# Predict Cluster demand 
+cluster_pred <- tail(var_model@fitted,6)
+
+# Function to assign demand to location
+assign_clust_demand = function(clust_pred){
+  num_clust <- dim(clust_pred)[2]
+  pred <- matrix(0, nrow = 6, ncol = 839)  
+  for (i in c(1:num_clust)) {
+      clust_ind <- clusters[[i]]  
+      clust_order_by_loc <- rowSums(train[clust_ind,])
+      for (j in c(1:length(clust_ind))) {
+          loc_prop <- clust_order_by_loc[j]/sum(clust_order_by_loc)
+          for (t in c(1:6)) {
+              clust_total_order <- clust_pred[t, i]
+              ind <- clust_ind[j]
+              pred[t, ind] <- loc_prop * clust_total_order
+          }
+      }
+  }
+  return (pred) 
+}
+
+
+# Assign demand to locations
+
+pred <- assign_clust_demand(cluster_pred)
+
+# calculate error
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+    curr_pred <- pred[i, 1:839]
+    act <- full_df[1:839,198 + i]
+    error_arr <- c(error_arr, c(curr_pred - act))
+    fitted_val <- c(fitted_val, curr_pred)
+    error <- sum((curr_pred - act) ^ 2)
+    errors <- errors + error
+    prev_pred <- curr_pred
+}
+
+print(paste0(" MSFE: ", errors/6))
+```
+
+
+
+
+

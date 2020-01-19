@@ -29,17 +29,21 @@ train <- df_atleast_50cts_endo[,1:198]
 test <- df_atleast_50cts_endo[,199:204]
 ```
 
-
 ```{r}
-#Clustering by time series
-fviz_nbclust(train, kmeans, method = "wss", k.max = 24) + theme_minimal() + ggtitle("the Elbow Method")
+rownames(mini_loc_df) <- mini_loc_df$location
 ```
 
 ```{r}
-### Perform Clustering ####
-num_clusters <- 6
-#km <- kmeans(train, centers = num_clusters)
-km <- Kmeans(mini_loc_df, centers = num_clusters, method = 'correlation')
+## CLUSTERING BY LOCATION
+fviz_nbclust(mini_loc_df, kmeans, method = "wss", k.max = 24) + theme_minimal() + ggtitle("the Elbow Method")
+
+```
+
+```{r}
+### Perform Clustering on locations ####
+num_clusters <- 3
+km <- kmeans(mini_loc_df, centers = num_clusters)
+
 str(km)
 ```
 
@@ -48,29 +52,18 @@ str(km)
 cluster_1 <- which(km$cluster %in% c(1))
 cluster_2 <- which(km$cluster %in% c(2))
 cluster_3 <- which(km$cluster %in% c(3))
-cluster_4 <- which(km$cluster %in% c(4))
-cluster_5 <- which(km$cluster %in% c(5))
-cluster_6 <- which(km$cluster %in% c(6))
 
 clusters <- list()
 clusters[[1]] <- cluster_1
 clusters[[2]] <- cluster_2
 clusters[[3]] <- cluster_3
-clusters[[4]] <- cluster_4
-clusters[[5]] <- cluster_5
-clusters[[6]] <- cluster_6
-```
 
-```{r}
 #### Combine clusters orders into datafrmae ###
 cluster_1_orders <- colSums(df_atleast_50cts_endo[cluster_1,])
 cluster_2_orders <- colSums(df_atleast_50cts_endo[cluster_2,])
 cluster_3_orders <- colSums(df_atleast_50cts_endo[cluster_3,])
-cluster_4_orders <- colSums(df_atleast_50cts_endo[cluster_4,])
-cluster_5_orders <- colSums(df_atleast_50cts_endo[cluster_5,])
-cluster_6_orders <- colSums(df_atleast_50cts_endo[cluster_6,])
 
-cluster_df <- data.frame(cluster_1_orders, cluster_2_orders, cluster_3_orders, cluster_4_orders, cluster_5_orders, cluster_6_orders)
+cluster_df <- data.frame(cluster_1_orders, cluster_2_orders, cluster_3_orders)
 ```
 
 ```{r}
@@ -86,16 +79,6 @@ model = constructModel(Y, p = 6, struct = "Basic", gran = c(50,25), T1 = 156, T2
 #model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
 var_model <- cv.BigVAR(model)
 var_model
-```
-
-```{r}
-plot(as.vector(var_model@resids), main="Residuals plot of VAR model", 
-  xlab="Index", ylab="Residuals")
-```
-
-```{r}
-plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
-  xlab="Fitted Values", ylab="Residuals", xlim=c(-10,35), ylim = c(-10,35))
 ```
 
 
@@ -149,30 +132,6 @@ for (i in c(1:6)) {
 print(paste0(" MSFE: ", errors/6))
 ```
 
-
-```{r}
-par(mfrow=c(2,2))
-plot(error_arr, main="Residuals plot of Clustering model", 
-  xlab="Index", ylab="Residuals")
-hist(error_arr, main = "Historgram of residuals")
-qqnorm(error_arr)
-qqline(error_arr)
-#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids.jpg");
-#dev.off ();
-
-```
-
-```{r}
-plot(fitted_val, error_arr, main="Plot of residuals against predicted values", 
-  xlab="Predicted values", ylab="Residuals")
-#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids_vs_fitted.jpg");
-#dev.off ();
-
-```
-
-```{r}
-acf(error_arr, main="ACF plots of residuals")
-```
 
 
 
