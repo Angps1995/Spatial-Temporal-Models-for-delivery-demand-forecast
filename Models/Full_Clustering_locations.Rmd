@@ -23,7 +23,7 @@ loc_df <- read.csv("/home/angps/Documents/Thesis/Data/location_map.csv")
 train <- full_df[1:839,1:198]
 test <- full_df[1:839,199:204]
 
-lag <- 50
+lag <- 12
 ```
 
 ```{r}

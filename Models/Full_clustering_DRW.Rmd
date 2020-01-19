@@ -23,7 +23,7 @@ df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50ct
 train <- full_df[1:839,1:198]
 test <- full_df[1:839,199:204]
 
-lag <- 50
+lag <- 12
 ```
 
 
