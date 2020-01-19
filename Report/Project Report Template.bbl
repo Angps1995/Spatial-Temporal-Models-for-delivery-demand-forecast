@@ -1,5 +1,10 @@
 \begin{thebibliography}{}
 
+\bibitem[\protect\astroncite{Abolfazl~Safikhani}{2017}]{Abolfazl2017}
+Abolfazl~Safikhani, Camille~Kamga, S. M. S. S. F. B.~M. (2017).
+\newblock Spatio-temporal modeling of yellow taxi demands in new york city
+  using generalized star models.
+
 \bibitem[\protect\astroncite{Baumöhl}{2009}]{Baumohl2009}
 Baumöhl, Eduard, L.~�. (2009).
 \newblock Stationarity of time series and the problem of spurious regression.
@@ -62,6 +67,10 @@ Nelder~JA, W.~R. (1972).
 \bibitem[\protect\astroncite{Paul~W.Murraya}{2015}]{Paul2015}
 Paul~W.Murraya, Bruno~Agardb, M.~A. (2015).
 \newblock Forecasting supply chain demand by clustering customers.
+
+\bibitem[\protect\astroncite{Senin}{2017}]{Pavel2008}
+Senin, P. (2017).
+\newblock Dynamic time warping algorithm review.
 
 \bibitem[\protect\astroncite{Sheng~Liu}{2018}]{Sheng2018}
 Sheng~Liu, Long~He, Z.-J. M.~S. (2018).
