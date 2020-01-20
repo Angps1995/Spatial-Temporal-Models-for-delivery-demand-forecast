@@ -103,16 +103,20 @@ We would first do some exploratory analysis and check if there are any interesti
     \label{fig:Scatter plot of mean counts against pressure}
 \end{figure}
 
-\noindent The scatter plot in Figure 4 visually display a slight positive relationship between temperature and mean demand across all locations whereas Figure 5 visually display a slight negative relationship between pressure and mean demand across all locations.  
+\noindent The scatter plot in Figure 4 visually display a slight positive relationship between temperature and mean demand across all locations whereas Figure 5 visually display a slight negative relationship between pressure and mean demand across all locations. We would explore usage and impact of the exogenous variables in predicting demand in the later portion of this paper. 
+
+(Add spatial plot if possible)
 
 
 \subsection{Train-Test Split}
 From Figure 1 in Section 3.1, the data is very sparse as there are many locations that have no demand counts for the majority of the time period. Hence, to get a better idea of how our models would work, only locations with at least 50 non-zero counts across the time period would be used initially, leaving us with 42 locations that meet this criteria. After the model is tested on the smaller dataset, we would then use the full dataset for location with at least one non-zero count to test and fit our model. 
 
-\noindent The dataset was then split into training and test set by considering the first 33 days as the training set and the next 1 day as the test set. Our training set would then have 198 demand data for each location and test set would have 6 demand data for each location. 
+\noindent To prevent overfitting of our model, the dataset was then split into training and test set by considering the first 33 days as the training set and the next 1 day as the test set. A period of 1 day was chosen as the test set duration because of the reasonable assumption that this model would only have to be run after the end of the day, hence only required to predict one-day ahead demand. 
+
+\noindent Our training set would then have 198 demand data for each location and test set would have 6 demand data for each location. 
 
 \section{Baseline Model}
-In this section, we would build a simple baseline model. Following which, we would try other different spatial temporal time series models and compare the results to the baseline model. 
+In this section, we would build a simple baseline model. Following which, we would try other different spatial temporal time series models and compare the results against the baseline model. 
 
 \subsection{Metric Used}
 The main metric that would be used for comparison would be Mean Squared Forecast Error (MSFE), which is calculated by:
@@ -138,12 +142,14 @@ As a baseline model, each of the locations was assessed individually and a suita
 \end{figure}
 
 
-\section{GLM Model}
+\section{GLM Model (EXPAND MORE)}
 The dataset that we are using follows a count time series, which means the observations are non-negative integers. A flexible and commonly used model for count time series is the Generalized Linear Model (GLM) \cite{Nelder1972}. GLM normally take the form of:
 
 \begin{center}
     $\displaystyle g(\lambda_t)= \eta^T X_t$
 \end{center}
+
+\noindent where $g$ represents a link function, and $\lambda_t = E(Y_t | F_{t-1})$, where $F_{t-1}$ represents the historical values up to time t, which is the conditional mean of the time series . $\eta$ represents a parameter vector that corresponds to the covariates. $X_t$ represents the a vector of the values of the previous time steps in the time series.
 
 \noindent Using the R package from \cite{Tobias2017}, the GLM used would be an extension of the above equation and can be expressed in the form of:
 
@@ -151,7 +157,7 @@ The dataset that we are using follows a count time series, which means the obser
     $\displaystyle g(\lambda_t)=\beta_0 + \sum_{k=1}^{p}\beta_k\tilde{g}(Y_{t-i_k}) + \sum_{\mathit{l}=1}^{q}\alpha_\mathit{l} g(\lambda_{t-j_\mathit{l}}) + \eta^T X_t$
 \end{center}
 
-\noindent where $g$ represents a link function and $ \tilde{g}$ represents a transformation function. $\eta$ represents a parameter vector that corresponds to the covariates. 
+\noindent where additionally, $\tilde{g}$ represents a transformation function. (remove this?)
 
 \subsection{Model Implementation}
 \noindent Since there are many locations which have values that are all 0 throughout all the time period, the GLM model would run into an error if applied on those. Hence, only locations with at least 1 non-zero value would be considered. Similar to before, each of the locations was assessed individually and a suitable GLM model was fitted for each location. The out-of-sample MSFE for this baseline model is \textbf{82.42}. 
@@ -163,12 +169,12 @@ To validate and verify if our fitted model is adequate, model checking would be 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.4\textheight]{Images/Full_GLM_resids.jpg}
+    \includegraphics[width=\textwidth, height=0.7\textheight]{Images/Full_GLM_resids.jpg}
     \caption{Residuals for GLM Model}
     \label{fig:Residuals for GLM Model}
 \end{figure}
 
-\noindent Figure 7 diagnostic plots shows that while the residuals roughly randomly scattered, the GLM model produces residuals that does not follow the normal distribution well. This is expected as we assume that the distribution is poisson and not normal. 
+\noindent Figure 7 diagnostic plots shows that while the residuals are roughly randomly scattered, the GLM model produces residuals that does not follow the normal distribution well. Although not ideal, this is expected as we assume that the distribution is poisson and not normal. 
 
 \subsubsection{Residuals against Predicted values}
 
@@ -183,7 +189,7 @@ To validate and verify if our fitted model is adequate, model checking would be 
 
 \subsection{Model Limitation}
 
-The MSFE of the GLM model is better than that of the baseline model. However, it would be relatively expensive and time-consuming as every location has to be individually fitted to a GLM model. Also, it only uses its past values and does not take into account data from the other locations. The next section explores another type of model which would use data from other locations. 
+The MSFE of the GLM model is better than that of the baseline model. However, similar to the baseline ARIMA model, it would be a relatively expensive and time-consuming process as every location has to be individually fitted to a GLM model. Also, each location model only uses its past values and does not take into account data from the other locations. The next section explores another type of model which would use data from other locations as predictors. 
 
 \section{VAR Model}
 
@@ -198,7 +204,7 @@ As with many spatio-temporal demand prediction, spatial features could be an imp
     \label{fig:Spatial Correlation Heatmap. Axes represent locations}
 \end{figure}
 
-This provides the motivation to use the existence of spatial correlation and explore the usage of VAR model.
+\noindent This provides the motivation to use the existence of spatial correlation and explore the usage of VAR model.
 
 
 \subsection{Details of VAR Model}
@@ -284,11 +290,45 @@ BigVAR library in R was used to implement the VAR models. The MSFE for the VAR m
 
 \section{3-step Approach}
 
-We could then explore an alternative 3-step approach. We would first cluster the locations, then use VAR/VARX to predict the total demand of each cluster, and then assign the total demand to each individual locations. Similar methods can be found in \cite{Paul2015} and \cite{Chi2014}
+We could then explore an alternative 3-step approach, which is described here:
 
-\subsection{Clustering of locations}
+(insert algo)
 
-A simple K-means clustering was first done on the locations using their time series data in the training set.
+
+\noindent Similar methods can be found in \cite{Paul2015} and \cite{Chi2014}
+
+\noindent 
+\subsection{Clustering}
+
+A simple K-means clustering was first done on the locations using their time series data in the training set. 3 different kind of distance metrics were used to perform K-means clustering. 
+
+\noindent The first metric used would be to cluster based on their geo-locations while the second and third metric used would be to cluster them based on similarity between their historical time series. 
+
+\subsubsection{Using longitude/latitude as the distance metric}
+
+A reasonable assumption that could be made is that customers in the same neighbourhood would tend to have similar ordering behaviour due to similar residential status or similar working industry or culture. Hence, we would cluster the locations using their geo-location coordinates (longitude and latitude). K-means clustering is performed using the euclidean distance of the locations as the distance metric.   
+
+\subsubsection{Using Correlation Coefficient as the distance metric}
+
+We then also explored using correlation coefficient between the time series as the distance metric for K-means clustering. Correlation coefficient can be calculated by: 
+
+(insert formula) 
+
+\noindent and it measures the strength and direction of the tendency for any 2 time series to move together. 
+
+\subsubsection{Using Dynamic Time Warping as the distance metric}
+
+Finally, we explored using Dynamic Time Warping (DTW) Distance as the distance metric for K-means clustering. 
+
+\noindent DTW is one of the commonly-used algorithm for measuring similarity between time series. It is known for being effective for time series that have different length or speed. DTW is calculated by:
+
+(insert formula)
+
+\noindent More details on DTW can be found in \cite{Pavel2008}  
+
+\subsection{Predicting total demand for each cluster}
+
+After clustering, we can observe from a sample correlation heatmap that there exist strong correlation between certain cluster (like cluster 1,5 and cluster 6,9). 
 
 \begin{figure}[H]
     \centering
@@ -297,38 +337,19 @@ A simple K-means clustering was first done on the locations using their time ser
     \label{fig:Correlation heatmap for 9 clusters}
 \end{figure}
 
-We can see that there exists storng correlation between certain cluster (like cluster 1,5 and cluster 6,9). 
+\noindent To exploit the spatial correlation effects, VAR model was then trained on the clusters and used to predict the total demand for each of the clusters. 
 
-3 different kind of distance metrics are explored to perform K-means clustering. 
+\subsection{Assigning total cluster demand to individual location}
 
-\subsubsection{Using longitude/latitude as the distance metric}
+After we attained the total demand for each cluster, the next step would be to reallocate the total demand to each individual location in the cluster, making sure that the distribution of demand across the locations are relatively similar to as before. 
 
-Firstly, we would cluster the locations using their geographical longitude and latitude. K-means clustering is performed using the euclidean distance of the locations as the distance metric.  
-
-\subsubsection{Using correlation as the distance metric}
-
-We then also explored using correlation between the time series as the distance metric for K-means clustering. 
-
-\subsubsection{Using Dynamic Time Warping as the distance metric}
-
-Finally, we used Dynamic Time Warping (DTW) Distance as the distance metric for K-means clustering. 
-
-\noindent DTW is one of the commonly-used algorithm for measuring similarity between time series. 
-More details on DTW can be found in \cite{Pavel2008}  
-
-\subsection{Predicting total demand for each cluster}
-
-For each type of clustering, a VAR model was then trained on the clusters and the model was used to predict the total demand for each of the clusters. 
-
-\subsection{Assigning total cluster demand to individual locations}
-
-The predicted demand for each cluster would then be reallocated to each individual location in the cluster by:
+\noindent Taking the previous distribution into account, the predicted demand for each cluster would then be reallocated to each individual location in the cluster using this equation:
 
 \begin{center}
     $\displaystyle y_{i} = D_{C(i)} * \frac{(\sum_{j=1}^{n}x_{ij})}{\sum_{l\epsilon C(i)}\sum_{j=1}^{n}x_{lj}}$
 \end{center}
 
-\noindent where $y_i$ represents the predicted demand for location i, C(i) represents the cluster which location i belongs to, $D_C(i)$ represents the total demand (from training set) of the cluster C(i), $x_ij$ represents the training set demand at location i at time j
+\noindent where $y_i$ represents the predicted demand for location i, C(i) represents the cluster which location i belongs to, $D_C(i)$ represents the total demand (from training set) of the cluster C(i), $x_{ij}$ represents the training set demand at location i at time j. 
 
 \subsection{Results}
 
@@ -339,10 +360,13 @@ We also test the effect of different number of cluster groups on the MSFE on our
 \hline
                                                                                                                           & \textbf{3 Clusters} & \textbf{6 Clusters} & \textbf{9 Clusters} & \textbf{12 Clusters} \\ \hline
 \textbf{\begin{tabular}[c]{@{}l@{}}Clustering using euclidean\\ distance of latitude/longitude\end{tabular}}              & 61.18               & \textbf{60.67}      & 61.03               & 62.24                \\ \hline
-\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using correlation \\ between time series as distance\\ metric\end{tabular}} & 62.22               & \textbf{59.41}               & 61.49               & 61.35       \\ \hline
-\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using DTW as\\ distance metric\end{tabular}}                                & 64.00               & 64.37      & 62.68 & \textbf{62.20}                \\ \hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using correlation \\ between time series as distance\\ metric\end{tabular}} & 62.66               & 59.96               & \textbf{57.72}              & 61.60       \\ \hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using DTW as\\ distance metric\end{tabular}}                                & 64.00               & 64.37      & 62.68 & \textbf{62.20}                
+\\ \hline
 \end{tabular}
+\caption{MSFE for different clustering distance metrics and number of clusters}
 \end{table}
+
 
 \section{Results and Conclusion}
 The table below summarises the results of our models. 
@@ -356,9 +380,10 @@ The table below summarises the results of our models.
 \textbf{VAR}                                                                                                 & 42.76                                                                                              & 76.72                         &  &  \\ \cline{1-3}
 \textbf{VARX}                                                                                                & 41.73                                                                                              & 75.63                         &  &  \\ \cline{1-3}
 \textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using K-means \\ on geographical location)\end{tabular}} & 40.43 & 60.67                        &  &  \\ \cline{1-3}
-\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on correlation \\ of time series)\end{tabular}}           & 39.49 & \textbf{59.41}                         &  &  \\ \cline{1-3}
+\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on correlation \\ of time series)\end{tabular}}           & 39.49 & \textbf{57.72}                         &  &  \\ \cline{1-3}
 \textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on DTW \\ of time series)\end{tabular}}           & 40.10 & 62.20                         &  &  \\ \cline{1-3}
 \end{tabular}
+\caption{MSFE of the different methods used in this paper}
 \end{table}
 
 

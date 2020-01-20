@@ -38,7 +38,7 @@ dev.off ();
 ### Perform Clustering ####
 num_clusters <- 3
 #km <- kmeans(train, centers = num_clusters)
-km <- Kmeans(train, centers = num_clusters, method = 'correlation')
+km <- Kmeans(train, centers = num_clusters, method = 'abscorrelation')
 
 #### Allocate locs to cluster ###
 cluster_1 <- which(km$cluster %in% c(1))
@@ -115,7 +115,7 @@ print(paste0(" MSFE: ", errors/6))
 ### Perform Clustering ####
 num_clusters <- 6
 #km <- kmeans(train, centers = num_clusters)
-km <- Kmeans(train, centers = num_clusters, method = 'correlation')
+km <- Kmeans(train, centers = num_clusters, method = 'abscorrelation')
 
 #### Allocate locs to cluster ###
 cluster_1 <- which(km$cluster %in% c(1))
@@ -203,7 +203,7 @@ print(paste0(" MSFE: ", errors/6))
 ### Perform Clustering ####
 num_clusters <- 9
 #km <- kmeans(train, centers = num_clusters)
-km <- Kmeans(train, centers = num_clusters, method = 'correlation')
+km <- Kmeans(train, centers = num_clusters, method = 'abscorrelation')
 
 #### Allocate locs to cluster ###
 cluster_1 <- which(km$cluster %in% c(1))
@@ -299,7 +299,7 @@ print(paste0(" MSFE: ", errors/6))
 ### Perform Clustering ####
 num_clusters <- 12
 #km <- kmeans(train, centers = num_clusters)
-km <- Kmeans(train, centers = num_clusters, method = 'correlation')
+km <- Kmeans(train, centers = num_clusters, method = 'abscorrelation')
 
 #### Allocate locs to cluster ###
 cluster_1 <- which(km$cluster %in% c(1))
