@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  21 JAN 2020 00:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  21 JAN 2020 23:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -258,39 +258,54 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 \c@property=\count115
 \c@proposition=\count116
 \c@definition=\count117
+
+(/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+\@float@every@algorithm=\toks32
 \c@algorithm=\count118
-\c@assumption=\count119
-\c@observation=\count120
+)
+(/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count119
+\c@ALC@line=\count120
+\c@ALC@rem=\count121
+\c@ALC@depth=\count122
+\ALC@tlm=\skip62
+\algorithmicindent=\skip63
+)
+\c@assumption=\count123
+\c@observation=\count124
 
 (./Project Report Template.aux)
 \openout1 = `"Project Report Template.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count121
+\scratchcounter=\count125
 \scratchdimen=\dimen124
 \scratchbox=\box36
-\nofMPsegments=\count122
-\nofMParguments=\count123
-\everyMPshowfont=\toks32
-\MPscratchCnt=\count124
+\nofMPsegments=\count126
+\nofMParguments=\count127
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count128
 \MPscratchDim=\dimen125
-\MPnumerator=\count125
-\makeMPintoPDFobject=\count126
-\everyMPtoPDFconversion=\toks33
+\MPnumerator=\count129
+\makeMPintoPDFobject=\count130
+\everyMPtoPDFconversion=\toks34
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -345,24 +360,24 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 (/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 ))
-LaTeX Font Info:    Try loading font information for U+msa on input line 38.
+LaTeX Font Info:    Try loading font information for U+msa on input line 43.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 38.
+LaTeX Font Info:    Try loading font information for U+msb on input line 43.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 38.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 43.
 
 (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Overfull \hbox (20.67186pt too wide) in paragraph at lines 61--62
+Overfull \hbox (20.67186pt too wide) in paragraph at lines 66--67
 \OT1/cmr/m/n/12 To in-clude other ex-oge-nous vari-ables, data from https://www
 .worldweatheronline.com/shanghai-
  []
@@ -370,58 +385,58 @@ Overfull \hbox (20.67186pt too wide) in paragraph at lines 61--62
 <Images/example_all_ts.jpg, id=14, 481.8pt x 481.8pt>
 File: Images/example_all_ts.jpg Graphic file (type jpg)
 <use Images/example_all_ts.jpg>
-Package pdftex.def Info: Images/example_all_ts.jpg  used on input line 68.
+Package pdftex.def Info: Images/example_all_ts.jpg  used on input line 73.
 (pdftex.def)             Requested size: 446.27556pt x 430.01367pt.
 [3]
 <Images/example_ts.jpg, id=18, 481.8pt x 481.8pt>
 File: Images/example_ts.jpg Graphic file (type jpg)
 <use Images/example_ts.jpg>
-Package pdftex.def Info: Images/example_ts.jpg  used on input line 76.
+Package pdftex.def Info: Images/example_ts.jpg  used on input line 81.
 (pdftex.def)             Requested size: 469.77148pt x 245.71474pt.
  [4 <./Images/example_all_ts.jpg>]
 <Images/boxplot_counts.jpg, id=22, 578.16pt x 433.62pt>
 File: Images/boxplot_counts.jpg Graphic file (type jpg)
 <use Images/boxplot_counts.jpg>
-Package pdftex.def Info: Images/boxplot_counts.jpg  used on input line 84.
+Package pdftex.def Info: Images/boxplot_counts.jpg  used on input line 89.
 (pdftex.def)             Requested size: 446.26086pt x 245.71695pt.
  [5 <./Images/example_ts.jpg> <./Images/boxplot_counts.jpg>]
 <Images/temp_mean_demand.jpg, id=26, 578.16pt x 289.08pt>
 File: Images/temp_mean_demand.jpg Graphic file (type jpg)
 <use Images/temp_mean_demand.jpg>
-Package pdftex.def Info: Images/temp_mean_demand.jpg  used on input line 94.
+Package pdftex.def Info: Images/temp_mean_demand.jpg  used on input line 99.
 (pdftex.def)             Requested size: 446.26086pt x 196.5762pt.
 <Images/pressure_mean_demand.jpg, id=27, 578.16pt x 289.08pt>
 File: Images/pressure_mean_demand.jpg Graphic file (type jpg)
 <use Images/pressure_mean_demand.jpg>
 Package pdftex.def Info: Images/pressure_mean_demand.jpg  used on input line 10
-1.
+6.
 (pdftex.def)             Requested size: 446.26086pt x 196.5762pt.
  [6 <./Images/temp_mean_demand.jpg> <./Images/pressure_mean_demand.jpg>] [7] [8
 ]
 <Images/forecast_example.jpg, id=44, 578.16pt x 289.08pt>
 File: Images/forecast_example.jpg Graphic file (type jpg)
 <use Images/forecast_example.jpg>
-Package pdftex.def Info: Images/forecast_example.jpg  used on input line 139.
+Package pdftex.def Info: Images/forecast_example.jpg  used on input line 144.
 (pdftex.def)             Requested size: 469.75499pt x 234.8769pt.
  [9 <./Images/forecast_example.jpg>]
-<Images/Full_GLM_resids.jpg, id=49, 481.8pt x 481.8pt>
+<Images/Full_GLM_resids.jpg, id=48, 481.8pt x 481.8pt>
 File: Images/Full_GLM_resids.jpg Graphic file (type jpg)
 <use Images/Full_GLM_resids.jpg>
-Package pdftex.def Info: Images/Full_GLM_resids.jpg  used on input line 172.
+Package pdftex.def Info: Images/Full_GLM_resids.jpg  used on input line 177.
 (pdftex.def)             Requested size: 469.77148pt x 430.01367pt.
  [10]
 <Images/Full_GLM_resids_vs_fitted.jpg, id=56, 481.8pt x 481.8pt>
 File: Images/Full_GLM_resids_vs_fitted.jpg Graphic file (type jpg)
 <use Images/Full_GLM_resids_vs_fitted.jpg>
 Package pdftex.def Info: Images/Full_GLM_resids_vs_fitted.jpg  used on input li
-ne 183.
+ne 188.
 (pdftex.def)             Requested size: 399.30576pt x 368.5905pt.
  [11 <./Images/Full_GLM_resids.jpg>] [12 <./Images/Full_GLM_resids_vs_fitted.jp
 g>]
 <Images/heatmap.jpg, id=63, 1445.4pt x 1445.4pt>
 File: Images/heatmap.jpg Graphic file (type jpg)
 <use Images/heatmap.jpg>
-Package pdftex.def Info: Images/heatmap.jpg  used on input line 202.
+Package pdftex.def Info: Images/heatmap.jpg  used on input line 207.
 (pdftex.def)             Requested size: 469.74944pt x 552.85268pt.
  [13] [14 <./Images/heatmap.jpg>]
 Missing character: There is no √ in font cmr12!
@@ -432,44 +447,44 @@ Missing character: There is no ∂ in font cmr12!
 <Images/Full_VAR_diff_resids.jpg, id=77, 481.8pt x 481.8pt>
 File: Images/Full_VAR_diff_resids.jpg Graphic file (type jpg)
 <use Images/Full_VAR_diff_resids.jpg>
-Package pdftex.def Info: Images/Full_VAR_diff_resids.jpg  used on input line 25
-5.
+Package pdftex.def Info: Images/Full_VAR_diff_resids.jpg  used on input line 26
+0.
 (pdftex.def)             Requested size: 375.81718pt x 258.00673pt.
  [17]
 <Images/Full_VARX_diff_resids.jpg, id=81, 481.8pt x 481.8pt>
 File: Images/Full_VARX_diff_resids.jpg Graphic file (type jpg)
 <use Images/Full_VARX_diff_resids.jpg>
 Package pdftex.def Info: Images/Full_VARX_diff_resids.jpg  used on input line 2
-62.
+67.
 (pdftex.def)             Requested size: 375.81718pt x 258.00673pt.
  [18 <./Images/Full_VAR_diff_resids.jpg> <./Images/Full_VARX_diff_resids.jpg>]
 <Images/Full_VAR_diff_resids_vs_values.jpg, id=85, 481.8pt x 481.8pt>
 File: Images/Full_VAR_diff_resids_vs_values.jpg Graphic file (type jpg)
 <use Images/Full_VAR_diff_resids_vs_values.jpg>
 Package pdftex.def Info: Images/Full_VAR_diff_resids_vs_values.jpg  used on inp
-ut line 274.
+ut line 279.
 (pdftex.def)             Requested size: 281.86288pt x 184.28421pt.
 <Images/Full_VARX_diff_resids_vs_values.jpg, id=86, 481.8pt x 481.8pt>
 File: Images/Full_VARX_diff_resids_vs_values.jpg Graphic file (type jpg)
 <use Images/Full_VARX_diff_resids_vs_values.jpg>
 Package pdftex.def Info: Images/Full_VARX_diff_resids_vs_values.jpg  used on in
-put line 281.
+put line 286.
 (pdftex.def)             Requested size: 281.86288pt x 184.28421pt.
  [19 <./Images/Full_VAR_diff_resids_vs_values.jpg> <./Images/Full_VARX_diff_res
-ids_vs_values.jpg>] [20]
-<Images/cluster_corr_heatmap.jpg, id=94, 867.24pt x 867.24pt>
+ids_vs_values.jpg>] [20] [21]
+<Images/cluster_corr_heatmap.jpg, id=97, 867.24pt x 867.24pt>
 File: Images/cluster_corr_heatmap.jpg Graphic file (type jpg)
 <use Images/cluster_corr_heatmap.jpg>
-Package pdftex.def Info: Images/cluster_corr_heatmap.jpg  used on input line 33
-5.
+Package pdftex.def Info: Images/cluster_corr_heatmap.jpg  used on input line 39
+1.
 (pdftex.def)             Requested size: 469.75827pt x 491.44716pt.
- [21] [22 <./Images/cluster_corr_heatmap.jpg>]
-Overfull \hbox (23.37157pt too wide) in paragraph at lines 359--367
+ [22] [23 <./Images/cluster_corr_heatmap.jpg>]
+Overfull \hbox (23.37157pt too wide) in paragraph at lines 416--424
 [][] 
  []
 
-[23]
-Overfull \hbox (62.85907pt too wide) in paragraph at lines 375--386
+
+Overfull \hbox (62.85907pt too wide) in paragraph at lines 432--443
 [][] 
  []
 
@@ -477,63 +492,63 @@ Overfull \hbox (62.85907pt too wide) in paragraph at lines 375--386
 <Images/distplot_cloud.png, id=111, 578.16pt x 289.08pt>
 File: Images/distplot_cloud.png Graphic file (type png)
 <use Images/distplot_cloud.png>
-Package pdftex.def Info: Images/distplot_cloud.png  used on input line 401.
+Package pdftex.def Info: Images/distplot_cloud.png  used on input line 458.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
 <Images/distplot_gust.png, id=113, 578.16pt x 289.08pt>
 File: Images/distplot_gust.png Graphic file (type png)
 <use Images/distplot_gust.png>
-Package pdftex.def Info: Images/distplot_gust.png  used on input line 408.
+Package pdftex.def Info: Images/distplot_gust.png  used on input line 465.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
  [26 <./Images/distplot_cloud.png>]
 <Images/distplot_humidity.png, id=118, 578.16pt x 289.08pt>
 File: Images/distplot_humidity.png Graphic file (type png)
 <use Images/distplot_humidity.png>
-Package pdftex.def Info: Images/distplot_humidity.png  used on input line 415.
+Package pdftex.def Info: Images/distplot_humidity.png  used on input line 472.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
 <Images/distplot_pressure.png, id=119, 578.16pt x 289.08pt>
 File: Images/distplot_pressure.png Graphic file (type png)
 <use Images/distplot_pressure.png>
-Package pdftex.def Info: Images/distplot_pressure.png  used on input line 422.
+Package pdftex.def Info: Images/distplot_pressure.png  used on input line 479.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
  [27 <./Images/distplot_gust.png> <./Images/distplot_humidity.png>]
 <Images/distplot_temp.png, id=125, 578.16pt x 289.08pt>
 File: Images/distplot_temp.png Graphic file (type png)
 <use Images/distplot_temp.png>
-Package pdftex.def Info: Images/distplot_temp.png  used on input line 429.
+Package pdftex.def Info: Images/distplot_temp.png  used on input line 486.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
 <Images/distplot_wind.png, id=126, 578.16pt x 289.08pt>
 File: Images/distplot_wind.png Graphic file (type png)
 <use Images/distplot_wind.png>
-Package pdftex.def Info: Images/distplot_wind.png  used on input line 436.
+Package pdftex.def Info: Images/distplot_wind.png  used on input line 493.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
  [28 <./Images/distplot_pressure.png> <./Images/distplot_temp.png>]
 <Images/wind_mean_demand.jpg, id=132, 578.16pt x 289.08pt>
 File: Images/wind_mean_demand.jpg Graphic file (type jpg)
 <use Images/wind_mean_demand.jpg>
-Package pdftex.def Info: Images/wind_mean_demand.jpg  used on input line 445.
+Package pdftex.def Info: Images/wind_mean_demand.jpg  used on input line 502.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
 <Images/gust_mean_demand.jpg, id=133, 578.16pt x 289.08pt>
 File: Images/gust_mean_demand.jpg Graphic file (type jpg)
 <use Images/gust_mean_demand.jpg>
-Package pdftex.def Info: Images/gust_mean_demand.jpg  used on input line 452.
+Package pdftex.def Info: Images/gust_mean_demand.jpg  used on input line 509.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
  [29 <./Images/distplot_wind.png> <./Images/wind_mean_demand.jpg>]
 <Images/cloud_mean_demand.jpg, id=138, 578.16pt x 289.08pt>
 File: Images/cloud_mean_demand.jpg Graphic file (type jpg)
 <use Images/cloud_mean_demand.jpg>
-Package pdftex.def Info: Images/cloud_mean_demand.jpg  used on input line 459.
+Package pdftex.def Info: Images/cloud_mean_demand.jpg  used on input line 516.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
 <Images/humidity_mean_demand.jpg, id=139, 578.16pt x 289.08pt>
 File: Images/humidity_mean_demand.jpg Graphic file (type jpg)
 <use Images/humidity_mean_demand.jpg>
-Package pdftex.def Info: Images/humidity_mean_demand.jpg  used on input line 46
-6.
+Package pdftex.def Info: Images/humidity_mean_demand.jpg  used on input line 52
+3.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
  [30 <./Images/gust_mean_demand.jpg> <./Images/cloud_mean_demand.jpg>]
 <Images/prec_mean_demand.jpg, id=143, 578.16pt x 289.08pt>
 File: Images/prec_mean_demand.jpg Graphic file (type jpg)
 <use Images/prec_mean_demand.jpg>
-Package pdftex.def Info: Images/prec_mean_demand.jpg  used on input line 473.
+Package pdftex.def Info: Images/prec_mean_demand.jpg  used on input line 530.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
 
 (./Project Report Template.bbl
@@ -564,34 +579,31 @@ Missing character: There is no ù in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ì in font cmr12!
-[32]) [33] (./Project Report Template.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+[32]) [33] (./Project Report Template.aux) ) 
 Here is how much of TeX's memory you used:
- 4354 strings out of 492609
- 62904 string characters out of 6131462
- 129881 words of memory out of 5000000
- 8138 multiletter control sequences out of 15000+600000
+ 4495 strings out of 492609
+ 64802 string characters out of 6131462
+ 134315 words of memory out of 5000000
+ 8272 multiletter control sequences out of 15000+600000
  15049 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,14n,27p,1090b,254s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on "Project Report Template.pdf" (33 pages, 1705756 bytes).
+</usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmti7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmti8.pfb>
+Output written on "Project Report Template.pdf" (33 pages, 1707247 bytes).
 PDF statistics:
  203 PDF objects out of 1000 (max. 8388607)
  120 compressed objects within 2 object streams
