@@ -296,6 +296,39 @@ print(paste0(" MSFE: ", errors/6))
 ```
 
 ```{r}
+plot(as.vector(var_model@resids), main="Residuals plot of VAR model", 
+  xlab="Index", ylab="Residuals")
+```
+
+
+
+```{r}
+plot(as.vector(var_model@fitted),as.vector(var_model@resids), main="Plot of residuals against fitted values", 
+  xlab="Fitted Values", ylab="Residuals", xlim=c(-10,35), ylim = c(-10,35))
+```
+
+```{r}
+par(mfrow=c(2,2))
+plot(error_arr, main="Residuals plot of Clustering model", 
+  xlab="Index", ylab="Residuals")
+hist(error_arr, main = "Historgram of residuals")
+qqnorm(error_arr)
+
+qqline(error_arr)
+#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids.jpg");
+#dev.off ();
+
+```
+
+```{r}
+plot(fitted_val, error_arr, main="Plot of residuals against predicted values", 
+  xlab="Predicted values", ylab="Residuals")
+#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/GLM_resids_vs_fitted.jpg");
+#dev.off ();
+
+```
+
+```{r}
 ### Perform Clustering ####
 num_clusters <- 12
 #km <- kmeans(train, centers = num_clusters)

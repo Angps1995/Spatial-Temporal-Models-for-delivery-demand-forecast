@@ -10,7 +10,9 @@ library(factoextra)
 library(vars)
 library(BigVAR)
 library(BBmisc)
-
+library(dtw)
+library(TSclust)
+library(dtwclust)
 set.seed(1234)
 ```
 
@@ -24,6 +26,19 @@ train <- full_df[1:839,1:198]
 test <- full_df[1:839,199:204]
 
 lag <- 12
+```
+
+```{r}
+
+clust <- tsclust(train, type="partitional", k=6L, distance="dtw", clustering="pam")
+```
+
+```{r}
+plot(clust, type = "sc")
+```
+
+```{r}
+plot(clust, type = "series", clus = 1L)
 ```
 
 

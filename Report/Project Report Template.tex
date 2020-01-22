@@ -137,7 +137,7 @@ where \textit{n} is the number of data points, $\hat{y_t}$ is the predicted dema
 Autoregressive Integrated Moving Average (ARIMA) models are one of the most commonly used models for time series (\cite{Asha2016}). ARIMA models are made up of 3 processes, mainly the Autoregressive (AR) process, the Integrated (I) process and the Moving Average (MA) process (\cite{Jamal2018}). The AR process assumes that each observation can be expressed as a linear combination of its past values.  An AR(x) process would mean using x lagged values. The MA process assumes that each observation can be expressed as a linear combination of its current error term as well as its past error terms. The Integrated Process states that the time series can undergo differencing to ensure that the series is stationary. A MA(x) process would mean using x number of past observations. Hence, an ARIMA model is usually represented by ARIMA(p,d,q), where \textit{p} represents the number of autoregressive terms, \textit{d} represents the number of differences needed for stationarity, and \textit{q} represents the number of lagged forecast errors. 
 
 \subsection{Baseline ARIMA Result}
-As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSFE for this baseline model on the 42 locations is \textbf{73.29}. A sample forecast plot is shown below:
+As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSFE for this baseline model on the smaller dataset is \textbf{47.60} and MSFE for dataset of all locations is \textbf{72.48}. A sample forecast plot is shown below:
 
 \begin{figure}[H]
     \centering
@@ -147,7 +147,7 @@ As a baseline model, each of the locations was assessed individually and a suita
 \end{figure}
 
 
-\section{GLM Model (EXPAND MORE, TALK ON USING OUR DATA )}
+\section{GLM Model}
 The dataset that we are using follows a count time series, which means the observations are non-negative integers. A flexible and commonly used model for count time series is the Generalized Linear Model (GLM) \cite{Nelder1972}. GLM normally take the form of:
 
 \begin{center}
@@ -156,19 +156,21 @@ The dataset that we are using follows a count time series, which means the obser
 
 \noindent where $g$ represents a link function, and $\lambda_t = E(Y_t | F_{t-1})$, where $F_{t-1}$ represents the historical values up to time t, which is the conditional mean of the time series . $\eta$ represents a parameter vector that corresponds to the covariates. $X_t$ represents the a vector of the values of the previous time steps in the time series.
 
-\noindent Using the R package from \cite{Tobias2017}, the GLM used would be an extension of the above equation and can be expressed in the form of:
+%\noindent Using the R package from \cite{Tobias2017}, the GLM used would be an %extension of the above equation and can be expressed in the form of:
 
-\begin{center}
-    $\displaystyle g(\lambda_t)=\beta_0 + \sum_{k=1}^{p}\beta_k\tilde{g}(Y_{t-i_k}) + \sum_{\mathit{l}=1}^{q}\alpha_\mathit{l} g(\lambda_{t-j_\mathit{l}}) + \eta^T X_t$
-\end{center}
+%\begin{center}
+%    $\displaystyle g(\lambda_t)=\beta_0 + \sum_{k=1}^{p}\beta_k\tilde{g}(Y_{t-i_k}) + \sum_{\mathit{l}=1}^{q}\alpha_\mathit{l} g(\lambda_{t-j_\mathit{l}}) + \eta^T X_t$
+%\end{center}
 
-\noindent where additionally, $\tilde{g}$ represents a transformation function. (remove this?)
+%\noindent where additionally, $\tilde{g}$ represents a transformation function. (remove this?)
 
 \subsection{Model Implementation}
-\noindent Since there are many locations which have values that are all 0 throughout all the time period, the GLM model would run into an error if applied on those. Hence, only locations with at least 1 non-zero value would be considered. Similar to before, each of the locations was assessed individually and a suitable GLM model was fitted for each location. The out-of-sample MSFE for this baseline model is \textbf{82.42}. 
+\noindent As mentioned in section 3.2, we would first assess our model on the smaller dataset before testing it on the full dataset. Using the R package tscount from \cite{Tobias2017}, we fit each of the locations individually by a GLM model. The out-of-sample MSFE for this baseline model on the smaller dataset is \textbf{38.16}, which is better than just using ARIMA on the same dataset.  
+
+\noindent However, when it is implemented on the full dataset, the MSFE of the GLM increases to \textbf{82.42}, which is worse than just applying ARIMA on every location, which gives a MSFE of 72.48. 
 
 \subsection{Model Diagnostics}
-To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis.	
+To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis.		
 
 \subsubsection{Residuals plots}
 
@@ -190,27 +192,13 @@ To validate and verify if our fitted model is adequate, model checking would be 
     \label{fig:Residuals against Predicted values for GLM Model}
 \end{figure}
 
-\noindent The above plot of residuals against the predicted values suggests heteroscedasticity between residuals, or non-constant variance between the residuals as the predicted value increases, which is expected in a Poisson GLM, as mentioned in \cite{Dylan2017}. For a normal regression model, this is a bad sign but since we are assuming that our count data follows a Poisson distribution, the residuals are bound to display heteroscadasticity. 
+\noindent The above plot of residuals against the predicted values suggests heteroscedasticity between residuals, or non-constant variance between the residuals as the predicted value increases, which is expected in a Poisson GLM, as mentioned in \cite{Dylan2017}. For a normal regression model, this would not be a desirable result but since we are assuming that our count data follows a Poisson distribution, the residuals are bound to display heteroscadasticity. 
 
 \subsection{Model Limitation}
 
-The MSFE of the GLM model is better than that of the baseline model. However, similar to the baseline ARIMA model, it would be a relatively expensive and time-consuming process as every location has to be individually fitted to a GLM model. Also, each location model only uses its past values and does not take into account data from the other locations. The next section explores another type of model which would use data from other locations as predictors. 
+Similar to the baseline ARIMA model, it would be a relatively expensive and time-consuming process as every location has to be individually fitted to a GLM model. Also, each location model only uses its past values and does not take into account data from the other locations. The next section explores another type of model which would use data from other locations as predictors. 
 
-\section{VAR Model (TALK ON USING OUR DATA)}
-
-\subsection{Motivation}
-
-As with many spatio-temporal demand prediction, spatial features could be an important feature if there exist spatial correlation. To check if there exist spatial correlation between the locations, a correlation heatmap would be plotted. For clear illustration purposes, instead of showing the matrix of correlation for all 839 locations, only the 42 locations with at least 50 non-zero counts would be shown. 
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight]{Images/heatmap.jpg}
-    \caption{Spatial Correlation Heatmap on the locations with at least 50 non-zero counts. Axes represent the 42 locations}
-    \label{fig:Spatial Correlation Heatmap. Axes represent locations}
-\end{figure}
-
-\noindent This provides the motivation to use the existence of spatial correlation and explore the usage of VAR model.
-
+\section{VAR Model}
 
 \subsection{Details of VAR Model}
 Vector Autoregressive (VAR) models are the most commonly used model for multivariate time series, particularly in economics and financial time series as shown in \cite{Hilde2000}. VAR models are very similar to multivariate linear regression models and methods used to perform inferencing on linear regression models can also be applied to VAR models. VAR(p) represents a VAR model of order p if the time series can be written as: 
@@ -221,6 +209,19 @@ Vector Autoregressive (VAR) models are the most commonly used model for multivar
 
 \noindent where $p$ is the number of lagged endogenous variables used, $y_t$ is the value at time $t$, $v$ is a constant vector, $\phi_i$ are coefficient matrices for $i>0$ and $\alpha_t$ are independent and identically distributed random vectors. 
 
+\subsection{Motivation}
+
+As with many spatio-temporal demand prediction, spatial features could be an important feature if there exist spatial correlation. To check if there exist spatial correlation between the locations, a correlation heatmap would be plotted. For clear illustration purposes, instead of showing the matrix of correlation for all 839 locations, only the 42 locations with at least 50 non-zero counts would be shown. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=0.75\textheight]{Images/heatmap.jpg}
+    \caption{Spatial Correlation Heatmap on the locations with at least 50 non-zero counts. Axes represent the 42 locations}
+    \label{fig:Spatial Correlation Heatmap. Axes represent locations}
+\end{figure}
+
+\noindent This provides the motivation to use the existence of spatial correlation and explore the usage of VAR model.
+
 \subsection{Stationarity Condition}
 For a univariate time series, it is important for the time series to be transformed into a stationary series and Augmented Dickey-Fuller (ADF) test can be used to perform unit root test for stationarity, as shown in \cite{Zhijie1998} and \cite{Rizwan2011}. For a multi-variate time series, if the series are unit-root non-stationary, applying the VAR model could lead to spurious regression, as shown in \cite{Baumohl2009}.  
 
@@ -230,11 +231,12 @@ For a univariate time series, it is important for the time series to be transfor
 \subsubsection{Johansen Test for Cointegration}
 While Cointegrated Augmented Dickey Fuller Test, commonly used for Pairs Trading, can be used, it is only able to be applied on 2 separate series. In our dataset, we have 839 locations at least, hence we would apply the popular approach to cointegrating tests for VAR model, called the Johansen's Cointegration Test. However, one limitation is that it can only be used to check for cointegration between a maximum of 12 variables. For further elaboration on the Johansen's Cointegration Test, please refer to \cite{Johansen1991}. Since our dataset has 839 variables (locations), we are unable to accurately calculate the significant values of more than 12 variables and hence unable to determine correctly the number of cointegration vectors needed. 
 
-\subsubsection{Differencing}
-Instead, differencing would be performed on every series to make the series levels stationary. After differencing, ADF test was performed on each series and the following result shows that all the series are stationary. 
 
-\noindent The time series of each location have been checked and are stationary. 
-While it is possible to perform differencing on every series, it might cause over-differencing, as mentioned in \cite{Ruey2014}.
+\subsection{Implementation of VAR Model for our dataset}
+
+As mentioned in the previous section, we are unable to apply the cointegration test to our dataset of 839 time series. Instead, we would be performing the standard ADF test to test for stationarity. The result of the ADF test showed that time series of certain locations are not stationary. We then take the first difference of each series and after differencing, ADF test was performed on each series the time series of each location have been checked and are stationary. It is noted that while it is possible to perform differencing on every series, it might cause over-differencing, leading to inaccurate results, as mentioned in \cite{Ruey2014}.
+
+\noindent Next, BigVAR Library in R was used to fit a VAR model with a maximum lag of 12, using time series of every location as predictors. The results for the VAR model is discussed in the later subsection. 
 
 \subsection{VARX Model}
 VAR models can also be extended to include exogenous variables. A VARX(p,s) (with exogenous variables) model can be expressed as:
@@ -245,7 +247,8 @@ VAR models can also be extended to include exogenous variables. A VARX(p,s) (wit
 
 \noindent where $p$ is the number of lagged endogenous variables used, $s$ is the number of lagged exogenous variables used, $y_t$ is the value at time $t$, $v$ is a constant vector, $\phi_i$ are coefficient matrices for endogenous coefficient matrix for $i>0$, $\beta_i$ are coefficient matrices for exogenous coefficient matrix for $i>0$ and $\alpha_t$ are independent and identically distributed random vectors. 
 
-\noindent Our dataset uses additional exogenous variables like temperature, wind, gust, cloud, humidity, precipitation, pressure as well as one-hot encoding of the day of the week. Our dataset now would have 839 endogenous variables/locations and 13 exogenous variables.  
+\subsection{Implementation of VARX Model on our dataset}
+\noindent Our dataset uses additional exogenous variables like temperature, wind, gust, cloud, humidity, precipitation, pressure as well as one-hot encoding of the day of the week. Our dataset now would have 839 endogenous variables/locations and 13 exogenous variables. Similarly, BigVAR library was used to fit a VARX model taking in the 839 locations' time series as endogenous variables and the 13 exogenous variables. 
 
 \subsection{Model Checking}
 To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis:
@@ -297,7 +300,7 @@ BigVAR library in R was used to implement the VAR models. The MSFE for the VAR m
 
 We could then explore an alternative 3-step approach, which is described here:
 
-\noindent 1. Perform Clustering on the time series using one of the distance metric: 
+\noindent Step 1. Perform Clustering on the time series using one of the distance metric: 
 
 	1.1 Euclidean distance between geo-location coordinates
 	
@@ -307,9 +310,9 @@ We could then explore an alternative 3-step approach, which is described here:
 	
 	
 	
-\noindent 2. Aggregate the clusters and train a VAR model to predict the total demand for each cluster. 
+\noindent Step 2. Aggregate the clusters and train a VAR model to predict the total demand for each cluster. 
 
-\noindent 3. Re-allocate the total demand of each cluster to each location in the cluster while maintain a relative constant distribution as before.
+\noindent Step 3. Re-allocate the total demand of each cluster to each location in the cluster while maintain a relative constant distribution as before.
 
 
 
@@ -358,17 +361,29 @@ A reasonable assumption that could be made is that customers in the same neighbo
 
 We then also explored using correlation coefficient between the time series as the distance metric for K-means clustering. Correlation coefficient can be calculated by: 
 
-(insert formula) 
+\begin{center}
+$r_{xy} = \frac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
+{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2(y_i - \overline{y})^2}} $
+\end{center}
 
-\noindent and it measures the strength and direction of the tendency for any 2 time series to move together. 
+\noindent where $r_{xy}$ represents the correlation coefficient between time series x and y, $x_i$ and $y_i$ represents points in time i for time series x and y respectively and $\overline{x}$ and $\overline{y}$ represents the mean value for time series x and y. Correlation measures the strength and direction of the tendency for any 2 time series to move together. 
 
 \subsubsection{Using Dynamic Time Warping as the distance metric}
 
 Finally, we explored using Dynamic Time Warping (DTW) Distance as the distance metric for K-means clustering. 
 
-\noindent DTW is one of the commonly-used algorithm for measuring similarity between time series. It is known for being effective for time series that have different length or speed. DTW is calculated by:
+\noindent DTW is one of the commonly-used algorithm for measuring similarity between time series by providing a elastic non-linear alignment between 2 time series. It is known for being effective for time series that have different length or speed. DTW is calculated by:
 
-(insert formula)
+(Insert formula)
+
+\noindent We can also understand DTW visually by:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.5\textheight]{Images/DTW_Plot.jpg}
+    \caption{DTW Alignment Plot}
+    \label{fig:DTW Alignment Plot}
+\end{figure}
 
 \noindent More details on DTW can be found in \cite{Pavel2008}  
 
@@ -446,7 +461,9 @@ The table below summarises the results of our models.
 
 \noindent We can see that the VAR and VARX model performs better than the GLM models on the full dataset, suggesting that the spatial relationship between locations are useful in forecasting. Also, VARX performs better than VAR model in both cases, suggesting the exogenous variables have some explanatory power and do improve the forecast accuracy. 
 
-\noindent Applying the 3-step forecast also gives a much improved result. This might be due to using a more reliable and reasonable model to predict total demands for just 9 clusters and then re-assigning it to individual locations, rather than having a model to predict all 839 locations, which would intuitively have higher error rate. The method of using VAR on all locations produced a relatively worse result, which is similar to the findings from \cite{Abolfazl2017}, which states that a simple VAR model would not perform as well for high-dimensional data,  
+\noindent Applying the 3-step forecast also gives a much improved result. This might be due to using a more reliable and reasonable model to predict total demands for just 9 clusters and then re-assigning it to individual locations, rather than having a model to predict all 839 locations, which would intuitively have higher error rate. The method of using VAR on all locations produced a relatively worse result, which is similar to the findings from \cite{Abolfazl2017}, which states that a simple VAR model would not perform as well for high-dimensional data.
+
+\noindent As for the distance metric used for clustering, using correlation between the time series gives us the best result. This might be because correlation compares the general shape and trend of the time series regardless of scale, whereas for DTW, it is more effective to compare time series of varying length and speed. Using correlation also gives better results than using euclidean distance between the geo-locations, and this imply that.......  
 
 \section{Limitations and Future Work}
 Our 3-step approach model display decent MSFE result. Future work could include using neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models to use spatial-temporal features to forecast the demand across locations.
