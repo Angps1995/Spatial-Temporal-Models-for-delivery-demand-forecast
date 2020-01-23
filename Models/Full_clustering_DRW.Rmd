@@ -1,5 +1,5 @@
 ---
-title: "Clustering using DRW full dataset"
+title: "Clustering using DTW full dataset"
 output: html_notebook
 ---
 

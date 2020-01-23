@@ -374,7 +374,39 @@ Finally, we explored using Dynamic Time Warping (DTW) Distance as the distance m
 
 \noindent DTW is one of the commonly-used algorithm for measuring similarity between time series by providing a elastic non-linear alignment between 2 time series. It is known for being effective for time series that have different length or speed. DTW is calculated by:
 
-(Insert formula)
+\begin{algorithm}
+\caption{Dynamic Time Warping Algorithm}
+\begin{algorithmic}
+%\REQUIRE $n \geq 0 \vee x \neq 0$
+%\ENSURE $y = x^n$
+\STATE 
+\STATE 1. Initialise a 2-dimensional matrix M, where the indices of the rows and indices of the columns represent each point in time series x and time series y. 
+\STATE 2. Populate the matrix with each element $c_{i,j}$ of the matrix representing the distance between $x_i$, the $i^{th}$ element of time series x and $y_j$, the $j_{th}$ element of time series y, which is calculated by:
+
+\begin{center}
+$c_{i,j} = (x_i - y_j) + min(c_{i-1,j}, c_{i,j-1}, c{i-1,j-1})$
+\end{center}
+
+\STATE 3. Starting from the 
+
+%\IF{$n < 0$}
+%\STATE $X \leftarrow 1 / x$
+%\STATE $N \leftarrow -n$
+%\ELSE
+%\STATE $X \leftarrow x$
+%\STATE $N \leftarrow n$
+%ENDIF
+%WHILE{$N \neq 0$}
+%\IF{$N$ is even}
+%\STATE $X \leftarrow X \times X$
+%\STATE $N \leftarrow N / 2$
+%\ELSE[$N$ is odd]
+%\STATE $y \leftarrow y \times X$
+%\STATE $N \leftarrow N - 1$
+%\ENDIF
+%\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
 
 \noindent We can also understand DTW visually by:
 
@@ -384,6 +416,12 @@ Finally, we explored using Dynamic Time Warping (DTW) Distance as the distance m
     \caption{DTW Alignment Plot}
     \label{fig:DTW Alignment Plot}
 \end{figure}
+
+The plot in the middle shows the optimal warping path between the 2 time series. The distance is calculated by the euclidean distance between the points of the 2 time series that lie along the warping path as shown in:
+
+\begin{center}
+$DTW Distance = \sqrt{\sum_{(i,j)\in {Warping Path}}(x_i - y_j)^2}$
+\end{center}
 
 \noindent More details on DTW can be found in \cite{Pavel2008}  
 

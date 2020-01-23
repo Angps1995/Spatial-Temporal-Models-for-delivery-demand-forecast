@@ -1,5 +1,5 @@
 ---
-title: "Clustering"
+title: "Clustering using DTW using R full dataset"
 output: html_notebook
 ---
 
@@ -10,7 +10,9 @@ library(factoextra)
 library(vars)
 library(BigVAR)
 library(BBmisc)
-library(amap)
+library(dtw)
+library(TSclust)
+library(dtwclust)
 set.seed(1234)
 ```
 
@@ -19,31 +21,25 @@ set.seed(1234)
 full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
 df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
 df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
-loc_df <- read.csv("/home/angps/Documents/Thesis/Data/location_map.csv")
+
 train <- full_df[1:839,1:198]
 test <- full_df[1:839,199:204]
 
 lag <- 12
 ```
 
-
 ```{r}
-##CLUSTERING USING TIME SERIES
-fviz_nbclust(train, kmeans, method = "wss", k.max = 24) + theme_minimal() + ggtitle("Elbow Method")
-dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/elbow.jpg");
-dev.off ();
+### Perform Clustering ####
+num_clusters <- 3L
+#km <- kmeans(train, centers = num_clusters)
+km <- tsclust(train, type="partitional", k=num_clusters, distance="dtw", clustering="pam")
 ```
 
 ```{r}
-### Perform Clustering ####
-num_clusters <- 3
-#km <- kmeans(train, centers = num_clusters)
-km <- Kmeans(train, centers = num_clusters, method = 'abscorrelation')
-
 #### Allocate locs to cluster ###
-cluster_1 <- which(km$cluster %in% c(1))
-cluster_2 <- which(km$cluster %in% c(2))
-cluster_3 <- which(km$cluster %in% c(3))
+cluster_1 <- which(km@cluster %in% c(1))
+cluster_2 <- which(km@cluster %in% c(2))
+cluster_3 <- which(km@cluster %in% c(3))
 
 clusters <- list()
 clusters[[1]] <- cluster_1
@@ -113,17 +109,17 @@ print(paste0(" MSFE: ", errors/6))
 
 ```{r}
 ### Perform Clustering ####
-num_clusters <- 6
+num_clusters <- 6L
 #km <- kmeans(train, centers = num_clusters)
-km <- Kmeans(train, centers = num_clusters, method = 'abscorrelation')
+km <- tsclust(train, type="partitional", k=num_clusters, distance="dtw_basic", clustering="pam")
 
 #### Allocate locs to cluster ###
-cluster_1 <- which(km$cluster %in% c(1))
-cluster_2 <- which(km$cluster %in% c(2))
-cluster_3 <- which(km$cluster %in% c(3))
-cluster_4 <- which(km$cluster %in% c(4))
-cluster_5 <- which(km$cluster %in% c(5))
-cluster_6 <- which(km$cluster %in% c(6))
+cluster_1 <- which(km@cluster %in% c(1))
+cluster_2 <- which(km@cluster %in% c(2))
+cluster_3 <- which(km@cluster %in% c(3))
+cluster_4 <- which(km@cluster %in% c(4))
+cluster_5 <- which(km@cluster %in% c(5))
+cluster_6 <- which(km@cluster %in% c(6))
 
 clusters <- list()
 clusters[[1]] <- cluster_1
@@ -201,20 +197,20 @@ print(paste0(" MSFE: ", errors/6))
 
 ```{r}
 ### Perform Clustering ####
-num_clusters <- 9
+num_clusters <- 9L
 #km <- kmeans(train, centers = num_clusters)
-km <- Kmeans(train, centers = num_clusters, method = 'abscorrelation')
+km <- tsclust(train, type="partitional", k=num_clusters, distance="dtw_basic", clustering="pam")
 
 #### Allocate locs to cluster ###
-cluster_1 <- which(km$cluster %in% c(1))
-cluster_2 <- which(km$cluster %in% c(2))
-cluster_3 <- which(km$cluster %in% c(3))
-cluster_4 <- which(km$cluster %in% c(4))
-cluster_5 <- which(km$cluster %in% c(5))
-cluster_6 <- which(km$cluster %in% c(6))
-cluster_7 <- which(km$cluster %in% c(7))
-cluster_8 <- which(km$cluster %in% c(8))
-cluster_9 <- which(km$cluster %in% c(9))
+cluster_1 <- which(km@cluster %in% c(1))
+cluster_2 <- which(km@cluster %in% c(2))
+cluster_3 <- which(km@cluster %in% c(3))
+cluster_4 <- which(km@cluster %in% c(4))
+cluster_5 <- which(km@cluster %in% c(5))
+cluster_6 <- which(km@cluster %in% c(6))
+cluster_7 <- which(km@cluster %in% c(7))
+cluster_8 <- which(km@cluster %in% c(8))
+cluster_9 <- which(km@cluster %in% c(9))
 
 clusters <- list()
 clusters[[1]] <- cluster_1
@@ -295,7 +291,10 @@ for (i in c(1:6)) {
 print(paste0(" MSFE: ", errors/6))
 ```
 
+```{r}
+plot(km, type = "sc")
 
+```
 
 ```{r}
 plot(as.vector(var_model@resids), main="Residuals plot of VAR model", 
@@ -332,23 +331,23 @@ plot(fitted_val, error_arr, main="Plot of residuals against predicted values",
 
 ```{r}
 ### Perform Clustering ####
-num_clusters <- 12
+num_clusters <- 12L
 #km <- kmeans(train, centers = num_clusters)
-km <- Kmeans(train, centers = num_clusters, method = 'abscorrelation')
+km <- tsclust(train, type="partitional", k=num_clusters, distance="dtw_basic", clustering="pam")
 
 #### Allocate locs to cluster ###
-cluster_1 <- which(km$cluster %in% c(1))
-cluster_2 <- which(km$cluster %in% c(2))
-cluster_3 <- which(km$cluster %in% c(3))
-cluster_4 <- which(km$cluster %in% c(4))
-cluster_5 <- which(km$cluster %in% c(5))
-cluster_6 <- which(km$cluster %in% c(6))
-cluster_7 <- which(km$cluster %in% c(7))
-cluster_8 <- which(km$cluster %in% c(8))
-cluster_9 <- which(km$cluster %in% c(9))
-cluster_10 <- which(km$cluster %in% c(10))
-cluster_11 <- which(km$cluster %in% c(11))
-cluster_12 <- which(km$cluster %in% c(12))
+cluster_1 <- which(km@cluster %in% c(1))
+cluster_2 <- which(km@cluster %in% c(2))
+cluster_3 <- which(km@cluster %in% c(3))
+cluster_4 <- which(km@cluster %in% c(4))
+cluster_5 <- which(km@cluster %in% c(5))
+cluster_6 <- which(km@cluster %in% c(6))
+cluster_7 <- which(km@cluster %in% c(7))
+cluster_8 <- which(km@cluster %in% c(8))
+cluster_9 <- which(km@cluster %in% c(9))
+cluster_10 <- which(km@cluster %in% c(10))
+cluster_11 <- which(km@cluster %in% c(11))
+cluster_12 <- which(km@cluster %in% c(12))
 
 clusters <- list()
 clusters[[1]] <- cluster_1
@@ -417,91 +416,6 @@ assign_clust_demand = function(clust_pred){
 
 pred <- assign_clust_demand(cluster_pred)
 
-# calculate error
-errors <- 0
-error_arr <- c()
-fitted_val <- c()
-for (i in c(1:6)) {
-    curr_pred <- pred[i, 1:839]
-    act <- full_df[1:839,198 + i]
-    error_arr <- c(error_arr, c(curr_pred - act))
-    fitted_val <- c(fitted_val, curr_pred)
-    error <- sum((curr_pred - act) ^ 2)
-    errors <- errors + error
-    prev_pred <- curr_pred
-}
-
-print(paste0(" MSFE: ", errors/6))
-```
-
-
-
-
-
-
-
-
-
-
-
-
-```{r}
-## DIFFERENCING ##
-#df_t <- t(df_atleast_50cts)
-colnames(cluster_df) = c(1:9)
-rownames(cluster_df) <- c(1:204)
-diff_df <- data.frame(diff(as.matrix(cluster_df), differences=1))
-#diff_df <- normalize(df_t, margin=1L)
-stationary_test = ca.jo(diff_df, type="trace", K=6, ecdet="none", spec="longrun")
-summary(stationary_test)
-```
-
-```{r}
-model = constructModel(as.matrix(diff_df), p = 6, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
-var_model <- cv.BigVAR(model)
-var_model
-```
-
-```{r}
-# Predict Cluster demand 
-cluster_diff_pred <- tail(var_model@fitted,6)
-prev <- cluster_df[198,1:9]
-cluster_pred <- prev + cluster_diff_pred[1, 1:9]
-prev <- prev + cluster_diff_pred[1, 1:9]
-for (i in c(2:6)) {
-  cluster_pred <-rbind(cluster_pred, prev + cluster_diff_pred[i, 1:9])
-  prev <- prev + cluster_diff_pred[i, 1:9]
-}
-```
-
-```{r}
-# Function to assign demand to location
-assign_clust_demand = function(clust_pred){
-  num_clust <- dim(clust_pred)[2]
-  pred <- matrix(0, nrow = 6, ncol = 839)  
-  for (i in c(1:num_clust)) {
-      clust_ind <- clusters[[i]]  
-      clust_order_by_loc <- rowSums(train[clust_ind,])
-      for (j in c(1:length(clust_ind))) {
-          loc_prop <- clust_order_by_loc[j]/sum(clust_order_by_loc)
-          for (t in c(1:6)) {
-              clust_total_order <- clust_pred[t, i]
-              ind <- clust_ind[j]
-              pred[t, ind] <- loc_prop * clust_total_order
-          }
-      }
-  }
-  return (pred) 
-}
-
-
-# Assign demand to locations
-
-pred <- assign_clust_demand(cluster_pred)
-
-```
-
-```{r}
 # calculate error
 errors <- 0
 error_arr <- c()
