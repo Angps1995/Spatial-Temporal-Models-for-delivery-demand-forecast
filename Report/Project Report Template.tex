@@ -374,20 +374,49 @@ Finally, we explored using Dynamic Time Warping (DTW) Distance as the distance m
 
 \noindent DTW is one of the commonly-used algorithm for measuring similarity between time series by providing a elastic non-linear alignment between 2 time series. It is known for being effective for time series that have different length or speed. DTW is calculated by:
 
-\begin{algorithm}
-\caption{Dynamic Time Warping Algorithm}
+\begin{algorithm}[H]
+\caption{Dynamic Time Warping (DTW) Algorithm to form distance matrix}
 \begin{algorithmic}
 %\REQUIRE $n \geq 0 \vee x \neq 0$
 %\ENSURE $y = x^n$
 \STATE 
 \STATE 1. Initialise a 2-dimensional matrix M, where the indices of the rows and indices of the columns represent each point in time series x and time series y. 
-\STATE 2. Populate the matrix with each element $c_{i,j}$ of the matrix representing the distance between $x_i$, the $i^{th}$ element of time series x and $y_j$, the $j_{th}$ element of time series y, which is calculated by:
+\STATE 2. Populate the matrix from bottom-left to top-right with each element $c_{i,j}$ of the matrix representing the distance between $x_i$, the $i^{th}$ element of time series x and $y_j$, the $j_{th}$ element of time series y, which is calculated by:
 
 \begin{center}
 $c_{i,j} = (x_i - y_j) + min(c_{i-1,j}, c_{i,j-1}, c{i-1,j-1})$
 \end{center}
 
-\STATE 3. Starting from the 
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Using DTW Matrix to find optimal warping path}
+\begin{algorithmic}
+\REQUIRE i*j distance matrix from DTW Algorithm
+%\ENSURE $y = x^n$
+\STATE Let i = rows(matrix) and j = columns(matrix)
+\STATE Let path = []
+\WHILE {(i != 1) and (j != 1)}
+\IF{i==1}
+\STATE $j = j-1$
+\ELSIF{j==1}
+\STATE $i = i-1$
+\ELSE
+\IF{matrix[i-1,j] == min(matrix(i − 1, j), matrix(i, j − 1), matrix(i − 1, j − 1))}
+\STATE $i = i - 1$
+\ELSIF{matrix[i,j-1] == min(matrix(i − 1, j), matrix(i, j − 1), matrix(i − 1, j − 1))}
+\STATE $j = j - 1$
+\ELSE
+\STATE $i = i - 1, j = j - 1$
+\ENDIF
+path.add((i,j))
+\ENDIF
+\ENDWHILE
+\RETURN path
+\end{algorithmic}
+\end{algorithm}
+
 
 %\IF{$n < 0$}
 %\STATE $X \leftarrow 1 / x$
@@ -405,8 +434,8 @@ $c_{i,j} = (x_i - y_j) + min(c_{i-1,j}, c_{i,j-1}, c{i-1,j-1})$
 %\STATE $N \leftarrow N - 1$
 %\ENDIF
 %\ENDWHILE
-\end{algorithmic}
-\end{algorithm}
+%\end{algorithmic}
+%\end{algorithm}
 
 \noindent We can also understand DTW visually by:
 
