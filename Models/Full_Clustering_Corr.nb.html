@@ -1751,25 +1751,50 @@ summary {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0c2NvdW50KVxubGlicmFyeSh1cmNhKVxubGlicmFyeShmYWN0b2V4dHJhKVxubGlicmFyeSh2YXJzKVxubGlicmFyeShCaWdWQVIpXG5saWJyYXJ5KEJCbWlzYylcbmxpYnJhcnkoYW1hcClcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0c2NvdW50KVxubGlicmFyeSh1cmNhKVxubGlicmFyeShmYWN0b2V4dHJhKVxuYGBgIn0= -->
 <pre class="r"><code>library(tscount)
 library(urca)
-library(factoextra)
-library(vars)
-library(BigVAR)
-library(BBmisc)
-library(amap)</code></pre>
+library(factoextra)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYYW1hcOKAmVxuXG5UaGUgZm9sbG93aW5nIG9iamVjdCBpcyBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOlRTY2x1c3TigJk6XG5cbiAgICBkaXNzXG4ifQ== -->
-<pre><code>
-Attaching package: ‘amap’
-
-The following object is masked from ‘package:TSclust’:
-
-    diss</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBnZ3Bsb3QyXG5SZWdpc3RlcmVkIFMzIG1ldGhvZCBvdmVyd3JpdHRlbiBieSAnZHBseXInOlxuICBtZXRob2QgICAgICAgICAgIGZyb21cbiAgcHJpbnQucm93d2lzZV9kZiAgICAgXG5XZWxjb21lISBXYW50IHRvIGxlYXJuIG1vcmU/IFNlZSB0d28gZmFjdG9leHRyYS1yZWxhdGVkIGJvb2tzIGF0IGh0dHBzOi8vZ29vLmdsL3ZlM1dCYVxuIn0= -->
+<pre><code>Loading required package: ggplot2
+Registered S3 method overwritten by 'dplyr':
+  method           from
+  print.rowwise_df     
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0LnNlZWQoMTIzNClcbmBgYCJ9 -->
-<pre class="r"><code>set.seed(1234)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh2YXJzKVxuYGBgIn0= -->
+<pre class="r"><code>library(vars)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBNQVNTXG5Mb2FkaW5nIHJlcXVpcmVkIHBhY2thZ2U6IHN0cnVjY2hhbmdlXG5Mb2FkaW5nIHJlcXVpcmVkIHBhY2thZ2U6IHpvb1xuXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYem9v4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0cyBhcmUgbWFza2VkIGZyb20g4oCYcGFja2FnZTpiYXNl4oCZOlxuXG4gICAgYXMuRGF0ZSwgYXMuRGF0ZS5udW1lcmljXG5cbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogc2FuZHdpY2hcbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogbG10ZXN0XG4ifQ== -->
+<pre><code>Loading required package: MASS
+Loading required package: strucchange
+Loading required package: zoo
+
+Attaching package: ‘zoo’
+
+The following objects are masked from ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+Loading required package: sandwich
+Loading required package: lmtest</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShCaWdWQVIpXG5saWJyYXJ5KEJCbWlzYylcbmBgYCJ9 -->
+<pre class="r"><code>library(BigVAR)
+library(BBmisc)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYQkJtaXNj4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6YmFzZeKAmTpcblxuICAgIGlzRkFMU0VcbiJ9 -->
+<pre><code>
+Attaching package: ‘BBmisc’
+
+The following object is masked from ‘package:base’:
+
+    isFALSE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShhbWFwKVxuc2V0LnNlZWQoMTIzNClcbmBgYCJ9 -->
+<pre class="r"><code>library(amap)
+set.seed(1234)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -2410,8 +2435,8 @@ for (i in c(1:6)) {
 
 print(paste0(&quot; MSFE: &quot;, errors/6))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiIE1TRkU6IDU4LjAzNTQ3MzI4NTE3MDZcIlxuIn0= -->
-<pre><code>[1] &quot; MSFE: 58.0354732851706&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiIE1TRkU6IDY0LjE3MjMwODg5NDU1NFwiXG4ifQ== -->
+<pre><code>[1] &quot; MSFE: 64.172308894554&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->

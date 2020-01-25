@@ -38,13 +38,14 @@
 
 \begin{document}
 	\title{NUS Business School Honors Dissertation}
-	\author{Peng Seng Ang}
+	\author{Peng Seng Ang \\[0.5cm] {Advised by: Professor He Long}}
 	\date{AY 2019/2020 Semester 2}
 	\maketitle
 \begin{abstract}
 \noindent Many real industry problems involves spatio-temporal demand prediction (e.g predicting demand at a certain time across different locations). Most of the demand data are not continuous variables but instead count variables, like number of orders and number of transactions. This paper studies how we can apply time series model to count variables, using VAR models to exploit spatial correlations as well as introduce a 3-step approach to improve forecast accuracy. 
 
 \end{abstract}
+\newpage
 \section{Introduction}
 
 The motivation for this paper comes from \cite{Sheng2018}, where their focus is to optimise assignments of orders to drivers in order to minimize the total delay of all drivers. The dataset used in both \cite{Sheng2018} and this paper are from a food service provider in China that allows customer to place orders before a cutoff time in the day (e.g 10.00am) and the customer can expect to recieve their orders by a deadline (e.g anytime from 10.30am to 11.45am). 
@@ -53,12 +54,13 @@ The motivation for this paper comes from \cite{Sheng2018}, where their focus is 
 
 \noindent In reality, demand is never deterministic and hence, having an accurate forecast of demand for the food service providers would help them more effectively and efficiently assign orders to drivers to improve the overall delivery time. As such, the focus of this paper would be to accurately model and forecast the demand at the different locations and time. Currently, most Autoregressive (AR) or Autoregressive Integrated Moving Average (ARIMA) models only consider temporal features when predicting demand. However, we believe including spatial features between the data points might improve forecast accuracy. This paper would focus on and explore models that include both spatial and temporal features to improve forecast accuracy. 
 
+\newpage
 \section{Literature Review}
 \cite{Marina2016} describes and shows how they implemented a network autoregressive moving average model to model the number of cases of Mumps in UK counties. In their example, they also showed that they might achieve a better result by modelling the series separately as univariate time series, also suggested in \cite{Nunes2015} since the neighbouring counties does not provide a substantial amount of explanatory power.  Other related literature includes \cite{Xavier2005} where they propose a model building strategy for spatially sparse but temporally rich data. 
 
 \noindent BigVAR and tscount are some libraries that would be used in this paper. \cite{Tobias2017} provides the mathematical background and implementation of Generalised Linear Models (GLM) for count time series as a library (tscount) in R while \cite{William2017} extensively descibes the background and implementation of the VAR models and BigVAR library for multi-variate time series.
 
-\noindent There are also various research on different methods used to predict spatio-temporal demand. One example would be \cite{Abolfazl2017}, where they proposed using generalized spatio-temporal autoregressive model for predicting taxi demands across locations in New York City. 
+\noindent There are also various research on different methods used to predict spatio-temporal demand. One example would be \cite{Abolfazl2017}, where they proposed using generalized spatio-temporal autoregressive model for predicting taxi demands across locations in New York City. While most existing research regarding spatio-temporal forecasting makes use of deep learning methods, this paper would be more focused on using classical statistical method instead as it is more interpretable than deep learning neural networks.
 
 \section{Data}
 The data source used was an operational dataset from a food delivery service provider from Shanghai that includes delivery information for a 2-month period from 10 August 2015 to 30 September 2015 (excluding Saturdays) in 2015. The provider only provides delivery service for 90 minutes during lunchtime and the dataset has split the data into 15-minute time periods, and as such, each day would only consists of demand data for 6 time periods. Hence, our dataset has 839 locations with demand count data, in integer, for 204 time periods in total. 
@@ -70,7 +72,7 @@ We would first do some exploratory analysis and check if there are any interesti
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth, height=0.7\textheight]{Images/example_all_ts.jpg}
+    \includegraphics[width=0.95\textwidth, height=0.5\textheight]{Images/example_all_ts.jpg}
     \caption{Time series of all locations in the dataset. It can be observed that most locations have very low number of orders across the time period.}
     \label{fig:Time series of all locations in the dataset. It can be observed that most locations have very low number of orders across the time period.}
 \end{figure}
@@ -78,7 +80,7 @@ We would first do some exploratory analysis and check if there are any interesti
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.4\textheight] {Images/example_ts.jpg}
+    \includegraphics[width=\textwidth, height=0.35\textheight] {Images/example_ts.jpg}
     \caption{Most locations have very sparse time series (left) while some have relatively more dense time series (right)}
     \label{fig:Most locations have very sparse time series (left) while some have relatively more dense time series (right)}
 \end{figure}
@@ -86,14 +88,23 @@ We would first do some exploratory analysis and check if there are any interesti
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth, height=0.4\textheight]{Images/boxplot_counts.jpg}
-    \caption{Boxplot of counts}
-    \label{fig:Boxplot of counts}
+    \includegraphics[width=\textwidth, height=0.35\textheight]{Images/boxplot_counts.jpg}
+    \caption{Boxplot of counts. We can see that most of the locations have extremely low number of non-zero orders and further analysis showed that about 335 locations have just a maximum of one non-zero order throughout the 204 time periods.}
+    \label{fig:Boxplot of counts. We can see that most of the locations have extremely low number of non-zero orders and further analysis showed that about 335 locations have just a maximum of one non-zero order throughout the 204 time periods. }
 \end{figure}
 
-\noindent We can see from the boxplot in Figure 3 that most of the locations have extremely low number of non-zero orders and further analysis showed that about 335 locations have just a maximum of one non-zero order throughout the 204 time periods. 
+\noindent Next, we observe how the demand changes across locations over time. 
 
-\noindent Analysis on some exogenous factors were performed too. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth, height=0.75\textheight]{Images/spatial_demand.jpg}
+    \caption{Demand across locations over time}
+    \label{fig:Demand across locations over time}
+\end{figure}
+
+
+\noindent We also performed some analysis on exogenous factors, such as the mean demand against temperature and against pressure. 
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth, height=0.32\textheight]{Images/temp_mean_demand.jpg}
@@ -110,7 +121,6 @@ We would first do some exploratory analysis and check if there are any interesti
 
 \noindent The scatter plot in Figure 4 visually display a slight positive relationship between temperature and mean demand across all locations whereas Figure 5 visually display a slight negative relationship between pressure and mean demand across all locations. We would explore usage and impact of the exogenous variables in predicting demand in the later portion of this paper. 
 
-(Add spatial plot if possible)
 
 
 \subsection{Train-Test Split}
@@ -121,7 +131,7 @@ From Figure 1 in Section 3.1, the data is very sparse as there are many location
 \noindent Our training set would then have 198 demand data for each location and test set would have 6 demand data for each location. 
 
 \section{Baseline Model}
-In this section, we would build a simple baseline model. Following which, we would try other different spatial temporal time series models and compare the results against the baseline model. 
+In this section, we would build a simple baseline model, which is just fitting an ARIMA model on all the locations individually. Following which, we would try other different spatial temporal time series models and compare the results against the baseline model. 
 
 \subsection{Metric Used}
 The main metric that would be used for comparison would be Mean Squared Forecast Error (MSFE), which is calculated by:
@@ -220,7 +230,7 @@ As with many spatio-temporal demand prediction, spatial features could be an imp
     \label{fig:Spatial Correlation Heatmap. Axes represent locations}
 \end{figure}
 
-\noindent This provides the motivation to use the existence of spatial correlation and explore the usage of VAR model.
+\noindent This thus provides the motivation to use the existence of spatial correlation and explore the usage of VAR model.
 
 \subsection{Stationarity Condition}
 For a univariate time series, it is important for the time series to be transformed into a stationary series and Augmented Dickey-Fuller (ADF) test can be used to perform unit root test for stationarity, as shown in \cite{Zhijie1998} and \cite{Rizwan2011}. For a multi-variate time series, if the series are unit-root non-stationary, applying the VAR model could lead to spurious regression, as shown in \cite{Baumohl2009}.  
@@ -294,11 +304,11 @@ From Figure 11 and 12, we can see that the residuals are mostly randomly scatter
 Figure 13 and 14 shows that heteroscadasticity occurs at the lower and higher ends of the predicted values, whereas in the middle range, the residuals tend to be roughly randomly scattered.
 
 \subsection{Results}
-BigVAR library in R was used to implement the VAR models. The MSFE for the VAR model is 76.72 and MSFE for VARX model is 75.63. This would imply that the exogenous variables used do have a moderate amount of explanatory power. 
+BigVAR library in R was used to implement the VAR models. The MSFE for the VAR model is 76.72 and MSFE for VARX model is 75.63. Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. 
 
 \section{3-step Approach}
 
-We could then explore an alternative 3-step approach, which is described here:
+Next, we would introduce an alternative 3-step approach, which is described here:
 
 \noindent Step 1. Perform Clustering on the time series using one of the distance metric: 
 
@@ -372,7 +382,7 @@ $r_{xy} = \frac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
 
 Finally, we explored using Dynamic Time Warping (DTW) Distance as the distance metric for K-means clustering. 
 
-\noindent DTW is one of the commonly-used algorithm for measuring similarity between time series by providing a elastic non-linear alignment between 2 time series. It is known for being effective for time series that have different length or speed. DTW is calculated by:
+\noindent DTW is one of the commonly-used algorithm for measuring similarity between time series by providing a elastic non-linear alignment between 2 time series. It is known for being effective for time series that have different length or speed. DTW is calculated by first creating a distance matrix and then finding the optimal warping path as shown in the 2 algorithms here:
 
 \begin{algorithm}[H]
 \caption{Dynamic Time Warping (DTW) Algorithm to form distance matrix}
@@ -436,7 +446,7 @@ path.add((i,j))
 %\ENDWHILE
 %\end{algorithmic}
 %\end{algorithm}
-
+\newpage
 \noindent We can also understand DTW visually by:
 
 \begin{figure}[H]
@@ -446,13 +456,13 @@ path.add((i,j))
     \label{fig:DTW Alignment Plot}
 \end{figure}
 
-The plot in the middle shows the optimal warping path between the 2 time series. The distance is calculated by the euclidean distance between the points of the 2 time series that lie along the warping path as shown in:
+\noindent The plot in the middle shows the optimal warping path between the 2 time series. The distance is calculated by the euclidean distance between the points of the 2 time series that lie along the warping path as shown in:
 
 \begin{center}
 $DTW Distance = \sqrt{\sum_{(i,j)\in {Warping Path}}(x_i - y_j)^2}$
 \end{center}
 
-\noindent More details on DTW can be found in \cite{Pavel2008}  
+\noindent More details on the applications and optimisation of DTW can be found in \cite{Pavel2008}  
 
 \subsection{Predicting total demand for each cluster}
 
@@ -470,12 +480,12 @@ $D_{C(i)} ={\sum_{l\epsilon C(i)}\sum_{j=1}^{n}x_{lj}}$
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.8\textheight]{Images/cluster_corr_heatmap.jpg}
+    \includegraphics[width=\textwidth, height=0.7\textheight]{Images/cluster_corr_heatmap.jpg}
     \caption{Correlation heatmap for 9 clusters}
     \label{fig:Correlation heatmap for 9 clusters}
 \end{figure}
 
-\noindent We can observe from the sample correlation heatmap in Figure 14 that there exist strong correlation between certain clusters (like cluster 1 and 5 and cluster 6 and 9). To exploit the spatial correlation effects, VAR model was then trained on the clusters and is used to predict the total demand for each of the clusters. 
+\noindent We can observe from the sample correlation heatmap in Figure 14 that there exist strong correlation between certain clusters (like cluster 3 and 4 and cluster 6 and 8). To exploit the spatial correlation effects, VAR model was then trained on the clusters and is used to predict the total demand for each of the clusters. 
 
 
 \subsection{Assigning total cluster demand to individual location}
@@ -503,10 +513,10 @@ We also test the effect of different number of cluster groups on the MSFE on our
 \textbf{\begin{tabular}[c]{@{}l@{}}Clustering using DTW as\\ distance metric\end{tabular}}                                & 64.00               & 64.37      & 62.68 & \textbf{62.20}                
 \\ \hline
 \end{tabular}
-\caption{MSFE for different clustering distance metrics and number of clusters}
+\caption{MSFE for different clustering distance metrics and number of clusters. Bolded results signifying the best result for the respective distance metric.}
 \end{table}
 
-
+\newpage
 \section{Results and Conclusion}
 The table below summarises the results of our models. 
 
@@ -530,11 +540,11 @@ The table below summarises the results of our models.
 
 \noindent Applying the 3-step forecast also gives a much improved result. This might be due to using a more reliable and reasonable model to predict total demands for just 9 clusters and then re-assigning it to individual locations, rather than having a model to predict all 839 locations, which would intuitively have higher error rate. The method of using VAR on all locations produced a relatively worse result, which is similar to the findings from \cite{Abolfazl2017}, which states that a simple VAR model would not perform as well for high-dimensional data.
 
-\noindent As for the distance metric used for clustering, using correlation between the time series gives us the best result. This might be because correlation compares the general shape and trend of the time series regardless of scale, whereas for DTW, it is more effective to compare time series of varying length and speed. Using correlation also gives better results than using euclidean distance between the geo-locations, and this imply that.......  
+\noindent As for the distance metric used for clustering, using correlation between the time series gives us the best result. This might be because correlation compares the general shape and trend of the time series regardless of scale, whereas for DTW, it is more effective to compare time series of varying length and speed. Using correlation also gives better results than using euclidean distance between the geo-locations, and this imply that spatial correlation is not limited to just geographical proximity but also on the time series similarity. 
 
 \section{Limitations and Future Work}
-Our 3-step approach model display decent MSFE result. Future work could include using neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models to use spatial-temporal features to forecast the demand across locations.
-
+Our 3-step approach model display decent MSFE result. However, using VAR is still technically a linear model and future work could include using non-linear models like neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models that also use spatial-temporal features to forecast the demand across locations. 
+\newpage
 \section{Appendix}
 \subsection{Distribution Plots of Exogenous Variables}
 \begin{figure}[H]
@@ -615,7 +625,7 @@ Our 3-step approach model display decent MSFE result. Future work could include 
     \caption{Mean Demand against Precipitation}
     \label{fig:Mean Demand against Precipitation}
 \end{figure}
-
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
