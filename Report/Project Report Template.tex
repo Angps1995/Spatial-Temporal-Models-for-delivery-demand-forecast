@@ -208,7 +208,7 @@ To validate and verify if our fitted model is adequate, model checking would be 
 
 Similar to the baseline ARIMA model, it would be a relatively expensive and time-consuming process as every location has to be individually fitted to a GLM model. Also, each location model only uses its past values and does not take into account data from the other locations. The next section explores another type of model which would use data from other locations as predictors. 
 
-\section{VAR Model}
+\section{Vector Autoregressive (VAR) Model}
 
 \subsection{Details of VAR Model}
 Vector Autoregressive (VAR) models are the most commonly used model for multivariate time series, particularly in economics and financial time series as shown in \cite{Hilde2000}. VAR models are very similar to multivariate linear regression models and methods used to perform inferencing on linear regression models can also be applied to VAR models. VAR(p) represents a VAR model of order p if the time series can be written as: 
@@ -233,20 +233,22 @@ As with many spatio-temporal demand prediction, spatial features could be an imp
 \noindent This thus provides the motivation to use the existence of spatial correlation and explore the usage of VAR model.
 
 \subsection{Stationarity Condition}
-For a univariate time series, it is important for the time series to be transformed into a stationary series and Augmented Dickey-Fuller (ADF) test can be used to perform unit root test for stationarity, as shown in \cite{Zhijie1998} and \cite{Rizwan2011}. For a multi-variate time series, if the series are unit-root non-stationary, applying the VAR model could lead to spurious regression, as shown in \cite{Baumohl2009}.  
+For a univariate time series, it is important for the time series to be transformed into a stationary series and Augmented Dickey-Fuller (ADF) test can be used to perform unit root test for stationarity, as shown in \cite{Zhijie1998} and \cite{Rizwan2011}. For a multi-variate time series, if the series are unit-root non-stationary, regression models might show a statistially significant, but false, coefficients and results simply because the series are coincidentally increasing over time, hence applying the VAR model on non-stationary series could lead to spurious regression, also shown in \cite{Baumohl2009}.  
+
+
+\subsection{Implementation of VAR Model for our dataset}
+
+To test for stationarity, we would be performing the standard ADF test to test for stationarity. The result of the ADF test showed that time series of certain locations are not stationary. We then take the first difference of each series and after differencing, ADF test was performed on each series the time series of each location have been checked and are stationary. It is noted that while it is possible to perform differencing on every series, it might cause over-differencing, leading to inaccurate results, as mentioned in \cite{Ruey2014}.
+
+\noindent Next, BigVAR Library in R was used to fit a VAR model with a maximum lag of 12, using time series of every location as predictors. The results for the VAR model is discussed in the later subsection. 
 
 \subsubsection{Cointegration}
 \cite{Box1977} shows that it is possible to linearly combine various unit-root nonstationary time series to form a stationary series. The term Cointegration, first mentioned in \cite{Granger1983}, states that although some or all the time series might be unit-root nonstationary individually, these time series can be said to be cointegrated if there exists a possible linear combination of them that would form a stationary series. Intuitively, 2 series are cointegrated if they move together and the distance between them remain stable over time. 
 
 \subsubsection{Johansen Test for Cointegration}
-While Cointegrated Augmented Dickey Fuller Test, commonly used for Pairs Trading, can be used, it is only able to be applied on 2 separate series. In our dataset, we have 839 locations at least, hence we would apply the popular approach to cointegrating tests for VAR model, called the Johansen's Cointegration Test. However, one limitation is that it can only be used to check for cointegration between a maximum of 12 variables. For further elaboration on the Johansen's Cointegration Test, please refer to \cite{Johansen1991}. Since our dataset has 839 variables (locations), we are unable to accurately calculate the significant values of more than 12 variables and hence unable to determine correctly the number of cointegration vectors needed. 
+While Cointegrated Augmented Dickey Fuller Test, commonly used for Pairs Trading, can be used, it is able to be applied on only 2 separate series. The next best approach is the cointegrating tests for VAR model, called the Johansen's Cointegration Test. However, one limitation is that it can only be used to check for cointegration between a maximum of 12 variables. For further elaboration on the Johansen's Cointegration Test, please refer to \cite{Johansen1991}. If there exists cointegration between variables, a Vector Error Correction Model can be formulated. 
 
-
-\subsection{Implementation of VAR Model for our dataset}
-
-As mentioned in the previous section, we are unable to apply the cointegration test to our dataset of 839 time series. Instead, we would be performing the standard ADF test to test for stationarity. The result of the ADF test showed that time series of certain locations are not stationary. We then take the first difference of each series and after differencing, ADF test was performed on each series the time series of each location have been checked and are stationary. It is noted that while it is possible to perform differencing on every series, it might cause over-differencing, leading to inaccurate results, as mentioned in \cite{Ruey2014}.
-
-\noindent Next, BigVAR Library in R was used to fit a VAR model with a maximum lag of 12, using time series of every location as predictors. The results for the VAR model is discussed in the later subsection. 
+\noindent However, since our dataset has 839 variables (locations), we are unable to apply the cointegration test or accurately calculate the significant values of more than 12 variables and hence unable to determine correctly the number of cointegration vectors needed. 
 
 \subsection{VARX Model}
 VAR models can also be extended to include exogenous variables. A VARX(p,s) (with exogenous variables) model can be expressed as:
@@ -516,6 +518,8 @@ We also test the effect of different number of cluster groups on the MSFE on our
 \caption{MSFE for different clustering distance metrics and number of clusters. Bolded results signifying the best result for the respective distance metric.}
 \end{table}
 
+\noindent Based on the results, the best model chosen would be clustering the data into 9 clusters using correlation between the time series as the distance metric.
+
 \newpage
 \section{Results and Conclusion}
 The table below summarises the results of our models. 
@@ -543,7 +547,7 @@ The table below summarises the results of our models.
 \noindent As for the distance metric used for clustering, using correlation between the time series gives us the best result. This might be because correlation compares the general shape and trend of the time series regardless of scale, whereas for DTW, it is more effective to compare time series of varying length and speed. Using correlation also gives better results than using euclidean distance between the geo-locations, and this imply that spatial correlation is not limited to just geographical proximity but also on the time series similarity. 
 
 \section{Limitations and Future Work}
-Our 3-step approach model display decent MSFE result. However, using VAR is still technically a linear model and future work could include using non-linear models like neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models that also use spatial-temporal features to forecast the demand across locations. 
+Our 3-step approach model display decent MSFE result. However, using VAR is still technically a linear model and future work could include exploring using non-linear models like neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models that also use spatial-temporal features to forecast the demand across locations.  
 \newpage
 \section{Appendix}
 \subsection{Distribution Plots of Exogenous Variables}
