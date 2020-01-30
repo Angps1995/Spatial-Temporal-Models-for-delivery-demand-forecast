@@ -37,6 +37,7 @@ train <- df_atleast_50cts
 #par(mfrow=c(1,2))
 ts.plot(t(full_df),gpars= list(col=rainbow(839)), main="Time series of all locations", 
   xlab="Time Period", ylab="Orders")
+
 #ts.plot(t(train),gpars= list(col=rainbow(42)))
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/example_all_ts.jpg");
 dev.off ();

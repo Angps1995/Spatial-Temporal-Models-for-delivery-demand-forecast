@@ -56,11 +56,16 @@ The motivation for this paper comes from \cite{Sheng2018}, where their focus is 
 
 \newpage
 \section{Literature Review}
-\cite{Marina2016} describes and shows how they implemented a network autoregressive moving average model to model the number of cases of Mumps in UK counties. In their example, they also showed that they might achieve a better result by modelling the series separately as univariate time series, also suggested in \cite{Nunes2015} since the neighbouring counties does not provide a substantial amount of explanatory power.  Other related literature includes \cite{Xavier2005} where they propose a model building strategy for spatially sparse but temporally rich data. 
+
+\noindent Spatio-temporal demand prediction has slowly gained popularity over the years with the rise of deep learning. There are various research on different deep learning methods used for spatio-temporal demand prediction. One example would be \cite{Wang2018}, where they applied deep spatio-temporal convolutional LSTM methods for traffic demand prediction. 
+
+\noindent While most existing research regarding spatio-temporal forecasting makes use of deep learning methods, this paper would be focus only on using classical statistical method instead as the dataset we are using is small and classical methods are relatively more interpretable than deep learning neural networks. Another example of using classical time series methods for spatio-temporal forecasting would be \cite{Abolfazl2017}, where they proposed using generalized spatio-temporal autoregressive model for predicting taxi demands across locations in New York City. 
+
+\noindent \cite{Marina2016} describes and shows how they implemented a network autoregressive moving average model to model the number of cases of Mumps in UK counties. In their example, they also showed that they might achieve a better result by modelling the series separately as univariate time series, also suggested in \cite{Nunes2015} since the neighbouring counties does not provide a substantial amount of explanatory power.  Other related literature includes \cite{Xavier2005} where they propose a model building strategy for spatially sparse but temporally rich data. 
 
 \noindent BigVAR and tscount are some libraries that would be used in this paper. \cite{Tobias2017} provides the mathematical background and implementation of Generalised Linear Models (GLM) for count time series as a library (tscount) in R while \cite{William2017} extensively descibes the background and implementation of the VAR models and BigVAR library for multi-variate time series.
 
-\noindent There are also various research on different methods used to predict spatio-temporal demand. One example would be \cite{Abolfazl2017}, where they proposed using generalized spatio-temporal autoregressive model for predicting taxi demands across locations in New York City. While most existing research regarding spatio-temporal forecasting makes use of deep learning methods, this paper would be more focused on using classical statistical method instead as it is more interpretable than deep learning neural networks.
+
 
 \section{Data}
 The data source used was an operational dataset from a food delivery service provider from Shanghai that includes delivery information for a 2-month period from 10 August 2015 to 30 September 2015 (excluding Saturdays) in 2015. The provider only provides delivery service for 90 minutes during lunchtime and the dataset has split the data into 15-minute time periods, and as such, each day would only consists of demand data for 6 time periods. Hence, our dataset has 839 locations with demand count data, in integer, for 204 time periods in total. 
@@ -72,7 +77,7 @@ We would first do some exploratory analysis and check if there are any interesti
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth, height=0.5\textheight]{Images/example_all_ts.jpg}
+    \includegraphics[width=0.75\textwidth, height=0.28\textheight]{Images/example_all_ts.jpg}
     \caption{Time series of all locations in the dataset. It can be observed that most locations have very low number of orders across the time period.}
     \label{fig:Time series of all locations in the dataset. It can be observed that most locations have very low number of orders across the time period.}
 \end{figure}
@@ -131,7 +136,7 @@ From Figure 1 in Section 3.1, the data is very sparse as there are many location
 \noindent Our training set would then have 198 demand data for each location and test set would have 6 demand data for each location. 
 
 \section{Baseline Model}
-In this section, we would build a simple baseline model, which is just fitting an ARIMA model on all the locations individually. Following which, we would try other different spatial temporal time series models and compare the results against the baseline model. 
+In this section, we would build a simple baseline model by just fitting an ARIMA model on all the locations individually. In the later sections of the paper, we would try other different spatial temporal time series models and compare the results against the baseline model. 
 
 \subsection{Metric Used}
 The main metric that would be used for comparison would be Mean Squared Forecast Error (MSFE), which is calculated by:
@@ -158,7 +163,7 @@ As a baseline model, each of the locations was assessed individually and a suita
 
 
 \section{GLM Model}
-The dataset that we are using follows a count time series, which means the observations are non-negative integers. A flexible and commonly used model for count time series is the Generalized Linear Model (GLM) \cite{Nelder1972}. GLM normally take the form of:
+The dataset that we are using follows a count time series, which means the observations are non-negative integers. A flexible and commonly used model for count time series is the Generalized Linear Model (GLM) \cite{Nelder1972}. GLM assumes that each value is conditionally dependent on its past values. According to \cite{Tobias2017}, an advantage of GLM models over typical ARIMA models is that GLM can describe covariate effects and negative correlations in a more direct way. GLM normally take the form of:
 
 \begin{center}
     $\displaystyle g(\lambda_t)= \eta^T X_t$
@@ -175,7 +180,7 @@ The dataset that we are using follows a count time series, which means the obser
 %\noindent where additionally, $\tilde{g}$ represents a transformation function. (remove this?)
 
 \subsection{Model Implementation}
-\noindent As mentioned in section 3.2, we would first assess our model on the smaller dataset before testing it on the full dataset. Using the R package tscount from \cite{Tobias2017}, we fit each of the locations individually by a GLM model. We used the past 6 lagged values as well as the indentity function as the link function. The out-of-sample MSFE for this baseline model on the smaller dataset is \textbf{38.16}, which is better than just using ARIMA on the same dataset.  
+\noindent As mentioned in section 3.2, we would first assess our model on the smaller dataset before testing it on the full dataset. Using the R package tscount from \cite{Tobias2017}, we fit each of the locations individually by a GLM model. For the parameters, we used the past 6 lagged values as well as the indentity function as the link function. The out-of-sample MSFE for this baseline model on the smaller dataset is \textbf{38.16}, which is better than just using ARIMA on the same dataset.  
 
 \noindent However, when it is implemented on the full dataset, the MSFE of the GLM increases to \textbf{82.42}, which is worse than just applying ARIMA on every location, which gives a MSFE of 72.48. 
 
