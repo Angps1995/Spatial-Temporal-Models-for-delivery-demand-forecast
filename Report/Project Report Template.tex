@@ -77,7 +77,7 @@ We would first do some exploratory analysis and check if there are any interesti
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth, height=0.28\textheight]{Images/example_all_ts.jpg}
+    \includegraphics[width=0.85\textwidth, height=0.28\textheight]{Images/example_all_ts.jpg}
     \caption{Time series of all locations in the dataset. It can be observed that most locations have very low number of orders across the time period.}
     \label{fig:Time series of all locations in the dataset. It can be observed that most locations have very low number of orders across the time period.}
 \end{figure}
@@ -102,7 +102,7 @@ We would first do some exploratory analysis and check if there are any interesti
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth, height=0.75\textheight]{Images/spatial_demand.jpg}
+    \includegraphics[width=\textwidth, height=0.75\textheight]{Images/spatial_demand.jpg}
     \caption{Demand across locations over time}
     \label{fig:Demand across locations over time}
 \end{figure}
@@ -184,30 +184,30 @@ The dataset that we are using follows a count time series, which means the obser
 
 \noindent However, when it is implemented on the full dataset, the MSFE of the GLM increases to \textbf{82.42}, which is worse than just applying ARIMA on every location, which gives a MSFE of 72.48. 
 
-\subsection{Model Diagnostics}
-To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis.		
-
-\subsubsection{Residuals plots}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, height=0.7\textheight]{Images/Full_GLM_resids.jpg}
-    \caption{Residuals for GLM Model}
-    \label{fig:Residuals for GLM Model}
-\end{figure}
-
-\noindent Figure 7 diagnostic plots shows that while the residuals are roughly randomly scattered, the GLM model produces residuals that does not follow the normal distribution well. Although not ideal, this is expected as we assume that the distribution is poisson and not normal. 
-
-\subsubsection{Residuals against Predicted values}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth, height=0.6\textheight]{Images/Full_GLM_resids_vs_fitted.jpg}
-    \caption{Residuals against Predicted values for GLM Model}
-    \label{fig:Residuals against Predicted values for GLM Model}
-\end{figure}
-
-\noindent The above plot of residuals against the predicted values suggests heteroscedasticity between residuals, or non-constant variance between the residuals as the predicted value increases, which is expected in a Poisson GLM, as mentioned in \cite{Dylan2017}. For a normal regression model, this would not be a desirable result but since we are assuming that our count data follows a Poisson distribution, the residuals are bound to display heteroscadasticity. 
+%\subsection{Model Diagnostics}
+%To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis.		
+%
+%\subsubsection{Residuals plots}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\textwidth, height=0.7\textheight]{Images/Full_GLM_resids.jpg}
+%    \caption{Residuals for GLM Model}
+%    \label{fig:Residuals for GLM Model}
+%\end{figure}
+%
+%\noindent Figure 7 diagnostic plots shows that while the residuals are roughly randomly scattered, the GLM model produces residuals that does not follow the normal distribution well. Although not ideal, this is expected as we assume that the distribution is poisson and not normal. 
+%
+%\subsubsection{Residuals against Predicted values}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.85\textwidth, height=0.6\textheight]{Images/Full_GLM_resids_vs_fitted.jpg}
+%    \caption{Residuals against Predicted values for GLM Model}
+%    \label{fig:Residuals against Predicted values for GLM Model}
+%\end{figure}
+%
+%\noindent The above plot of residuals against the predicted values suggests heteroscedasticity between residuals, or non-constant variance between the residuals as the predicted value increases, which is expected in a Poisson GLM, as mentioned in \cite{Dylan2017}. For a normal regression model, this would not be a desirable result but since we are assuming that our count data follows a Poisson distribution, the residuals are bound to display heteroscadasticity. 
 
 \subsection{Model Limitation}
 
@@ -267,48 +267,48 @@ VAR models can also be extended to include exogenous variables. A VARX(p,s) (wit
 \subsection{Implementation of VARX Model on our dataset}
 \noindent Our dataset uses additional exogenous variables like temperature, wind, gust, cloud, humidity, precipitation, pressure as well as one-hot encoding of the day of the week. Our dataset now would have 839 endogenous variables/locations and 13 exogenous variables. Similarly, BigVAR library was used to fit a VARX model taking in the 839 locations' time series as endogenous variables and the 13 exogenous variables. 
 
-\subsection{Model Checking}
-To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis:
-
-
-\subsubsection{Whiteness of Residuals}
-To ensure our fitted model is adequate, the resiudals should behave like a white noise series. 
-The plots below shows the distribution of our residuals for the VAR model and the VARX model. 
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth, height=0.42\textheight]{Images/Full_VAR_diff_resids.jpg}
-    \caption{Residuals for VAR Model}
-    \label{fig:Residuals for VAR Model}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth, height=0.42\textheight]{Images/Full_VARX_diff_resids.jpg}
-    \caption{Residuals for VARX Model}
-    \label{fig:Residuals for VARX Model}
-\end{figure}
-
-From Figure 11 and 12, we can see that the residuals are mostly randomly scattered and they roughly follow a normal distribution, although it performs rather badly on the lower end and higher end of the outliers. 
-
-
-\subsubsection{Residuals against Fitted Values}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/Full_VAR_diff_resids_vs_values.jpg}
-    \caption{Residuals against Fitted Values for VAR Model}
-    \label{fig:Residuals against Fitted Values for VAR Model}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/Full_VARX_diff_resids_vs_values.jpg}
-    \caption{Residuals against Fitted Values for VARX Model}
-    \label{fig:Residuals against Fitted Values for VARX Model}
-\end{figure}
-
-Figure 13 and 14 shows that heteroscadasticity occurs at the lower and higher ends of the predicted values, whereas in the middle range, the residuals tend to be roughly randomly scattered.
+%\subsection{Model Checking}
+%To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis:
+%
+%
+%\subsubsection{Whiteness of Residuals}
+%To ensure our fitted model is adequate, the resiudals should behave like a white noise series. 
+%The plots below shows the distribution of our residuals for the VAR model and the VARX model. 
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.8\textwidth, height=0.42\textheight]{Images/Full_VAR_diff_resids.jpg}
+%    \caption{Residuals for VAR Model}
+%    \label{fig:Residuals for VAR Model}
+%\end{figure}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.8\textwidth, height=0.42\textheight]{Images/Full_VARX_diff_resids.jpg}
+%    \caption{Residuals for VARX Model}
+%    \label{fig:Residuals for VARX Model}
+%\end{figure}
+%
+%From Figure 11 and 12, we can see that the residuals are mostly randomly scattered and they roughly follow a normal distribution, although it performs rather badly on the lower end and higher end of the outliers. 
+%
+%
+%\subsubsection{Residuals against Fitted Values}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/Full_VAR_diff_resids_vs_values.jpg}
+%    \caption{Residuals against Fitted Values for VAR Model}
+%    \label{fig:Residuals against Fitted Values for VAR Model}
+%\end{figure}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/Full_VARX_diff_resids_vs_values.jpg}
+%    \caption{Residuals against Fitted Values for VARX Model}
+%    \label{fig:Residuals against Fitted Values for VARX Model}
+%\end{figure}
+%
+%Figure 13 and 14 shows that heteroscadasticity occurs at the lower and higher ends of the predicted values, whereas in the middle range, the residuals tend to be roughly randomly scattered.
 
 \subsection{Results}
 BigVAR library in R was used to implement the VAR models. The MSFE for the VAR model is 76.72 and MSFE for VARX model is 75.63. Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. 
@@ -488,12 +488,20 @@ $D_{C(i)} ={\sum_{l\epsilon C(i)}\sum_{j=1}^{n}x_{lj}}$
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.6\textheight]{Images/cluster_corr_heatmap.jpg}
+    \includegraphics[width=\textwidth, height=0.62\textheight]{Images/cluster_corr_heatmap.jpg}
     \caption{Correlation heatmap for 9 clusters}
     \label{fig:Correlation heatmap for 9 clusters}
 \end{figure}
 
-\noindent We can observe from the sample correlation heatmap in Figure 16 that there exist strong correlation between certain clusters (like cluster 3 and 4 and cluster 6 and 8). To exploit the spatial correlation effects, each cluster is treated as a variable and VAR model was then trained on the clusters and used to predict the total demand for each of the clusters. 
+\noindent We can observe from the sample correlation heatmap in Figure 16 that there exist strong correlation between certain clusters (like cluster 3 and 4 and cluster 6 and 8). To exploit the spatial correlation effects, similar steps as mentioned in Section 6 was used. 
+
+1. We first treat each cluster as a variable, where each cluster has a time series which is a vector of demands, calculated as the sum of the demand of all locations in the cluster, as shown above as $D_{C(i)}$. 
+
+2. Next, we check for stationarity for all the cluster's time series and perform differencing if they are non-stationary. 
+
+3. A VAR model was then trained using the clusters as variables.
+
+4. If we have performed differencing in step 2, we then use the VAR model to predict the differenced values for time-step 199 to 204. We then add back the difference to the previous values to convert it back to the original demand for each cluster.
 
 
 \subsection{Assigning total cluster demand to individual location}
@@ -511,21 +519,32 @@ After we attained the total demand for each cluster, the next step would be to r
 
 \subsection{Results}
 
-We also test the effect of different number of cluster groups on the MSFE on our full dataset. 
+In this 3-step approach, it is not appropriate to use conventional methods, such as the elbow method, to determine the number of clusters. This is because our purpose here is not to minimize the within cluster sum-of-squares, but rather to find the optimal combination of groups that yields the best forecast accuracy. Hence, we tried different number of clusters for the 3 different distance metric as mentioned in Section 7.1 and observe the MSFE for each of those.
 
 \begin{table}[H]
 \begin{tabular}{|l|l|l|l|l|}
 \hline
                                                                                                                           & \textbf{3 Clusters} & \textbf{6 Clusters} & \textbf{9 Clusters} & \textbf{12 Clusters} \\ \hline
-\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using euclidean\\ distance of latitude/longitude\end{tabular}}              & 61.18               & \textbf{60.67}      & 61.03               & 62.24                \\ \hline
-\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using correlation \\ between time series as distance\\ metric\end{tabular}} & 62.66               & 59.96               & \textbf{57.72}              & 61.60       \\ \hline
-\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using DTW as\\ distance metric\end{tabular}}                                & 64.00               & 64.37      & 62.68 & \textbf{62.20}                
+\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using euclidean\\ distance of latitude/longitude\end{tabular}}              & 64.39               & 63.00      & \textbf{60.12}               & 63.39                \\ \hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using correlation \\ between time series as distance\\ metric\end{tabular}} & 63.45               & 63.97               & \textbf{59.27}              & 63.27       \\ \hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using DTW as\\ distance metric\end{tabular}}                                & 66.39               & \textbf{62.07}      & 65.67 & 62.56                
 \\ \hline
 \end{tabular}
-\caption{MSFE for different clustering distance metrics and number of clusters. Bolded results signifying the best result for the respective distance metric.}
+\textbf{\caption{MSFE for different clustering distance metrics and number of clusters. Bolded results signifying the best result for the respective distance metric.}}
 \end{table}
 
-\noindent Based on the results, the best model chosen would be clustering the data into 9 clusters using correlation between the time series as the distance metric.
+\noindent Based on the results, clustering the time series into 9 groups using the correlation between time series as the distance metric seems to give the best result. 
+
+\subsubsection{Model Diagnostics}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=0.6\textheight]{Images/corr_var_res_fit_plot.jpg}
+    \caption{Plot of residuals against fitted values for VAR model}
+    \label{fig:Plot of residuals against fitted values for VAR model}
+\end{figure}
+
+\noindent From the plot of residuals against the fitted values of the VAR model, we observe that although there seem to be a concentration towards 
 
 \newpage
 \section{Results and Conclusion}
@@ -539,11 +558,11 @@ The table below summarises the results of our models.
 \textbf{GLM}                                                                                                 & 38.16                                                                                              & 82.42                         &  &  \\ \cline{1-3}
 \textbf{VAR}                                                                                                 & 42.76                                                                                              & 76.72                         &  &  \\ \cline{1-3}
 \textbf{VARX}                                                                                                & 41.73                                                                                              & 75.63                         &  &  \\ \cline{1-3}
-\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using K-means \\ on geographical location)\end{tabular}} & 40.43 & 60.67                        &  &  \\ \cline{1-3}
-\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on correlation \\ of time series)\end{tabular}}           & 39.49 & \textbf{57.72}                         &  &  \\ \cline{1-3}
-\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on DTW \\ of time series)\end{tabular}}           & 40.10 & 62.20                         &  &  \\ \cline{1-3}
+\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using K-means \\ on geographical location)\end{tabular}} & 40.43 & 60.12 &  &  \\ \cline{1-3}
+\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on correlation \\ of time series)\end{tabular}}           & 39.49 & \textbf{59.27}                         &  &  \\ \cline{1-3}
+\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on DTW \\ of time series)\end{tabular}}           & 40.10 & 62.07                         &  &  \\ \cline{1-3}
 \end{tabular}
-\caption{MSFE of the different methods used in this paper}
+\textbf{\caption{MSFE of the different methods used in this paper}}
 \end{table}
 
 

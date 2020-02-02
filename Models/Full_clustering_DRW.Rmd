@@ -25,20 +25,20 @@ df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50ct
 train <- full_df[1:839,1:198]
 test <- full_df[1:839,199:204]
 
-lag <- 12
+lag <- 6
 ```
 
 ```{r}
 
-clust <- tsclust(train, type="partitional", k=6L, distance="dtw", clustering="pam")
+#clust <- tsclust(train, type="partitional", k=6L, distance="dtw", clustering="pam")
 ```
 
 ```{r}
-plot(clust, type = "sc")
+#plot(clust, type = "sc")
 ```
 
 ```{r}
-plot(clust, type = "series", clus = 1L)
+#plot(clust, type = "series", clus = 1L)
 ```
 
 
@@ -177,6 +177,78 @@ for (i in c(1:6)) {
 
 print(paste0(" MSFE: ", errors/6))
 ```
+```{r}
+## DIFFERENCING ##
+#df_t <- t(df_atleast_50cts)
+num_clusters <- 3
+colnames(cluster_df) = c(1:num_clusters)
+rownames(cluster_df) <- c(1:204)
+diff_df <- data.frame(diff(as.matrix(cluster_df), differences=1))
+```
+
+```{r}
+model = constructModel(as.matrix(diff_df), p = 6, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
+var_model <- cv.BigVAR(model)
+```
+
+```{r}
+# Predict Cluster demand 
+cluster_diff_pred <- tail(var_model@fitted,6)
+prev <- cluster_df[198,1:num_clusters]
+cluster_pred <- prev + cluster_diff_pred[1, 1:num_clusters]
+prev <- prev + cluster_diff_pred[1, 1:num_clusters]
+for (i in c(2:6)) {
+  cluster_pred <-rbind(cluster_pred, prev + cluster_diff_pred[i, 1:num_clusters])
+  prev <- prev + cluster_diff_pred[i, 1:num_clusters]
+}
+```
+
+```{r}
+# Function to assign demand to location
+assign_clust_demand = function(clust_pred){
+  num_clust <- dim(clust_pred)[2]
+  pred <- matrix(0, nrow = 6, ncol = 839)  
+  for (i in c(1:num_clust)) {
+      clust_ind <- clusters[[i]]  
+      clust_order_by_loc <- rowSums(train[clust_ind,])
+      for (j in c(1:length(clust_ind))) {
+          loc_prop <- clust_order_by_loc[j]/sum(clust_order_by_loc)
+          for (t in c(1:6)) {
+              clust_total_order <- clust_pred[t, i]
+              ind <- clust_ind[j]
+              pred[t, ind] <- loc_prop * clust_total_order
+          }
+      }
+  }
+  return (pred) 
+}
+
+
+# Assign demand to locations
+
+pred <- assign_clust_demand(cluster_pred)
+
+```
+
+```{r}
+# calculate error
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+    curr_pred <- pred[i, 1:839]
+    act <- full_df[1:839,198 + i]
+    error_arr <- c(error_arr, c(curr_pred - act))
+    fitted_val <- c(fitted_val, curr_pred)
+    error <- sum((curr_pred - act) ^ 2)
+    errors <- errors + error
+    prev_pred <- curr_pred
+}
+
+print(paste0(" MSFE: ", errors/6))
+```
+
+
 
 
 ```{r}
@@ -322,6 +394,77 @@ for (i in c(1:6)) {
 
 print(paste0(" MSFE: ", errors/6))
 ```
+```{r}
+## DIFFERENCING ##
+#df_t <- t(df_atleast_50cts)
+num_clusters <- 6
+colnames(cluster_df) = c(1:num_clusters)
+rownames(cluster_df) <- c(1:204)
+diff_df <- data.frame(diff(as.matrix(cluster_df), differences=1))
+```
+
+```{r}
+model = constructModel(as.matrix(diff_df), p = 6, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
+var_model <- cv.BigVAR(model)
+```
+
+```{r}
+# Predict Cluster demand 
+cluster_diff_pred <- tail(var_model@fitted,6)
+prev <- cluster_df[198,1:num_clusters]
+cluster_pred <- prev + cluster_diff_pred[1, 1:num_clusters]
+prev <- prev + cluster_diff_pred[1, 1:num_clusters]
+for (i in c(2:6)) {
+  cluster_pred <-rbind(cluster_pred, prev + cluster_diff_pred[i, 1:num_clusters])
+  prev <- prev + cluster_diff_pred[i, 1:num_clusters]
+}
+```
+
+```{r}
+# Function to assign demand to location
+assign_clust_demand = function(clust_pred){
+  num_clust <- dim(clust_pred)[2]
+  pred <- matrix(0, nrow = 6, ncol = 839)  
+  for (i in c(1:num_clust)) {
+      clust_ind <- clusters[[i]]  
+      clust_order_by_loc <- rowSums(train[clust_ind,])
+      for (j in c(1:length(clust_ind))) {
+          loc_prop <- clust_order_by_loc[j]/sum(clust_order_by_loc)
+          for (t in c(1:6)) {
+              clust_total_order <- clust_pred[t, i]
+              ind <- clust_ind[j]
+              pred[t, ind] <- loc_prop * clust_total_order
+          }
+      }
+  }
+  return (pred) 
+}
+
+
+# Assign demand to locations
+
+pred <- assign_clust_demand(cluster_pred)
+
+```
+
+```{r}
+# calculate error
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+    curr_pred <- pred[i, 1:839]
+    act <- full_df[1:839,198 + i]
+    error_arr <- c(error_arr, c(curr_pred - act))
+    fitted_val <- c(fitted_val, curr_pred)
+    error <- sum((curr_pred - act) ^ 2)
+    errors <- errors + error
+    prev_pred <- curr_pred
+}
+
+print(paste0(" MSFE: ", errors/6))
+```
+
 
 
 ```{r}
@@ -480,6 +623,79 @@ for (i in c(1:6)) {
 
 print(paste0(" MSFE: ", errors/6))
 ```
+
+```{r}
+## DIFFERENCING ##
+#df_t <- t(df_atleast_50cts)
+num_clusters <- 9
+colnames(cluster_df) = c(1:num_clusters)
+rownames(cluster_df) <- c(1:204)
+diff_df <- data.frame(diff(as.matrix(cluster_df), differences=1))
+```
+
+```{r}
+model = constructModel(as.matrix(diff_df), p = 6, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
+var_model <- cv.BigVAR(model)
+```
+
+```{r}
+# Predict Cluster demand 
+cluster_diff_pred <- tail(var_model@fitted,6)
+prev <- cluster_df[198,1:num_clusters]
+cluster_pred <- prev + cluster_diff_pred[1, 1:num_clusters]
+prev <- prev + cluster_diff_pred[1, 1:num_clusters]
+for (i in c(2:6)) {
+  cluster_pred <-rbind(cluster_pred, prev + cluster_diff_pred[i, 1:num_clusters])
+  prev <- prev + cluster_diff_pred[i, 1:num_clusters]
+}
+```
+
+```{r}
+# Function to assign demand to location
+assign_clust_demand = function(clust_pred){
+  num_clust <- dim(clust_pred)[2]
+  pred <- matrix(0, nrow = 6, ncol = 839)  
+  for (i in c(1:num_clust)) {
+      clust_ind <- clusters[[i]]  
+      clust_order_by_loc <- rowSums(train[clust_ind,])
+      for (j in c(1:length(clust_ind))) {
+          loc_prop <- clust_order_by_loc[j]/sum(clust_order_by_loc)
+          for (t in c(1:6)) {
+              clust_total_order <- clust_pred[t, i]
+              ind <- clust_ind[j]
+              pred[t, ind] <- loc_prop * clust_total_order
+          }
+      }
+  }
+  return (pred) 
+}
+
+
+# Assign demand to locations
+
+pred <- assign_clust_demand(cluster_pred)
+
+```
+
+```{r}
+# calculate error
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+    curr_pred <- pred[i, 1:839]
+    act <- full_df[1:839,198 + i]
+    error_arr <- c(error_arr, c(curr_pred - act))
+    fitted_val <- c(fitted_val, curr_pred)
+    error <- sum((curr_pred - act) ^ 2)
+    errors <- errors + error
+    prev_pred <- curr_pred
+}
+
+print(paste0(" MSFE: ", errors/6))
+```
+
+
 
 
 ```{r}
@@ -643,52 +859,29 @@ for (i in c(1:6)) {
 
 print(paste0(" MSFE: ", errors/6))
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```{r}
 ## DIFFERENCING ##
 #df_t <- t(df_atleast_50cts)
-colnames(cluster_df) = c(1:9)
+num_clusters <- 12
+colnames(cluster_df) = c(1:num_clusters)
 rownames(cluster_df) <- c(1:204)
 diff_df <- data.frame(diff(as.matrix(cluster_df), differences=1))
-#diff_df <- normalize(df_t, margin=1L)
-stationary_test = ca.jo(diff_df, type="trace", K=6, ecdet="none", spec="longrun")
-summary(stationary_test)
 ```
 
 ```{r}
 model = constructModel(as.matrix(diff_df), p = 6, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
 var_model <- cv.BigVAR(model)
-var_model
 ```
 
 ```{r}
 # Predict Cluster demand 
 cluster_diff_pred <- tail(var_model@fitted,6)
-prev <- cluster_df[198,1:9]
-cluster_pred <- prev + cluster_diff_pred[1, 1:9]
-prev <- prev + cluster_diff_pred[1, 1:9]
+prev <- cluster_df[198,1:num_clusters]
+cluster_pred <- prev + cluster_diff_pred[1, 1:num_clusters]
+prev <- prev + cluster_diff_pred[1, 1:num_clusters]
 for (i in c(2:6)) {
-  cluster_pred <-rbind(cluster_pred, prev + cluster_diff_pred[i, 1:9])
-  prev <- prev + cluster_diff_pred[i, 1:9]
+  cluster_pred <-rbind(cluster_pred, prev + cluster_diff_pred[i, 1:num_clusters])
+  prev <- prev + cluster_diff_pred[i, 1:num_clusters]
 }
 ```
 
@@ -736,5 +929,22 @@ for (i in c(1:6)) {
 
 print(paste0(" MSFE: ", errors/6))
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
