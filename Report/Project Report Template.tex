@@ -128,10 +128,10 @@ We would first do some exploratory analysis and check if there are any interesti
 
 
 
-\subsection{Train-Test Split}
-From Figure 1 in Section 3.1, the data is very sparse as there are many locations that have no demand counts for the majority of the time period. Hence, to get a better idea of how our models would work, only locations with at least 50 non-zero counts across the time period would be used initially, leaving us with 42 locations that meet this criteria. After the model is tested on the smaller dataset, we would then use the full dataset for location with at least one non-zero count to test and fit our model. 
+\subsection{Subsetting of data and train-test Split}
+From Figure 1 in Section 3.1, the data is very sparse as there are many locations that have no demand counts for the majority of the time periods. Hence, to get a proof-of-concept model and a better idea of how our models perform, we first subset the dataset into a smaller one where we only consider locations with at least 50 non-zero counts across the time period, leaving us with 42 locations that meet this criteria. After the model is tested on this smaller dataset, we would evaluate the performance and then use the full dataset to test and fit our model. 
 
-\noindent To prevent overfitting of our model, the dataset was then split into training and test set by considering the first 33 days as the training set and the next 1 day as the test set. A period of 1 day was chosen as the test set duration because of the reasonable assumption that this model would only have to be run after the end of the day, hence only required to predict one-day ahead demand. 
+\noindent To prevent overfitting of our model, the dataset was then split into training and test set by considering the first 33 days as the training set and the next 1 day as the test set. A period of 1 day was chosen as the test set duration because we are making a reasonable assumption that this model would only have to be run at the end of the day, hence only required to predict one-day ahead demand. 
 
 \noindent Our training set would then have 198 demand data for each location and test set would have 6 demand data for each location. 
 
@@ -248,6 +248,7 @@ For a univariate time series, it is important for the time series to be transfor
 To test for stationarity, we would be performing the standard ADF test to test for stationarity. The result of the ADF test showed that time series of certain locations are not stationary. We then take the first difference of each series and after differencing, ADF test was performed on each series the time series of each location have been checked and are stationary. It is noted that while it is possible to perform differencing on every series, it might cause over-differencing, leading to inaccurate results, as mentioned in \cite{Ruey2014}.
 
 \noindent Next, BigVAR Library in R was used to fit a VAR model with a maximum lag of 12, using time series of every location as predictors. The results for the VAR model is discussed in the later subsection. 
+\newpage
 
 \subsubsection{Cointegration}
 \cite{Box1977} shows that it is possible to linearly combine various unit-root nonstationary time series to form a stationary series. The term Cointegration, first mentioned in \cite{Granger1983}, states that although some or all the time series might be unit-root nonstationary individually, these time series can be said to be cointegrated if there exists a possible linear combination of them that would form a stationary series. Intuitively, 2 series are cointegrated if they move together and the distance between them remain stable over time. 
