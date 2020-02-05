@@ -1,5 +1,6 @@
 \UseRawInputEncoding
 \documentclass[12pt, letterpaper] {article}
+%\documentclass[12pt]{scrartcl} 
 \usepackage{natbib}
 \usepackage{amsmath, amsthm, amssymb, mathrsfs,array}
 \usepackage{graphicx,float,wrapfig,subfigure,color,pdfpages,fixltx2e,url}
@@ -38,6 +39,7 @@
 
 \begin{document}
 	\title{NUS Business School Honors Dissertation}
+	%\subtitle{(Classical methods for Spatio-Temporal Forecasting)}
 	\author{Peng Seng Ang \\[0.5cm] {Advised by: Professor He Long}}
 	\date{AY 2019/2020 Semester 2}
 	\maketitle
@@ -78,7 +80,7 @@ We would first do some exploratory analysis and check if there are any interesti
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth, height=0.28\textheight]{Images/example_all_ts.jpg}
-    \caption{Time series of all locations in the dataset. It can be observed that most locations have very low number of orders across the time period.}
+    \textbf{\caption{Time series of all locations in the dataset. It can be observed that most locations have very low number of orders across the time period.}}
     \label{fig:Time series of all locations in the dataset. It can be observed that most locations have very low number of orders across the time period.}
 \end{figure}
 
@@ -86,7 +88,7 @@ We would first do some exploratory analysis and check if there are any interesti
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth, height=0.35\textheight] {Images/example_ts.jpg}
-    \caption{Most locations have very sparse time series (left) while some have relatively more dense time series (right)}
+    \textbf{\caption{Most locations have very sparse time series (left) while some have relatively more dense time series (right)}}
     \label{fig:Most locations have very sparse time series (left) while some have relatively more dense time series (right)}
 \end{figure}
 
@@ -94,7 +96,7 @@ We would first do some exploratory analysis and check if there are any interesti
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth, height=0.35\textheight]{Images/boxplot_counts.jpg}
-    \caption{Boxplot of counts. We can see that most of the locations have extremely low number of non-zero orders and further analysis showed that about 335 locations have just a maximum of one non-zero order throughout the 204 time periods.}
+    \textbf{\caption{Boxplot of counts. We can see that most of the locations have extremely low number of non-zero orders and further analysis showed that about 335 locations have just a maximum of one non-zero order throughout the 204 time periods.}}
     \label{fig:Boxplot of counts. We can see that most of the locations have extremely low number of non-zero orders and further analysis showed that about 335 locations have just a maximum of one non-zero order throughout the 204 time periods. }
 \end{figure}
 
@@ -103,7 +105,7 @@ We would first do some exploratory analysis and check if there are any interesti
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth, height=0.75\textheight]{Images/spatial_demand.jpg}
-    \caption{Demand across locations over time}
+    \textbf{\caption{Demand across locations over time}}
     \label{fig:Demand across locations over time}
 \end{figure}
 
@@ -113,14 +115,14 @@ We would first do some exploratory analysis and check if there are any interesti
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth, height=0.32\textheight]{Images/temp_mean_demand.jpg}
-    \caption{Scatter plot of mean counts against temperature}
+    \textbf{\caption{Scatter plot of mean counts against temperature}}
     \label{fig:Scatter plot of mean counts against temperature}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth, height=0.32\textheight]{Images/pressure_mean_demand.jpg}
-    \caption{Scatter plot of mean counts against pressure}
+    \textbf{\caption{Scatter plot of mean counts against pressure}}
     \label{fig:Scatter plot of mean counts against pressure}
 \end{figure}
 
@@ -159,7 +161,7 @@ As a baseline model, each of the locations was assessed individually and a suita
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Images/forecast_example.jpg}
-    \caption{ARIMA forecast on a random location}
+    \textbf{\caption{ARIMA forecast on a random location}}
     \label{fig:ARIMA forecast on a random location}
 \end{figure}
 \newpage
@@ -233,7 +235,7 @@ As with many spatio-temporal demand prediction, spatial features could be an imp
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth, height=0.75\textheight]{Images/heatmap.jpg}
-    \caption{Spatial Correlation Heatmap on the locations with at least 50 non-zero counts. Axes represent the 42 locations}
+    \textbf{\caption{Spatial Correlation Heatmap on the locations with at least 50 non-zero counts. Axes represent the 42 locations}}
     \label{fig:Spatial Correlation Heatmap. Axes represent locations}
 \end{figure}
 
@@ -268,7 +270,9 @@ VAR models can also be extended to include exogenous variables. A VARX(p,s) (wit
 \noindent where $p$ is the number of lagged endogenous variables used, $s$ is the number of lagged exogenous variables used, $y_t$ is the value at time $t$, $v$ is a constant vector, $\phi_i$ are coefficient matrices for endogenous coefficient matrix for $i>0$, $\beta_i$ are coefficient matrices for exogenous coefficient matrix for $i>0$ and $\alpha_t$ are independent and identically distributed random vectors. 
 
 \subsection{Implementation of VARX Model on our dataset}
-\noindent Our dataset uses additional exogenous variables like temperature, wind, gust, cloud, humidity, precipitation, pressure as well as one-hot encoding of the day of the week. Our dataset now would have 839 endogenous variables/locations and 13 exogenous variables. Similarly, BigVAR library was used to fit a VARX model taking in the 839 locations' time series as endogenous variables and the 13 exogenous variables. 
+\noindent Our dataset uses additional exogenous variables like temperature, wind, gust, cloud, humidity, precipitation, pressure as well as one-hot encoding of the day of the week. Our dataset now would have 839 endogenous variables/locations and 13 exogenous variables. Based on performance results and taking computational power limitation into consideration, the optimal number of lag for endogenous variables is 6 and number of lag for exogenous variables is 1.
+
+\noindent Similar to VAR above, BigVAR library was used to fit a VARX model taking in the 839 locations' time series as endogenous variables and the 13 exogenous variables. The model was then use to compute predictions for the 6 periods ahead and would be compared with the test set.
 
 %\subsection{Model Checking}
 %To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis:
@@ -314,14 +318,17 @@ VAR models can also be extended to include exogenous variables. A VARX(p,s) (wit
 %Figure 13 and 14 shows that heteroscadasticity occurs at the lower and higher ends of the predicted values, whereas in the middle range, the residuals tend to be roughly randomly scattered.
 
 \subsection{Results}
-BigVAR library in R was used to implement the VAR models. The MSFE for the VAR model is 76.72 and MSFE for VARX model is 75.63. Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. 
+The MSFE using the VAR model is 76.72 while the MSFE using the VARX model is 75.63. Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. 
+
+\noindent To improve our forecast accuracy further, the next section will introduce a 3-step modelling approach.
+
 \newpage
 
 \section{3-step Approach}
 
-Next, we would introduce an alternative 3-step approach, which is described here:
+In this section, we introduce an alternative 3-step approach, which combined unsupervised learning technique, clustering, along with VAR method mentioned above. The overall steps are summarised here:
 
-\noindent Step 1. Perform Clustering on the time series using one of the distance metric: 
+\noindent \textbf{Step 1}. Perform Clustering on the time series using one of the distance metric: 
 
 	1.1 Euclidean distance between geo-location coordinates
 	
@@ -331,9 +338,9 @@ Next, we would introduce an alternative 3-step approach, which is described here
 	
 	
 	
-\noindent Step 2. Aggregate the clusters and train a VAR model to predict the total demand for each cluster. 
+\noindent \textbf{Step 2}. Aggregate the clusters and train a VAR model to predict the total demand for each cluster. 
 
-\noindent Step 3. Re-allocate the total demand of each cluster to each location in the cluster while maintain a relative constant distribution as before.
+\noindent \textbf{Step 3}. Re-allocate the total demand of each cluster to each location in the cluster while maintain a relative constant distribution as before.
 
 
 
@@ -463,7 +470,7 @@ path.add((i,j))
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth, height=0.5\textheight]{Images/DTW_Plot.jpg}
-    \caption{DTW Alignment Plot}
+    \textbf{\caption{DTW Alignment Plot}}
     \label{fig:DTW Alignment Plot}
 \end{figure}
 
@@ -493,7 +500,7 @@ $D_{C(i)} ={\sum_{l\epsilon C(i)}\sum_{j=1}^{n}x_{lj}}$
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth, height=0.62\textheight]{Images/cluster_corr_heatmap.jpg}
-    \caption{Correlation heatmap for 9 clusters}
+    \textbf{\caption{Correlation heatmap for 9 clusters}}
     \label{fig:Correlation heatmap for 9 clusters}
 \end{figure}
 
@@ -546,7 +553,7 @@ To test the adequacy of our model fitness, particularly our VAR model, we will p
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth, height=0.6\textheight]{Images/corr_var_res_fit_plot.jpg}
-    \caption{Plot of residuals against fitted values for VAR model}
+    \textbf{\caption{Plot of residuals against fitted values for VAR model}}
     \label{fig:Plot of residuals against fitted values for VAR model}
 \end{figure}
 
@@ -589,42 +596,42 @@ Our 3-step approach model display decent MSFE result. However, using VAR is stil
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/distplot_cloud.png}
-    \caption{Distribution of Cloud}
+    \textbf{\caption{Distribution of Cloud}}
     \label{fig:Distribution of Cloud}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/distplot_gust.png}
-    \caption{Distribution of Gust}
+    \textbf{\caption{Distribution of Gust}}
     \label{fig:Distribution of Gust}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/distplot_humidity.png}
-    \caption{Distribution of Humidity}
+    \textbf{\caption{Distribution of Humidity}}
     \label{fig:Distribution of Humidity}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/distplot_pressure.png}
-    \caption{Distribution of Pressure}
+    \textbf{\caption{Distribution of Pressure}}
     \label{fig:Distribution of Pressure}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/distplot_temp.png}
-    \caption{Distribution of Temperature}
+    \textbf{\caption{Distribution of Temperature}}
     \label{fig:Distribution of Temperature}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/distplot_wind.png}
-    \caption{Distribution of Wind}
+    \textbf{\caption{Distribution of Wind}}
     \label{fig:Distribution of Wind}
 \end{figure}
 
@@ -633,35 +640,35 @@ Our 3-step approach model display decent MSFE result. However, using VAR is stil
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/wind_mean_demand.jpg}
-    \caption{Mean Demand against Wind}
+    \textbf{\caption{Mean Demand against Wind}}
     \label{fig:Mean Demand against Wind}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/gust_mean_demand.jpg}
-    \caption{Mean Demand against Gust}
+    \textbf{\caption{Mean Demand against Gust}}
     \label{fig:Mean Demand against Gust}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/cloud_mean_demand.jpg}
-    \caption{Mean Demand against Cloud}
+    \textbf{\caption{Mean Demand against Cloud}}
     \label{fig:Mean Demand against Cloud}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/humidity_mean_demand.jpg}
-    \caption{Mean Demand against Humidity}
+    \textbf{\caption{Mean Demand against Humidity}}
     \label{fig:Mean Demand against Humidity}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth, height=0.3\textheight]{Images/prec_mean_demand.jpg}
-    \caption{Mean Demand against Precipitation}
+    \textbf{\caption{Mean Demand against Precipitation}}
     \label{fig:Mean Demand against Precipitation}
 \end{figure}
 \newpage
