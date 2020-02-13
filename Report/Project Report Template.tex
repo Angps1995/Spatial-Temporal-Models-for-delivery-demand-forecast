@@ -50,11 +50,11 @@
 \newpage
 \section{Introduction}
 
-The motivation for this paper comes from \cite{Sheng2018}, where their focus is to optimise assignments of orders to drivers in order to minimize the total delay of all drivers. The dataset used in both \cite{Sheng2018} and this paper are from a food service provider in China that allows customer to place orders before a cutoff time in the day (e.g 10.00am) and the customer can expect to recieve their orders by a deadline (e.g anytime from 10.30am to 11.45am). 
+This paper would explore the usage of classical statistical methods along with unsupervised learning methods, like clustering, for the purpose of spatio-temporal forecasting. The motivation for this paper comes from \cite{Sheng2018}, where the focus is to optimise assignments of lunch delivery orders to drivers in order to minimize the total delay of all drivers. The dataset used in both \cite{Sheng2018} and this paper are from a food service provider in China that allows customer to place orders before a cutoff time in the day (e.g 10.00am) and the customer can expect to recieve their orders by a deadline (e.g anytime from 10.30am to 11.45am). 
 
-\noindent The problem is not only restricted to the abovementioned food provider. With the rise of e-commerce and the food ordering and delivery services, like GrabFood and FoodPanda, demand prediction and driver assignment problem would be an everyday concern for them too. 
+\noindent This problem is not only restricted to the abovementioned food provider. With the rise of e-commerce and the food ordering and delivery services, like GrabFood and FoodPanda, demand prediction and driver assignment problem would be an everyday concern for them too. Spatio-temporalal forecasting is also not limited to food delivery, and it has many other applications, like traffic prediction and weather prediction over time. 
 
-\noindent In reality, demand is never deterministic and hence, having an accurate forecast of demand for the food service providers would help them more effectively and efficiently assign orders to drivers to improve the overall delivery time. As such, the focus of this paper would be to accurately model and forecast the demand at the different locations and time. Currently, most Autoregressive (AR) or Autoregressive Integrated Moving Average (ARIMA) models only consider temporal features when predicting demand. However, we believe including spatial features between the data points might improve forecast accuracy. In this paper, classical time series models, such as Generalized Linear Model (GLM), ARIMA, as well as Vector Autoregressive (VAR) models, that include both spatial and temporal features would be explored. We also introduce a 3-step approach that combined unsupervised learning and supervised learning methods to improve forecast accuracy. 
+\noindent In reality, demand is never deterministic and hence, having an accurate forecast of demand for the food service providers would help them more effectively and efficiently assign orders to drivers to improve the overall delivery time. As such, the focus of this paper would be to accurately model and forecast the demand at the different locations and time. Currently, most Autoregressive (AR) or Autoregressive Integrated Moving Average (ARIMA) models only consider temporal features when predicting demand. However, we believe including spatial features between the data points might improve forecast accuracy. In this paper, classical time series models, such as Generalized Linear Model (GLM), ARIMA, as well as Vector Autoregressive (VAR) models, that include both spatial and temporal features would be explored. We also introduce a 3-step approach that combined unsupervised learning and classical statistical methods to improve forecast accuracy. 
 
 \newpage
 \section{Literature Review}
@@ -105,24 +105,24 @@ We would first do some exploratory analysis and check if there are any interesti
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth, height=0.75\textheight]{Images/spatial_demand.jpg}
-    \textbf{\caption{Demand across locations over time}}
-    \label{fig:Demand across locations over time}
+    \textbf{\caption{Demand across locations over time. Plot suggests that the areas towards the right tend to have higher demand.}}
+    \label{fig:Demand across locations over time. Plot suggests that the areas towards the right tend to have higher demand.}
 \end{figure}
 
 
-\noindent We also performed some analysis on exogenous factors, such as the mean demand against temperature and against pressure. 
+\noindent Weather, temperature, days are also some external factors that might affect the demand. For example, perhaps a day with higher temperature might see more demand for food delivery since people might not be as willing to go out for food. These exogenous variables would be used in our VARX model, which would be explained later in section 6.5. We performed some analysis on exogenous factors, such as the mean demand against temperature and against pressure. 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth, height=0.32\textheight]{Images/temp_mean_demand.jpg}
-    \textbf{\caption{Scatter plot of mean counts against temperature}}
+    \textbf{\caption{Scatter plot of mean demand against temperature. }}
     \label{fig:Scatter plot of mean counts against temperature}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth, height=0.32\textheight]{Images/pressure_mean_demand.jpg}
-    \textbf{\caption{Scatter plot of mean counts against pressure}}
+    \textbf{\caption{Scatter plot of mean demand against pressure}}
     \label{fig:Scatter plot of mean counts against pressure}
 \end{figure}
 
@@ -320,15 +320,15 @@ VAR models can also be extended to include exogenous variables. A VARX(p,s) (wit
 %Figure 13 and 14 shows that heteroscadasticity occurs at the lower and higher ends of the predicted values, whereas in the middle range, the residuals tend to be roughly randomly scattered.
 
 \subsection{Results}
-The MSFE using the VAR model is 76.72 while the MSFE using the VARX model is 75.63. Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. 
+On the small dataset, the MSFE using the VAR model is \textbf{42.76} while the MSFE using the VARX model is \textbf{41.73}. On the full dataset, the MSFE using the VAR model  is \textbf{76.72} while the MSFE using the VARX model is \textbf{75.63}. 
 
-\noindent To improve our forecast accuracy further, the next section will introduce a 3-step modelling approach.
+\noindent Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. To try and improve our forecast accuracy further, the next section will introduce a 3-step modelling approach.
 
 \newpage
 
 \section{3-step Approach}
 
-In this section, we introduce an alternative 3-step approach, which combined unsupervised learning technique, clustering, along with VAR method mentioned above. The overall steps are summarised here:
+In this section, we introduce an alternative 3-step approach, which combined clustering, an unsupervised learning method, along with VAR method mentioned above. The overall steps are summarised here:
 
 \noindent \textbf{Step 1}. Perform Clustering on the time series using one of the distance metric: 
 
@@ -340,7 +340,7 @@ In this section, we introduce an alternative 3-step approach, which combined uns
 	
 	
 	
-\noindent \textbf{Step 2}. Aggregate the clusters and train a VAR model to predict the total demand for each cluster. 
+\noindent \textbf{Step 2}. Aggregate the clusters by performing a summation the respective locations' demand over time. Train a VAR model on the clusters to predict the total demand for each cluster. 
 
 \noindent \textbf{Step 3}. Re-allocate the total demand of each cluster to each location in the cluster while maintain a relative constant distribution as before.
 
@@ -516,6 +516,8 @@ $D_{C(i)} ={\sum_{l\epsilon C(i)}\sum_{j=1}^{n}x_{lj}}$
 
 4. If we have performed differencing in step 2, we then use the VAR model to predict the differenced values for time-step 199 to 204. We then add back the difference to the previous values to convert it back to the original demand for each cluster.
 
+\noindent If we want to use a VARX model,the exogenous variables of each locations would have to be aggregated in some way when we combine the different locations into clusters, which might introduce a additional source of error. Hence, in this section, we would only use VAR since it does not require the aggregation of exogenous variables.
+
 
 \subsection{Assigning total cluster demand to individual location}
 
@@ -532,7 +534,7 @@ After we attained the total demand for each cluster, the next step would be to r
 
 \subsection{Results}
 
-In this 3-step approach, it is not appropriate to use conventional methods, such as the elbow method, to determine the number of clusters. This is because our purpose here is not to minimize the within cluster sum-of-squares, but rather to find the optimal combination of groups that yields the best forecast accuracy. Hence, we tried different number of clusters for the 3 different distance metric as mentioned in Section 7.1 and observe the MSFE for each of those.
+In this 3-step approach, it is not appropriate to use conventional methods, such as the elbow method, to determine the number of clusters. This is because our purpose here is not to minimize the within cluster sum-of-squares, but rather to find the optimal combination of groups that yields the best forecast accuracy after we fit a VAR model on them and reallocate the demand using the VAR model predictions. Hence, we tried different number of clusters for the 3 different distance metric as mentioned in Section 7.1 and observe the MSFE for each of those.
 
 \begin{table}[H]
 \begin{tabular}{|l|l|l|l|l|}
@@ -583,7 +585,7 @@ The table below summarises the results of our models.
 
 \noindent We can see that the VAR and VARX model performs better than the GLM models on the full dataset, suggesting that the spatial relationship between locations are useful in forecasting. Also, VARX performs better than VAR model in both cases, suggesting the exogenous variables have some explanatory power and do improve the forecast accuracy. 
 
-\noindent Applying the 3-step forecast also gives a much improved result. This might be due to using a more reliable and reasonable model to predict total demands for just 9 clusters and then re-assigning it to individual locations, rather than having a model to predict all 839 locations, which would intuitively have higher error rate. The method of using VAR on all locations produced a relatively worse result, which is similar to the findings from \cite{Abolfazl2017}, which states that a simple VAR model would not perform as well for high-dimensional data.
+\noindent Applying the 3-step forecast also gives a much improved result. This might be due to using a more reliable and reasonable model to predict total demands for just 9 clusters and then re-assigning it to individual locations, rather than having a model to predict all 839 locations, which would intuitively have higher error rate. The method of using VAR on all locations produced a relatively worse result, which is similar to the findings from \cite{Abolfazl2017}, which states that a simple VAR model would not perform as well for high-dimensional data. 
 
 \noindent As for the distance metric used for clustering, using correlation between the time series gives us the best result. This might be because correlation compares the general shape and trend of the time series regardless of scale, whereas for DTW, it is more effective to compare time series of varying length and speed. Using correlation also gives better results than using euclidean distance between the geo-locations, and this imply that spatial correlation is not limited to just geographical proximity but also on the time series similarity. 
 
