@@ -155,7 +155,14 @@ where \textit{n} is the number of data points, $\hat{y_t}$ is the predicted dema
 
 
 \subsection{ARIMA models}
-Autoregressive Integrated Moving Average (ARIMA) models are one of the most commonly used models for time series (\cite{Asha2016}). ARIMA models are made up of 3 processes, mainly the Autoregressive (AR) process, the Integrated (I) process and the Moving Average (MA) process (\cite{Jamal2018}). The AR process assumes that each observation can be expressed as a linear combination of its past values.  An AR(x) process would mean using x lagged values. The MA process assumes that each observation can be expressed as a linear combination of its current error term as well as its past error terms. The Integrated Process states that the time series can undergo differencing to ensure that the series is stationary. A MA(x) process would mean using x number of past observations. Hence, an ARIMA model is usually represented by ARIMA(p,d,q), where \textit{p} represents the number of autoregressive terms, \textit{d} represents the number of differences needed for stationarity, and \textit{q} represents the number of lagged forecast errors. 
+Autoregressive Integrated Moving Average (ARIMA) models are one of the most commonly used models for time series (\cite{Asha2016}). ARIMA models are made up of 3 processes, mainly the Autoregressive (AR) process, the Integrated (I) process and the Moving Average (MA) process (\cite{Jamal2018}). The AR process assumes that each observation can be expressed as a linear combination of its past values.  An AR(x) process would mean using x lagged values. The MA process assumes that each observation can be expressed as a linear combination of its current error term as well as its past error terms. The Integrated Process states that the time series can undergo differencing to ensure that the series is stationary. A MA(x) process would mean using x number of past error observations. Hence, an ARIMA model is usually represented by ARIMA(p,d,q), where \textit{p} represents the number of autoregressive terms, \textit{d} represents the number of differences needed for stationarity, and \textit{q} represents the number of lagged forecast errors. 
+
+\noindent The general equation of a ARIMA(p,d,q) is: 
+\begin{center}
+$\hat{y_t} = \mu + \sum_{i=1}^{p} \phi_i * y_{t-i} - \sum_{j=1}^{q} \theta_j * e_{t-j}$
+\end{center}
+
+\noindent where $\hat{y_t}$ refer to the predicted value at time t, $\mu$ refer to a constant, while $\sum_{i=1}^{p} \phi_i * y_{t-i}$ refers to the AR terms and $\sum_{j=1}^{q} \theta_j * e_{t-j}$ refers to the MA terms.
 
 \subsection{Baseline ARIMA Result}
 As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSFE for this baseline model on the smaller dataset is \textbf{47.60} and MSFE for dataset of all locations is \textbf{72.48}. A sample forecast plot is shown below:
@@ -190,34 +197,35 @@ The dataset that we are using follows a count time series, which means the obser
 
 \noindent However, when it is implemented on the full dataset, the MSFE of the GLM increases to \textbf{82.42}, which is worse than just applying ARIMA on every location, which gives a MSFE of 72.48. 
 
-%\subsection{Model Diagnostics}
-%To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis.		
-%
-%\subsubsection{Residuals plots}
-%
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth, height=0.7\textheight]{Images/Full_GLM_resids.jpg}
-%    \caption{Residuals for GLM Model}
-%    \label{fig:Residuals for GLM Model}
-%\end{figure}
-%
-%\noindent Figure 7 diagnostic plots shows that while the residuals are roughly randomly scattered, the GLM model produces residuals that does not follow the normal distribution well. Although not ideal, this is expected as we assume that the distribution is poisson and not normal. 
-%
-%\subsubsection{Residuals against Predicted values}
-%
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=0.85\textwidth, height=0.6\textheight]{Images/Full_GLM_resids_vs_fitted.jpg}
-%    \caption{Residuals against Predicted values for GLM Model}
-%    \label{fig:Residuals against Predicted values for GLM Model}
-%\end{figure}
-%
-%\noindent The above plot of residuals against the predicted values suggests heteroscedasticity between residuals, or non-constant variance between the residuals as the predicted value increases, which is expected in a Poisson GLM, as mentioned in \cite{Dylan2017}. For a normal regression model, this would not be a desirable result but since we are assuming that our count data follows a Poisson distribution, the residuals are bound to display heteroscadasticity. 
+\subsection{Model Diagnostics}
+To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis.		
+
+\subsubsection{Residuals plots}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=0.7\textheight]{Images/Full_GLM_resids.jpg}
+    \caption{Residuals for GLM Model}
+    \label{fig:Residuals for GLM Model}
+\end{figure}
+
+\noindent The diagnostic plots in Figure 8 shows that while most residuals are randomly scattered around -5 to 5, there are still many points above 5, and this also imply that the GLM model produces residuals that does not follow the normal distribution well. Although this is not ideal, this might be attributed to the demand data following a poisson distribution instead of a normal distribution. 
+
+\subsubsection{Residuals against Predicted values}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.5\textheight]{Images/Full_GLM_resids_vs_fitted.jpg}
+    \caption{Residuals against Predicted values for GLM Model}
+    \label{fig:Residuals against Predicted values for GLM Model}
+\end{figure}
+
+\noindent The above plot of residuals against the predicted values suggests heteroscedasticity between residuals, or non-constant variance between the residuals as the predicted value increases. This heteroscadasticity among residuals would sometimes occur in a Poisson GLM, as mentioned in \cite{Dylan2017}. 
 
 \subsection{Model Limitation}
 
 Similar to the baseline ARIMA model, it would be a relatively expensive and time-consuming process as every location has to be individually fitted to a GLM model. Also, each location model only uses its past values and does not take into account data from the other locations. The next section explores another type of model which would use data from other locations as predictors. 
+
 
 \section{Vector Autoregressive (VAR) Model}
 
@@ -252,7 +260,7 @@ For a univariate time series, it is important for the time series to be transfor
 To test for stationarity, we would be performing the standard ADF test to test for stationarity. The result of the ADF test showed that time series of certain locations are not stationary. We then take the first difference of each series and after differencing, ADF test was performed on each series the time series of each location have been checked and are stationary. It is noted that while it is possible to perform differencing on every series, it might cause over-differencing, leading to inaccurate results, as mentioned in \cite{Ruey2014}.
 
 \noindent Next, BigVAR Library in R was used to fit a VAR model with a maximum lag of 12, using time series of every location as predictors. The results for the VAR model is discussed in the later subsection. 
-\newpage
+
 
 \subsubsection{Cointegration}
 \cite{Box1977} shows that it is possible to linearly combine various unit-root nonstationary time series to form a stationary series. The term Cointegration, first mentioned in \cite{Granger1983}, states that although some or all the time series might be unit-root nonstationary individually, these time series can be said to be cointegrated if there exists a possible linear combination of them that would form a stationary series. Intuitively, 2 series are cointegrated if they move together and the distance between them remain stable over time. 
@@ -402,7 +410,7 @@ $r_{xy} = \frac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
 
 Finally, we explored using Dynamic Time Warping (DTW) Distance as the distance metric for K-means clustering. 
 
-\noindent DTW is one of the commonly-used algorithm for measuring similarity between time series by providing a elastic non-linear alignment between 2 time series. It is known for being effective for time series that have different length or speed. DTW is calculated by first creating a distance matrix and then finding the optimal warping path as shown in the 2 algorithms here:
+\noindent DTW is one of the commonly-used algorithm for speech or audio recognition and it measures the similarity between time series by providing a elastic non-linear alignment between 2 time series. It is known for being effective for time series that have different length or speed. DTW is calculated by first creating a distance matrix and then finding the optimal warping path as shown in the 2 algorithms here:
 
 \begin{algorithm}[H]
 \caption{Dynamic Time Warping (DTW) Algorithm to form distance matrix}
@@ -423,7 +431,7 @@ $c_{i,j} = (x_i - y_j) + min(c_{i-1,j}, c_{i,j-1}, c{i-1,j-1})$
 \begin{algorithm}[H]
 \caption{Using DTW Matrix to find optimal warping path}
 \begin{algorithmic}
-\REQUIRE i*j distance matrix from DTW Algorithm
+\REQUIRE distance matrix of dimension i*j obtained from DTW Algorithm
 %\ENSURE $y = x^n$
 \STATE Let i = rows(matrix) and j = columns(matrix)
 \STATE Let path = []
@@ -482,7 +490,7 @@ path.add((i,j))
 $DTW Distance = \sqrt{\sum_{(i,j)\in {Warping Path}}(x_i - y_j)^2}$
 \end{center}
 
-\noindent More details on the applications and optimisation of DTW can be found in \cite{Pavel2008}  
+\noindent As shown in \cite{Hui2008}, DTW is also used commonly as a time series similarity measure for time series classification and it can perform as well as other state-of-the-art measures. More details on the applications and optimisation of DTW can also be found in \cite{Pavel2008}  
 \newpage 
 
 \subsection{Predicting total demand for each cluster}
@@ -585,14 +593,14 @@ The table below summarises the results of our models.
 
 \noindent We can see that the VAR and VARX model performs better than the GLM models on the full dataset, suggesting that the spatial relationship between locations are useful in forecasting. Also, VARX performs better than VAR model in both cases, suggesting the exogenous variables have some explanatory power and do improve the forecast accuracy. 
 
-\noindent Applying the 3-step forecast also gives a much improved result. This might be due to using a more reliable and reasonable model to predict total demands for just 9 clusters and then re-assigning it to individual locations, rather than having a model to predict all 839 locations, which would intuitively have higher error rate. The method of using VAR on all locations produced a relatively worse result, which is similar to the findings from \cite{Abolfazl2017}, which states that a simple VAR model would not perform as well for high-dimensional data. 
+\noindent Applying the 3-step approach also gives a much improved result as compared to just using VAR on all the locations. This might be due to the 3-step approach being more reliable and reasonable. In the 3-step approach, our VAR model uses just the 9 clusters as variables to predict the total cluster demand for just 9 clusters, while the original VAR uses all 839 locations as variables to predict for 839 locations, which is more likely to produce a higher error rate. This is similar to the findings from \cite{Abolfazl2017}, which states that a simple VAR model would not perform as well for high-dimensional data. 
 
-\noindent As for the distance metric used for clustering, using correlation between the time series gives us the best result. This might be because correlation compares the general shape and trend of the time series regardless of scale, whereas for DTW, it is more effective to compare time series of varying length and speed. Using correlation also gives better results than using euclidean distance between the geo-locations, and this imply that spatial correlation is not limited to just geographical proximity but also on the time series similarity. 
+\noindent As for the distance metric used for clustering, using correlation also gives better results than using euclidean distance between the geo-locations, and this would imply that spatial correlation is not limited to just purely geographical proximity but also on the time series similarity. Comparing correlation measure and DTW measure, using correlation between the time series as the distance metric gives us the best result. Correlation compares the general shape and trend of the time series regardless of scale, whereas for DTW, it is more effective to compare time series of varying length and speed. 
 
 \section{Limitations and Future Work}
 Our 3-step approach model display decent MSFE result. However, using VAR is still technically a linear model and future work could include exploring using non-linear models like neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models that also uses spatial-temporal features to forecast the demand across locations. LSTM or neural network models are also believed to be able to take into account the non-stationarity of the time series, which would allow our model to be more flexible without the need for differencing, which might lead to over-differencing for some series. 
 
-\noindent Another area that could be explored further would be the method used to assign the total cluster demand to individual locations. Currently, the method simply used the historical distribution of the total sum of demand of each location over all the locations in that cluster. This would only work well if the distribution of the demand for the locations remain relatively constant over time. However, if the distribution of the locations fluctuates greatly, the current reassignment formula might not give a good result. Instead, we could try predict the distribution of the locations in each cluster or other methods to get a relatively stable and reasonable distribution over time.
+\noindent Another area that could be explored further would be the method used to assign the total cluster demand to individual locations. Currently, the method simply used the historical distribution of the total sum of demand of each location over all the locations in that cluster. This would only work well if the distribution of the demand for the locations remain relatively constant over time. However, if the distribution of the locations fluctuates greatly, the current reassignment formula might not give a good result. Instead, we could attempt to create another model to predict the distribution of the locations in each cluster in order to get a relatively more stable and reasonable distribution over time.
 
 \newpage
 \section{Appendix}

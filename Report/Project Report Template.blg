@@ -15,6 +15,10 @@ Too many commas in name 1 of "Baumöhl, Eduard, Lyócsa, Štefan" for entry Baum
 while executing---line 1049 of file abbrv.bst
 Too many commas in name 1 of "Box, G. E. P., Tiao, G. C." for entry Box1977
 while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Hui Ding, Goce Trajcevski,Peter Scheuermann, Xiaoyue Wang, Eamonn Keogh" for entry Hui2008
+while executing---line 1049 of file abbrv.bst
+Too many commas in name 1 of "Hui Ding, Goce Trajcevski,Peter Scheuermann, Xiaoyue Wang, Eamonn Keogh" for entry Hui2008
+while executing---line 1049 of file abbrv.bst
 Too many commas in name 1 of "Abolfazl Safikhani, Camille Kamga, Sandeep Mudigonda, Sabiheh Sadat Faghih, Bahman Moghimi" for entry Abolfazl2017
 while executing---line 1090 of file abbrv.bst
 Too many commas in name 1 of "Abolfazl Safikhani, Camille Kamga, Sandeep Mudigonda, Sabiheh Sadat Faghih, Bahman Moghimi" for entry Abolfazl2017
@@ -31,6 +35,11 @@ Warning--empty journal in Chi2014
 Warning--empty journal in Xavier2005
 Warning--empty journal in Wang2018
 Warning--empty journal in Granger1983
+Too many commas in name 1 of "Hui Ding, Goce Trajcevski,Peter Scheuermann, Xiaoyue Wang, Eamonn Keogh" for entry Hui2008
+while executing---line 1090 of file abbrv.bst
+Too many commas in name 1 of "Hui Ding, Goce Trajcevski,Peter Scheuermann, Xiaoyue Wang, Eamonn Keogh" for entry Hui2008
+while executing---line 1090 of file abbrv.bst
+Warning--empty journal in Hui2008
 Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El Moussami , Abdeslam Lachhab" for entry Jamal2018
 while executing---line 1090 of file abbrv.bst
 Too many commas in name 1 of "Jamal Fattah , Latifa Ezzine , Zineb Aman, Haj El Moussami , Abdeslam Lachhab" for entry Jamal2018
@@ -50,45 +59,45 @@ Warning--empty journal in Ruey2014
 Warning--empty journal in William2017
 Warning--empty journal in Asha2016
 Warning--empty journal in Zhijie1998
-You've used 23 entries,
+You've used 24 entries,
             2118 wiz_defined-function locations,
-            603 strings with 6730 characters,
-and the built_in function-call counts, 4809 in all, are:
-= -- 446
-> -- 179
+            608 strings with 6924 characters,
+and the built_in function-call counts, 5012 in all, are:
+= -- 465
+> -- 186
 < -- 0
-+ -- 80
-- -- 52
-* -- 198
-:= -- 903
-add.period$ -- 69
-call.type$ -- 23
-change.case$ -- 95
++ -- 83
+- -- 54
+* -- 206
+:= -- 941
+add.period$ -- 72
+call.type$ -- 24
+change.case$ -- 99
 chr.to.int$ -- 0
-cite$ -- 46
-duplicate$ -- 230
-empty$ -- 392
-format.name$ -- 52
-if$ -- 942
+cite$ -- 48
+duplicate$ -- 240
+empty$ -- 409
+format.name$ -- 54
+if$ -- 982
 int.to.chr$ -- 0
-int.to.str$ -- 23
-missing$ -- 23
-newline$ -- 118
-num.names$ -- 46
-pop$ -- 141
+int.to.str$ -- 24
+missing$ -- 24
+newline$ -- 123
+num.names$ -- 48
+pop$ -- 147
 preamble$ -- 1
-purify$ -- 72
+purify$ -- 75
 quote$ -- 0
-skip$ -- 163
+skip$ -- 170
 stack$ -- 0
-substring$ -- 120
+substring$ -- 125
 swap$ -- 0
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 92
-warning$ -- 23
-while$ -- 46
-width$ -- 25
-write$ -- 209
-(There were 12 error messages)
+type$ -- 96
+warning$ -- 24
+while$ -- 48
+width$ -- 26
+write$ -- 218
+(There were 16 error messages)
