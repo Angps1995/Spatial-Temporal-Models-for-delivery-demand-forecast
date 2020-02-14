@@ -284,31 +284,31 @@ VAR models can also be extended to include exogenous variables. A VARX(p,s) (wit
 
 \noindent Similar to VAR above, BigVAR library was used to fit a VARX model taking in the 839 locations' time series as endogenous variables and the 13 exogenous variables. The model was then use to compute predictions for the 6 periods ahead and would be compared with the test set.
 
-%\subsection{Model Checking}
-%To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis:
-%
-%
-%\subsubsection{Whiteness of Residuals}
-%To ensure our fitted model is adequate, the resiudals should behave like a white noise series. 
-%The plots below shows the distribution of our residuals for the VAR model and the VARX model. 
-%
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=0.8\textwidth, height=0.42\textheight]{Images/Full_VAR_diff_resids.jpg}
-%    \caption{Residuals for VAR Model}
-%    \label{fig:Residuals for VAR Model}
-%\end{figure}
-%
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=0.8\textwidth, height=0.42\textheight]{Images/Full_VARX_diff_resids.jpg}
-%    \caption{Residuals for VARX Model}
-%    \label{fig:Residuals for VARX Model}
-%\end{figure}
-%
-%From Figure 11 and 12, we can see that the residuals are mostly randomly scattered and they roughly follow a normal distribution, although it performs rather badly on the lower end and higher end of the outliers. 
-%
-%
+\subsection{Model Checking}
+To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis:
+
+
+\subsubsection{Whiteness of Residuals}
+To ensure our fitted model is adequate, the resiudals should behave like a white noise series. 
+The plots below shows the distribution of our residuals for the VAR model and the VARX model. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.42\textheight]{Images/Full_VAR_diff_resids.jpg}
+    \caption{Residuals for VAR Model}
+    \label{fig:Residuals for VAR Model}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.42\textheight]{Images/Full_VARX_diff_resids.jpg}
+    \caption{Residuals for VARX Model}
+    \label{fig:Residuals for VARX Model}
+\end{figure}
+
+From Figure 11 and 12, we can see that the residuals are mostly randomly scattered and they roughly follow a normal distribution, although it performs rather badly on the lower end and higher end of the outliers. 
+
+
 %\subsubsection{Residuals against Fitted Values}
 %
 %\begin{figure}[H]
@@ -328,15 +328,19 @@ VAR models can also be extended to include exogenous variables. A VARX(p,s) (wit
 %Figure 13 and 14 shows that heteroscadasticity occurs at the lower and higher ends of the predicted values, whereas in the middle range, the residuals tend to be roughly randomly scattered.
 
 \subsection{Results}
-On the small dataset, the MSFE using the VAR model is \textbf{42.76} while the MSFE using the VARX model is \textbf{41.73}. On the full dataset, the MSFE using the VAR model  is \textbf{76.72} while the MSFE using the VARX model is \textbf{75.63}. 
+On the small dataset, the MSFE using the VAR model is \textbf{42.76} while the MSFE using the VARX model is \textbf{41.73}. On the full dataset, the MSFE using the VAR model  is \textbf{76.72} while the MSFE using the VARX model is \textbf{75.63}.Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. 
 
-\noindent Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. To try and improve our forecast accuracy further, the next section will introduce a 3-step modelling approach.
+\subsection{Model limitations}
+
+While this is an improvement from the GLM model and also beats the ARIMA baseline model on the smaller dataset, both VAR and VARX fails to beat the baseline model MSFE of 72.48. This might be because in the baseline model, since each location is fitted with an individual ARIMA model, those sparse locations would have predictions of all 0, which would be accurate. In the smaller dataset, since we only used locations that are not sparse (locations with at least 50 non-zero counts), and the VAR/VARX model uses all locations' demand values, the existence of spatial correlation would cause the VAR/VARX model to perform better than the ARIMA. However, using VAR/VARX on the full dataset, which contains locations with sparse demand would not beat the ARIMA model because the presence of non-zero coefficients would cause many predictions to be non-zero, hence producing a more inaccurate prediction as compared to the baseline ARIMA model. 
+
+\noindent Having noticed the abovementioned problem in locations with sparse demand. the next section would introduce a 3-step approach to fix this issue. 
 
 \newpage
 
 \section{3-step Approach}
 
-In this section, we introduce an alternative 3-step approach, which combined clustering, an unsupervised learning method, along with VAR method mentioned above. The overall steps are summarised here:
+In this section, we introduce an alternative 3-step approach. The overall steps are summarised here:
 
 \noindent \textbf{Step 1}. Perform Clustering on the time series using one of the distance metric: 
 
@@ -382,14 +386,12 @@ In this section, we introduce an alternative 3-step approach, which combined clu
 %\end{algorithmic}
 %end{algorithm}
 
-\noindent Similar methods can be found in \cite{Paul2015} and \cite{Chi2014}
+\noindent By performing clustering and aggregation of the locations before reallocating the demand to each locations based on its past distribution, the predicted demand for each location would not purely be attained from past values of all individual locations. Instead, the clustering would reduce the total dimensionality of the data when being fitted to a VAR to attain a more reasonable cluster demand prediction, before being reallocated to the locations based on its past distribution and this might provide a better prediction for locations with sparse demands. Similar methods can be found in \cite{Paul2015} and \cite{Chi2014}.
 
 \noindent 
 \subsection{Clustering}
 
-A simple K-means clustering was first done on the locations using their time series data in the training set. 3 different kind of distance metrics were used to perform K-means clustering. 
-
-\noindent The first metric used would be to cluster based on their geo-locations while the second and third metric used would be to cluster them based on similarity between their historical time series. 
+A simple K-means clustering was first done on the locations using their time series data in the training set. 3 different kind of distance metrics were used to perform K-means clustering. The first metric used would be based on their geo-locations while the second and third metric used would be to cluster them based on similarity between their historical time series. 
 
 \subsubsection{Using longitude/latitude as the distance metric}
 
@@ -591,16 +593,16 @@ The table below summarises the results of our models.
 \end{table}
 
 
-\noindent We can see that the VAR and VARX model performs better than the GLM models on the full dataset, suggesting that the spatial relationship between locations are useful in forecasting. Also, VARX performs better than VAR model in both cases, suggesting the exogenous variables have some explanatory power and do improve the forecast accuracy. 
+\noindent VAR and VARX model performs better than the GLM models on the full dataset, suggesting that the spatial relationship between locations are useful in forecasting. Also, VARX performs better than VAR model in both datasets, suggesting the exogenous variables have some explanatory power and do improve the forecast accuracy. 
 
-\noindent Applying the 3-step approach also gives a much improved result as compared to just using VAR on all the locations. This might be due to the 3-step approach being more reliable and reasonable. In the 3-step approach, our VAR model uses just the 9 clusters as variables to predict the total cluster demand for just 9 clusters, while the original VAR uses all 839 locations as variables to predict for 839 locations, which is more likely to produce a higher error rate. This is similar to the findings from \cite{Abolfazl2017}, which states that a simple VAR model would not perform as well for high-dimensional data. 
+\noindent Applying the 3-step approach also gives a much improved result as compared to just using VAR on all the locations. This might be due to the 3-step approach being more reasonable in dealing with locations with sparse demand due to the aggregation of clusters in the clustering method. In the 3-step approach, our VAR model uses just the 9 clusters as variables to predict the total cluster demand for just 9 clusters, while the original VAR uses all 839 locations as variables to predict for 839 locations, which is more likely to produce a higher error rate. This is similar to the findings from \cite{Abolfazl2017}, which states that a simple VAR model would not perform as well for high-dimensional data. 
 
 \noindent As for the distance metric used for clustering, using correlation also gives better results than using euclidean distance between the geo-locations, and this would imply that spatial correlation is not limited to just purely geographical proximity but also on the time series similarity. Comparing correlation measure and DTW measure, using correlation between the time series as the distance metric gives us the best result. Correlation compares the general shape and trend of the time series regardless of scale, whereas for DTW, it is more effective to compare time series of varying length and speed. 
 
 \section{Limitations and Future Work}
-Our 3-step approach model display decent MSFE result. However, using VAR is still technically a linear model and future work could include exploring using non-linear models like neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models that also uses spatial-temporal features to forecast the demand across locations. LSTM or neural network models are also believed to be able to take into account the non-stationarity of the time series, which would allow our model to be more flexible without the need for differencing, which might lead to over-differencing for some series. 
+Our 3-step approach model display decent MSFE result. However, using VAR is still technically a linear model and future work could include exploring using non-linear models like neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models that also uses spatial-temporal features. Neural network models are also believed to be able to take into account the non-stationarity of the time series, which would allow our model to be more flexible without the need for differencing. 
 
-\noindent Another area that could be explored further would be the method used to assign the total cluster demand to individual locations. Currently, the method simply used the historical distribution of the total sum of demand of each location over all the locations in that cluster. This would only work well if the distribution of the demand for the locations remain relatively constant over time. However, if the distribution of the locations fluctuates greatly, the current reassignment formula might not give a good result. Instead, we could attempt to create another model to predict the distribution of the locations in each cluster in order to get a relatively more stable and reasonable distribution over time.
+\noindent Another area that could be explored further would be the method used to assign the total cluster demand to individual locations. Our current method simply used the historical distribution of the total sum of demand of each location over all the locations in that cluster. This would work well if the distribution of the demand for the locations remain relatively constant over time but if the distribution of the locations fluctuates greatly, the current reassignment formula might not be a suitable model. Instead, we could attempt to create another model to predict the distribution of the locations in each cluster in order to get a relatively more stable and reasonable distribution over time.
 
 \newpage
 \section{Appendix}

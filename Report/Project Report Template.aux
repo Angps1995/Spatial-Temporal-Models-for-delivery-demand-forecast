@@ -66,58 +66,65 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {6.4.2}Johansen Test for Cointegration}{17}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.5}VARX Model}{17}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Implementation of VARX Model on our dataset}{18}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.7}Results}{18}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.7}Model Checking}{18}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.7.1}Whiteness of Residuals}{18}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Residuals for VAR Model}}{19}\protected@file@percent }
+\newlabel{fig:Residuals for VAR Model}{{11}{19}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Residuals for VARX Model}}{19}\protected@file@percent }
+\newlabel{fig:Residuals for VARX Model}{{12}{19}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.8}Results}{20}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.9}Model limitations}{20}\protected@file@percent }
 \citation{Paul2015}
 \citation{Chi2014}
-\@writefile{toc}{\contentsline {section}{\numberline {7}3-step Approach}{19}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Clustering}{19}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.1}Using longitude/latitude as the distance metric}{20}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.2}Using Correlation Coefficient as the distance metric}{20}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.3}Using Dynamic Time Warping as the distance metric}{20}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Dynamic Time Warping (DTW) Algorithm to form distance matrix}}{21}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Using DTW Matrix to find optimal warping path}}{21}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}3-step Approach}{21}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Clustering}{21}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.1}Using longitude/latitude as the distance metric}{22}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.2}Using Correlation Coefficient as the distance metric}{22}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.3}Using Dynamic Time Warping as the distance metric}{22}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Dynamic Time Warping (DTW) Algorithm to form distance matrix}}{23}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Using DTW Matrix to find optimal warping path}}{23}\protected@file@percent }
 \citation{Hui2008}
 \citation{Pavel2008}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces DTW Alignment Plot}}{22}\protected@file@percent }
-\newlabel{fig:DTW Alignment Plot}{{7.1.3}{22}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Predicting total demand for each cluster}{23}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Correlation heatmap for 9 clusters}}{23}\protected@file@percent }
-\newlabel{fig:Correlation heatmap for 9 clusters}{{7.2}{23}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Assigning total cluster demand to individual location}{24}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Results}{25}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces MSFE for different clustering distance metrics and number of clusters. Bolded results signifying the best result for the respective distance metric.}}{25}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.4.1}Model Diagnostics}{26}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Plot of residuals against fitted values for VAR model}}{26}\protected@file@percent }
-\newlabel{fig:Plot of residuals against fitted values for VAR model}{{7.4.1}{26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces DTW Alignment Plot}}{24}\protected@file@percent }
+\newlabel{fig:DTW Alignment Plot}{{7.1.3}{24}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Predicting total demand for each cluster}{25}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Correlation heatmap for 9 clusters}}{25}\protected@file@percent }
+\newlabel{fig:Correlation heatmap for 9 clusters}{{7.2}{25}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Assigning total cluster demand to individual location}{26}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Results}{27}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces MSFE for different clustering distance metrics and number of clusters. Bolded results signifying the best result for the respective distance metric.}}{27}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.4.1}Model Diagnostics}{28}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Plot of residuals against fitted values for VAR model}}{28}\protected@file@percent }
+\newlabel{fig:Plot of residuals against fitted values for VAR model}{{7.4.1}{28}}
 \citation{Abolfazl2017}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Results and Conclusion}{27}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces MSFE of the different methods used in this paper}}{27}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {9}Limitations and Future Work}{28}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10}Appendix}{29}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Distribution Plots of Exogenous Variables}{29}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Distribution of Cloud}}{29}\protected@file@percent }
-\newlabel{fig:Distribution of Cloud}{{10.1}{29}}
-\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Distribution of Gust}}{29}\protected@file@percent }
-\newlabel{fig:Distribution of Gust}{{10.1}{29}}
-\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Distribution of Humidity}}{30}\protected@file@percent }
-\newlabel{fig:Distribution of Humidity}{{10.1}{30}}
-\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Distribution of Pressure}}{30}\protected@file@percent }
-\newlabel{fig:Distribution of Pressure}{{10.1}{30}}
-\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Distribution of Temperature}}{31}\protected@file@percent }
-\newlabel{fig:Distribution of Temperature}{{10.1}{31}}
-\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Distribution of Wind}}{31}\protected@file@percent }
-\newlabel{fig:Distribution of Wind}{{10.1}{31}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Mean Demand Against Exogenous Variables}{32}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Mean Demand against Wind}}{32}\protected@file@percent }
-\newlabel{fig:Mean Demand against Wind}{{10.2}{32}}
-\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Mean Demand against Gust}}{32}\protected@file@percent }
-\newlabel{fig:Mean Demand against Gust}{{10.2}{32}}
-\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces Mean Demand against Cloud}}{33}\protected@file@percent }
-\newlabel{fig:Mean Demand against Cloud}{{10.2}{33}}
-\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Mean Demand against Humidity}}{33}\protected@file@percent }
-\newlabel{fig:Mean Demand against Humidity}{{10.2}{33}}
-\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces Mean Demand against Precipitation}}{34}\protected@file@percent }
-\newlabel{fig:Mean Demand against Precipitation}{{10.2}{34}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Results and Conclusion}{29}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces MSFE of the different methods used in this paper}}{29}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Limitations and Future Work}{30}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Appendix}{31}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Distribution Plots of Exogenous Variables}{31}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Distribution of Cloud}}{31}\protected@file@percent }
+\newlabel{fig:Distribution of Cloud}{{10.1}{31}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Distribution of Gust}}{31}\protected@file@percent }
+\newlabel{fig:Distribution of Gust}{{10.1}{31}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Distribution of Humidity}}{32}\protected@file@percent }
+\newlabel{fig:Distribution of Humidity}{{10.1}{32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Distribution of Pressure}}{32}\protected@file@percent }
+\newlabel{fig:Distribution of Pressure}{{10.1}{32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Distribution of Temperature}}{33}\protected@file@percent }
+\newlabel{fig:Distribution of Temperature}{{10.1}{33}}
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Distribution of Wind}}{33}\protected@file@percent }
+\newlabel{fig:Distribution of Wind}{{10.1}{33}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Mean Demand Against Exogenous Variables}{34}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces Mean Demand against Wind}}{34}\protected@file@percent }
+\newlabel{fig:Mean Demand against Wind}{{10.2}{34}}
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Mean Demand against Gust}}{34}\protected@file@percent }
+\newlabel{fig:Mean Demand against Gust}{{10.2}{34}}
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces Mean Demand against Cloud}}{35}\protected@file@percent }
+\newlabel{fig:Mean Demand against Cloud}{{10.2}{35}}
+\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces Mean Demand against Humidity}}{35}\protected@file@percent }
+\newlabel{fig:Mean Demand against Humidity}{{10.2}{35}}
+\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces Mean Demand against Precipitation}}{36}\protected@file@percent }
+\newlabel{fig:Mean Demand against Precipitation}{{10.2}{36}}
 \bibstyle{abbrv}
 \bibdata{references}
 \bibcite{Abolfazl2017}{{1}{}{{}}{{}}}
