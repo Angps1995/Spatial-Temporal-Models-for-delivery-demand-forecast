@@ -142,14 +142,14 @@ From Figure 1 in Section 3.1, the data is very sparse as there are many location
 \newpage
 
 \section{Baseline Model}
-In this section, we would build a simple baseline model by just fitting an ARIMA model on all the locations individually. In the later sections of the paper, we would try other different spatial temporal time series models and compare the results against the baseline model. 
+In this section, we would build a simple baseline model by just fitting an ARIMA model on all the locations individually. In the later sections of the paper, we would try other approaches and compare the results against the baseline model. 
 
 \subsection{Metric Used}
-The main metric that would be used for comparison would be Mean Squared Forecast Error (MSFE), which is calculated by:
+The main metric that would be used for comparison would be Mean Squared Error (MSE), which is calculated by:
 
 \begin{center}
-    %$\displaystyle MSFE=\frac{1}{(T_2 - T_1 - 1)}\sum_{t=T_1}^{T_2 - 1}\left \| \hat{y}_{t+1} - y_{t+1} \right \|_{2}^{2}$
-    $\displaystyle MSFE=\frac{1}{n}\sum_{t=1}^{n}\left \| \hat{y}_{t} - y_{t} \right \|_{2}^{2}$
+    %$\displaystyle MSE=\frac{1}{(T_2 - T_1 - 1)}\sum_{t=T_1}^{T_2 - 1}\left \| \hat{y}_{t+1} - y_{t+1} \right \|_{2}^{2}$
+    $\displaystyle MSE=\frac{1}{n}\sum_{t=1}^{n}\left \| \hat{y}_{t} - y_{t} \right \|_{2}^{2}$
 \end{center}
 where \textit{n} is the number of data points, $\hat{y_t}$ is the predicted demand at time t and ${y_t}$ is the actual demand at time t.
 
@@ -165,7 +165,7 @@ $\hat{y_t} = \mu + \sum_{i=1}^{p} \phi_i * y_{t-i} - \sum_{j=1}^{q} \theta_j * e
 \noindent where $\hat{y_t}$ refer to the predicted value at time t, $\mu$ refer to a constant, while $\sum_{i=1}^{p} \phi_i * y_{t-i}$ refers to the AR terms and $\sum_{j=1}^{q} \theta_j * e_{t-j}$ refers to the MA terms.
 
 \subsection{Baseline ARIMA Result}
-As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSFE for this baseline model on the smaller dataset is \textbf{47.60} and MSFE for dataset of all locations is \textbf{72.48}. A sample forecast plot is shown below:
+As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSE for this baseline model on the smaller dataset is \textbf{47.60} and MSE for dataset of all locations is \textbf{72.48}. A sample forecast plot is shown below:
 
 \begin{figure}[H]
     \centering
@@ -193,9 +193,9 @@ The dataset that we are using follows a count time series, which means the obser
 %\noindent where additionally, $\tilde{g}$ represents a transformation function. (remove this?)
 
 \subsection{Model Implementation}
-\noindent As mentioned in section 3.2, we would first assess our model on the smaller dataset before testing it on the full dataset. Using the R package tscount from \cite{Tobias2017}, we fit each of the locations individually by a GLM model. For the parameters, we used the past 6 lagged values as well as the identity function as the link function. The out-of-sample MSFE for this baseline model on the smaller dataset is \textbf{38.16}, which is better than just using ARIMA on the same dataset.  
+\noindent As mentioned in section 3.2, we would first assess our model on the smaller dataset before testing it on the full dataset. Using the R package tscount from \cite{Tobias2017}, we fit each of the locations individually by a GLM model. For the parameters, we used the past 6 lagged values as well as the identity function as the link function, with poisson distribution as the conditional distribution. The out-of-sample MSE for this baseline model on the smaller dataset is \textbf{38.16}, which is better than just using ARIMA on the same dataset.  
 
-\noindent However, when it is implemented on the full dataset, the MSFE of the GLM increases to \textbf{82.42}, which is worse than just applying ARIMA on every location, which gives a MSFE of 72.48. 
+\noindent However, when it is implemented on the full dataset, the MSE of the GLM increases to \textbf{82.42}, which is worse than just applying ARIMA on every location, which gives a MSE of 72.48. 
 
 \subsection{Model Diagnostics}
 To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis.		
@@ -259,7 +259,7 @@ For a univariate time series, it is important for the time series to be transfor
 
 To test for stationarity, we would be performing the standard ADF test to test for stationarity. The result of the ADF test showed that time series of certain locations are not stationary. We then take the first difference of each series and after differencing, ADF test was performed on each series the time series of each location have been checked and are stationary. It is noted that while it is possible to perform differencing on every series, it might cause over-differencing, leading to inaccurate results, as mentioned in \cite{Ruey2014}.
 
-\noindent Next, BigVAR Library in R was used to fit a VAR model with a maximum lag of 12, using time series of every location as predictors. The results for the VAR model is discussed in the later subsection. 
+\noindent After we applied a differencing order of 1 to the dataset, BigVAR Library in R was used to fit a VAR model with a selected p of 9, representing the usage of 9 lagged values, using time series of every location as predictors. The results for the VAR model is discussed in the later subsection. 
 
 
 \subsubsection{Cointegration}
@@ -280,12 +280,12 @@ VAR models can also be extended to include exogenous variables. A VARX(p,s) (wit
 \noindent where $p$ is the number of lagged endogenous variables used, $s$ is the number of lagged exogenous variables used, $y_t$ is the value at time $t$, $v$ is a constant vector, $\phi_i$ are coefficient matrices for endogenous coefficient matrix for $i>0$, $\beta_i$ are coefficient matrices for exogenous coefficient matrix for $i>0$ and $\alpha_t$ are independent and identically distributed random vectors. 
 
 \subsection{Implementation of VARX Model on our dataset}
-\noindent Our dataset uses additional exogenous variables like temperature, wind, gust, cloud, humidity, precipitation, pressure as well as one-hot encoding of the day of the week. Our dataset now would have 839 endogenous variables/locations and 13 exogenous variables. Based on performance results and taking computational power limitation into consideration, the optimal number of lag for endogenous variables is 6 and number of lag for exogenous variables is 1.
+\noindent Our dataset uses additional exogenous variables like temperature, wind, gust, cloud, humidity, precipitation, pressure as well as one-hot encoding of the day of the week. Our dataset now would have 839 endogenous variables/locations and 13 exogenous variables. Based on performance results and taking computational power limitation into consideration, the optimal number of lag (p) for endogenous variables is 6 and number of lag for exogenous variables is 1.
 
 \noindent Similar to VAR above, BigVAR library was used to fit a VARX model taking in the 839 locations' time series as endogenous variables and the 13 exogenous variables. The model was then use to compute predictions for the 6 periods ahead and would be compared with the test set.
 
 \subsection{Model Checking}
-To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis:
+The following residual analysis are then performed:
 
 
 \subsubsection{Whiteness of Residuals}
@@ -306,7 +306,7 @@ The plots below shows the distribution of our residuals for the VAR model and th
     \label{fig:Residuals for VARX Model}
 \end{figure}
 
-From Figure 11 and 12, we can see that the residuals are mostly randomly scattered and they roughly follow a normal distribution, although it performs rather badly on the lower end and higher end of the outliers. 
+\noindent From Figure 11 and 12, we can see that the residuals are mostly randomly scattered and they roughly follow a normal distribution, although it performs rather badly on the lower end and higher end of the outliers. 
 
 
 %\subsubsection{Residuals against Fitted Values}
@@ -328,11 +328,11 @@ From Figure 11 and 12, we can see that the residuals are mostly randomly scatter
 %Figure 13 and 14 shows that heteroscadasticity occurs at the lower and higher ends of the predicted values, whereas in the middle range, the residuals tend to be roughly randomly scattered.
 
 \subsection{Results}
-On the small dataset, the MSFE using the VAR model is \textbf{42.76} while the MSFE using the VARX model is \textbf{41.73}. On the full dataset, the MSFE using the VAR model  is \textbf{76.72} while the MSFE using the VARX model is \textbf{75.63}.Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. 
+On the small dataset, the MSE using the VAR model is \textbf{42.76} while the MSE using the VARX model is \textbf{41.73}. On the full dataset, the MSE using the VAR model  is \textbf{76.72} while the MSE using the VARX model is \textbf{75.63}.Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. 
 
 \subsection{Model limitations}
 
-While this is an improvement from the GLM model and also beats the ARIMA baseline model on the smaller dataset, both VAR and VARX fails to beat the baseline model MSFE of 72.48. This might be because in the baseline model, since each location is fitted with an individual ARIMA model, those sparse locations would have predictions of all 0, which would be accurate. In the smaller dataset, since we only used locations that are not sparse (locations with at least 50 non-zero counts), and the VAR/VARX model uses all locations' demand values, the existence of spatial correlation would cause the VAR/VARX model to perform better than the ARIMA. However, using VAR/VARX on the full dataset, which contains locations with sparse demand would not beat the ARIMA model because the presence of non-zero coefficients would cause many predictions to be non-zero, hence producing a more inaccurate prediction as compared to the baseline ARIMA model. 
+While this is an improvement from the GLM model and also beats the ARIMA baseline model on the smaller dataset, both VAR and VARX fails to beat the baseline model MSE of 72.48. This might be because in the baseline model, since each location is fitted with an individual ARIMA model, those sparse locations would have predictions of all 0, which would be accurate. In the smaller dataset, since we only used locations that are not sparse (locations with at least 50 non-zero counts), and the VAR/VARX model uses all locations' demand values, the existence of spatial correlation would cause the VAR/VARX model to perform better than the ARIMA. However, using VAR/VARX on the full dataset, which contains locations with sparse demand would not beat the ARIMA model because the presence of non-zero coefficients would cause many predictions to be non-zero, hence producing a more inaccurate prediction as compared to the baseline ARIMA model. 
 
 \noindent Having noticed the abovementioned problem in locations with sparse demand. the next section would introduce a 3-step approach to fix this issue. 
 
@@ -544,7 +544,7 @@ After we attained the total demand for each cluster, the next step would be to r
 
 \subsection{Results}
 
-In this 3-step approach, it is not appropriate to use conventional methods, such as the elbow method, to determine the number of clusters. This is because our purpose here is not to minimize the within cluster sum-of-squares, but rather to find the optimal combination of groups that yields the best forecast accuracy after we fit a VAR model on them and reallocate the demand using the VAR model predictions. Hence, we tried different number of clusters for the 3 different distance metric as mentioned in Section 7.1 and observe the MSFE for each of those.
+In this 3-step approach, it is not appropriate to use conventional methods, such as the elbow method, to determine the number of clusters. This is because our purpose here is not to minimize the within cluster sum-of-squares, but rather to find the optimal combination of groups that yields the best forecast accuracy after we fit a VAR model on them and reallocate the demand using the VAR model predictions. Hence, we tried different number of clusters for the 3 different distance metric as mentioned in Section 7.1 and observe the MSE for each of those.
 
 \begin{table}[H]
 \begin{tabular}{|l|l|l|l|l|}
@@ -555,7 +555,7 @@ In this 3-step approach, it is not appropriate to use conventional methods, such
 \textbf{\begin{tabular}[c]{@{}l@{}}Clustering using DTW as\\ distance metric\end{tabular}}                                & 66.39               & \textbf{62.07}      & 65.67 & 62.56                
 \\ \hline
 \end{tabular}
-\textbf{\caption{MSFE for different clustering distance metrics and number of clusters. Bolded results signifying the best result for the respective distance metric.}}
+\textbf{\caption{MSE for different clustering distance metrics and number of clusters. Bolded results signifying the best result for the respective distance metric.}}
 \end{table}
 
 \noindent Based on the results, clustering the time series into 9 groups using the correlation between time series as the distance metric seems to give the best result. 
@@ -580,7 +580,7 @@ The table below summarises the results of our models.
 \begin{table}[H]
 \begin{tabular}{|l|l|l|ll}
 \cline{1-3}
-                                                                                                             & \textbf{\begin{tabular}[c]{@{}l@{}}MSFE (Locations with at \\ least 50 non-zero counts)\end{tabular}} & \textbf{MSFE (All locations)} &  &  \\ \cline{1-3}
+                                                                                                             & \textbf{\begin{tabular}[c]{@{}l@{}}MSE (Locations with at \\ least 50 non-zero counts)\end{tabular}} & \textbf{MSE (All locations)} &  &  \\ \cline{1-3}
 \textbf{ARIMA}                                                                                               & 47.60                                                                                              & 72.48                         &  &  \\ \cline{1-3}
 \textbf{GLM}                                                                                                 & 38.16                                                                                              & 82.42                         &  &  \\ \cline{1-3}
 \textbf{VAR}                                                                                                 & 42.76                                                                                              & 76.72                         &  &  \\ \cline{1-3}
@@ -589,7 +589,7 @@ The table below summarises the results of our models.
 \textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on correlation \\ of time series)\end{tabular}}           & 39.49 & \textbf{59.27}                         &  &  \\ \cline{1-3}
 \textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on DTW \\ of time series)\end{tabular}}           & 40.10 & 62.07                         &  &  \\ \cline{1-3}
 \end{tabular}
-\textbf{\caption{MSFE of the different methods used in this paper}}
+\textbf{\caption{MSE of the different methods used in this paper}}
 \end{table}
 
 
@@ -600,7 +600,7 @@ The table below summarises the results of our models.
 \noindent As for the distance metric used for clustering, using correlation also gives better results than using euclidean distance between the geo-locations, and this would imply that spatial correlation is not limited to just purely geographical proximity but also on the time series similarity. Comparing correlation measure and DTW measure, using correlation between the time series as the distance metric gives us the best result. Correlation compares the general shape and trend of the time series regardless of scale, whereas for DTW, it is more effective to compare time series of varying length and speed. 
 
 \section{Limitations and Future Work}
-Our 3-step approach model display decent MSFE result. However, using VAR is still technically a linear model and future work could include exploring using non-linear models like neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models that also uses spatial-temporal features. Neural network models are also believed to be able to take into account the non-stationarity of the time series, which would allow our model to be more flexible without the need for differencing. 
+Our 3-step approach model display decent MSE result. However, using VAR is still technically a linear model and future work could include exploring using non-linear models like neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models that also uses spatial-temporal features. Neural network models are also believed to be able to take into account the non-stationarity of the time series, which would allow our model to be more flexible without the need for differencing. 
 
 \noindent Another area that could be explored further would be the method used to assign the total cluster demand to individual locations. Our current method simply used the historical distribution of the total sum of demand of each location over all the locations in that cluster. This would work well if the distribution of the demand for the locations remain relatively constant over time but if the distribution of the locations fluctuates greatly, the current reassignment formula might not be a suitable model. Instead, we could attempt to create another model to predict the distribution of the locations in each cluster in order to get a relatively more stable and reasonable distribution over time.
 

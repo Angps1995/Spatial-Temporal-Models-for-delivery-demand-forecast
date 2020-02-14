@@ -3,6 +3,11 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: Project Report Template.aux
 The style file: abbrv.bst
 Database file #1: references.bib
+You're missing a field name---line 113 of file references.bib
+ : 
+ : %  title={On-Time Last Mile Delivery: Order Assignment with Travel Time Predictors},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
 Too many commas in name 1 of "Abolfazl Safikhani, Camille Kamga, Sandeep Mudigonda, Sabiheh Sadat Faghih, Bahman Moghimi" for entry Abolfazl2017
 while executing---line 1049 of file abbrv.bst
 Too many commas in name 1 of "Abolfazl Safikhani, Camille Kamga, Sandeep Mudigonda, Sabiheh Sadat Faghih, Bahman Moghimi" for entry Abolfazl2017
@@ -61,7 +66,7 @@ Warning--empty journal in Asha2016
 Warning--empty journal in Zhijie1998
 You've used 24 entries,
             2118 wiz_defined-function locations,
-            608 strings with 6924 characters,
+            608 strings with 6928 characters,
 and the built_in function-call counts, 5012 in all, are:
 = -- 465
 > -- 186
@@ -100,4 +105,4 @@ warning$ -- 24
 while$ -- 48
 width$ -- 26
 write$ -- 218
-(There were 16 error messages)
+(There were 17 error messages)
