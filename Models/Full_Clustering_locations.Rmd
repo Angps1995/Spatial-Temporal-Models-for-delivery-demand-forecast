@@ -39,7 +39,7 @@ fviz_nbclust(loc_df, kmeans, method = "wss", k.max = 24) + theme_minimal() + ggt
 ```{r}
 ### Perform Clustering on locations ####
 num_clusters <- 3
-km <- kmeans(loc_df, centers = num_clusters)
+km <- kmeans(loc_df[,c(2:3)], centers = num_clusters)
 
 #### Allocate locs to cluster ###
 cluster_1 <- which(km$cluster %in% c(1))

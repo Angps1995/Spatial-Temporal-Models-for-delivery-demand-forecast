@@ -42,10 +42,32 @@ fviz_nbclust(mini_loc_df, kmeans, method = "wss", k.max = 24) + theme_minimal() 
 ```{r}
 ### Perform Clustering on locations ####
 num_clusters <- 3
-km <- kmeans(mini_loc_df, centers = num_clusters)
+km <- kmeans(mini_loc_df[,c(2:3)], centers = num_clusters)
 
 str(km)
 ```
+
+```{r}
+assign_cluster_by_loc = function(loc_df, ori_df, num_clust) {
+    "
+    Cluster by geographical locations, aggregate the locations into clusters by summing up all locations' demand in the respective cluster
+    "
+    km <- kmeans(loc_df[,c(2:3)], centers = num_clust)  #Cluster using latitude and longitude
+    clusters <- list()
+    df_cols <- list()
+    for (i in c(1 : num_clust)) {
+        clust <- which(km$cluster %in% c(i))
+        clusters[[i]] <- clust
+        cluster_orders <- colSums(ori_df[clust,])
+        df_cols[[i]] <- cluster_orders
+    } 
+    cluster_df <- data.frame(df_cols)
+    return (list("cluster_df" = cluster_df, "cluster_ind" = clusters))
+}
+result<-assign_cluster_by_loc(mini_loc_df, df_atleast_50cts_endo,3)
+```
+
+
 
 ```{r}
 #### Allocate locs to cluster ###
@@ -58,12 +80,13 @@ clusters[[1]] <- cluster_1
 clusters[[2]] <- cluster_2
 clusters[[3]] <- cluster_3
 
+
 #### Combine clusters orders into datafrmae ###
 cluster_1_orders <- colSums(df_atleast_50cts_endo[cluster_1,])
 cluster_2_orders <- colSums(df_atleast_50cts_endo[cluster_2,])
 cluster_3_orders <- colSums(df_atleast_50cts_endo[cluster_3,])
 
-cluster_df <- data.frame(cluster_1_orders, cluster_2_orders, cluster_3_orders)
+cluster_df <- data.frame(list(cluster_1_orders, cluster_2_orders, cluster_3_orders))
 ```
 
 ```{r}
@@ -74,11 +97,10 @@ summary(stationary_test)
 
 ```{r}
 #### Train VAR model on it  ###
-Y = data.matrix(cluster_df)
+Y = data.matrix(result$cluster_df)
 model = constructModel(Y, p = 6, struct = "Basic", gran = c(50,25), T1 = 156, T2 = 198)
 #model = constructModel(Y, p = 9, struct = "Basic", gran = c(25,10), T1 = 100, T2 = 200)
 var_model <- cv.BigVAR(model)
-var_model
 ```
 
 
@@ -93,7 +115,7 @@ assign_clust_demand = function(clust_pred){
   num_clust <- dim(clust_pred)[2]
   pred <- matrix(0, nrow = 6, ncol = 42)  
   for (i in c(1:num_clust)) {
-      clust_ind <- clusters[[i]]  
+      clust_ind <- result$cluster_ind[[i]]  
       clust_order_by_loc <- rowSums(train[clust_ind,])
       for (j in c(1:length(clust_ind))) {
           loc_prop <- clust_order_by_loc[j]/sum(clust_order_by_loc)
