@@ -1,0 +1,149 @@
+---
+title: "3 Step Approach, Clustering by correlation"
+output: html_notebook
+---
+
+```{r}
+library(tscount)
+library(urca)
+library(factoextra)
+library(vars)
+library(BigVAR)
+library(BBmisc)
+library(amap)
+set.seed(1)
+```
+
+```{r}
+#Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
+df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+loc_df <- read.csv("/home/angps/Documents/Thesis/Data/location_map.csv")
+train_small <- df_atleast_50cts_endo[,1:198]
+test_small <- df_atleast_50cts_endo[,199:204]
+train_full <- full_df[1:839,1:198]
+test_full <- full_df[1:839,199:204]
+```
+
+
+```{r}
+stationary_test = function(df) {
+   num_locs = dim(df)[2]  # number of locations
+   stationary_ct <- 0
+   for (i in c(1 : num_locs)) {  # For each location
+       adf_result <- suppressWarnings(adf.test(df[, i]))  # Apply adf test first 198 values as training set has 198 values
+       p_val <- adf_result$p.value  # get p_value of adf test
+       if (p_val <= 0.05 || is.nan(p_val)) {  # If stationary
+           stationary_ct = stationary_ct + 1
+       }
+   }
+   print(paste0("Number of stationary clusters/Total Clusters: ", stationary_ct, " / " , num_locs))
+}
+
+# Function to assign demand to location
+assign_clust_demand = function(clusters, clust_pred, train_df) {
+  num_clust <- dim(clust_pred)[2]
+  pred <- matrix(0, nrow = 6, ncol = dim(train_df)[1])  
+  for (i in c(1:num_clust)) {
+      clust_ind <- clusters[[i]]  
+      clust_order_by_corr <- rowSums(train_df[clust_ind,])
+      for (j in c(1:length(clust_ind))) {
+          loc_prop <- clust_order_by_corr[j]/sum(clust_order_by_corr)
+          for (t in c(1:6)) {
+              clust_total_order <- clust_pred[t, i]
+              ind <- clust_ind[j]
+              pred[t, ind] <- loc_prop * clust_total_order
+          }
+      }
+  }
+  return (pred) 
+}
+
+assign_cluster_by_corr = function(train, ori_df, num_clust) {
+    "
+    Cluster by correlation, aggregate the locations into clusters by summing up all locations' demand in the respective cluster
+    "
+    km <- Kmeans(train, centers = num_clust, method = 'correlation')
+    clusters <- list()
+    df_cols <- list()
+    for (i in c(1 : num_clust)) {
+        clust <- which(km$cluster %in% c(i))
+        clusters[[i]] <- clust
+        cluster_orders <- colSums(ori_df[clust,])
+        df_cols[[i]] <- cluster_orders
+    } 
+    cluster_df <- data.frame(df_cols)
+    return (list("cluster_df" = cluster_df, "cluster_ind" = clusters))
+}
+
+fit_and_predict_var = function(diff_df, cluster_df, p, struct, T1, T2, num_clusters) {
+    model = constructModel(as.matrix(diff_df), p = p, struct = struct, gran = c(25,10), T1 = T1, T2 = T2)
+    var_model <- cv.BigVAR(model)
+    cluster_diff_pred <- tail(var_model@fitted,6)
+    prev <- cluster_df[198,1:num_clusters]
+    cluster_pred <- prev + cluster_diff_pred[1, 1:num_clusters]
+    prev <- prev + cluster_diff_pred[1, 1:num_clusters]
+    for (i in c(2:6)) {
+      cluster_pred <-rbind(cluster_pred, prev + cluster_diff_pred[i, 1:num_clusters])
+      prev <- prev + cluster_diff_pred[i, 1:num_clusters]
+    }
+    
+    return (cluster_pred)
+}
+
+reassign_demand_to_loc_and_evaluate = function(cluster_pred, cluster_ind, train_df, ori_df) {
+    pred <- assign_clust_demand(cluster_ind, cluster_pred, train_df)
+    num_locs <- dim(pred)[2]
+    errors <- 0
+    error_arr <- c()
+    fitted_val <- c()
+    for (i in c(1:6)) {
+        curr_pred <- pred[i, 1:num_locs]
+        act <- ori_df[1:num_locs,198 + i]
+        error_arr <- c(error_arr, c(curr_pred - act))
+        fitted_val <- c(fitted_val, curr_pred)
+        error <- sum((curr_pred - act) ^ 2)
+        errors <- errors + error
+        prev_pred <- curr_pred
+    }
+    return (list("Errors_array" = error_arr, "Fitted_Values" = fitted_val, "MSE" = errors/6))
+}
+
+get_clustering_by_corr_result = function(num_clust, ori_df, train_df) {
+    ClusterResult <- assign_cluster_by_corr(train=train_df, ori_df=ori_df, num_clust = num_clust)
+    cluster_df <- ClusterResult$cluster_df
+    cluster_ind <- ClusterResult$cluster_ind
+    stationary_test(cluster_df)
+    print("After Differencing")
+    # Perform differenncing
+    colnames(cluster_df) = c(1:num_clust)
+    rownames(cluster_df) <- c(1:204)
+    diff_small_df <- data.frame(diff(as.matrix(cluster_df), differences=1))
+    stationary_test(diff_small_df)
+    cluster_pred <- fit_and_predict_var(diff_df=diff_small_df, cluster_df=cluster_df, p=6, struct="Basic", T1=156, T2=198, num_clusters=num_clust)
+    result <- reassign_demand_to_loc_and_evaluate(cluster_pred = cluster_pred, cluster_ind = cluster_ind, train_df=train_df, ori_df=ori_df)
+    error_arr <- result$Errors_array
+    MSE <- result$MSE
+    fitted_val <- result$Fitted_Values
+    print(paste0("MSE of clustering by location using ", num_clust, " clusters: ", MSE))
+}
+```
+
+# Apply on small dataset
+
+```{r}
+get_clustering_by_corr_result(num_clust=3, ori_df = df_atleast_50cts_endo, train_df = train_small)
+get_clustering_by_corr_result(num_clust=6, ori_df = df_atleast_50cts_endo, train_df = train_small)
+get_clustering_by_corr_result(num_clust=9, ori_df = df_atleast_50cts_endo, train_df = train_small)
+get_clustering_by_corr_result(num_clust=12, ori_df = df_atleast_50cts_endo, train_df = train_small)
+```
+
+# Apply on full dataset
+
+```{r}
+x<-get_clustering_by_corr_result(num_clust=3, ori_df = full_df[1:839,], train_df = train_full)
+get_clustering_by_corr_result(num_clust=6, ori_df = full_df[1:839,], train_df = train_full)
+get_clustering_by_corr_result(num_clust=9, ori_df = full_df[1:839,], train_df = train_full)
+get_clustering_by_corr_result(num_clust=12, ori_df = full_df[1:839,], train_df = train_full)
+```
