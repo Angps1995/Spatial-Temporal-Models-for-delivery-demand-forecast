@@ -21,14 +21,25 @@ test_full_df <- full_df[,199:204]
 ```
 
 ```{r}
-# FIt GLM function 
-fit_and_evaluate_glm = function(train, test, past_obs, past_mean, distr){
+fit_and_evaluate_glm = function(train, test, past_obs, past_mean, link, distr){
+    "
+    Fit and evaluate using GLM model.
+    Inputs: 
+        train: Training dataset
+        test: Testing dataset
+        past_obs: Number of previous observations to be regressed on
+        past_mean: Number of previous conditional mean to be regressed on
+        link: Link function
+        distr: conditional distribution
+    "
     num_locs = dim(train)[1]
     errors <- 0
     error_arr <- c()
     fitted_val <- c()
     for (i in c(1 : num_locs)) {  # go through all locations
-        fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1 : past_obs), past_mean = past_mean), distr = distr)) # fit glm
+        # fit glm
+        fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1 : past_obs), past_mean = past_mean),
+                                      link = link, distr = distr)) 
         pred <- predict(fit, n.ahead=6, global=TRUE)  # predict 6 step ahead
         error_arr <- c(error_arr, residuals(fit, type='pearson'))
         fitted_val <- c(fitted_val, fit$fitted.values)
@@ -41,7 +52,7 @@ fit_and_evaluate_glm = function(train, test, past_obs, past_mean, distr){
 
 ```{r}
 # Fit and evaluate on smaller subset of dataset
-result = fit_and_evaluate_glm(train_small_df, test_small_df, past_obs = 6, past_mean = 18, distr = 'poisson')
+result = fit_and_evaluate_glm(train_small_df, test_small_df, past_obs = 6, past_mean = 18, link = 'identity', distr = 'poisson')
 error_arr = result$Errors_array
 MSE = result$MSE
 fitted_val = result$Fitted_Values
@@ -50,9 +61,10 @@ print(paste0("MSE of fitting GLM on smaller subset of dataset: ", MSE))
 
 ```{r}
 # Fit and evaluate on smaller subset of dataset
-result = fit_and_evaluate_glm(train_full_df, test_full_df, past_obs = 1, past_mean = 1, distr = 'poisson')
-error_arr = result[1]
-MSE = result[2]
+result = fit_and_evaluate_glm(train_full_df, test_full_df, past_obs = 1, past_mean = 1, link = 'identity', distr = 'poisson')
+error_arr <- result$Errors_array
+MSE <- result$MSE
+fitted_val <- result$Fitted_Values
 print(paste0("MSE of fitting GLM on full dataset: ", MSE))
 ```
 
