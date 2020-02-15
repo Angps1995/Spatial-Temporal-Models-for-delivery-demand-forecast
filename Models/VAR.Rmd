@@ -131,15 +131,35 @@ df_t <- t(df_atleast_50cts)
 colnames(df_t) = c(1:42)
 diff_df <- diff(df_t, differences=1)
 #diff_df <- normalize(df_t, margin=1L)
-stationary_test = ca.jo(diff_df, type="trace", K=4, ecdet="none", spec="longrun")
-summary(stationary_test)
+#stationary_test = ca.jo(diff_df, type="trace", K=4, ecdet="none", spec="longrun")
+#summary(stationary_test)
 ```
 
 ```{r}
 
-model = constructModel(diff_df, p = 9, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
+model = constructModel(diff_df, p = 6, struct = "Basic", gran = c(25,10), T1 = 156, T2 = 198)
 var_model <- cv.BigVAR(model)
 var_model
+```
+
+```{r}
+#Predict using differencing
+prev_pred <- df_atleast_50cts[1:42, 198]
+pred <- c()
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+  diff <- var_model@fitted[dim(var_model@fitted)[1] - (6-i),1:42]
+  curr_pred <- prev_pred + diff
+  act <- df_atleast_50cts[1:42, 198 + i]
+  error_arr <- c(error_arr, c(curr_pred - act))
+  fitted_val <- c(fitted_val, curr_pred)
+  error <- sum((curr_pred - act) ^ 2)
+  errors <- errors + error
+  prev_pred <- curr_pred
+}
+print(paste0(" MSFE: ", errors/6))
 ```
 
 ```{r}

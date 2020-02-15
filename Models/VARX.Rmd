@@ -127,17 +127,45 @@ var_model <- cv.BigVAR(model)
 var_model
 ```
 
+
 ```{r}
 #Predict using differencing
 #prev_pred <- t(df_atleast_50cts[c(1:47, 50:55), 190:198])
-prev_pred <- t(df_atleast_50cts[c(1:47), 190:198])
+prev_pred <- t(df_atleast_50cts[c(1:42), 198])
 prev_diff <- c()
 errors <- 0
 error_arr <- c()
 fitted_val <- c()
 for (i in c(1:6)) {
-  diff <- as.vector(predict(var_model, n.ahead=i, newxreg=matrix(prev_pred),ncol=53))
-  curr_pred <- as.vector(prev_pred[9:9,1:42]) + diff
+  #diff <- as.vector(predict(var_model, n.ahead=i, newxreg=matrix(prev_pred),ncol=53))
+  diff <- var_model@fitted[dim(var_model@fitted)[1] - (6-i),]
+  curr_pred <- prev_pred + diff
+
+  act <- df_atleast_50cts[1:42, 198 + i]
+  error_arr <- c(error_arr, c(curr_pred - act))
+  fitted_val <- c(fitted_val, curr_pred)
+  error <- sum((curr_pred - act) ^ 2)
+  errors <- errors + error
+
+  prev_pred <- curr_pred
+  #prev_pred <- t(df_atleast_50cts[c(1:47), (190+i):(198+i)])
+}
+print(paste0(" MSFE: ", errors/6))
+```
+
+
+```{r}
+#Predict using differencing
+#prev_pred <- t(df_atleast_50cts[c(1:47, 50:55), 190:198])
+prev_pred <- t(df_atleast_50cts[, 198])
+prev_diff <- c()
+errors <- 0
+error_arr <- c()
+fitted_val <- c()
+for (i in c(1:6)) {
+  #diff <- as.vector(predict(var_model, n.ahead=i, newxreg=matrix(prev_pred),ncol=53))
+  diff <- var_model@fitted[dim(var_model@fitted)[1] - (6-i),]
+  curr_pred <- as.vector(prev_pred[,1:42]) + diff
   if (length(prev_diff) > 0) {
     curr_pred <- curr_pred + prev_diff
   }

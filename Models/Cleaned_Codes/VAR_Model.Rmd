@@ -50,17 +50,17 @@ fit_and_eval_var = function(diff_df, ori_df, p, struct, T1, T2) {
         T2: Index of times series in which to start forecast evaluation
     "
     model = constructModel(diff_df, p = p, struct = struct, gran = c(25,10), T1 = T1, T2 = T2)
-    var_model <- cv.BigVAR(model)
-    prev_pred <- ori_df[,198]
+    var_model <- cv.BigVAR(model)  # Fit VAR Model
+    prev_pred <- ori_df[,198]  # Get value at timestep 198 
     pred <- c()
     errors <- 0
     error_arr <- c()
     fitted_val <- c()
-    for (i in c(1:6)) {
-        diff <- c(predict(var_model, n.ahead = i))
-        curr_pred <- prev_pred + diff
+    for (i in c(1:6)) {  # For each timestep
+        diff <- var_model@fitted[dim(var_model@fitted)[1] - (6-i),]  # Get predicted difference
+        curr_pred <- prev_pred + diff  # COnvert to original values
         act <- ori_df[, 198 + i]
-        error_arr <- c(error_arr, c(curr_pred - act))
+        error_arr <- c(error_arr, c(curr_pred - act))  # Calculate residuals
         fitted_val <- c(fitted_val, curr_pred)
         error <- sum((curr_pred - act) ^ 2)
         errors <- errors + error
@@ -68,9 +68,6 @@ fit_and_eval_var = function(diff_df, ori_df, p, struct, T1, T2) {
     }
     return (list("Errors_array" = error_arr, "VAR_Errors" = var_model@resids, "Fitted_Values" = fitted_val, "VAR_Fitted" = var_model@fitted, "MSE" = errors/6))
 }
-
-
-
 
 ```
 
@@ -85,9 +82,10 @@ stationary_test_all_loc(df_t_small_df)
 diff_small_df <- diff(df_t_small_df, differences=1)
 stationary_test_all_loc(diff_small_df)
 ```
+
 ```{r}
 # Fit and evaluate VAR on small dataset
-result <- fit_and_eval_var(diff_small_df, df_atleast_50cts, struct = "Basic", p = 9, T1 = 156, T2 = 198)
+result <- fit_and_eval_var(diff_small_df, df_atleast_50cts, struct = "Basic", p = 6, T1 = 156, T2 = 198)
 error_arr <- result$Errors_array
 var_error <- result$VAR_Errors
 var_fitted <- result$VAR_Fitted
@@ -113,7 +111,7 @@ stationary_test_all_loc(diff_full_df)
 
 ```{r}
 # Fit and evaluate VAR on full dataset
-result <- fit_and_eval_var(diff_full_df, full_df, struct = "Basic", p = 9, T1 = 156, T2 = 198)
+result <- fit_and_eval_var(diff_full_df, full_df, struct = "Basic", p = 6, T1 = 156, T2 = 198)
 error_arr <- result$Errors_array
 var_error <- result$VAR_Errors
 var_fitted <- result$VAR_Fitted

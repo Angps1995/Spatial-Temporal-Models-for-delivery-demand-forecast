@@ -1,0 +1,146 @@
+---
+title: "VARX Model"
+output: html_notebook
+---
+
+```{r}
+library(urca)
+library(BigVAR)
+library(tseries)
+```
+
+```{r}
+#Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
+df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+```
+
+```{r}
+# Test stationrity of all locations and return how many locations with stationary time series
+stationary_test_all_loc = function(df) {
+   num_locs = dim(df)[2]  # number of locations
+   stationary_ct <- 0
+   for (i in c(1 : num_locs)) {  # For each location
+       adf_result <- suppressWarnings(adf.test(df[1:198, i]))  # Apply adf test first 198 values as training set has 198 values
+       p_val <- adf_result$p.value  # get p_value of adf test
+       if (p_val <= 0.05 || is.nan(p_val)) {  # If stationary
+           stationary_ct = stationary_ct + 1
+       }
+   }
+   print(paste0("Number of stationary locations/Total Locations: ", stationary_ct, " / " , num_locs))
+}
+
+fit_and_eval_varx = function(diff_df, ori_df, p, struct, T1, T2, num_loc, num_lag_for_exo) {
+   "
+   Fit and evaluate using VARX model. (assuming VARX applied on differenced series)
+   Inputs: 
+       diff_df: dataset after performing differencing level of 1
+       ori_df: Original dataset
+       p: Maximum lag order
+       struct: Choice of penalty structure
+       T1: Index of time series in which to start cross validation
+       T2: Index of times series in which to start forecast evaluation
+       num_loc: number of locations/endogenous variables
+       num_lag_for_exo: Maximal lag order for exogenous variables
+   "
+
+   VARX = list()
+   VARX$k = num_loc  # first num_endo series represents endogenous vars
+   VARX$s = num_lag_for_exo  # maximal lag order for exogenous vars
+   model = constructModel(diff_df, p = p, struct=struct, gran = c(25,10), VARX = VARX, T1 = T1, T2 = T2)
+   varx_model <- cv.BigVAR(model)
+   
+   
+   prev_pred <- t(ori_df[c(1:num_loc), 198])  # Get values at timestep 198
+   prev_diff <- c()
+   errors <- 0
+   error_arr <- c()
+   fitted_val <- c()
+   for (i in c(1:6)) {
+        diff <- varx_model@fitted[dim(varx_model@fitted)[1] - (6-i),]  # get predicted differences 
+        curr_pred <- prev_pred + diff  # convert back to original values
+        act <- ori_df[1 : num_loc, 198 + i]
+        error_arr <- c(error_arr, c(curr_pred - act))  # compure errors
+        fitted_val <- c(fitted_val, curr_pred)
+        error <- sum((curr_pred - act) ^ 2)
+        errors <- errors + error
+        prev_pred <- curr_pred
+   }
+   return (list("Errors_array" = error_arr, "VARX_Errors" = varx_model@resids, "Fitted_Values" = fitted_val, "VARX_Fitted" = varx_model@fitted, "MSE" = errors/6))
+}
+
+```
+
+# Apply VARX on small dataset 
+```{r}
+df_t_small_df <- t(df_atleast_50cts_endo)
+colnames(df_t_small_df) = c(1:42)
+diff_small_df <- diff(df_t_small_df, differences=1)
+stationary_test_all_loc(diff_small_df)  # check stationarity of differenced series```
+```
+
+```{r}
+small_df_exo <- t(df_atleast_50cts[c(43:55),2:204])  # get exogenous variables
+diff_small_df <- cbind(diff_small_df, small_df_exo)   # combine endo and exo together
+```
+
+```{r}
+# Fit and evaluate VARX on small dataset
+result <- fit_and_eval_varx(diff_small_df, df_atleast_50cts, struct = "EFX", p = 6, T1 = 156, T2 = 198, num_loc = 42, num_lag_for_exo = 1)
+error_arr <- result$Errors_array
+varx_error <- result$VARX_Errors
+varx_fitted <- result$VARX_Fitted
+MSE <- result$MSE
+fitted_val <- result$Fitted_Values
+print(paste0("MSE of fitting VARX on small dataset: ", MSE))
+```
+
+# Apply VARX on full dataset 
+
+
+```{r}
+df_t_full_df <- t(full_df[1:839,])  # get endogenous vars 
+colnames(df_t_full_df) = c(1:839)
+diff_full_df <- diff(df_t_full_df, differences=1)
+stationary_test_all_loc(diff_full_df)  # check stationarity of differenced series```
+```
+
+```{r}
+full_df_exo <- t(full_df[c(840:852),2:204])  # get exogenous variables
+diff_full_df <- cbind(diff_full_df, full_df_exo)   # combine endo and exo together
+```
+
+```{r}
+# Fit and evaluate VARX on small dataset
+result <- fit_and_eval_varx(diff_full_df, full_df, struct = "EFX", p = 6, T1 = 156, T2 = 198, num_loc = 42, num_lag_for_exo = 1)
+error_arr <- result$Errors_array
+varx_error <- result$VARX_Errors
+varx_fitted <- result$VARX_Fitted
+MSE <- result$MSE
+fitted_val <- result$Fitted_Values
+print(paste0("MSE of fitting VARX on full dataset: ", MSE))
+```
+
+
+
+
+
+
+```{r}
+par(mfrow=c(2,2))
+plot(as.vector(varx_error), main="Residuals plot of VAR model", 
+  xlab="Index", ylab="Residuals")
+hist(as.vector(varx_error), main = "Historgram of residuals")
+qqnorm(as.vector(varx_error))
+qqline(as.vector(varx_error))
+#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_resids.jpg");
+#dev.off ();
+```
+
+```{r}
+plot(as.vector(varx_fitted),as.vector(varx_error), main="Plot of residuals against fitted values", 
+  xlab="Fitted Values", ylab="Residuals")
+#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_resids_vs_values.jpg");
+#dev.off ();
+```
