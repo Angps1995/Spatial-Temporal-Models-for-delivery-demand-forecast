@@ -1,0 +1,55 @@
+---
+title: "VAR Model"
+output: html_notebook
+---
+
+```{r}
+library(urca)
+library(BigVAR)
+library(tseries)
+```
+
+```{r}
+# Load dataset
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/data.csv")
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+```
+
+```{r}
+df_t_small_df <- t(df_atleast_50cts)
+colnames(df_t_small_df) = c(1:42)
+
+df_t_full_df <- t(full_df)
+colnames(df_t_full_df) = c(1:839)
+```
+
+```{r}
+# Test stationrity of all locations and return how many locations with stationary time series
+stationary_test_all_loc = function(df) {
+    num_locs = dim(df)[2]  # number of locations
+    stationary_ct <- 0
+    for (i in c(1 : num_locs)) {  # For each location
+        adf_result <- adf.test(df[1:198, i])  # Apply adf test first 198 values as training set has 198 values
+        p_val <- adf_result$p.value  # get p_value of adf test
+        if (p_val <= 0.05) {  # If stationary
+            stationary_ct = stationary_ct + 1
+        }
+    }
+    print(paste0("Number of stationary locations/Total Locations: ", stationary_ct, " / " , num_locs))
+}
+```
+
+```{r}
+stationary_test_all_loc(df_t_small_df)
+```
+
+```{r}
+## DIFFERENCING ##
+df_t <- t(df_atleast_50cts)
+colnames(df_t) = c(1:42)
+diff_df <- diff(df_t, differences=1)
+#diff_df <- normalize(df_t, margin=1L)
+stationary_test = ca.jo(diff_df, type="trace", K=4, ecdet="none", spec="longrun")
+summary(stationary_test)
+```
+```

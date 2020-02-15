@@ -72,7 +72,7 @@ This paper would explore the usage of classical statistical methods along with u
 \section{Data}
 The data source used was an operational dataset from a food delivery service provider from Shanghai that includes delivery information for a 2-month period from 10 August 2015 to 30 September 2015 (excluding Saturdays) in 2015. The provider only provides delivery service for 90 minutes during lunchtime and the dataset has split the data into 15-minute time periods, and as such, each day would only consists of demand data for 6 time periods. Hence, our dataset has 839 locations with demand count data, in integer, for 204 time periods in total. 
 
-\noindent To include other exogenous variables, data from https://www.worldweatheronline.com/shanghai-weather-history/shanghai/cn.aspx was used to include weather and rainfall data as well as encoding of the weekadys for all the respective days. 
+\noindent To include other exogenous variables, data from https://www.worldweatheronline.com/shanghai-weather-history/shanghai/cn.aspx was used to include weather and rainfall data as well as encoding of the weekdays for all the respective days. 
 
 \subsection{Exploratory Analysis}
 We would first do some exploratory analysis and check if there are any interesting relationships between the variables. 
@@ -165,7 +165,7 @@ $\hat{y_t} = \mu + \sum_{i=1}^{p} \phi_i * y_{t-i} - \sum_{j=1}^{q} \theta_j * e
 \noindent where $\hat{y_t}$ refer to the predicted value at time t, $\mu$ refer to a constant, while $\sum_{i=1}^{p} \phi_i * y_{t-i}$ refers to the AR terms and $\sum_{j=1}^{q} \theta_j * e_{t-j}$ refers to the MA terms.
 
 \subsection{Baseline ARIMA Result}
-As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSE for this baseline model on the smaller dataset is \textbf{47.60} and MSE for dataset of all locations is \textbf{72.48}. A sample forecast plot is shown below:
+As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSE for this baseline model on the smaller dataset is \textbf{47.60} and MSE for dataset of all locations is \textbf{73.29}. A sample forecast plot is shown below:
 
 \begin{figure}[H]
     \centering
@@ -195,7 +195,7 @@ The dataset that we are using follows a count time series, which means the obser
 \subsection{Model Implementation}
 \noindent As mentioned in section 3.2, we would first assess our model on the smaller dataset before testing it on the full dataset. Using the R package tscount from \cite{Tobias2017}, we fit each of the locations individually by a GLM model. For the parameters, we used the past 6 lagged values as well as the identity function as the link function, with poisson distribution as the conditional distribution. The out-of-sample MSE for this baseline model on the smaller dataset is \textbf{38.16}, which is better than just using ARIMA on the same dataset.  
 
-\noindent However, when it is implemented on the full dataset, the MSE of the GLM increases to \textbf{82.42}, which is worse than just applying ARIMA on every location, which gives a MSE of 72.48. 
+\noindent However, when it is implemented on the full dataset, the MSE of the GLM increases to \textbf{82.42}, which is worse than just applying ARIMA on every location, which gives a MSE of 73.29. 
 
 \subsection{Model Diagnostics}
 To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis.		
@@ -581,7 +581,7 @@ The table below summarises the results of our models.
 \begin{tabular}{|l|l|l|ll}
 \cline{1-3}
                                                                                                              & \textbf{\begin{tabular}[c]{@{}l@{}}MSE (Locations with at \\ least 50 non-zero counts)\end{tabular}} & \textbf{MSE (All locations)} &  &  \\ \cline{1-3}
-\textbf{ARIMA}                                                                                               & 47.60                                                                                              & 72.48                         &  &  \\ \cline{1-3}
+\textbf{ARIMA}                                                                                               & 47.60                                                                                              & 73.29                         &  &  \\ \cline{1-3}
 \textbf{GLM}                                                                                                 & 38.16                                                                                              & 82.42                         &  &  \\ \cline{1-3}
 \textbf{VAR}                                                                                                 & 42.76                                                                                              & 76.72                         &  &  \\ \cline{1-3}
 \textbf{VARX}                                                                                                & 41.73                                                                                              & 75.63                         &  &  \\ \cline{1-3}
