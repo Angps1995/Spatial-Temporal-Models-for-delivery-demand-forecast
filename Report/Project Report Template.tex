@@ -546,32 +546,53 @@ After we attained the total demand for each cluster, the next step would be to r
 
 In this 3-step approach, it is not appropriate to use conventional methods, such as the elbow method, to determine the number of clusters. This is because our purpose here is not to minimize the within cluster sum-of-squares, but rather to find the optimal combination of groups that yields the best forecast accuracy after we fit a VAR model on them and reallocate the demand using the VAR model predictions. Hence, we tried different number of clusters for the 3 different distance metric as mentioned in Section 7.1 and observe the MSE for each of those.
 
-\begin{table}[H]
-\begin{tabular}{|l|l|l|l|l|}
-\hline
-                                                                                                                          & \textbf{3 Clusters} & \textbf{6 Clusters} & \textbf{9 Clusters} & \textbf{12 Clusters} \\ \hline
-\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using euclidean\\ distance of latitude/longitude\end{tabular}}              & 64.39               & 63.00      & \textbf{60.12}               & 63.39                \\ \hline
-\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using correlation \\ between time series as distance\\ metric\end{tabular}} & 63.45               & 63.97               & \textbf{59.27}              & 63.27       \\ \hline
-\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using DTW as\\ distance metric\end{tabular}}                                & 66.39               & \textbf{62.07}      & 65.67 & 62.56                
-\\ \hline
-\end{tabular}
-\textbf{\caption{MSE for different clustering distance metrics and number of clusters. Bolded results signifying the best result for the respective distance metric.}}
-\end{table}
-
-\noindent Based on the results, clustering the time series into 9 groups using the correlation between time series as the distance metric seems to give the best result. 
-
-\subsubsection{Model Diagnostics}
-
-To test the adequacy of our model fitness, particularly our VAR model, we will plot the residuals against the fitted values and observe if there are signs of heteroscedasticity. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Loc_MSE_plot.jpg}
+    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: Euclidean Distance of geographical locations}}
+    \label{fig:Plot of MSE against number of clusters. Distance metric used: Euclidean Distance of geographical locations}
+\end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.6\textheight]{Images/corr_var_res_fit_plot.jpg}
-    \textbf{\caption{Plot of residuals against fitted values for VAR model}}
-    \label{fig:Plot of residuals against fitted values for VAR model}
+    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Corr_MSE_plot.jpg}
+    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: Correlation of time series}}
+    \label{fig:Plot of MSE against number of clusters. Distance metric used: Correlation of time series}
 \end{figure}
 
-\noindent From the plot of residuals against the fitted values of the VAR model, we observe that although there seem to be a concentration of residuals around the predicted values of -5 to 5, there is no clear sign of heteroscedasticity, hence our model is reasonably adequate.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_DTW_MSE_plot.jpg}
+    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: DTW of time series}}
+    \label{fig:Plot of MSE against number of clusters. Distance metric used: Correlation of time series}
+\end{figure}
+
+%\begin{table}[H]
+%\begin{tabular}{|l|l|l|l|l|}
+%\hline
+%                                                                                                                          & \textbf{3 Clusters} & \textbf{6 Clusters} & \textbf{9 Clusters} & \textbf{12 Clusters} \\ \hline
+%\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using euclidean\\ distance of latitude/longitude\end{tabular}}              & 64.39               & 63.00      & \textbf{60.12}               & 63.39                \\ \hline
+%\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using correlation \\ between time series as distance\\ metric\end{tabular}} & 63.45               & 63.97               & \textbf{59.27}              & 63.27       \\ \hline
+%\textbf{\begin{tabular}[c]{@{}l@{}}Clustering using DTW as\\ distance metric\end{tabular}}                                & 66.39               & \textbf{62.07}      & 65.67 & 62.56                
+%\\ \hline
+%\end{tabular}
+%\textbf{\caption{MSE for different clustering distance metrics and number of clusters. Bolded results signifying the best result for the respective distance metric.}}
+%\end{table}
+
+\noindent Based on the results, clustering the time series into 11 groups using the correlation between time series as the distance metric seems to give the best result. 
+
+%\subsubsection{Model Diagnostics}
+%
+%To test the adequacy of our model fitness, particularly our VAR model, we will plot the residuals against the fitted values and observe if there are signs of heteroscedasticity. 
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\textwidth, height=0.6\textheight]{Images/corr_var_res_fit_plot.jpg}
+%    \textbf{\caption{Plot of residuals against fitted values for VAR model}}
+%    \label{fig:Plot of residuals against fitted values for VAR model}
+%\end{figure}
+%
+%\noindent From the plot of residuals against the fitted values of the VAR model, we observe that although there seem to be a concentration of residuals around the predicted values of -5 to 5, there is no clear sign of heteroscedasticity, hence our model is reasonably adequate.
 
 \newpage
 \section{Results and Conclusion}

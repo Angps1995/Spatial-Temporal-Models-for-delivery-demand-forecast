@@ -113,7 +113,7 @@ diff_full_df <- cbind(diff_full_df, full_df_exo)   # combine endo and exo togeth
 
 ```{r}
 # Fit and evaluate VARX on small dataset
-result <- fit_and_eval_varx(diff_full_df, full_df, struct = "EFX", p = 6, T1 = 156, T2 = 198, num_loc = 42, num_lag_for_exo = 1)
+result <- fit_and_eval_varx(diff_full_df, full_df, struct = "EFX", p = 6, T1 = 156, T2 = 198, num_loc = 839, num_lag_for_exo = 1)
 error_arr <- result$Errors_array
 varx_error <- result$VARX_Errors
 varx_fitted <- result$VARX_Fitted
@@ -134,13 +134,13 @@ plot(as.vector(varx_error), main="Residuals plot of VAR model",
 hist(as.vector(varx_error), main = "Historgram of residuals")
 qqnorm(as.vector(varx_error))
 qqline(as.vector(varx_error))
-#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_resids.jpg");
-#dev.off ();
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_resids.jpg");
+dev.off ();
 ```
 
 ```{r}
 plot(as.vector(varx_fitted),as.vector(varx_error), main="Plot of residuals against fitted values", 
   xlab="Fitted Values", ylab="Residuals")
-#dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_resids_vs_values.jpg");
-#dev.off ();
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_resids_vs_values.jpg");
+dev.off ();
 ```
