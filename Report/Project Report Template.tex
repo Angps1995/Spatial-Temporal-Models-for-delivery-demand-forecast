@@ -391,7 +391,7 @@ In this section, we introduce an alternative 3-step approach. The overall steps 
 \noindent 
 \subsection{Clustering}
 
-A simple K-means clustering was first done on the locations using their time series data in the training set. 3 different kind of distance metrics were used to perform K-means clustering. The first metric used would be based on their geo-locations while the second and third metric used would be to cluster them based on similarity between their historical time series. 
+A simple clustering was first done on the locations using their time series data in the training set. 3 different kind of distance metrics were used to perform K-means clustering. The first metric used would be based on their geo-locations while the second and third metric used would be to cluster them based on similarity between their historical time series. 
 
 \subsubsection{Using longitude/latitude as the distance metric}
 
@@ -410,7 +410,7 @@ $r_{xy} = \frac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
 
 \subsubsection{Using Dynamic Time Warping as the distance metric}
 
-Finally, we explored using Dynamic Time Warping (DTW) Distance as the distance metric for K-means clustering. 
+Finally, we explored using Dynamic Time Warping (DTW) Distance as the distance metric for Hierachical clustering. 
 
 \noindent DTW is one of the commonly-used algorithm for speech or audio recognition and it measures the similarity between time series by providing a elastic non-linear alignment between 2 time series. It is known for being effective for time series that have different length or speed. DTW is calculated by first creating a distance matrix and then finding the optimal warping path as shown in the 2 algorithms here:
 

@@ -126,7 +126,7 @@ get_clustering_by_corr_result = function(num_clust, ori_df, train_df) {
     error_arr <- result$Errors_array
     MSE <- result$MSE
     fitted_val <- result$Fitted_Values
-    print(paste0("MSE of clustering by location using ", num_clust, " clusters: ", MSE))
+    print(paste0("MSE of clustering by correlation using ", num_clust, " clusters: ", MSE))
 }
 ```
 
