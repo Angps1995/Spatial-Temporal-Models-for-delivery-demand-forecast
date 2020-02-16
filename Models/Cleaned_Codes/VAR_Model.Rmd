@@ -98,7 +98,7 @@ stationary_test_all_loc(diff_small_df)
 ## Since they are all stationary, we would fit and evaluate the VAR model
 ```{r}
 # Fit and evaluate VAR on small dataset
-result <- fit_and_eval_var(diff_small_df, df_atleast_50cts, struct = "Basic", p = 9, T1 = 156, T2 = 198)
+result <- fit_and_eval_var(diff_small_df, df_atleast_50cts, struct = "Basic", p = 12, T1 = 156, T2 = 198)
 error_arr <- result$Errors_array
 var_error <- result$VAR_Errors
 var_fitted <- result$VAR_Fitted
@@ -124,7 +124,7 @@ stationary_test_all_loc(diff_full_df)
 ## Since they are all stationary, we would fit and evaluate the VAR model
 ```{r}
 # Fit and evaluate VAR on full dataset
-result <- fit_and_eval_var(diff_full_df, full_df, struct = "Basic", p = 9, T1 = 156, T2 = 198)
+result <- fit_and_eval_var(diff_full_df, full_df, struct = "Basic", p = 12, T1 = 156, T2 = 198)
 error_arr <- result$Errors_array
 var_error <- result$VAR_Errors
 var_fitted <- result$VAR_Fitted

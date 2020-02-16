@@ -209,7 +209,7 @@ To validate and verify if our fitted model is adequate, model checking would be 
     \label{fig:Residuals for GLM Model}
 \end{figure}
 
-\noindent The diagnostic plots in Figure 8 shows that while most residuals are randomly scattered around -5 to 5, there are still many points above 5, and this also imply that the GLM model produces residuals that does not follow the normal distribution well. Although this is not ideal, this might be attributed to the demand data following a poisson distribution instead of a normal distribution. 
+\noindent The diagnostic plots in Figure 8 shows that while most residuals are randomly scattered around -5 to 10, there are still many points above 10, and this also imply that the GLM model produces residuals that does not follow the normal distribution well. Although this is not ideal, this might be attributed to the demand data following a poisson distribution instead of a normal distribution. 
 
 \subsubsection{Residuals against Predicted values}
 
@@ -259,7 +259,7 @@ For a univariate time series, it is important for the time series to be transfor
 
 To test for stationarity, we would be performing the standard ADF test to test for stationarity. The result of the ADF test showed that time series of certain locations are not stationary. We then take the first difference of each series and after differencing, ADF test was performed on each series the time series of each location have been checked and are stationary. It is noted that while it is possible to perform differencing on every series, it might cause over-differencing, leading to inaccurate results, as mentioned in \cite{Ruey2014}.
 
-\noindent After we applied a differencing order of 1 to the dataset, BigVAR Library in R was used to fit a VAR model with a selected p of 9, representing the usage of 9 lagged values, using time series of every location as predictors. The results for the VAR model is discussed in the later subsection. 
+\noindent After we applied a differencing order of 1 to the dataset, BigVAR Library in R was used to fit a VAR model with a selected p of 12, representing the usage of 12 lagged values, using time series of every location as predictors. The results for the VAR model is discussed in the later subsection. 
 
 
 \subsubsection{Cointegration}
@@ -328,11 +328,11 @@ The plots below shows the distribution of our residuals for the VAR model and th
 %Figure 13 and 14 shows that heteroscadasticity occurs at the lower and higher ends of the predicted values, whereas in the middle range, the residuals tend to be roughly randomly scattered.
 
 \subsection{Results}
-On the small dataset, the MSE using the VAR model is \textbf{42.76} while the MSE using the VARX model is \textbf{41.73}. On the full dataset, the MSE using the VAR model  is \textbf{76.72} while the MSE using the VARX model is \textbf{75.63}.Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. 
+On the small dataset, the MSE using the VAR model is \textbf{47.28} while the MSE using the VARX model is \textbf{45.76}. On the full dataset, the MSE using the VAR model  is \textbf{82.87} while the MSE using the VARX model is \textbf{68.29}.Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. 
 
-\subsection{Model limitations}
+\subsection{Model results and limitations}
 
-While this is an improvement from the GLM model and also beats the ARIMA baseline model on the smaller dataset, both VAR and VARX fails to beat the baseline model MSE of 72.48. This might be because in the baseline model, since each location is fitted with an individual ARIMA model, those sparse locations would have predictions of all 0, which would be accurate. In the smaller dataset, since we only used locations that are not sparse (locations with at least 50 non-zero counts), and the VAR/VARX model uses all locations' demand values, the existence of spatial correlation would cause the VAR/VARX model to perform better than the ARIMA. However, using VAR/VARX on the full dataset, which contains locations with sparse demand would not beat the ARIMA model because the presence of non-zero coefficients would cause many predictions to be non-zero, hence producing a more inaccurate prediction as compared to the baseline ARIMA model. 
+While both VAR and VARX are an improvement from the GLM model and also beats the ARIMA baseline model on the smaller dataset, the VAR model fails to beat the baseline model MSE of 73.29. This might be because in the baseline model, since each location is fitted with an individual ARIMA model, those sparse locations would have predictions of all 0, which would be accurate. In the smaller dataset, since we only used locations that are not sparse (locations with at least 50 non-zero counts), and the VAR/VARX model uses all locations' demand values, the existence of spatial correlation would cause the VAR/VARX model to perform better than the ARIMA. However, using VAR/VARX on the full dataset, which contains locations with sparse demand would not beat the ARIMA model because the presence of non-zero coefficients would cause many predictions to be non-zero, hence producing a more inaccurate prediction as compared to the baseline ARIMA model. 
 
 \noindent Having noticed the abovementioned problem in locations with sparse demand. the next section would introduce a 3-step approach to fix this issue. 
 
@@ -604,11 +604,11 @@ The table below summarises the results of our models.
                                                                                                              & \textbf{\begin{tabular}[c]{@{}l@{}}MSE (Locations with at \\ least 50 non-zero counts)\end{tabular}} & \textbf{MSE (All locations)} &  &  \\ \cline{1-3}
 \textbf{ARIMA}                                                                                               & 47.60                                                                                              & 73.29                         &  &  \\ \cline{1-3}
 \textbf{GLM}                                                                                                 & 38.16                                                                                              & 82.42                         &  &  \\ \cline{1-3}
-\textbf{VAR}                                                                                                 & 42.76                                                                                              & 76.72                         &  &  \\ \cline{1-3}
-\textbf{VARX}                                                                                                & 41.73                                                                                              & 75.63                         &  &  \\ \cline{1-3}
-\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using K-means \\ on geographical location)\end{tabular}} & 40.43 & 60.12 &  &  \\ \cline{1-3}
-\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on correlation \\ of time series)\end{tabular}}           & 39.49 & \textbf{59.27}                         &  &  \\ \cline{1-3}
-\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on DTW \\ of time series)\end{tabular}}           & 40.10 & 62.07                         &  &  \\ \cline{1-3}
+\textbf{VAR}                                                                                                 & 47.28 & 82.87                        &  &  \\ \cline{1-3}
+\textbf{VARX}                                                                                                & 45.76                                                                                              & 68.29                         &  &  \\ \cline{1-3}
+\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using K-means \\ on geographical location)\end{tabular}} & 40.42 & 60.12 &  &  \\ \cline{1-3}
+\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on correlation \\ of time series)\end{tabular}}           & 42.83 & \textbf{59.27}                         &  &  \\ \cline{1-3}
+\textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on DTW \\ of time series)\end{tabular}}           & 39.05 & 62.07                         &  &  \\ \cline{1-3}
 \end{tabular}
 \textbf{\caption{MSE of the different methods used in this paper}}
 \end{table}
@@ -616,7 +616,7 @@ The table below summarises the results of our models.
 
 \noindent VAR and VARX model performs better than the GLM models on the full dataset, suggesting that the spatial relationship between locations are useful in forecasting. Also, VARX performs better than VAR model in both datasets, suggesting the exogenous variables have some explanatory power and do improve the forecast accuracy. 
 
-\noindent Applying the 3-step approach also gives a much improved result as compared to just using VAR on all the locations. This might be due to the 3-step approach being more reasonable in dealing with locations with sparse demand due to the aggregation of clusters in the clustering method. In the 3-step approach, our VAR model uses just the 9 clusters as variables to predict the total cluster demand for just 9 clusters, while the original VAR uses all 839 locations as variables to predict for 839 locations, which is more likely to produce a higher error rate. This is similar to the findings from \cite{Abolfazl2017}, which states that a simple VAR model would not perform as well for high-dimensional data. 
+\noindent Applying the 3-step approach also gives a much improved result as compared to just using VAR on all the locations. This might be due to the 3-step approach being more reasonable in dealing with locations with sparse demand due to the aggregation of clusters in the clustering method. In the 3-step approach, our VAR model uses just the 11 clusters as variables to predict the total cluster demand for just 11 clusters, while the original VAR uses all 839 locations as variables to predict for 839 locations, which is more likely to produce a higher error rate. This is similar to the findings from \cite{Abolfazl2017}, which states that a simple VAR model would not perform as well for high-dimensional data. 
 
 \noindent As for the distance metric used for clustering, using correlation also gives better results than using euclidean distance between the geo-locations, and this would imply that spatial correlation is not limited to just purely geographical proximity but also on the time series similarity. Comparing correlation measure and DTW measure, using correlation between the time series as the distance metric gives us the best result. Correlation compares the general shape and trend of the time series regardless of scale, whereas for DTW, it is more effective to compare time series of varying length and speed. 
 
