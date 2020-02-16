@@ -1,24 +1,30 @@
 ---
-title: "VARX Model"
+title: "Code for implementing VARX Model"
 output: html_notebook
 ---
 
+# Load Libraries and dataset
 ```{r}
 library(urca)
 library(BigVAR)
 library(tseries)
-```
 
-```{r}
 #Load dataset
 full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
 df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
 df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
 ```
 
+# Implementation of functions used in this script
 ```{r}
-# Test stationrity of all locations and return how many locations with stationary time series
 stationary_test_all_loc = function(df) {
+    "
+    Test stationrity of time series of each locations and return how many locations with stationary time series.
+    Inputs:
+      df: dataframe (where rows represent each timestep, columns represent individual location)
+    Output:
+      Number of stationary locations/Total Locations
+    "
    num_locs = dim(df)[2]  # number of locations
    stationary_ct <- 0
    for (i in c(1 : num_locs)) {  # For each location
@@ -43,6 +49,13 @@ fit_and_eval_varx = function(diff_df, ori_df, p, struct, T1, T2, num_loc, num_la
        T2: Index of times series in which to start forecast evaluation
        num_loc: number of locations/endogenous variables
        num_lag_for_exo: Maximal lag order for exogenous variables
+    Output:
+        A list containing:
+          Errors_array: Residuals of the actual counts/predictions
+          VAR_Errors: Residuals from VAR model
+          Fitted_Values: Fitted values for the actual counts/predictions
+          VAR_Fitted: Fitted values of the VAR model
+          MSE: Mean Squared Error
    "
 
    VARX = list()
@@ -50,8 +63,6 @@ fit_and_eval_varx = function(diff_df, ori_df, p, struct, T1, T2, num_loc, num_la
    VARX$s = num_lag_for_exo  # maximal lag order for exogenous vars
    model = constructModel(diff_df, p = p, struct=struct, gran = c(25,10), VARX = VARX, T1 = T1, T2 = T2)
    varx_model <- cv.BigVAR(model)
-   
-   
    prev_pred <- t(ori_df[c(1:num_loc), 198])  # Get values at timestep 198
    prev_diff <- c()
    errors <- 0
@@ -98,7 +109,6 @@ print(paste0("MSE of fitting VARX on small dataset: ", MSE))
 
 # Apply VARX on full dataset 
 
-
 ```{r}
 df_t_full_df <- t(full_df[1:839,])  # get endogenous vars 
 colnames(df_t_full_df) = c(1:839)
@@ -123,10 +133,6 @@ print(paste0("MSE of fitting VARX on full dataset: ", MSE))
 ```
 
 
-
-
-
-
 ```{r}
 par(mfrow=c(2,2))
 plot(as.vector(varx_error), main="Residuals plot of VAR model", 
@@ -135,12 +141,12 @@ hist(as.vector(varx_error), main = "Historgram of residuals")
 qqnorm(as.vector(varx_error))
 qqline(as.vector(varx_error))
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_resids.jpg");
-dev.off ();
+dev.off();
 ```
 
 ```{r}
 plot(as.vector(varx_fitted),as.vector(varx_error), main="Plot of residuals against fitted values", 
   xlab="Fitted Values", ylab="Residuals")
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VARX_diff_resids_vs_values.jpg");
-dev.off ();
+dev.off();
 ```

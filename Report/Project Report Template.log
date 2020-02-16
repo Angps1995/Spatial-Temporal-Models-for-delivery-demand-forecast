@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  16 FEB 2020 01:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  16 FEB 2020 14:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -277,12 +277,7 @@ Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 \c@assumption=\count123
 \c@observation=\count124
 
-(./Project Report Template.aux
-
-LaTeX Warning: Label `fig:Plot of MSE against number of clusters. Distance metr
-ic used: Correlation of time series' multiply defined.
-
-)
+(./Project Report Template.aux)
 \openout1 = `"Project Report Template.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
@@ -297,7 +292,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
 LaTeX Font Info:    ... okay on input line 40.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
 LaTeX Font Info:    ... okay on input line 40.
- (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count125
 \scratchdimen=\dimen124
@@ -589,9 +585,12 @@ File: Images/prec_mean_demand.jpg Graphic file (type jpg)
 <use Images/prec_mean_demand.jpg>
 Package pdftex.def Info: Images/prec_mean_demand.jpg  used on input line 705.
 (pdftex.def)             Requested size: 281.85406pt x 184.28716pt.
- [37 <./Images/cloud_mean_demand.jpg> <./Images/humidity_mean_demand.jpg>] [38 
-<./Images/prec_mean_demand.jpg>]
-(./Project Report Template.bbl
+ [37 <./Images/cloud_mean_demand.jpg> <./Images/humidity_mean_demand.jpg>]
+Overfull \hbox (40.95338pt too wide) in paragraph at lines 714--730
+ [][] 
+ []
+
+[38 <./Images/prec_mean_demand.jpg>] (./Project Report Template.bbl
 Missing character: There is no ≈ in font cmr12!
 Missing character: There is no √ in font cmr12!
 Missing character: There is no ∂ in font cmr12!
@@ -619,34 +618,31 @@ Missing character: There is no ù in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ì in font cmr12!
-) [40] (./Project Report Template.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+) [40] (./Project Report Template.aux) ) 
 Here is how much of TeX's memory you used:
- 4544 strings out of 492609
- 65864 string characters out of 6131462
- 132103 words of memory out of 5000000
- 8320 multiletter control sequences out of 15000+600000
+ 4545 strings out of 492609
+ 66133 string characters out of 6131462
+ 132075 words of memory out of 5000000
+ 8321 multiletter control sequences out of 15000+600000
  14348 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,14n,27p,1096b,576s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on "Project Report Template.pdf" (40 pages, 1606067 bytes).
+</usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cmextra/cmex8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmti12.pfb>
+Output written on "Project Report Template.pdf" (40 pages, 1608099 bytes).
 PDF statistics:
  230 PDF objects out of 1000 (max. 8388607)
  137 compressed objects within 2 object streams

@@ -549,22 +549,22 @@ In this 3-step approach, it is not appropriate to use conventional methods, such
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Loc_MSE_plot.jpg}
-    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: Euclidean Distance of geographical locations}}
-    \label{fig:Plot of MSE against number of clusters. Distance metric used: Euclidean Distance of geographical locations}
+    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: Euclidean Distance of geographical locations. The optimal number of clusters is 3 with a MSE of 60.10.}}
+    \label{fig:Plot of MSE against number of clusters. Distance metric used: Euclidean Distance of geographical locations. The optimal number of clusters is 3 with a MSE of 60.10.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Corr_MSE_plot.jpg}
-    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: Correlation of time series}}
-    \label{fig:Plot of MSE against number of clusters. Distance metric used: Correlation of time series}
+    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: Correlation of time series. The optimal number of clusters is 11 with a MSE of 59.76.}}
+    \label{fig:Plot of MSE against number of clusters. Distance metric used: Correlation of time series. The optimal number of clusters is 11 with a MSE of 59.76.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_DTW_MSE_plot.jpg}
-    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: DTW of time series}}
-    \label{fig:Plot of MSE against number of clusters. Distance metric used: Correlation of time series}
+    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: DTW of time series. The optimal number of clusters is 8 with a MSE of 60.36.}}
+    \label{fig:Plot of MSE against number of clusters. Distance metric used: Correlation of time series. The optimal number of clusters is 8 with a MSE of 60.36.}
 \end{figure}
 
 %\begin{table}[H]
@@ -579,7 +579,7 @@ In this 3-step approach, it is not appropriate to use conventional methods, such
 %\textbf{\caption{MSE for different clustering distance metrics and number of clusters. Bolded results signifying the best result for the respective distance metric.}}
 %\end{table}
 
-\noindent Based on the results, clustering the time series into 11 groups using the correlation between time series as the distance metric seems to give the best result. 
+\noindent Based on the results, clustering the time series into 11 groups using the correlation between time series as the distance metric seems to give the best MSE of \textbf{59.76}. 
 
 %\subsubsection{Model Diagnostics}
 %
@@ -706,6 +706,29 @@ Our 3-step approach model display decent MSE result. However, using VAR is still
     \textbf{\caption{Mean Demand against Precipitation}}
     \label{fig:Mean Demand against Precipitation}
 \end{figure}
+
+\subsection{MSE result for different cluster size and distance metric}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Cluster Size} & \textbf{Euclidean Distance} & \textbf{Correlation between time series} & \textbf{DTW Distance} \\ \hline
+\textbf{1}                  & 68.67                                              & 68.67                                               & -                                \\ \hline
+\textbf{2}                  & 69.71                                              & 68.66                                               & 62.96                            \\ \hline
+\textbf{3}                  & \textbf{60.10}                                     & 61.97                                               & 61.49                            \\ \hline
+\textbf{4}                  & 62.09                                              & 61.01                                               & 61.28                            \\ \hline
+\textbf{5}                  & 62.20                                              & 66.43                                               & 61.00                            \\ \hline
+\textbf{6}                  & 62.04                                              & 65.25                                               & 61.40                            \\ \hline
+\textbf{7}                  & 62.26                                              & 62.86                                               & 60.73                            \\ \hline
+\textbf{8}                  & 63.97                                              & 63.07                                               & \textbf{60.36}                   \\ \hline
+\textbf{9}                  & 64.69                                              & 64.31                                               & 60.55                            \\ \hline
+\textbf{10}                 & 61.09                                              & 60.57                                               & 61.37                            \\ \hline
+\textbf{11}                 & 61.80                                              & \textbf{59.76}                                      & 63.44                            \\ \hline
+\textbf{12}                 & 64.07                                              & 61.42                                               & 66.15                            \\ \hline
+\end{tabular}
+\textbf{\caption{MSE with different cluster size and distance metric}}
+\end{table}
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Bibliography

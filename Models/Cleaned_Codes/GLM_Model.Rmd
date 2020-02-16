@@ -1,14 +1,14 @@
 ---
-title: "GLM Model"
+title: "Code for implementing GLM Model"
 output: html_notebook
 ---
 
+# Load Libraries and dataset
 ```{r}
+# Load libraries
 library(tscount)
 library(urca)
-```
 
-```{r}
 # Load dataset
 df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
 full_df <- read.csv("/home/angps/Documents/Thesis/Data/df_>=1cts.csv")
@@ -20,6 +20,7 @@ train_full_df <- full_df[,1:198]
 test_full_df <- full_df[,199:204]
 ```
 
+# Implement function to fit and evaluate GLM
 ```{r}
 fit_and_evaluate_glm = function(train, test, past_obs, past_mean, link, distr){
     "
@@ -31,16 +32,21 @@ fit_and_evaluate_glm = function(train, test, past_obs, past_mean, link, distr){
         past_mean: Number of previous conditional mean to be regressed on
         link: Link function
         distr: conditional distribution
+    Output:
+        Returns a list that stores:
+          Errors_array: The array of residuals/errors
+          Fitted_Values: The array of fitted/predicted values
+          MSE: The mean squared error
     "
-    num_locs = dim(train)[1]
+    num_locs = dim(train)[1]  # get number of locations
     errors <- 0
     error_arr <- c()
     fitted_val <- c()
     for (i in c(1 : num_locs)) {  # go through all locations
-        # fit glm
-        fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1 : past_obs), past_mean = past_mean),
-                                      link = link, distr = distr)) 
-        pred <- predict(fit, n.ahead=6, global=TRUE)  # predict 6 step ahead
+        # fit glm on each location
+        fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1 : past_obs), past_mean = past_mean), link = link, distr = distr)) 
+        # predict 6 step ahead
+        pred <- predict(fit, n.ahead=6, global=TRUE)  
         error_arr <- c(error_arr, residuals(fit, type='pearson'))
         fitted_val <- c(fitted_val, fit$fitted.values)
         error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
@@ -50,6 +56,7 @@ fit_and_evaluate_glm = function(train, test, past_obs, past_mean, link, distr){
 }
 ```
 
+# Apply it on the subset of the dataset 
 ```{r}
 # Fit and evaluate on smaller subset of dataset
 result = fit_and_evaluate_glm(train_small_df, test_small_df, past_obs = 6, past_mean = 18, link = 'identity', distr = 'poisson')
@@ -59,8 +66,9 @@ fitted_val = result$Fitted_Values
 print(paste0("MSE of fitting GLM on smaller subset of dataset: ", MSE))
 ```
 
+# Apply it on the whole dataset 
 ```{r}
-# Fit and evaluate on smaller subset of dataset
+# Fit and evaluate on the whole dataset
 result = fit_and_evaluate_glm(train_full_df, test_full_df, past_obs = 1, past_mean = 1, link = 'identity', distr = 'poisson')
 error_arr <- result$Errors_array
 MSE <- result$MSE
@@ -68,6 +76,7 @@ fitted_val <- result$Fitted_Values
 print(paste0("MSE of fitting GLM on full dataset: ", MSE))
 ```
 
+# Residual Plots
 ```{r}
 resids = error_arr
 par(mfrow=c(2,2))
@@ -76,15 +85,16 @@ plot(resids, main="Residuals plot of GLM model",
 hist(resids, main = "Historgram of residuals")
 qqnorm(resids)
 qqline(resids)
+
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_GLM_resids.jpg");
-dev.off ();
+dev.off();
 ```
 
 ```{r}
-plot(fitted_val$Fitted_Values, error_arr, main="Plot of residuals against fitted values", 
+plot(fitted_val, error_arr, main="Plot of residuals against fitted values", 
   xlab="Fitted values", ylab="Residuals")
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_GLM_resids_vs_fitted.jpg");
-dev.off ();
+dev.off();
 ```
 
 

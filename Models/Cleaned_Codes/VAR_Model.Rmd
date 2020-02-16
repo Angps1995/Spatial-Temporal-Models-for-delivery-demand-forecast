@@ -1,21 +1,18 @@
 ---
-title: "VAR Model"
+title: "Code for implementing VAR Model"
 output: html_notebook
 ---
 
+# Load Libraries and dataset
 ```{r}
 library(urca)
 library(BigVAR)
 library(tseries)
-```
 
-```{r}
 # Load dataset
 full_df <- read.csv("/home/angps/Documents/Thesis/Data/data.csv")
 df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
-```
 
-```{r}
 df_t_small_df <- t(df_atleast_50cts)
 colnames(df_t_small_df) = c(1:42)
 
@@ -23,15 +20,22 @@ df_t_full_df <- t(full_df)
 colnames(df_t_full_df) = c(1:839)
 ```
 
+# Implementation of functions used in this script
 ```{r}
-# Test stationrity of all locations and return how many locations with stationary time series
 stationary_test_all_loc = function(df) {
+    "
+    Test stationrity of time series of each locations and return how many locations with stationary time series.
+    Inputs:
+      df: dataframe (where rows represent each timestep, columns represent individual location)
+    Output:
+      Number of stationary locations/Total Locations
+    "
     num_locs = dim(df)[2]  # number of locations
     stationary_ct <- 0
     for (i in c(1 : num_locs)) {  # For each location
         adf_result <- suppressWarnings(adf.test(df[1:198, i]))  # Apply adf test first 198 values as training set has 198 values
         p_val <- adf_result$p.value  # get p_value of adf test
-        if (p_val <= 0.05 || is.nan(p_val)) {  # If stationary
+        if (p_val <= 0.05 || is.nan(p_val)) {  # If stationary or if time series is all 0
             stationary_ct = stationary_ct + 1
         }
     }
@@ -40,7 +44,7 @@ stationary_test_all_loc = function(df) {
 
 fit_and_eval_var = function(diff_df, ori_df, p, struct, T1, T2) {
     "
-    Fit and evaluate using VAR model. (assuming VAR applied on differenced series)
+    Fit VAR Model on the differenced series, predict the difference, convert it to original counts and evaluate MSE
     Inputs: 
         diff_df: dataset after performing differencing level of 1
         ori_df: Original dataset
@@ -48,6 +52,13 @@ fit_and_eval_var = function(diff_df, ori_df, p, struct, T1, T2) {
         struct: Choice of penalty structure
         T1: Index of time series in which to start cross validation
         T2: Index of times series in which to start forecast evaluation
+    Output:
+        A list containing:
+          Errors_array: Residuals of the actual counts/predictions
+          VAR_Errors: Residuals from VAR model
+          Fitted_Values: Fitted values for the actual counts/predictions
+          VAR_Fitted: Fitted values of the VAR model
+          MSE: Mean Squared Error
     "
     model = constructModel(diff_df, p = p, struct = struct, gran = c(25,10), T1 = T1, T2 = T2)
     var_model <- cv.BigVAR(model)  # Fit VAR Model
@@ -77,12 +88,14 @@ fit_and_eval_var = function(diff_df, ori_df, p, struct, T1, T2) {
 stationary_test_all_loc(df_t_small_df)
 ```
 
+## Since there are some non-stationary locations, we performing differencing once and check if the differenced series is stationary
 ```{r}
 ## DIFFERENCING ##
 diff_small_df <- diff(df_t_small_df, differences=1)
 stationary_test_all_loc(diff_small_df)
 ```
 
+## Since they are all stationary, we would fit and evaluate the VAR model
 ```{r}
 # Fit and evaluate VAR on small dataset
 result <- fit_and_eval_var(diff_small_df, df_atleast_50cts, struct = "Basic", p = 9, T1 = 156, T2 = 198)
@@ -102,13 +115,13 @@ print(paste0("MSE of fitting VAR on small dataset: ", MSE))
 ```{r}
 stationary_test_all_loc(df_t_full_df)
 ```
-
+## Since there are some non-stationary locations, we performing differencing once and check if the differenced series is stationary
 ```{r}
 ## DIFFERENCING ##
 diff_full_df <- diff(df_t_full_df, differences=1)
 stationary_test_all_loc(diff_full_df)
 ```
-
+## Since they are all stationary, we would fit and evaluate the VAR model
 ```{r}
 # Fit and evaluate VAR on full dataset
 result <- fit_and_eval_var(diff_full_df, full_df, struct = "Basic", p = 9, T1 = 156, T2 = 198)
@@ -128,14 +141,14 @@ hist(as.vector(var_error), main = "Historgram of residuals")
 qqnorm(as.vector(var_error))
 qqline(as.vector(var_error))
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VAR_diff_resids.jpg");
-dev.off ();
+dev.off();
 ```
 
 ```{r}
 plot(as.vector(var_fitted),as.vector(var_error), main="Plot of residuals against fitted values", 
   xlab="Fitted Values", ylab="Residuals")
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Full_VAR_diff_resids_vs_values.jpg");
-dev.off ();
+dev.off();
 ```
 
 

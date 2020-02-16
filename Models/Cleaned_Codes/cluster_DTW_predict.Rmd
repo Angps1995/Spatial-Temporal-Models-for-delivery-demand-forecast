@@ -3,6 +3,7 @@ title: "3 Step Approach, Clustering by DTW distance"
 output: html_notebook
 ---
 
+# Load Libraries and dataset
 ```{r}
 library(tscount)
 library(urca)
@@ -13,27 +14,34 @@ library(BBmisc)
 library(dtw)
 library(TSclust)
 library(dtwclust)
-set.seed(1)
-```
+set.seed(1234)
 
-```{r}
 #Load dataset
 full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
 df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
 df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
 loc_df <- read.csv("/home/angps/Documents/Thesis/Data/location_map.csv")
+
+# Split to training/testing
 train_small <- df_atleast_50cts_endo[,1:198]
 test_small <- df_atleast_50cts_endo[,199:204]
 train_full <- full_df[1:839,1:198]
 test_full <- full_df[1:839,199:204]
 ```
 
-
+# Implementation of functions used in this script
 ```{r}
 stationary_test = function(df) {
-   num_locs = dim(df)[2]  # number of locations
+    "
+    Test stationrity of time series of each clusters and return how many clusters with stationary time series.
+    Inputs:
+      df: dataframe (where rows represent each timestep, columns represent individual cluster)
+    Output:
+      Number of stationary clusters/Total clusters
+    "
+   num_locs = dim(df)[2]  # number of clusters
    stationary_ct <- 0
-   for (i in c(1 : num_locs)) {  # For each location
+   for (i in c(1 : num_locs)) {  # For each clusters
        adf_result <- suppressWarnings(adf.test(df[, i]))  # Apply adf test first 198 values as training set has 198 values
        p_val <- adf_result$p.value  # get p_value of adf test
        if (p_val <= 0.05 || is.nan(p_val)) {  # If stationary
@@ -45,26 +53,43 @@ stationary_test = function(df) {
 
 # Function to assign demand to location
 assign_clust_demand = function(clusters, clust_pred, train_df) {
-  num_clust <- dim(clust_pred)[2]
-  pred <- matrix(0, nrow = 6, ncol = dim(train_df)[1])  
-  for (i in c(1:num_clust)) {
-      clust_ind <- clusters[[i]]  
-      clust_order_by_dtw <- rowSums(train_df[clust_ind,])
-      for (j in c(1:length(clust_ind))) {
-          loc_prop <- clust_order_by_dtw[j]/sum(clust_order_by_dtw)
-          for (t in c(1:6)) {
-              clust_total_order <- clust_pred[t, i]
-              ind <- clust_ind[j]
-              pred[t, ind] <- loc_prop * clust_total_order
-          }
-      }
-  }
-  return (pred) 
+    "
+    Calculate past distribution of demand of the locations in each cluster, and use the distribution to reassign the total demand of each cluster to the locations. 
+    Inputs:
+      clusters: List containing the location index for each cluster
+      clust_pred: Predicted values for each cluster
+      train_df: Training dataframe
+    Output:
+      Dataframe containing predicted demand for each location
+    "
+    num_clust <- dim(clust_pred)[2]
+    pred <- matrix(0, nrow = 6, ncol = dim(train_df)[1])  
+    for (i in c(1:num_clust)) {
+        clust_ind <- clusters[[i]]  
+        clust_order_by_dtw <- rowSums(train_df[clust_ind,])
+        for (j in c(1:length(clust_ind))) {
+            loc_prop <- clust_order_by_dtw[j]/sum(clust_order_by_dtw)
+            for (t in c(1:6)) {
+                clust_total_order <- clust_pred[t, i]
+                ind <- clust_ind[j]
+                pred[t, ind] <- loc_prop * clust_total_order
+            }
+        }
+    }
+    return (pred) 
 }
 
 assign_cluster_by_dtw = function(train, ori_df, num_clust) {
     "
-    Cluster by DTW, aggregate the locations into clusters by summing up all locations' demand in the respective cluster
+    Cluster by DTW distance, aggregate the locations into clusters where the cluster demand is the summation of all its locations' demand
+    Inputs:
+      train_df: Training dataframe
+      ori_df: Original df to get orignal values
+      num_clust: Number of clusters
+    Output:
+      List containing:
+        cluster_df: Dataframe containing clusters and their respective aggregated (by sum) time series 
+        cluster_ind: List containing the location index for each cluster
     "
     km <- tsclust(train, type="hierarchical", k=num_clust, distance="dtw_basic", clustering="pam")
     clusters <- list()
@@ -80,6 +105,19 @@ assign_cluster_by_dtw = function(train, ori_df, num_clust) {
 }
 
 fit_and_predict_var = function(diff_df, cluster_df, p, struct, T1, T2, num_clusters) {
+    "
+    Fit VAR on clusters and predict the total demand for each cluster
+    Inputs:
+      diff_df: Dataframe of the differenced series
+      cluster_df: Dataframe containing clusters and their respective aggregated (by sum) time series 
+      p: Maximum lag order
+      struct: Choice of penalty structure
+      T1: Index of time series in which to start cross validation
+      T2: Index of times series in which to start forecast evaluation
+      num_clusters: Number of clusters 
+    Output:
+      prediction for each cluster
+    "
     model = constructModel(as.matrix(diff_df), p = p, struct = struct, gran = c(25,10), T1 = T1, T2 = T2)
     var_model <- cv.BigVAR(model)
     cluster_diff_pred <- tail(var_model@fitted,6)
@@ -90,11 +128,23 @@ fit_and_predict_var = function(diff_df, cluster_df, p, struct, T1, T2, num_clust
       cluster_pred <-rbind(cluster_pred, prev + cluster_diff_pred[i, 1:num_clusters])
       prev <- prev + cluster_diff_pred[i, 1:num_clusters]
     }
-    
     return (cluster_pred)
 }
 
 reassign_demand_to_loc_and_evaluate = function(cluster_pred, cluster_ind, train_df, ori_df) {
+    "
+    Reassign demand to each location and evaluate MSE
+    Inputs:
+      cluster_pred: Dataframe containing predicted total demand for each cluster
+      cluster_ind: List containing location indices of each cluster
+      train_df: Training data (only training timesteps)
+      ori_df: Original dataset containing all timesteps
+    Output:
+      List containing:
+        Errors_array: Array of errors
+        Fitted_Values: Array of the fitted/predicted values
+        MSE: Mean squared error
+    "
     pred <- assign_clust_demand(cluster_ind, cluster_pred, train_df)
     num_locs <- dim(pred)[2]
     errors <- 0
@@ -112,18 +162,35 @@ reassign_demand_to_loc_and_evaluate = function(cluster_pred, cluster_ind, train_
     return (list("Errors_array" = error_arr, "Fitted_Values" = fitted_val, "MSE" = errors/6))
 }
 
-get_clustering_by_dtw_result = function(num_clust, ori_df, train_df) {
+get_clustering_by_dtw_result = function(num_clust, ori_df, train_df, p=6, struct="Basic", T1=156, T2=198) {
+    "
+    Main function to perform the 3 step approach using clustering by DTW distance
+    Inputs:
+      num_clust: Number of clusters
+      ori_df: Original dataframe of all timesteps
+      train_df: Training set 
+      p: Maximum lag order
+      struct: Choice of penalty structure
+      T1: Index of time series in which to start cross validation
+      T2: Index of times series in which to start forecast evaluation
+    Output:
+      Mean Squared Error 
+    "
+    # Perform clustering
     ClusterResult <- assign_cluster_by_dtw(train=train_df, ori_df=ori_df, num_clust = num_clust)
     cluster_df <- ClusterResult$cluster_df
     cluster_ind <- ClusterResult$cluster_ind
+    # Test for stationarity 
     stationary_test(cluster_df)
     print("After Differencing")
-    # Perform differenncing
+    # Perform differenncing and test stationarity
     colnames(cluster_df) = c(1:num_clust)
     rownames(cluster_df) <- c(1:204)
     diff_small_df <- data.frame(diff(as.matrix(cluster_df), differences=1))
     stationary_test(diff_small_df)
-    cluster_pred <- fit_and_predict_var(diff_df=diff_small_df, cluster_df=cluster_df, p=6, struct="Basic", T1=156, T2=198, num_clusters=num_clust)
+    # Build a VAR model and predict the total cluster demand
+    cluster_pred <- fit_and_predict_var(diff_df=diff_small_df, cluster_df=cluster_df, p=p, struct=struct, T1=T1, T2=T2, num_clusters=num_clust)
+    # Reassign the demand of each cluster to its respective locations and evaluate MSE
     result <- reassign_demand_to_loc_and_evaluate(cluster_pred = cluster_pred, cluster_ind = cluster_ind, train_df=train_df, ori_df=ori_df)
     error_arr <- result$Errors_array
     MSE <- result$MSE
@@ -135,17 +202,17 @@ get_clustering_by_dtw_result = function(num_clust, ori_df, train_df) {
 
 # Apply on small dataset
 
-```{r}
+```{r eval=FALSE}
 get_clustering_by_dtw_result(num_clust=3, ori_df = df_atleast_50cts_endo, train_df = train_small)
 get_clustering_by_dtw_result(num_clust=6, ori_df = df_atleast_50cts_endo, train_df = train_small)
 get_clustering_by_dtw_result(num_clust=9, ori_df = df_atleast_50cts_endo, train_df = train_small)
 get_clustering_by_dtw_result(num_clust=12, ori_df = df_atleast_50cts_endo, train_df = train_small)
 ```
 
-# Apply on full dataset
+# Apply on full dataset (Try clustering groups 2-12 since using Hierachical clustering)
 
 
-```{r}
+```{r eval=FALSE}
 clusters <- c(2:12)
 MSE <- c()
 for (i in clusters) {
