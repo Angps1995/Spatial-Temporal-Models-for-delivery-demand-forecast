@@ -1,0 +1,162 @@
+\begin{thebibliography}{24}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{{\tt #1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \expandafter\ifx\csname doi\endcsname\relax
+  \def\doi#1{doi:\discretionary{}{}{}#1}\fi \else
+  \expandafter\ifx\csname doi\endcsname\relax
+  \def\doi{doi:\discretionary{}{}{}\begingroup \urlstyle{rm}\Url}\fi \fi
+
+\bibitem[{Baumöhl and Lyócsa(2009)}]{Baumohl2009}
+Baumöhl, Eduard, Štefan Lyócsa. 2009.
+\newblock Stationarity of time series and the problem of spurious regression.
+\newblock {\it SSRN Electronic Journal\/} \doi{10.2139/ssrn.1480682}.
+
+\bibitem[{Bjørnland(2014)}]{Hilde2000}
+Bjørnland, Hilde~Christiane. 2014.
+\newblock Var models in macroeconomic research.
+
+\bibitem[{Box and Tiao(1977)}]{Box1977}
+Box, George E.~P., George~C. Tiao. 1977.
+\newblock A canonical analysis of multiple time series.
+
+\bibitem[{Ding et~al.(2008)Ding, Trajcevski, Scheuermann, Wang, and
+  Keogh}]{Hui2008}
+Ding, Hui, Goce Trajcevski, Peter Scheuermann, Xiaoyue Wang, Eamonn Keogh.
+  2008.
+\newblock Querying and mining of time series data: Experimental comparison of
+  representations and distance measures.
+\newblock {\it Proc. VLDB Endow.\/} {\bf 1}(2) 1542–1552.
+\newblock \doi{10.14778/1454159.1454226}.
+\newblock \urlprefix\url{https://doi.org/10.14778/1454159.1454226}.
+
+\bibitem[{Engle and Granger(1987)}]{Granger1983}
+Engle, Robert~F, Clive W~J Granger. 1987.
+\newblock {Co-integration and Error Correction: Representation, Estimation, and
+  Testing}.
+\newblock {\it Econometrica\/} {\bf 55}(2) 251--276.
+\newblock
+  \urlprefix\url{https://ideas.repec.org/a/ecm/emetrp/v55y1987i2p251-76.html}.
+
+\bibitem[{Farhath et~al.(2016)Farhath, Arputhamary, and Arockiam}]{Asha2016}
+Farhath, Z.~Asha, B.~Arputhamary, Dr.~L. Arockiam. 2016.
+\newblock A survey on arima forecasting using time series model.
+
+\bibitem[{Fattah et~al.(2018)Fattah, Ezzine, Aman, Moussami, and
+  Lachhab}]{Jamal2018}
+Fattah, Jamal, Latifa Ezzine, Zineb Aman, Haj Moussami, Abdeslam Lachhab. 2018.
+\newblock Forecasting of demand using arima model.
+\newblock {\it International Journal of Engineering Business Management\/} {\bf
+  10} 184797901880867.
+\newblock \doi{10.1177/1847979018808673}.
+
+\bibitem[{Johansen(1991)}]{Johansen1991}
+Johansen, Soren. 1991.
+\newblock {Estimation and Hypothesis Testing of Cointegration Vectors in
+  Gaussian Vector Autoregressive Models}.
+\newblock {\it Econometrica\/} {\bf 59}(6) 1551--1580.
+\newblock
+  \urlprefix\url{https://ideas.repec.org/a/ecm/emetrp/v59y1991i6p1551-80.html}.
+
+\bibitem[{Knight et~al.(2016)Knight, Nunes, and Nason}]{Marina2016}
+Knight, Marina~I., M.~A. Nunes, Guy~P. Nason. 2016.
+\newblock Modelling, detrending and decorrelation of network time series.
+
+\bibitem[{Liboschik et~al.(2017)Liboschik, Fokianos, and Fried}]{Tobias2017}
+Liboschik, Tobias, Konstantinos Fokianos, Roland Fried. 2017.
+\newblock tscount: An r package for analysis of count time series following
+  generalized linear models.
+\newblock {\it Journal of Statistical Software, Articles\/} {\bf 82}(5) 1--51.
+\newblock \doi{10.18637/jss.v082.i05}.
+\newblock \urlprefix\url{https://www.jstatsoft.org/v082/i05}.
+
+\bibitem[{Liu et~al.(2018)Liu, He, and Shen}]{Sheng2018}
+Liu, Sheng~Rui, Long He, Zuo-Jun~Max Shen. 2018.
+\newblock On-time last mile delivery: Order assignment with travel time
+  predictors.
+
+\bibitem[{Lu and Chang(2014)}]{Chi2014}
+Lu, Chi-Jie, Chi-Chang Chang. 2014.
+\newblock A hybrid sales forecasting scheme by combining independent component
+  analysis with k-means clustering and support vector regression.
+\newblock {\it TheScientificWorldJournal\/} {\bf 2014} 624017.
+\newblock \doi{10.1155/2014/624017}.
+
+\bibitem[{Luna and Genton(2005)}]{Xavier2005}
+Luna, Xavier, Marc Genton. 2005.
+\newblock Predictive spatio-temporal models for spatially sparse environmental
+  data.
+\newblock {\it Statistica Sinica\/} {\bf 15} 547--568.
+
+\bibitem[{Molenaar and Bolsinova(2017)}]{Dylan2017}
+Molenaar, Dylan, Maria Bolsinova. 2017.
+\newblock A heteroscedastic generalized linear model with a non-normal speed
+  factor for responses and response times.
+\newblock {\it British Journal of Mathematical and Statistical Psychology\/}
+  {\bf 70}.
+\newblock \doi{10.1111/bmsp.12087}.
+
+\bibitem[{Murray et~al.(2015)Murray, Agard, and Barajas}]{Paul2015}
+Murray, Paul, Bruno Agard, Marco Barajas. 2015.
+\newblock Forecasting supply chain demand by clustering customers.
+\newblock {\it IFAC-PapersOnLine\/} {\bf 48} 1834--1839.
+\newblock \doi{10.1016/j.ifacol.2015.06.353}.
+
+\bibitem[{Mushtaq(2011)}]{Rizwan2011}
+Mushtaq, Rizwan. 2011.
+\newblock Augmented dickey fuller test.
+\newblock {\it SSRN Electronic Journal\/} \doi{10.2139/ssrn.1911068}.
+
+\bibitem[{Nelder and Wedderburn(1972)}]{Nelder1972}
+Nelder, J.~A., R.~W.~M. Wedderburn. 1972.
+\newblock Generalized linear models.
+\newblock {\it Journal of the Royal Statistical Society. Series A (General)\/}
+  {\bf 135}(3) 370--384.
+\newblock \urlprefix\url{http://www.jstor.org/stable/2344614}.
+
+\bibitem[{Nicholson et~al.(2017)Nicholson, Matteson, and Bien}]{William2017}
+Nicholson, William, David Matteson, Jacob Bien. 2017.
+\newblock Bigvar: Tools for modeling sparse high-dimensional multivariate time
+  series .
+
+\bibitem[{Nunes et~al.(2015)Nunes, Knight, and Nason}]{Nunes2015}
+Nunes, M.A., M.I. Knight, G.P. Nason. 2015.
+\newblock {\it Modelling and prediction of time series arising on a graph\/}.
+\newblock Lecture Notes in Statistics - Proceedings, Springer International
+  Publishing, 183--192.
+\newblock \doi{10.1007/978-3-319-18732-7}.
+
+\bibitem[{Safikhani et~al.(2017)Safikhani, Kamga, Mudigonda, Faghih, and
+  Moghimi}]{Abolfazl2017}
+Safikhani, Abolfazl, Camille Kamga, Sandeep Mudigonda, Sabiheh Faghih, Bahman
+  Moghimi. 2017.
+\newblock Spatio-temporal modeling of yellow taxi demands in new york city
+  using generalized star models.
+\newblock {\it International Journal of Forecasting\/}
+  \doi{10.1016/j.ijforecast.2018.10.001}.
+
+\bibitem[{Senin(2008)}]{Pavel2008}
+Senin, Pavel. 2008.
+\newblock Dynamic time warping algorithm review.
+
+\bibitem[{Tsay(2013)}]{Ruey2014}
+Tsay, R.S. 2013.
+\newblock {\it Multivariate Time Series Analysis: With R and Financial
+  Applications\/}.
+\newblock Wiley Series in Probability and Statistics, Wiley.
+\newblock \urlprefix\url{https://books.google.com.sg/books?id=A4QVAgAAQBAJ}.
+
+\bibitem[{Wang et~al.(2018)Wang, Yang, and Ning}]{Wang2018}
+Wang, Dongjie, Yan Yang, Shangming Ning. 2018.
+\newblock Deepstcl: A deep spatiotemporal convlstm for travel demand
+  prediction.
+\newblock \doi{10.1109/IJCNN.2018.8489530}.
+
+\bibitem[{Xiao and Phillips(1998)}]{Zhijie1998}
+Xiao, Zhijie, Peter C.~B. Phillips. 1998.
+\newblock An adf coefficient test for a unit root in arma models of unknown
+  order with empirical applications to the us economy.
+
+\end{thebibliography}

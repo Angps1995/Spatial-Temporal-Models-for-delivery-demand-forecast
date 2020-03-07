@@ -1,0 +1,222 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: Thesis.aux
+The style file: ormsv080.bst
+Database file #1: ref.bib
+You're missing a field name---line 298 of file ref.bib
+ : 
+ : %abstract = {Includes index. Compendium of Hydrogen Energy Volume 4: Hydrogen Use, Safety and the Hydrogen Economy focuses on the uses of hydrogen. As many experts believe the hydrogen economy will, at some point, replace the fossil fuel economy as the primary source of the world's energy, this book investigates the uses of this energy, from transport, to stationary and portable applications, with final sections discussing the difficulties and possibilities of the widespread adoption of the hydrogen economy. Written by both leading academics in the fields of sustainable energy and experts from the world of industryPart.},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 310 of file ref.bib
+ : 
+ : %doi = {10.1016/j.energy.2015.11.023},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 325 of file ref.bib
+ : 
+ : %  title={CO2 emissions from fuel combustion-highlights},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 331 of file ref.bib
+ : 
+ : %author = {Huss, Arno and Maas, Heiko and Hass, Heinz},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 343 of file ref.bib
+ : 
+ : % howpublished  = "{InsideEVs (Jun. 2016), ``Monthly plug-In sales scorecard," [Online]. Available: http://insideevs.com/monthly-plug-in-sales-scorecard/, accessed July 12, 2016}",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 347 of file ref.bib
+ : 
+ : %  title={Hydrogen fueling infrastructure assessment},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 354 of file ref.bib
+ : 
+ : % howpublished  = "{California Fuel Cell Partnership (July 2014), ``A California road map: the commercialization of hydrogen fuel cell vehicles, 2014 update: hydrogen progress, priorities and opportunities," [Online]. Available: http://www.advancedtransportationcenter.org/fuels/hydrogen/caroadmap-commercialization-of-fcev-progressreport2014-final/, accessed October 11, 2016}",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 358 of file ref.bib
+ : 
+ : % howpublished  = "{H2USA (April 2015), ``H2USA, Department of Energy announce new tools for hydrogen
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 363 of file ref.bib
+ : 
+ : %  title={Fuel cell electric vehicles and hydrogen infrastructure: status 2012},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 374 of file ref.bib
+ : 
+ : %  title={Fuel cell and battery electric vehicles compared},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 385 of file ref.bib
+ : 
+ : %author = {Koponen, Joonas},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 393 of file ref.bib
+ : 
+ : % abstract = {Beginning with Hodgson (Geogr.Anal.22(1990) 270), several researchers have been developing a new kind of location-allocation model for "flow capturing." Instead of locating central facilities to serve demand at fixed points in space, their models aim to serve demand consisting of origin-destination flows along their shortest paths. This paper extends flow-capturing models to optimal location of refueling facilities for alternative-fuel (alt-fuel) vehicles, such as hydrogen fuel cells or natural gas. Existing flow-capturing models assume that if a flow passes just one facility along its path, it is covered. This assumption does not carry over to vehicle refueling because of the limited range of vehicles. For refueling, it may be necessary to stop at more than one facility in order to successfully refuel the entire path, depending on the vehicle range, the path length, and the node spacing. The Flow Refueling Location Model (FRLM) optimally locates p refueling stations on a network so as to maximize the total flow volume refueled. This paper presents a mixed-integer programming formulation for the nodes-only version of the problem, as well as an algorithm for determining all combinations of nodes that can refuel a given path. A greedy-adding approach is demonstrated to be suboptimal, and the tradeoff curve between number of facilities and flow volume refueled is shown to be nonconvex. ?? 2004 Elsevier Ltd. All rights reserved.},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 410 of file ref.bib
+ : 
+ : % abstract = {Serious environmental and economic problems of using fossil fuels in transportation sections force managers to think of alternative fuels such as hydrogen, ethanol, biodiesel, natural gas, or electricity. Meanwhile, lack of fuel network infrastructures is a major problem, which needs to be investigated considering the number and optimal location of alternative fuel stations. In the literature, two different flow-based demand modeling concepts (the maximum cover and set cover) have been proposed for solving this problem. Because of the huge number of combinations of fuel stations for covering the flow of each path, the models are impractical for the real size problems. In this paper, the flow refueling location model was reformulated and a flexible mixed-integer linear programming model was presented, which was able to obtain an optimal solution much faster than the previous set cover version. The model also could be solved in the maximum cover form in a reasonable time on the large-sized networks.},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 428 of file ref.bib
+ : 
+ : % abstract = {Increased interest in alternative fuels is attributable, in part, to rising oil prices and increasing concern about global warming. A lack of a refueling infrastructure, however, has inhibited the adoption of alternative-fuel vehicles. Little economic incentive exists to mass-produce alternative-fuel vehicles until a network of stations exists that can refuel a reasonable number of trips. The flow refueling location model (FRLM) was developed to minimize the investment necessary to create a refueling infrastructure by optimizing the location of fueling stations. The original uncapacitated FRLM assumes that the presence of a refueling station is sufficient to serve all flows passing through a node, regardless of their volume. This article introduces the capacitated flow refueling location model that limits the number of vehicles refueled at each station. It also introduces a modified objective function maximizing vehicle-miles traveled instead of trips, applies both models to an intercity network for Arizona, and formulates several other extensions.},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 446 of file ref.bib
+ : 
+ : % abstract = {Electric vehicles (EVs) have been proposed as a key technology to help cut down the massive greenhouse gas emissions from the transportation sector. Unfortunately, because of the limited capacity of batteries, typical EVs can only travel for about 100 miles on a single charge and require hours to be recharged. The industry has proposed a novel solution centered around the use of “swapping stations,” at which depleted batteries can be exchanged for recharged ones in the middle of long trips. The possible success of this solution hinges on the ability of the charging service provider to deploy a cost-effective infrastructure network, given only limited information regarding adoption rates. We develop robust optimization models that aid the planning process for deploying battery-swapping infrastructure. Using these models, we study the potential impacts of battery standardization and technology advancements on the optimal infrastructure deployment strategy.},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 474 of file ref.bib
+ : 
+ : % author = {Zhang, Hongcai and Moura, Scott J. and Hu, Zechun and Song, Yonghua},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 484 of file ref.bib
+ : 
+ : % author = {Zhang, Hongcai and Moura, Scott and Hu, Zechun and Qi, Wei and Song, Yonghua},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 491 of file ref.bib
+ : 
+ : % annote = {已阅，非常重要。
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 511 of file ref.bib
+ : 
+ : % annote = {同时考虑交通和电网。
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 532 of file ref.bib
+ : 
+ : % abstract = {This paper studies the problem of multistage place- ment of electric vehicle (EV) charging stations with incremental EV penetration rates. A nested logit model is employed to analyze the charging preference of the individual consumer (EV owner) and predict the aggregated charging demand at the charging stations. The EV charging industry is modeled as an oligopoly where the entire market is dominated by a few charging ser- vice providers (oligopolists). At the beginning of each planning stage, an optimal placement policy for each service provider is obtained through analyzing strategic interactions in a Bayesian game. To derive the optimal placement policy, we consider both the transportation network graph and the electric power net- work graph. A simulation software—the EV Virtual City 1.0—is developed using Java to investigate the interactions among the consumers (EV owner), the transportation network graph, the electric power network graph, and the charging stations. Through a series of experiments using the geographic and demographic data from the city of the San Pedro District of Los Angeles, CA, USA, we show that the charging station placement is highly consistent with the heatmap of the traffic flow. In addition, we observe a spatial economic phenomenon that service providers prefer clustering instead of separation in the EV charging market.},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 550 of file ref.bib
+ : 
+ : %  title={Hydrogen station cost estimates: comparing hydrogen station cost calculator results with other recent estimates},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 557 of file ref.bib
+ : 
+ : %  title={Hydrogen Storage Cost Analysis, Preliminary Results},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 565 of file ref.bib
+ : 
+ : %  title={Hydrogen pathways: Updated cost, well-to-wheels energy use, and emissions for the current technology status of ten hydrogen production, delivery, and distribution scenarios},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 573 of file ref.bib
+ : 
+ : % howpublished  = "{2016 Mirai Product Information, [Online]. Available: https://pressroom.toyota.com/releases/2016+toyota+mirai+fuel+cell+pro duct.download, accessed October 13, 2016}",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 577 of file ref.bib
+ : 
+ : % author        = "Zhang, Hongcai and Moura, Scott J. and Hu, Zechun and Qi, Wei, and Song, Yonghua",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 587 of file ref.bib
+ : 
+ : % author        = "PG\&E",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 596 of file ref.bib
+ : 
+ : % title={Summary of travel trends: 2009 national household travel survey},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 602 of file ref.bib
+ : 
+ : % howpublished  = "{A. Elgowainy and K. Reddi. ``2015 DOE hydrogen and fuel cells program
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 607 of file ref.bib
+ : 
+ : % abstract = {The optimal power flow (OPF) problem determines a network operating point that minimizes a certain objective such as generation cost or power loss. It is nonconvex. We prove that a global optimum of OPF can be obtained by solving a second-order cone program, under a mild condition after shrinking the OPF feasible set slightly, for radial power networks. The condition can be checked a priori, and holds for the IEEE 13, 34, 37, 123-bus networks and two real-world networks.},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 628 of file ref.bib
+ : 
+ : % author        = "IBM",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 635 of file ref.bib
+ : 
+ : % author = {Zhang, Hongcai and Moura, Scott and Hu, Zechun and Qi, Wei and Song, Yonghua},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Warning--empty booktitle in Hilde2000
+Warning--empty pages in Hilde2000
+Warning--empty booktitle in Box1977
+Warning--empty pages in Box1977
+Warning--empty booktitle in Asha2016
+Warning--empty pages in Asha2016
+Warning--empty booktitle in Marina2016
+Warning--empty pages in Marina2016
+Warning--empty booktitle in Sheng2018
+Warning--empty pages in Sheng2018
+Warning--empty journal in William2017
+Warning--can't use both author and editor fields in Nunes2015
+Warning--empty chapter and pages in Nunes2015
+Warning--empty booktitle in Pavel2008
+Warning--empty pages in Pavel2008
+Warning--empty booktitle in Wang2018
+Warning--empty pages in Wang2018
+Warning--empty booktitle in Zhijie1998
+Warning--empty pages in Zhijie1998
+You've used 24 entries,
+            3236 wiz_defined-function locations,
+            835 strings with 9430 characters,
+and the built_in function-call counts, 13983 in all, are:
+= -- 1101
+> -- 607
+< -- 13
++ -- 214
+- -- 180
+* -- 998
+:= -- 2212
+add.period$ -- 101
+call.type$ -- 24
+change.case$ -- 178
+chr.to.int$ -- 24
+cite$ -- 43
+duplicate$ -- 1101
+empty$ -- 1061
+format.name$ -- 258
+if$ -- 2763
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 224
+newline$ -- 137
+num.names$ -- 96
+pop$ -- 488
+preamble$ -- 1
+purify$ -- 156
+quote$ -- 0
+skip$ -- 358
+stack$ -- 0
+substring$ -- 539
+swap$ -- 464
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 210
+warning$ -- 19
+while$ -- 86
+width$ -- 0
+write$ -- 325
+(There were 31 error messages)

@@ -1,0 +1,630 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  7 MAR 2020 19:25
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**Thesis.tex
+(./Thesis.tex
+LaTeX2e <2018-12-01>
+(./informs3.cls
+
+LaTeX Warning: You have requested document class `informs3',
+               but the document class provides `informs2'.
+
+Document Class: informs2 2010/12/20 v0.94 LaTeX document class for articles sub
+mitted to INFORMS
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2018/12/01 v2.17b AMS math features
+\@mathmargin=\skip41
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks14
+\ex@=\dimen102
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen103
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count80
+LaTeX Info: Redefining \frac on input line 223.
+\uproot@=\count81
+\leftroot@=\count82
+LaTeX Info: Redefining \overline on input line 385.
+\classnum@=\count83
+\DOTSCASE@=\count84
+LaTeX Info: Redefining \ldots on input line 482.
+LaTeX Info: Redefining \dots on input line 485.
+LaTeX Info: Redefining \cdots on input line 606.
+\Mathstrutbox@=\box27
+\strutbox@=\box28
+\big@size=\dimen104
+LaTeX Font Info:    Redeclaring font encoding OML on input line 729.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
+\macc@depth=\count85
+\c@MaxMatrixCols=\count86
+\dotsspace@=\muskip10
+\c@parentequation=\count87
+\dspbrk@lvl=\count88
+\tag@help=\toks15
+\row@=\count89
+\column@=\count90
+\maxfields@=\count91
+\andhelp@=\toks16
+\eqnshift@=\dimen105
+\alignsep@=\dimen106
+\tagshift@=\dimen107
+\tagwidth@=\dimen108
+\totwidth@=\dimen109
+\lineht@=\dimen110
+\@envbody=\toks17
+\multlinegap=\skip42
+\multlinetaggap=\skip43
+\mathdisplay@stack=\toks18
+LaTeX Info: Redefining \[ on input line 2844.
+LaTeX Info: Redefining \] on input line 2845.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks19
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen111
+\Gin@req@width=\dimen112
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2018/12/30 v2.4k Tabular extension package (FMi)
+\col@sep=\dimen113
+\ar@mcellbox=\box29
+\extrarowheight=\dimen114
+\NC@list=\toks20
+\extratabsurround=\skip44
+\backup@length=\skip45
+\ar@cellbox=\box30
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/theorem.sty
+Package: theorem 2014/10/28 v2.2c Theorem extension package (FMi)
+\theorem@style=\toks21
+\theorem@bodyfont=\toks22
+\theorempreskipamount=\skip46
+\theorempostskipamount=\skip47
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/thp.sty
+File: thp.sty 2014/10/28 v2.2c Theorem extension package (FMi)
+))
+\symboperators=\mathgroup6
+\symbletters=\mathgroup7
+\symbsymbols=\mathgroup8
+\markwidth=\dimen115
+\blth=\dimen116
+\marklength=\dimen117
+\markdistance=\dimen118
+\trimwidth=\dimen119
+\trimheight=\dimen120
+\auxaaa=\dimen121
+\auxbbb=\dimen122
+\auxccc=\dimen123
+\auxddd=\dimen124
+\c@nowappendix=\count92
+\@bls=\dimen125
+\@em=\dimen126
+\tempbox=\box31
+\tempdim=\dimen127
+\tempdimht=\dimen128
+\adim=\dimen129
+\c@figure=\count93
+\c@table=\count94
+\adim=\dimen130
+\ABSwidth=\dimen131
+\clineHT=\dimen132
+\clineDP=\dimen133
+\labelwidthi=\dimen134
+\labelwidthii=\dimen135
+\labelwidthiii=\dimen136
+\labelwidthiv=\dimen137
+\@maxlistdepth=\count95
+\c@part=\count96
+\c@chapter=\count97
+\c@section=\count98
+\c@subsection=\count99
+\c@subsubsection=\count100
+\c@paragraph=\count101
+\c@subparagraph=\count102
+\@tempboxa=\box32
+\@tempboxb=\box33
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/dcolumn.sty
+Package: dcolumn 2014/10/28 v1.06 decimal alignment package (DPC)
+
+
+Package array Warning: Column D is already defined on input line 81.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2016/04/27 v1.618033 publication quality tables
+\heavyrulewidth=\dimen138
+\lightrulewidth=\dimen139
+\cmidrulewidth=\dimen140
+\belowrulesep=\dimen141
+\belowbottomsep=\dimen142
+\aboverulesep=\dimen143
+\abovetopsep=\dimen144
+\cmidrulesep=\dimen145
+\cmidrulekern=\dimen146
+\defaultaddspace=\dimen147
+\@cmidla=\count103
+\@cmidlb=\count104
+\@aboverulesep=\dimen148
+\@belowrulesep=\dimen149
+\@thisruleclass=\count105
+\@lastruleclass=\count106
+\@thisrulewidth=\dimen150
+)
+(/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count107
+\float@exts=\toks23
+\float@box=\box34
+\@float@everytoks=\toks24
+\@floatcapt=\box35
+)
+\@float@every@algorithm=\toks25
+\c@algorithm=\count108
+)
+(/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count109
+\c@ALC@line=\count110
+\c@ALC@rem=\count111
+\c@ALC@depth=\count112
+\ALC@tlm=\skip48
+\algorithmicindent=\skip49
+)
+(./natbib.sty
+Package: natbib 2000/07/24 7.0a (PWD)
+\bibhang=\skip50
+\bibsep=\skip51
+LaTeX Info: Redefining \cite on input line 508.
+\c@NAT@ctr=\count113
+) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf.sty
+Package: epstopdf 2016/05/15 v2.6 Conversion with epstopdf on the fly (HO)
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+))))
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+)))
+\c@theorem=\count114
+\c@lemma=\count115
+\c@proposition=\count116
+\c@corollary=\count117
+\c@claim=\count118
+\c@conjecture=\count119
+\c@hypothesis=\count120
+\c@assumption=\count121
+\c@remark=\count122
+\c@example=\count123
+\c@problem=\count124
+\c@definition=\count125
+\c@question=\count126
+\c@answer=\count127
+\c@exercise=\count128
+\c@repeattheorem=\count129
+\c@repeatlemma=\count130
+\c@repeatproposition=\count131
+\c@repeatcorollary=\count132
+\c@repeatclaim=\count133
+\c@repeatconjecture=\count134
+\c@repeathypothesis=\count135
+\c@repeatassumption=\count136
+\c@repeatremark=\count137
+\c@repeatexample=\count138
+\c@repeatproblem=\count139
+\c@repeatdefinition=\count140
+\c@repeatquestion=\count141
+\c@repeatanswer=\count142
+\c@repeatexercise=\count143
+   defining Unicode char U+2212 (decimal 8722)
+
+(./Thesis.aux)
+\openout1 = `Thesis.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count144
+\scratchdimen=\dimen151
+\scratchbox=\box36
+\nofMPsegments=\count145
+\nofMParguments=\count146
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count147
+\MPscratchDim=\dimen152
+\MPnumerator=\count148
+\makeMPintoPDFobject=\count149
+\everyMPtoPDFconversion=\toks27
+) [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+<Images/example_all_ts.jpg, id=11, 1156.32pt x 578.16pt>
+File: Images/example_all_ts.jpg Graphic file (type jpg)
+<use Images/example_all_ts.jpg>
+Package pdftex.def Info: Images/example_all_ts.jpg  used on input line 136.
+(pdftex.def)             Requested size: 399.2837pt x 181.43324pt.
+ [2]
+<Images/example_ts.jpg, id=17, 867.24pt x 433.62pt>
+File: Images/example_ts.jpg Graphic file (type jpg)
+<use Images/example_ts.jpg>
+Package pdftex.def Info: Images/example_ts.jpg  used on input line 144.
+(pdftex.def)             Requested size: 469.75827pt x 226.80699pt.
+<Images/boxplot_counts.jpg, id=18, 578.16pt x 289.08pt>
+File: Images/boxplot_counts.jpg Graphic file (type jpg)
+<use Images/boxplot_counts.jpg>
+Package pdftex.def Info: Images/boxplot_counts.jpg  used on input line 152.
+(pdftex.def)             Requested size: 469.75385pt x 226.80478pt.
+ [3 <./Images/example_all_ts.jpg> <./Images/example_ts.jpg>]
+<Images/spatial_demand.jpg, id=23, 1011.78pt x 578.16pt>
+File: Images/spatial_demand.jpg Graphic file (type jpg)
+<use Images/spatial_demand.jpg>
+Package pdftex.def Info: Images/spatial_demand.jpg  used on input line 161.
+(pdftex.def)             Requested size: 469.76266pt x 485.99515pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4 <./Images/boxplot_counts.jpg>]
+<Images/temp_mean_demand.jpg, id=27, 578.16pt x 289.08pt>
+File: Images/temp_mean_demand.jpg Graphic file (type jpg)
+<use Images/temp_mean_demand.jpg>
+Package pdftex.def Info: Images/temp_mean_demand.jpg  used on input line 171.
+(pdftex.def)             Requested size: 446.26086pt x 207.36551pt.
+ [5 <./Images/spatial_demand.jpg>]
+<Images/pressure_mean_demand.jpg, id=31, 578.16pt x 289.08pt>
+File: Images/pressure_mean_demand.jpg Graphic file (type jpg)
+<use Images/pressure_mean_demand.jpg>
+Package pdftex.def Info: Images/pressure_mean_demand.jpg  used on input line 17
+8.
+(pdftex.def)             Requested size: 446.26086pt x 207.36551pt.
+ [6 <./Images/temp_mean_demand.jpg> <./Images/pressure_mean_demand.jpg>] [7]
+<Images/forecast_example.jpg, id=39, 578.16pt x 289.08pt>
+File: Images/forecast_example.jpg Graphic file (type jpg)
+<use Images/forecast_example.jpg>
+Package pdftex.def Info: Images/forecast_example.jpg  used on input line 226.
+(pdftex.def)             Requested size: 469.75499pt x 234.8769pt.
+ [8] [9 <./Images/forecast_example.jpg>]
+<Images/Full_GLM_resids.jpg, id=53, 481.8pt x 481.8pt>
+File: Images/Full_GLM_resids.jpg Graphic file (type jpg)
+<use Images/Full_GLM_resids.jpg>
+Package pdftex.def Info: Images/Full_GLM_resids.jpg  used on input line 260.
+(pdftex.def)             Requested size: 469.77148pt x 453.61252pt.
+ [10 <./Images/Full_GLM_resids.jpg>]
+<Images/Full_GLM_resids_vs_fitted.jpg, id=57, 481.8pt x 481.8pt>
+File: Images/Full_GLM_resids_vs_fitted.jpg Graphic file (type jpg)
+<use Images/Full_GLM_resids_vs_fitted.jpg>
+Package pdftex.def Info: Images/Full_GLM_resids_vs_fitted.jpg  used on input li
+ne 270.
+(pdftex.def)             Requested size: 375.81718pt x 324.01pt.
+ [11 <./Images/Full_GLM_resids_vs_fitted.jpg>]
+<Images/heatmap.jpg, id=61, 1445.4pt x 1445.4pt>
+File: Images/heatmap.jpg Graphic file (type jpg)
+<use Images/heatmap.jpg>
+Package pdftex.def Info: Images/heatmap.jpg  used on input line 297.
+(pdftex.def)             Requested size: 469.74944pt x 486.00397pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [12]
+[13 <./Images/heatmap.jpg>] [14]
+<Images/Full_VAR_diff_resids.jpg, id=72, 481.8pt x 481.8pt>
+File: Images/Full_VAR_diff_resids.jpg Graphic file (type jpg)
+<use Images/Full_VAR_diff_resids.jpg>
+Package pdftex.def Info: Images/Full_VAR_diff_resids.jpg  used on input line 34
+8.
+(pdftex.def)             Requested size: 375.81718pt x 272.16603pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [15]
+<Images/Full_VARX_diff_resids.jpg, id=76, 481.8pt x 481.8pt>
+File: Images/Full_VARX_diff_resids.jpg Graphic file (type jpg)
+<use Images/Full_VARX_diff_resids.jpg>
+Package pdftex.def Info: Images/Full_VARX_diff_resids.jpg  used on input line 3
+55.
+(pdftex.def)             Requested size: 375.81718pt x 272.16603pt.
+
+[16 <./Images/Full_VAR_diff_resids.jpg> <./Images/Full_VARX_diff_resids.jpg>]
+[17] [18]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [19]
+[20]
+<Images/DTW_Plot.jpg, id=96, 481.8pt x 481.8pt>
+File: Images/DTW_Plot.jpg Graphic file (type jpg)
+<use Images/DTW_Plot.jpg>
+Package pdftex.def Info: Images/DTW_Plot.jpg  used on input line 535.
+(pdftex.def)             Requested size: 375.81718pt x 324.01pt.
+ [21 <./Images/DTW_Plot.jpg>]
+<Images/cluster_corr_heatmap.jpg, id=100, 1011.78pt x 1011.78pt>
+File: Images/cluster_corr_heatmap.jpg Graphic file (type jpg)
+<use Images/cluster_corr_heatmap.jpg>
+Package pdftex.def Info: Images/cluster_corr_heatmap.jpg  used on input line 56
+5.
+(pdftex.def)             Requested size: 469.76266pt x 401.75607pt.
+ [22 <./Images/cluster_corr_heatmap.jpg>]
+<Images/Cluster_Loc_MSE_plot.jpg, id=104, 481.8pt x 481.8pt>
+File: Images/Cluster_Loc_MSE_plot.jpg Graphic file (type jpg)
+<use Images/Cluster_Loc_MSE_plot.jpg>
+Package pdftex.def Info: Images/Cluster_Loc_MSE_plot.jpg  used on input line 60
+2.
+(pdftex.def)             Requested size: 446.27556pt x 388.81493pt.
+
+[23]
+<Images/Cluster_Corr_MSE_plot.jpg, id=108, 481.8pt x 481.8pt>
+File: Images/Cluster_Corr_MSE_plot.jpg Graphic file (type jpg)
+<use Images/Cluster_Corr_MSE_plot.jpg>
+Package pdftex.def Info: Images/Cluster_Corr_MSE_plot.jpg  used on input line 6
+09.
+(pdftex.def)             Requested size: 446.27556pt x 388.81493pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [24 <./Images/Cluster_Loc_MSE_plot.jpg>]
+<Images/Cluster_DTW_MSE_plot.jpg, id=112, 481.8pt x 481.8pt>
+File: Images/Cluster_DTW_MSE_plot.jpg Graphic file (type jpg)
+<use Images/Cluster_DTW_MSE_plot.jpg>
+Package pdftex.def Info: Images/Cluster_DTW_MSE_plot.jpg  used on input line 61
+6.
+(pdftex.def)             Requested size: 446.27556pt x 388.81493pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [25 <./Images/Cluster_Corr_MSE_plot.jpg>] [26 <./Images/Cluster_DTW_MSE_plot.j
+pg>]
+Overfull \hbox (2.75385pt too wide) in paragraph at lines 653--664
+[][] 
+ []
+
+[27] [28]
+<Images/distplot_cloud.png, id=126, 578.16pt x 289.08pt>
+File: Images/distplot_cloud.png Graphic file (type png)
+<use Images/distplot_cloud.png>
+Package pdftex.def Info: Images/distplot_cloud.png  used on input line 708.
+(pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
+<Images/distplot_gust.png, id=128, 578.16pt x 289.08pt>
+File: Images/distplot_gust.png Graphic file (type png)
+<use Images/distplot_gust.png>
+Package pdftex.def Info: Images/distplot_gust.png  used on input line 715.
+(pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
+<Images/distplot_humidity.png, id=129, 578.16pt x 289.08pt>
+File: Images/distplot_humidity.png Graphic file (type png)
+<use Images/distplot_humidity.png>
+Package pdftex.def Info: Images/distplot_humidity.png  used on input line 722.
+(pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [29 <./Images/distplot_cloud.png> <./Images/distplot_gust.png>]
+<Images/distplot_pressure.png, id=135, 578.16pt x 289.08pt>
+File: Images/distplot_pressure.png Graphic file (type png)
+<use Images/distplot_pressure.png>
+Package pdftex.def Info: Images/distplot_pressure.png  used on input line 729.
+(pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
+<Images/distplot_temp.png, id=136, 578.16pt x 289.08pt>
+File: Images/distplot_temp.png Graphic file (type png)
+<use Images/distplot_temp.png>
+Package pdftex.def Info: Images/distplot_temp.png  used on input line 736.
+(pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [30 <./Images/distplot_humidity.png> <./Images/distplot_pressure.png>]
+<Images/distplot_wind.png, id=142, 578.16pt x 289.08pt>
+File: Images/distplot_wind.png Graphic file (type png)
+<use Images/distplot_wind.png>
+Package pdftex.def Info: Images/distplot_wind.png  used on input line 743.
+(pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
+<Images/wind_mean_demand.jpg, id=143, 578.16pt x 289.08pt>
+File: Images/wind_mean_demand.jpg Graphic file (type jpg)
+<use Images/wind_mean_demand.jpg>
+Package pdftex.def Info: Images/wind_mean_demand.jpg  used on input line 752.
+(pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [31 <./Images/distplot_temp.png> <./Images/distplot_wind.png>]
+<Images/gust_mean_demand.jpg, id=150, 578.16pt x 289.08pt>
+File: Images/gust_mean_demand.jpg Graphic file (type jpg)
+<use Images/gust_mean_demand.jpg>
+Package pdftex.def Info: Images/gust_mean_demand.jpg  used on input line 759.
+(pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
+<Images/cloud_mean_demand.jpg, id=151, 578.16pt x 289.08pt>
+File: Images/cloud_mean_demand.jpg Graphic file (type jpg)
+<use Images/cloud_mean_demand.jpg>
+Package pdftex.def Info: Images/cloud_mean_demand.jpg  used on input line 766.
+(pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [32 <./Images/wind_mean_demand.jpg> <./Images/gust_mean_demand.jpg>]
+<Images/humidity_mean_demand.jpg, id=155, 578.16pt x 289.08pt>
+File: Images/humidity_mean_demand.jpg Graphic file (type jpg)
+<use Images/humidity_mean_demand.jpg>
+Package pdftex.def Info: Images/humidity_mean_demand.jpg  used on input line 77
+3.
+(pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
+<Images/prec_mean_demand.jpg, id=156, 578.16pt x 289.08pt>
+File: Images/prec_mean_demand.jpg Graphic file (type jpg)
+<use Images/prec_mean_demand.jpg>
+Package pdftex.def Info: Images/prec_mean_demand.jpg  used on input line 780.
+(pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [33 <./Images/cloud_mean_demand.jpg> <./Images/humidity_mean_demand.jpg>] [34 
+<./Images/prec_mean_demand.jpg>] (./Thesis.bbl
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <6.5> not available
+(Font)              size <6> substituted on input line 15.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <6.5> not available
+(Font)              size <6> substituted on input line 15.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <6.5> not available
+(Font)              size <6> substituted on input line 15.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <6.5> not available
+(Font)              size <6> substituted on input line 15.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <6.5> not available
+(Font)              size <6> substituted on input line 15.
+
+[35]) [36] (./Thesis.aux)
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 0.5pt have occurred.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4163 strings out of 492609
+ 55030 string characters out of 6131462
+ 128392 words of memory out of 5000000
+ 7980 multiletter control sequences out of 15000+600000
+ 17918 words of font info for 66 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 42i,15n,29p,1077b,536s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on Thesis.pdf (36 pages, 1677320 bytes).
+PDF statistics:
+ 231 PDF objects out of 1000 (max. 8388607)
+ 138 compressed objects within 2 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 141 words of extra memory for PDF output out of 10000 (max. 10000000)
+
