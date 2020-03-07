@@ -30,12 +30,24 @@
 \EquationsNumberedThrough    % Default: (1), (2), ...
 %\EquationsNumberedBySection % (1.1), (1.2), ...
 
+
+%\pagestyle{plain}
+%\setlength{\parskip} {12pt}
+%\setlength{\parindent} {2em}
+%\setlength{\textwidth}{6.5in}
+%\setlength{\oddsidemargin} {0in}
+%\setlength{\textheight} {8.5in}
+%\setlength{\topmargin} {-0.5in}
+%\parskip 7.2pt
+
+
+
 % For new submissions, leave this number blank.
 % For revisions, input the manuscript number assigned by the on-line
 % system along with a suffix ".Rx" where x is the revision number.
 \MANUSCRIPTNO{}
 \newcommand{\vocab}[1]{\textcolor{red}{#1}}
-
+\linespread{1.3}
 %%%%%%%%%%%%%%%%
 \usepackage{float}
 \DeclareUnicodeCharacter{2212}{-}
@@ -253,8 +265,9 @@ The dataset that we are using follows a count time series, which means the obser
 \subsection{Model Diagnostics}
 To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis.		
 
+\newpage
 \subsubsection{Residuals plots}
-
+\hfill\\
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth, height=0.7\textheight]{Images/Full_GLM_resids.jpg}
@@ -265,6 +278,7 @@ To validate and verify if our fitted model is adequate, model checking would be 
 \noindent The diagnostic plots in Figure 8 shows that while most residuals are randomly scattered around -5 to 10, there are still many points above 10, and this also imply that the GLM model produces residuals that does not follow the normal distribution well. Although this is not ideal, this might be attributed to the demand data following a poisson distribution instead of a normal distribution. 
 
 \subsubsection{Residuals against Predicted values}
+\hfill\\
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth, height=0.5\textheight]{Images/Full_GLM_resids_vs_fitted.jpg}
@@ -275,7 +289,6 @@ The above plot of residuals against the predicted values suggests heteroscedasti
 
 \subsection{Model Limitation}
 Similar to the baseline ARIMA model, it would be a relatively expensive and time-consuming process as every location has to be individually fitted to a GLM model. Also, each location model only uses its past values and does not take into account data from the other locations. The next section explores another type of model which would use data from other locations as predictors. 
-
 
 \section{Vector Autoregressive (VAR) Model}
 
@@ -301,6 +314,7 @@ As with many spatio-temporal demand prediction, spatial features could be an imp
 
 \noindent This thus provides the motivation to use the existence of spatial correlation and explore the usage of VAR model.
 
+\newpage
 \subsection{Stationarity Condition}
 For a univariate time series, it is important for the time series to be transformed into a stationary series and Augmented Dickey-Fuller (ADF) test can be used to perform unit root test for stationarity, as shown in \cite{Zhijie1998} and \cite{Rizwan2011}. For a multi-variate time series, if the series are unit-root non-stationary, regression models might show a statistially significant, but false, coefficients and results simply because the series are coincidentally increasing over time, hence applying the VAR model on non-stationary series could lead to spurious regression, also shown in \cite{Baumohl2009}.  
 
@@ -313,10 +327,11 @@ To test for stationarity, we would be performing the standard ADF test to test f
 
 
 \subsubsection{Cointegration}
-
+\hfill\\
 \cite{Box1977} shows that it is possible to linearly combine various unit-root nonstationary time series to form a stationary series. The term Cointegration, first mentioned in \cite{Granger1983}, states that although some or all the time series might be unit-root nonstationary individually, these time series can be said to be cointegrated if there exists a possible linear combination of them that would form a stationary series. Intuitively, 2 series are cointegrated if they move together and the distance between them remain stable over time. 
 
 \subsubsection{Johansen Test for Cointegration}
+\hfill\\
 While Cointegrated Augmented Dickey Fuller Test, commonly used for Pairs Trading, can be used, it is able to be applied on only 2 separate series. The next best approach is the cointegrating tests for VAR model, called the Johansen's Cointegration Test. However, one limitation is that it can only be used to check for cointegration between a maximum of 12 variables. For further elaboration on the Johansen's Cointegration Test, please refer to \cite{Johansen1991}. If there exists cointegration between variables, a Vector Error Correction Model can be formulated. 
 
 \noindent However, since our dataset has 839 variables (locations), we are unable to apply the cointegration test or accurately calculate the significant values of more than 12 variables and hence unable to determine correctly the number of cointegration vectors needed. 
@@ -335,11 +350,13 @@ VAR models can also be extended to include exogenous variables. A VARX(p,s) (wit
 
 \noindent Similar to VAR above, BigVAR library was used to fit a VARX model taking in the 839 locations' time series as endogenous variables and the 13 exogenous variables. The model was then use to compute predictions for the 6 periods ahead and would be compared with the test set.
 
+\newpage
 \subsection{Model Checking}
 The following residual analysis are then performed:
 
 
 \subsubsection{Whiteness of Residuals}
+\hfill\\
 To ensure our fitted model is adequate, the resiudals should behave like a white noise series. 
 The plots below shows the distribution of our residuals for the VAR model and the VARX model. 
 
@@ -445,11 +462,11 @@ In this section, we introduce an alternative 3-step approach. The overall steps 
 A simple clustering was first done on the locations using their time series data in the training set. 3 different kind of distance metrics were used to perform K-means clustering. The first metric used would be based on their geo-locations while the second and third metric used would be to cluster them based on similarity between their historical time series. 
 
 \subsubsection{Using longitude/latitude as the distance metric}
-
+\hfill\\
 A reasonable assumption that could be made is that customers in the same neighbourhood would tend to have similar ordering behaviour due to similar residential status or similar working industry or culture. Hence, we would cluster the locations using their geo-location coordinates (longitude and latitude). K-means clustering is performed using the euclidean distance of the locations as the distance metric.   
 
 \subsubsection{Using Correlation Coefficient as the distance metric}
-
+\hfill\\
 We then also explored using correlation coefficient between the time series as the distance metric for K-means clustering. Correlation coefficient can be calculated by: 
 
 \begin{center}
@@ -460,7 +477,7 @@ $r_{xy} = \frac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
 \noindent where $r_{xy}$ represents the correlation coefficient between time series x and y, $x_i$ and $y_i$ represents points in time i for time series x and y respectively and $\overline{x}$ and $\overline{y}$ represents the mean value for time series x and y. Correlation measures the strength and direction of the tendency for any 2 time series to move together. 
 
 \subsubsection{Using Dynamic Time Warping as the distance metric}
-
+\hfill\\
 Finally, we explored using Dynamic Time Warping (DTW) Distance as the distance metric for Hierachical clustering. 
 
 \noindent DTW is one of the commonly-used algorithm for speech or audio recognition and it measures the similarity between time series by providing a elastic non-linear alignment between 2 time series. It is known for being effective for time series that have different length or speed. DTW is calculated by first creating a distance matrix and then finding the optimal warping path as shown in the 2 algorithms here:

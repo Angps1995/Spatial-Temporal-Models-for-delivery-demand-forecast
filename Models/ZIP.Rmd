@@ -25,18 +25,24 @@ train <- df_atleast_50cts
 #m <- zeroinfl(ts ~ lag1, data = df, dist = 'poisson')
 
 
-train <- df_atleast_50cts[,1:162]
-test <- df_atleast_50cts[,163:204]
+train <- df_atleast_50cts[,1:198]
+test <- df_atleast_50cts[,199:204]
+train<- full_df[,1:198]
+test <- full_df[,199:204]
+errors <- 0
 for (i in c(1:dim(train)[1])) {
     t <- train[i,]    
     ts <- as.numeric(t[-1])
     lag1 <- as.numeric(t[-length(t)])
     df <- data.frame(ts, lag1)
-    fit <- zeroinfl(ts ~ lag1, data = df, dist = 'poisson')
-    pred <- predict(fit, as.data.frame(t))
-    error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
+    #fit <- zeroinfl(ts ~ lag1, data = df, dist = 'poisson')
+    fit <- glm(ts ~ lag1, family="poisson")
+    #pred <- predict(fit, newdata=as.data.frame(t))
+    pred <- predict(fit,newdata = t,type='response')
+    #error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
+    error <- sum(((as.numeric(test[i,]) - pred[1:6])) ^ 2)
     errors <- errors + error
 }
-print(paste0("Max Past ObsL ", obs ," Past Mean: ", m, " MSFE: ", errors/42))
+print(paste0(" MSFE: ", errors/42))
 
 ```

@@ -59,7 +59,7 @@ fit_and_evaluate_glm = function(train, test, past_obs, past_mean, link, distr){
 # Apply it on the subset of the dataset 
 ```{r}
 # Fit and evaluate on smaller subset of dataset
-result = fit_and_evaluate_glm(train_small_df, test_small_df, past_obs = 6, past_mean = 18, link = 'identity', distr = 'poisson')
+result = fit_and_evaluate_glm(train_small_df, test_small_df, past_obs = 6, past_mean = 1, link = 'identity', distr = 'poisson')
 error_arr = result$Errors_array
 MSE = result$MSE
 fitted_val = result$Fitted_Values
