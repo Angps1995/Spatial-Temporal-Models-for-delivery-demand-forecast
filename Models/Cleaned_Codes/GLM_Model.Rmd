@@ -42,6 +42,7 @@ fit_and_evaluate_glm = function(train, test, past_obs, past_mean, link, distr){
     errors <- 0
     error_arr <- c()
     fitted_val <- c()
+    quad_score <- 0
     for (i in c(1 : num_locs)) {  # go through all locations
         # fit glm on each location
         fit <- suppressWarnings(tsglm(as.numeric(train[i,]), model = list(past_obs = c(1 : past_obs), past_mean = past_mean), link = link, distr = distr)) 
@@ -51,10 +52,13 @@ fit_and_evaluate_glm = function(train, test, past_obs, past_mean, link, distr){
         fitted_val <- c(fitted_val, fit$fitted.values)
         error <- sum(((as.numeric(test[i,]) - pred$pred)) ^ 2)
         errors <- errors + error
+        for (j in c(1:6)) {quad_score <- quad_score + scoring(test[i,j], pred$pred[j], distr=c("poisson"))['quadratic']}
+        #quad_score_2 <- scoring(fitted_val, pred, distr=c("poisson"))
     }
-    return (list("Errors_array" = error_arr, "Fitted_Values" = fitted_val, "MSE" = errors/6))
+    return (list("Errors_array" = error_arr, "Fitted_Values" = fitted_val, "MSE" = errors/6, 'Quadratic(Brier) Score' = quad_score/6))
 }
 ```
+
 
 # Apply it on the subset of the dataset 
 ```{r}
@@ -62,8 +66,11 @@ fit_and_evaluate_glm = function(train, test, past_obs, past_mean, link, distr){
 result = fit_and_evaluate_glm(train_small_df, test_small_df, past_obs = 6, past_mean = 1, link = 'identity', distr = 'poisson')
 error_arr = result$Errors_array
 MSE = result$MSE
+quad_score = result$`Quadratic(Brier) Score`
 fitted_val = result$Fitted_Values
+
 print(paste0("MSE of fitting GLM on smaller subset of dataset: ", MSE))
+print(paste0("Quadratic Score of fitting GLM on smaller subset of dataset: ", quad_score))
 ```
 
 # Apply it on the whole dataset 
@@ -72,8 +79,10 @@ print(paste0("MSE of fitting GLM on smaller subset of dataset: ", MSE))
 result = fit_and_evaluate_glm(train_full_df, test_full_df, past_obs = 1, past_mean = 1, link = 'identity', distr = 'poisson')
 error_arr <- result$Errors_array
 MSE <- result$MSE
+quad_score = result$`Quadratic(Brier) Score`
 fitted_val <- result$Fitted_Values
 print(paste0("MSE of fitting GLM on full dataset: ", MSE))
+print(paste0("Quadratic Score of fitting GLM on full dataset: ", quad_score))
 ```
 
 # Residual Plots
