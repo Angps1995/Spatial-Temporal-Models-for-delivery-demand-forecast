@@ -1,4 +1,4 @@
-\begin{thebibliography}{24}
+\begin{thebibliography}{26}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -21,6 +21,11 @@ Bjørnland, Hilde~Christiane. 2014.
 \bibitem[{Box and Tiao(1977)}]{Box1977}
 Box, George E.~P., George~C. Tiao. 1977.
 \newblock A canonical analysis of multiple time series.
+
+\bibitem[{Czado et~al.(2009)Czado, Gneiting, and Held}]{Czado2009PredictiveMA}
+Czado, Claudia, Tilmann Gneiting, Leonhard Held. 2009.
+\newblock Predictive model assessment for count data.
+\newblock {\it Biometrics\/} {\bf 65 4} 1254--61.
 
 \bibitem[{Ding et~al.(2008)Ding, Trajcevski, Scheuermann, Wang, and
   Keogh}]{Hui2008}
@@ -153,6 +158,14 @@ Wang, Dongjie, Yan Yang, Shangming Ning. 2018.
 \newblock Deepstcl: A deep spatiotemporal convlstm for travel demand
   prediction.
 \newblock \doi{10.1109/IJCNN.2018.8489530}.
+
+\bibitem[{Wecker(1989)}]{jstor}
+Wecker, William~E. 1989.
+\newblock Comment: Assessing the accuracy of time series model forecasts of
+  count observations.
+\newblock {\it Journal of Business \& Economic Statistics\/} {\bf 7}(4)
+  418--419.
+\newblock \urlprefix\url{http://www.jstor.org/stable/1391640}.
 
 \bibitem[{Xiao and Phillips(1998)}]{Zhijie1998}
 Xiao, Zhijie, Peter C.~B. Phillips. 1998.
