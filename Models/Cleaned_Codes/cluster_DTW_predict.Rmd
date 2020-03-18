@@ -160,7 +160,7 @@ reassign_demand_to_loc_and_evaluate = function(cluster_pred, cluster_ind, train_
         errors <- errors + error
         prev_pred <- curr_pred
         for (j in c(1:num_locs)) {if (isFALSE(is.nan(suppressWarnings(scoring(act[j], curr_pred[j], distr=c("poisson"))['quadratic'][['quadratic']])))) {
-          quad_score <- quad_score + scoring(act[j], curr_pred[j], distr=c("poisson"))['quadratic']}}
+          quad_score <- quad_score + scoring(act[j], curr_pred[j], distr=c("poisson"))['quadratic']}}  
     }
     return (list("Errors_array" = error_arr, "Fitted_Values" = fitted_val, "MSE" = errors/6, 'Quadratic(Brier) Score' = quad_score/6))
 }

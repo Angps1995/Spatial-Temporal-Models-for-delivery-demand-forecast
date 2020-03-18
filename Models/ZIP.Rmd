@@ -27,8 +27,8 @@ train <- df_atleast_50cts
 
 train <- df_atleast_50cts[,1:198]
 test <- df_atleast_50cts[,199:204]
-train<- full_df[,1:198]
-test <- full_df[,199:204]
+#train<- full_df[,1:198]
+#test <- full_df[,199:204]
 errors <- 0
 for (i in c(1:dim(train)[1])) {
     t <- train[i,]    
@@ -43,6 +43,6 @@ for (i in c(1:dim(train)[1])) {
     error <- sum(((as.numeric(test[i,]) - pred[1:6])) ^ 2)
     errors <- errors + error
 }
-print(paste0(" MSFE: ", errors/42))
+print(paste0(" MSFE: ", errors/6))
 
 ```

@@ -207,6 +207,17 @@ From Figure 1 in Section 3.1, the data is very sparse as there are many location
 
 \noindent The following sections of the paper is structured as follows. We first implement a simple baseline ARIMA model in section 4. Section 5 and 6 follow a similar idea to the baseline model, but instead of fitting an ARIMA model on all locations, we fit a Generalized Linear Model (GLM) in Section 5 instead and in section 6, we fit a Vector Autoregressive Model using all the locations as variables. In section 7, we introduce a 3 step modelling approach which would be more interpretable and would also perform the best out of all the models. 
 
+\subsection{Challenges with dataset}
+
+There are 3 key challenges with our dataset:
+
+	1. Sparse data as most of the demand values are 0
+	
+	2. Count data as all our values are in integer
+	
+	3. High-dimensional, where we have time series for 839 locations
+
+
 \newpage
 
 \section{Baseline Model}
