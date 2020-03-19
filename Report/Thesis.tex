@@ -127,7 +127,7 @@ This paper would explore the usage of classical statistical methods along with u
 
 \noindent Spatio-temporal demand prediction has slowly gained popularity over the years with the rise of deep learning. There are various research on different deep learning methods used for spatio-temporal demand prediction. One example would be \cite{Wang2018}, where they applied deep spatio-temporal convolutional LSTM methods for traffic demand prediction. \\
 
-\noindent While most existing research regarding spatio-temporal forecasting makes use of deep learning methods, this paper would be focus only on using classical statistical method instead as the dataset we are using is small and classical methods are relatively more interpretable than deep learning neural networks. Another example of using classical time series methods for spatio-temporal forecasting would be \cite{Abolfazl2017}, where they proposed using generalized spatio-temporal autoregressive model for predicting taxi demands across locations in New York City. \\
+\noindent While most existing research regarding spatio-temporal forecasting makes use of deep learning methods, this paper would be focus only on using classical statistical method instead as the dataset we are using is small and classical methods are relatively more interpretable than deep learning neural networks. Another example of using classical time series methods for spatio-temporal forecasting would be \cite{Abolfazl2017}, where they proposed using generalized spatio-temporal autoregressive (STAR) model for predicting taxi demands across locations in New York City. \cite{KURT20152537} also provides the background and theoretical details of STAR models, which they used on a dataset of regional bank deposits. \\
 
 \noindent \cite{Marina2016} describes and shows how they implemented a network autoregressive moving average model to model the number of cases of Mumps in UK counties. In their example, they also showed that they might achieve a better result by modelling the series separately as univariate time series, also suggested in \cite{Nunes2015} since the neighbouring counties does not provide a substantial amount of explanatory power.  Other related literature includes \cite{Xavier2005} where they propose a model building strategy for spatially sparse but temporally rich data. \\
 
@@ -430,9 +430,16 @@ On the small dataset, the MSE using the VAR model is \textbf{47.28} while the MS
 
 We also note that the output for VAR or VARX model is in a fractional number instead of an integer. To convert our predictions to an integer for practical purposes, we round the predictions to the nearest integer. While both VAR and VARX are an improvement from the GLM model and also beats the ARIMA baseline model on the smaller dataset, the VAR model fails to beat the baseline model MSE of 73.29. This might be because in the baseline model, since each location is fitted with an individual ARIMA model, those sparse locations would have predictions of all 0, which would be accurate. In the smaller dataset, since we only used locations that are not sparse (locations with at least 50 non-zero counts), and the VAR/VARX model uses all locations' demand values, the existence of spatial correlation would cause the VAR/VARX model to perform better than the ARIMA. However, using VAR/VARX on the full dataset, which contains locations with sparse demand would not beat the ARIMA model because the presence of non-zero coefficients would cause many predictions to be non-zero, hence producing a more inaccurate prediction as compared to the baseline ARIMA model. \\
 
-\noindent Having noticed the abovementioned problem in locations with sparse demand. the next section would introduce a 3-step approach to fix this issue. 
+%\noindent Having noticed the abovementioned problem in locations with sparse demand. the next section would introduce a 3-step approach to fix this issue. 
 
 \newpage
+
+\section{Spatio-Temporal Autoregressive Model}
+
+\cite{Abolfazl2017} has evaluated ARMA, VAR and Spatio-Temporal Autoregressive (STAR) model to predict taxi demands in New York City and have found that STAR models performs much better. This section would explore the use of STAR models on our dataset. \\
+
+\noindent \cite{KURT20152537} 
+
 
 \section{3-step Approach}
 

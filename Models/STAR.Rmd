@@ -21,67 +21,64 @@ train_full_df <- t(full_df[,1:198])
 test_full_df <- t(full_df[,199:204])
 ```
 
+# Implement function to fit and evaluate GLM
 ```{r}
 
-# Small subset
-num_per_train = dim(train_small_df)[1]
-num_loc_train = dim(train_small_df)[2]
+fit_and_evaluate_star = function(train, test, ar_term, ma_term){
+    # Small subset
+    num_per_train = dim(train)[1]
+    num_loc_train = dim(train)[2]
+    
+    # set uniform weights
+    weight <- diag(-1, num_loc_train, num_loc_train) + matrix(1, num_loc_train, num_loc_train)
+    weight = weight/(num_loc_train)
+    
+    # Fit STARMA models
+    fit <- gstar(train, weight = weight,
+    p = ar_term, d = ma_term, est = "OLS")
+    
+    # Predict and get error metrics
+    errors <- 0
+    quad_score <- 0
+    
+    # predict 6 step ahead
+    pred <- predict(fit, n = dim(test)[1])
+    error <- sum(((c(test_small_df) - c(pred))) ^ 2)
+    errors <- errors + error
+    for (i in c(1:dim(test)[1])) {
+        for (j in c(1:num_loc_train)) {
+            if (isFALSE(is.nan(scoring(test[i,j], pred[i,j], distr=c("poisson"))['quadratic']))) {
+                quad_score <- quad_score + scoring(test[i,j], pred[i,j], distr=c("poisson"))['quadratic']
+            }
+        }
+    }
+    return (list("MSE" = errors/6, 'Quadratic(Brier) Score' = quad_score/6))
+}
 
-# set uniform weights
-small_subset_weight <- diag(-1, num_per_train, num_loc_train) + matrix(1,num_per_train,num_loc_train)
-small_subset_weight = small_subset_weight/(num_loc_train - 1)
+```
+
+
+# Apply it on the subset of the dataset 
+```{r}
+# Fit and evaluate on smaller subset of dataset
+result = fit_and_evaluate_star(train_small_df, test_small_df, ar_term=5, ma_term=0)
+MSE = result$MSE
+quad_score = result$`Quadratic(Brier) Score`
+
+print(paste0("MSE of fitting STAR on smaller subset of dataset: ", MSE))
+print(paste0("Quadratic Score of fitting STAR on smaller subset of dataset: ", quad_score))
+```
+
+# Apply it on the full of the dataset 
+```{r}
+# Fit and evaluate on full dataset
+result = fit_and_evaluate_star(train_full_df, test_full_df, ar_term=1, ma_term=0)
+MSE = result$MSE
+quad_score = result$`Quadratic(Brier) Score`
+
+print(paste0("MSE of fitting STAR on full dataset: ", MSE))
+print(paste0("Quadratic Score of fitting STAR on full dataset: ", quad_score))
 ```
 
 
 
-
-```{r}
-library(gstar)
-library(xts)
-data("LocationCPI")
-#-----Use data with xts object----#
-x = xts(LocationCPI[, -1], order.by = as.Date(LocationCPI[, 1]))
-s <- round(nrow(x) * 0.8) ## split into training and testing (80:20)
-x_train <- x[1:s, ]
-x_test <- x[-c(1:s), ]
-weight = matrix(c(0, 1, 1, 1, # create the uniform weight.
-1, 0, 1, 1,
-1, 1, 0, 1,
-1, 1, 1, 0), ncol = 4, nrow = 4)
-weight = weight/(ncol(x) - 1) #the sum of weight is equal to 1 every row.
-fit <- gstar(x_train, weight = weight,
-p = 1, d = 0, est = "OLS")
-summary(fit)
-performance(fit)
-performance(fit, x_test) ## to check the performance with testing data
-predict(fit, n = 10) #forecast 10 data ahead
-plot(fit)
-plot(fit, n_predict = 10) #plot with 10 forecasting data
-plot(fit, testing = x_test)
-#---- Use dataframe or matrix---#
-x2 <- LocationCPI
-x2$Date <- NULL # remove the date column
-data(Loc)
-dst <- as.matrix(dist(Loc[, -1], diag = TRUE, upper = TRUE))
-dst1 <- matrix(0, nrow = nrow(dst), ncol = ncol(dst))
-for(i in 1:nrow(dst)) {
-for(j in 1:ncol(dst)){
-if(j == i) next
-dst1[i, j] <- sum(dst[i, -j])/sum(dst[i,])
-}
-}
-weight_inverse_distance <- matrix(0, nrow = nrow(dst), ncol = ncol(dst))
-for(i in 1:nrow(dst)) {
-for(j in 1:ncol(dst)){
-if(j == i) next
-weight_inverse_distance[i, j] <- sum(dst1[i, j])/sum(dst1[i,])
-}
-}
-fit_inverse_distance <- gstar(x2, weight =
-weight_inverse_distance, p = 2, d = 1, est = "OLS")
-summary(fit_inverse_distance)
-performance(fit_inverse_distance)
-predict(fit_inverse_distance)
-plot(fit_inverse_distance)
-```
-                                      

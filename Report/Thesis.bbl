@@ -1,4 +1,4 @@
-\begin{thebibliography}{26}
+\begin{thebibliography}{27}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -68,6 +68,17 @@ Johansen, Soren. 1991.
 \bibitem[{Knight et~al.(2016)Knight, Nunes, and Nason}]{Marina2016}
 Knight, Marina~I., M.~A. Nunes, Guy~P. Nason. 2016.
 \newblock Modelling, detrending and decorrelation of network time series.
+
+\bibitem[{Kurt and Tunay(2015)}]{KURT20152537}
+Kurt, Serkan, K.~Batu Tunay. 2015.
+\newblock Starma models estimation with kalman filter: The case of regional
+  bank deposits.
+\newblock {\it Procedia - Social and Behavioral Sciences\/} {\bf 195} 2537 --
+  2547.
+\newblock \doi{https://doi.org/10.1016/j.sbspro.2015.06.441}.
+\newblock
+  \urlprefix\url{http://www.sciencedirect.com/science/article/pii/S1877042815039208}.
+\newblock World Conference on Technology, Innovation and Entrepreneurship.
 
 \bibitem[{Liboschik et~al.(2017)Liboschik, Fokianos, and Fried}]{Tobias2017}
 Liboschik, Tobias, Konstantinos Fokianos, Roland Fried. 2017.
