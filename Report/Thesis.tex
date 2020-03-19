@@ -438,8 +438,13 @@ We also note that the output for VAR or VARX model is in a fractional number ins
 
 \cite{Abolfazl2017} has evaluated ARMA, VAR and Spatio-Temporal Autoregressive (STAR) model to predict taxi demands in New York City and have found that STAR models performs much better. This section would explore the use of STAR models on our dataset. \\
 
-\noindent \cite{KURT20152537} 
+\noindent We will outline the basic theoretical framework for the STAR models, as also described in \cite{KURT20152537}. STAR models can be expressed as : 
 
+\begin{center}
+    $\displaystyle y_{i,t} = \phi y_{i,t-1} + \varphi \sum_{j=1}^{k}w_{i,j}^{(s)}y_{j,t-1} + \epsilon_{i,t}$
+\end{center}
+
+\noindent where
 
 \section{3-step Approach}
 
@@ -709,6 +714,7 @@ The table below summarises the results of our models.
 \textbf{GLM}                                                                                                 & 38.16                                                                                              & 82.42                         &  &  \\ \cline{1-3}
 \textbf{VAR}                                                                                                 & 47.28 & 82.87                        &  &  \\ \cline{1-3}
 \textbf{VARX}                                                                                                & 45.76                                                                                              & 68.29                         &  &  \\ \cline{1-3}
+\textbf{STAR}                                                                                                & 39.76                                                                                              & 81.50                         &  &  \\ \cline{1-3}
 \textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using K-means \\ on geographical location)\end{tabular}} & 40.42 & 60.12 &  &  \\ \cline{1-3}
 \textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on correlation \\ of time series)\end{tabular}}           & 42.83 & \textbf{59.27}                         &  &  \\ \cline{1-3}
 \textbf{\begin{tabular}[c]{@{}l@{}}3-step approach (Using \\ K-means on DTW \\ of time series)\end{tabular}}           & 39.05 & 62.07                         &  &  \\ \cline{1-3}

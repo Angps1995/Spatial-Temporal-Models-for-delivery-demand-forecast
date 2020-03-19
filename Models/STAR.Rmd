@@ -43,7 +43,7 @@ fit_and_evaluate_star = function(train, test, ar_term, ma_term){
     
     # predict 6 step ahead
     pred <- predict(fit, n = dim(test)[1])
-    error <- sum(((c(test_small_df) - c(pred))) ^ 2)
+    error <- sum(((c(test) - c(pred))) ^ 2)
     errors <- errors + error
     for (i in c(1:dim(test)[1])) {
         for (j in c(1:num_loc_train)) {
