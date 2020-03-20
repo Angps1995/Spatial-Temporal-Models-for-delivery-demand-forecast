@@ -6,6 +6,7 @@ output: html_notebook
 # Load Libraries and dataset
 ```{r}
 library(tscount)
+library(tseries)
 library(urca)
 library(factoextra)
 library(vars)
@@ -214,10 +215,14 @@ get_clustering_by_loc_result = function(num_clust, loc_df, ori_df, train_df, p=6
 # Apply on small dataset
 
 ```{r eval=FALSE}
-get_clustering_by_loc_result(num_clust=3, loc_df = mini_loc_df, ori_df = df_atleast_50cts_endo, train_df = train_small)
-get_clustering_by_loc_result(num_clust=6, loc_df = mini_loc_df, ori_df = df_atleast_50cts_endo, train_df = train_small)
-get_clustering_by_loc_result(num_clust=9, loc_df = mini_loc_df, ori_df = df_atleast_50cts_endo, train_df = train_small)
-get_clustering_by_loc_result(num_clust=12, loc_df = mini_loc_df, ori_df = df_atleast_50cts_endo, train_df = train_small)
+clusters <- c(1:12)
+MSE <- c()
+quad_score <- c()
+for (i in clusters) {
+    res <- get_clustering_by_loc_result(num_clust=i, loc_df = mini_loc_df, ori_df = df_atleast_50cts_endo, train_df = train_small)
+    MSE <-c(MSE, res$MSE)
+    quad_score <- c(quad_score, res$quad_score)
+}
 ```
 
 # Apply on full dataset (Try clustering groups 1-12)

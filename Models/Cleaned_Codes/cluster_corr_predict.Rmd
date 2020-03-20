@@ -208,10 +208,14 @@ get_clustering_by_corr_result = function(num_clust, ori_df, train_df, p=6, struc
 # Apply on small dataset
 
 ```{r eval=FALSE}
-get_clustering_by_corr_result(num_clust=3, ori_df = df_atleast_50cts_endo, train_df = train_small)
-get_clustering_by_corr_result(num_clust=6, ori_df = df_atleast_50cts_endo, train_df = train_small)
-get_clustering_by_corr_result(num_clust=9, ori_df = df_atleast_50cts_endo, train_df = train_small)
-get_clustering_by_corr_result(num_clust=12, ori_df = df_atleast_50cts_endo, train_df = train_small)
+clusters <- c(1:12)
+MSE <- c()
+quad_score <- c()
+for (i in clusters) {
+    res <- get_clustering_by_corr_result(num_clust=i, ori_df = df_atleast_50cts_endo, train_df = train_small)
+    MSE <-c(MSE, res$MSE)
+    quad_score <- c(quad_score, res$quad_score)
+}
 ```
 
 # Apply on full dataset (Try clustering groups 1-12)
