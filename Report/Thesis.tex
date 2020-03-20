@@ -434,17 +434,26 @@ We also note that the output for VAR or VARX model is in a fractional number ins
 
 \newpage
 
-\section{Spatio-Temporal Autoregressive Model}
+\section{Spatio-Temporal Autoregressive Model (STAR)}
 
 \cite{Abolfazl2017} has evaluated ARMA, VAR and Spatio-Temporal Autoregressive (STAR) model to predict taxi demands in New York City and have found that STAR models performs much better. This section would explore the use of STAR models on our dataset. \\
 
-\noindent We will outline the basic theoretical framework for the STAR models, as also described in \cite{KURT20152537}. STAR models can be expressed as : 
+\noindent We will outline the basic theoretical framework for STAR models. STAR model is a unique time series model that takes into account relationships between variables across both time and space. For spatio-temporal data, it is common to have interdependencies between geographical locations and taking into account these spatial interdependencies might lead to a more accurate prediction. The main problem, however, is on how to accurately define the spatial interdependencies. Spatial relationships between the locations can vary at different time periods, however in this paper, we would first assume that spatial relationships remain constant throughout the time periods and computing spatial relationships that differ over time might be explored in future research. \\
+
+\noindent We also introduce the concept of spatial lags. Temporal lag is relatively more straightforward as it just shifts the observed value to a different time in the past. However, defining spatial lags are not as direct. The first step would be to determine and group locations into neighbourhood sets before defining the first, second and any higher-order neighbourhood sets. In this paper, we shall assume that for all locations, their first-order neighbourhood set would include all other locations. Now that we have defined our neighbourhood set for each location, 
+
+\noindent Let $w_{i}^{(s)}$ represent the spatial weights for which the sum of the weights for each region i equals to 1 and have non-zero values for region i's first order neighbours. We can then combine all regions' weights into $W^{(s)}$, which represents a spatial weight matrix of N x N where N is the number of locations that our dataset has. \\
+
+
+\noindent The generalized STAR models can then be expressed as: 
 
 \begin{center}
-    $\displaystyle y_{i,t} = \phi y_{i,t-1} + \varphi \sum_{j=1}^{k}w_{i,j}^{(s)}y_{j,t-1} + \epsilon_{i,t}$
+    $\displaystyle y_{t} = \sum_{l=1}^{p}\sum_{s=0}^{k_l}\phi_{ls} W^{(s)}y_{t-l} + \epsilon_{t}$
 \end{center}
 
-\noindent where
+\noindent where $l$ represents time lag and $s$ reprsents spatial lag. $y_{t}$ represents the predicted demand at time t, $\phi_{ls}$ represents diagonal matrices, $\epsilon_{t}$ represents white noise with mean vector 0. 
+
+\noindent More details regarding STAR models can be found in \cite{KURT20152537}.
 
 \section{3-step Approach}
 
