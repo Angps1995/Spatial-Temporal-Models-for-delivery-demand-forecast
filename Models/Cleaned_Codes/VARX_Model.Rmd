@@ -56,6 +56,7 @@ fit_and_eval_varx = function(diff_df, ori_df, p, struct, T1, T2, num_loc, num_la
           Fitted_Values: Fitted values for the actual counts/predictions
           VAR_Fitted: Fitted values of the VAR model
           MSE: Mean Squared Error
+          Quad Score: Quadratic Score
    "
 
    VARX = list()
@@ -68,6 +69,7 @@ fit_and_eval_varx = function(diff_df, ori_df, p, struct, T1, T2, num_loc, num_la
    errors <- 0
    error_arr <- c()
    fitted_val <- c()
+   quad_score <- 0
    for (i in c(1:6)) {
         diff <- varx_model@fitted[dim(varx_model@fitted)[1] - (6-i),]  # get predicted differences 
         curr_pred <- prev_pred + diff  # convert back to original values
@@ -77,8 +79,13 @@ fit_and_eval_varx = function(diff_df, ori_df, p, struct, T1, T2, num_loc, num_la
         error <- sum((curr_pred - act) ^ 2)
         errors <- errors + error
         prev_pred <- curr_pred
+        for (j in c(1:num_loc)) {
+            if (isFALSE(suppressWarnings(is.nan(scoring(act[j], curr_pred[j], distr=c("poisson"))['quadratic'])))) {
+                quad_score <- quad_score + scoring(act[j], curr_pred[j], distr=c("poisson"))['quadratic']
+            }
+        }
    }
-   return (list("Errors_array" = error_arr, "VARX_Errors" = varx_model@resids, "Fitted_Values" = fitted_val, "VARX_Fitted" = varx_model@fitted, "MSE" = errors/6))
+   return (list("Errors_array" = error_arr, "VARX_Errors" = varx_model@resids, "Fitted_Values" = fitted_val, "VARX_Fitted" = varx_model@fitted, "MSE" = errors/6, 'Quadratic(Brier) Score' = quad_score/6))
 }
 
 ```
@@ -104,7 +111,9 @@ varx_error <- result$VARX_Errors
 varx_fitted <- result$VARX_Fitted
 MSE <- result$MSE
 fitted_val <- result$Fitted_Values
+quad_score = result$`Quadratic(Brier) Score`
 print(paste0("MSE of fitting VARX on small dataset: ", MSE))
+print(paste0("Quadratic Score of fitting VARX on small dataset: ", quad_score))
 ```
 
 # Apply VARX on full dataset 

@@ -4,6 +4,7 @@
 \usepackage{algorithmic}
 % Natbib setup for author-year style
 \usepackage{natbib}
+\usepackage[justification=centering]{caption}
 \usepackage{color}
 \usepackage{epstopdf} % Allow importing eps file directly
 \bibpunct[, ]{(}{)}{,}{a}{}{,}%
@@ -103,9 +104,9 @@
 quires predicting demand at a certain time across different locations. Most of the
 demand data are not continuous variables but instead count variables, like number
 of orders and number of transactions. Previous research have mainly explored neural
-network methods for spatio-temporal problems. In this paper, we focus on how we can
-apply classical time series model, using Vector Autoregressive models to exploit spatial
-correlations as well as introduce a 3-step approach to improve forecast accuracy.}
+network methods for spatio-temporal problems. In this paper, we want to have a more interpretable method and hence will focus on how we can
+apply classical time series model, such as Vector Autoregressive (VAR), Spatio-Temporal Autoregressive (STAR) models to exploit spatial
+correlations as well as also introduce a 3-step approach to improve forecast accuracy.}
 
 
 % Fill in data. If unknown, outcomment the field
@@ -114,7 +115,7 @@ correlations as well as introduce a 3-step approach to improve forecast accuracy
 
 % Text of your paper here
 
-
+\newpage
 \section{Introduction}
 
 This paper would explore the usage of classical statistical methods along with unsupervised learning methods, like clustering, for the purpose of spatio-temporal forecasting. The motivation for this paper comes from \cite{Sheng2018}, where the focus is to optimise assignments of lunch delivery orders to drivers in order to minimize the total delay of all drivers. The dataset used in both \cite{Sheng2018} and this paper are from a food service provider in China that allows customer to place orders before a cutoff time in the day (e.g 10.00am) and the customer can expect to recieve their orders by a deadline (e.g anytime from 10.30am to 11.45am). \\
@@ -123,18 +124,18 @@ This paper would explore the usage of classical statistical methods along with u
 
 \noindent In reality, demand is never deterministic and hence, having an accurate forecast of demand for the food service providers would help them more effectively and efficiently assign orders to drivers to improve the overall delivery time. As such, the focus of this paper would be to accurately model and forecast the demand at the different locations and time. Currently, most Autoregressive (AR) or Autoregressive Integrated Moving Average (ARIMA) models only consider temporal features when predicting demand. However, we believe including spatial features between the data points might improve forecast accuracy. In this paper, classical time series models, such as Generalized Linear Model (GLM), ARIMA, as well as Vector Autoregressive (VAR) models, that include both spatial and temporal features would be explored. We also introduce a 3-step approach that combined unsupervised learning and classical statistical methods to improve forecast accuracy. 
 
+\newpage
 \section{Literature Review}
 
 \noindent Spatio-temporal demand prediction has slowly gained popularity over the years with the rise of deep learning. There are various research on different deep learning methods used for spatio-temporal demand prediction. One example would be \cite{Wang2018}, where they applied deep spatio-temporal convolutional LSTM methods for traffic demand prediction. \\
 
-\noindent While most existing research regarding spatio-temporal forecasting makes use of deep learning methods, this paper would be focus only on using classical statistical method instead as the dataset we are using is small and classical methods are relatively more interpretable than deep learning neural networks. Another example of using classical time series methods for spatio-temporal forecasting would be \cite{Abolfazl2017}, where they proposed using generalized spatio-temporal autoregressive (STAR) model for predicting taxi demands across locations in New York City. \cite{KURT20152537} also provides the background and theoretical details of STAR models, which they used on a dataset of regional bank deposits. \\
+\noindent While most existing research regarding spatio-temporal forecasting makes use of deep learning methods, this paper would be focus only on using classical statistical method instead as the dataset we are using is small and classical methods are relatively more interpretable than deep learning neural networks. Another example of using classical time series methods for spatio-temporal forecasting would be \cite{Abolfazl2017}, where they proposed using generalized spatio-temporal autoregressive (STAR) model for predicting taxi demands across locations in New York City. \cite{KURT20152537} also provides the background and theoretical details of STAR models, which they used on a dataset of regional bank deposits. STAR models originated from the 1980s but has been relatively silent during that period due to lack of relevant datasets. We will attempt to use STAR models in this paper as explained in section 7. \\
 
 \noindent \cite{Marina2016} describes and shows how they implemented a network autoregressive moving average model to model the number of cases of Mumps in UK counties. In their example, they also showed that they might achieve a better result by modelling the series separately as univariate time series, also suggested in \cite{Nunes2015} since the neighbouring counties does not provide a substantial amount of explanatory power.  Other related literature includes \cite{Xavier2005} where they propose a model building strategy for spatially sparse but temporally rich data. \\
 
-\noindent Since the dataset that we will be using in this paper have a unique feature in which our data are count, which are integer, values. As such, classical models such as poisson regression that are used for count data would produced probabilistic result in the form of fracional numbers. Hence, past studies related to the different metrics used to evaluate probabilistic forecasting was done. \cite{Czado2009PredictiveMA} mentioned that probabilistic forecasting should aim to maximise sharpness of predictive distributions subject to calibration, where sharpness is defined as the concentration of the predicted distribution while calibration refers to the statistical consistency between the forecasts and the actual observation. \\
+\noindent The dataset that we will be using in this paper have a unique feature in which our data points are count (integer) values. As such, classical models such as poisson regression that are used for count data would produce probabilistic result in the form of fractional numbers. Hence, classical statistical accuracy metrics, like Mean Squared Error, as well as proper scoring rules for probabilistic forecast should be considered to evaluate both the accuracy as well as the fitness of our predictions. Past studies related to the different metrics used to evaluate probabilistic forecasting was done. \cite{Czado2009PredictiveMA} mentioned that probabilistic forecasting should aim to maximise sharpness of predictive distributions subject to calibration, where sharpness is defined as the concentration of the predicted distribution while calibration refers to the statistical consistency between the forecasts and the actual observation. As such, some scoring rules that could be used would be the logaritmic score, quadratic score, spherical score and ranked probability score. \\
 
-\noindent BigVAR and tscount are some libraries that would be used in this paper. \cite{Tobias2017} provides the mathematical background and implementation of Generalised Linear Models (GLM) for count time series as a library (tscount) in R while \cite{William2017} extensively descibes the background and implementation of the VAR models and BigVAR library for multi-variate time series.
-
+\noindent BigVAR and tscount are some libraries in R that would be used in this paper. \cite{Tobias2017} provides the mathematical background and implementation of Generalised Linear Models (GLM) for count time series as a library (tscount) in R, and tscount also provides the calculation for the scoring rules for probabilistic forecasting. \cite{William2017} extensively descibes the background and implementation of the VAR models and BigVAR library for multi-variate time series. 
 
 
 \section{Data}
@@ -190,6 +191,7 @@ We would first do some exploratory analysis and check if there are any interesti
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth, height=0.32\textheight]{Images/pressure_mean_demand.jpg}
+    \captionsetup{justification=centering}
     \textbf{\caption{Scatter plot of mean demand against pressure}}
     \label{fig:Scatter plot of mean counts against pressure}
 \end{figure}
@@ -238,7 +240,14 @@ where \textit{n} is the number of data points, $\hat{y_t}$ is the predicted valu
     $\displaystyle qs(P, x) = -2p_{x} + \left \| p \right \|^{2}$
 \end{center}
 
-\noindent where P represents the predicted distribution while x represents actual observed value. We can also compute $\left \| p \right \|^{2} = \sum_{k=0}^{\infty }p_{k}^{2}$ using methods explained in Appendix A of \cite{Czado2009PredictiveMA}. The use of quadratic score in to evaluate time series models for counts was also suggested by \cite{jstor}. Quadratic score is also a strictly proper scoring rule as it follows the property:
+
+\noindent In this paper, we will calculate and report the quadratic score (QS) of our models by this formula:
+
+\begin{center}
+    $\displaystyle QS=\frac{1}{n}\sum_{t=1}^{n}qs(P_t,x_t)$
+\end{center}
+
+\noindent where n represents the number of data points, P represents the predicted distribution while x represents actual observed value. We can also compute $\left \| p \right \|^{2} = \sum_{k=0}^{\infty }p_{k}^{2}$ using methods explained in Appendix A of \cite{Czado2009PredictiveMA}. The use of quadratic score in to evaluate time series models for counts was also suggested by \cite{jstor}. Quadratic score is also a strictly proper scoring rule as it follows the property:
 
 \begin{center}
     $\displaystyle qs(x, x) \leq qs(P, x)$
@@ -267,6 +276,7 @@ As a baseline model, each of the locations was assessed individually and a suita
     \label{fig:ARIMA forecast on a random location}
 \end{figure}
 
+\newpage
 \section{GLM Model}
 The dataset that we are using follows a count time series, which means the observations are non-negative integers. A flexible and commonly used model for count time series is the Generalized Linear Model (GLM) \cite{Nelder1972}. GLM assumes that each value is conditionally dependent on its past values. According to \cite{Tobias2017}, an advantage of GLM models over typical ARIMA models is that GLM can describe covariate effects and negative correlations in a more direct way. GLM normally take the form of:
 
@@ -334,6 +344,7 @@ Vector Autoregressive (VAR) models are the most commonly used model for multivar
 
 As with many spatio-temporal demand prediction, spatial features could be an important feature if there exist spatial correlation. To check if there exist spatial correlation between the locations, a correlation heatmap would be plotted. For clear illustration purposes, instead of showing the matrix of correlation for all 839 locations, only the 42 locations with at least 50 non-zero counts would be shown. 
 
+\newpage
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth, height=0.75\textheight]{Images/heatmap.jpg}
@@ -396,6 +407,7 @@ The plots below shows the distribution of our residuals for the VAR model and th
     \label{fig:Residuals for VAR Model}
 \end{figure}
 
+\newpage
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth, height=0.42\textheight]{Images/Full_VARX_diff_resids.jpg}
@@ -556,6 +568,7 @@ Finally, we explored using Dynamic Time Warping (DTW) Distance as the distance m
 
 \noindent DTW is one of the commonly-used algorithm for speech or audio recognition and it measures the similarity between time series by providing a elastic non-linear alignment between 2 time series. It is known for being effective for time series that have different length or speed. DTW is calculated by first creating a distance matrix and then finding the optimal warping path as shown in the 2 algorithms here:
 
+\newpage
 \begin{algorithm}[H]
 \caption{Dynamic Time Warping (DTW) Algorithm to form distance matrix}
 \begin{algorithmic}
@@ -664,7 +677,7 @@ $D_{C(i)} ={\sum_{l\epsilon C(i)}\sum_{j=1}^{n}x_{lj}}$
 
 2. Next, we check for stationarity for all the cluster's time series and perform differencing if they are non-stationary. 
 
-3. We test out by fitting both VAR model as well as STAR model using the clusters as variables.
+3. We then fit a VAR model that uses 6 past time lags. Alternatively, we also fitted a STAR model that uses 6 past time lags too. 
 
 4. If we have performed differencing in step 2, we then use the VAR/STAR model to predict the differenced values for time-step 199 to 204. We then add back the difference to the previous values to convert it back to the original demand for each cluster. \\
 
@@ -889,8 +902,8 @@ The table below summarises the results of our models.
                                                                       & \textbf{MSE}      & \textbf{Quad Score}     & \textbf{MSE}     & \textbf{Quad Score}     \\ \hline
 \textbf{ARIMA}                                                        & 46.87             &      -19.12                   & 71.73            &                        -772.45 \\ \hline
 \textbf{GLM}                                                          & 38.16             & -19.90                  & 82.42            & -656.94                 \\ \hline
-\textbf{VAR}                                                          & 47.28             &                         & 82.87            &                         \\ \hline
-\textbf{VARX}                                                         & 45.76             &                         & 68.29            &                         \\ \hline
+\textbf{VAR}                                                          & 47.28             &   -15.11                      & 82.87            &                         \\ \hline
+\textbf{VARX}                                                         & 45.76             &  -16.23                       & 68.29            &                         \\ \hline
 \textbf{STAR}                                                         & 39.76             & -20.27                  & 81.50            & -656.32                 \\ \hline
 \textbf{3-step approach (geographical location,VAR)}      & 39.46 &                        -19.28 & 58.19            & -787.15                 \\ \hline
 \textbf{3-step approach (geographical location,STAR)}      & 37.26 &                        -16.98 & 58.95            & -760.05             \\ \hline

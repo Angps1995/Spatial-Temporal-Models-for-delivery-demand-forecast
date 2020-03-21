@@ -8,7 +8,7 @@ output: html_notebook
 library(urca)
 library(BigVAR)
 library(tseries)
-
+library(tscount)
 # Load dataset
 full_df <- read.csv("/home/angps/Documents/Thesis/Data/data.csv")
 df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
@@ -59,6 +59,7 @@ fit_and_eval_var = function(diff_df, ori_df, p, struct, T1, T2) {
           Fitted_Values: Fitted values for the actual counts/predictions
           VAR_Fitted: Fitted values of the VAR model
           MSE: Mean Squared Error
+          Quad Score: Quadratic Score
     "
     model = constructModel(diff_df, p = p, struct = struct, gran = c(25,10), T1 = T1, T2 = T2)
     var_model <- cv.BigVAR(model)  # Fit VAR Model
@@ -67,6 +68,7 @@ fit_and_eval_var = function(diff_df, ori_df, p, struct, T1, T2) {
     errors <- 0
     error_arr <- c()
     fitted_val <- c()
+    quad_score <- 0
     for (i in c(1:6)) {  # For each timestep
         diff <- var_model@fitted[dim(var_model@fitted)[1] - (6-i),]  # Get predicted difference
         curr_pred <- prev_pred + diff  # COnvert to original values
@@ -76,8 +78,14 @@ fit_and_eval_var = function(diff_df, ori_df, p, struct, T1, T2) {
         error <- sum((curr_pred - act) ^ 2)
         errors <- errors + error
         prev_pred <- curr_pred
+        for (j in c(1:dim(diff_df)[2])) {
+            if (isFALSE(suppressWarnings(is.nan(scoring(act[j], curr_pred[j], distr=c("poisson"))['quadratic'])))) {
+                quad_score <- quad_score + scoring(act[j], curr_pred[j], distr=c("poisson"))['quadratic']
+            }
+        }
+
     }
-    return (list("Errors_array" = error_arr, "VAR_Errors" = var_model@resids, "Fitted_Values" = fitted_val, "VAR_Fitted" = var_model@fitted, "MSE" = errors/6))
+    return (list("Errors_array" = error_arr, "VAR_Errors" = var_model@resids, "Fitted_Values" = fitted_val, "VAR_Fitted" = var_model@fitted, "MSE" = errors/6, 'Quadratic(Brier) Score' = quad_score/6))
 }
 
 ```
@@ -104,7 +112,9 @@ var_error <- result$VAR_Errors
 var_fitted <- result$VAR_Fitted
 MSE <- result$MSE
 fitted_val <- result$Fitted_Values
+quad_score = result$`Quadratic(Brier) Score`
 print(paste0("MSE of fitting VAR on small dataset: ", MSE))
+print(paste0("Quadratic Score of fitting VAR on small dataset: ", quad_score))
 ```
 
 
