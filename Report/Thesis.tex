@@ -258,7 +258,7 @@ $\hat{y_t} = \mu + \sum_{i=1}^{p} \phi_i * y_{t-i} - \sum_{j=1}^{q} \theta_j * e
 \noindent where $\hat{y_t}$ refer to the predicted value at time t, $\mu$ refer to a constant, while $\sum_{i=1}^{p} \phi_i * y_{t-i}$ refers to the AR terms and $\sum_{j=1}^{q} \theta_j * e_{t-j}$ refers to the MA terms.
 
 \subsection{Baseline ARIMA Result}
-As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from Python was used to implement this. The out-of-sample MSE for this baseline model on the smaller dataset is \textbf{47.60} and MSE for dataset of all locations is \textbf{73.29}. A sample forecast plot is shown below:
+As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from R was used to implement this. The out-of-sample MSE for this baseline model on the smaller dataset is \textbf{46.87} and the quadratic score is \textbf{-19.12} while the MSE for dataset of all locations is \textbf{71.73} and the quadratic score is \textbf{-772.45}. A sample forecast plot is shown below:
 
 \begin{figure}[H]
     \centering
@@ -493,7 +493,7 @@ In this section, we introduce an alternative 3-step approach. The overall steps 
 	
 	
 	
-\noindent \textbf{Step 2}. Aggregate the clusters by performing a summation the respective locations' demand over time. Train a VAR model on the clusters to predict the total demand for each cluster. \\
+\noindent \textbf{Step 2}. Aggregate the clusters by performing a summation the respective locations' demand over time. Train a VAR or a STAR model on the clusters to predict the total demand for each cluster. \\
 
 \noindent \textbf{Step 3}. Re-allocate the total demand of each cluster to each location in the cluster while maintain a relative constant distribution as before. \\
 
@@ -663,11 +663,11 @@ $D_{C(i)} ={\sum_{l\epsilon C(i)}\sum_{j=1}^{n}x_{lj}}$
 
 2. Next, we check for stationarity for all the cluster's time series and perform differencing if they are non-stationary. 
 
-3. A VAR model was then trained using the clusters as variables.
+3. We test out by fitting both VAR model as well as STAR model using the clusters as variables.
 
-4. If we have performed differencing in step 2, we then use the VAR model to predict the differenced values for time-step 199 to 204. We then add back the difference to the previous values to convert it back to the original demand for each cluster. \\
+4. If we have performed differencing in step 2, we then use the VAR/STAR model to predict the differenced values for time-step 199 to 204. We then add back the difference to the previous values to convert it back to the original demand for each cluster. \\
 
-\noindent If we want to use a VARX model,the exogenous variables of each locations would have to be aggregated in some way when we combine the different locations into clusters, which might introduce a additional source of error. Hence, in this section, we would only use VAR since it does not require the aggregation of exogenous variables.
+\noindent If we want to use a VARX model,the exogenous variables of each locations would have to be aggregated in some way when we combine the different locations into clusters, which might introduce a additional source of error. Hence, in this section, we would only use VAR/STAR since it does not require the aggregation of exogenous variables.
 
 
 \subsection{Assigning total cluster demand to individual location}
@@ -685,64 +685,64 @@ After we attained the total demand for each cluster, the next step would be to r
 
 \subsection{Results}
 
-In this 3-step approach, it is not appropriate to use conventional methods, such as the elbow method, to determine the number of clusters. This is because our purpose here is not to minimize the within cluster sum-of-squares, but rather to find the optimal combination of groups that yields the best forecast accuracy after we fit a VAR model on them and reallocate the demand using the VAR model predictions. Hence, we tried different number of clusters for the 3 different distance metric as mentioned in Section 7.1 and observe the MSE and quadratic score for each of them.
+In this 3-step approach, it is not appropriate to use conventional methods, such as the elbow method, to determine the number of clusters. This is because our purpose here is not to minimize the within cluster sum-of-squares, but rather to find the optimal combination of groups that yields the best forecast accuracy after we fit a VAR or a STAR model on them and reallocate the demand using the VAR/STAR model predictions. Hence, we tried different number of clusters for the 3 different distance metric as mentioned in Section 7.1 and observe the MSE and quadratic score for each of them.
 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth, height=0.6\textheight]{Images/Cluster_Combi_MSE_plot.jpg}
-    \textbf{\caption{Plot of MSE against number of clusters for different distance metrics}}
-    \label{fig:Plot of MSE against number of clusters for different distance metrics}
+    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Combi_MSE_plot.jpg}
+    \textbf{\caption{Plot of MSE against number of clusters for different distance metrics. We can see that the optimal choice based on MSE would be using the correlation between time series with 6 clusters, giving a MSE of 59.27}}
+    \label{fig:Plot of MSE against number of clusters for different distance metrics. We can see that the optimal choice based on MSE would be using the correlation between time series with 6 clusters, giving a MSE of 59.27}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth, height=0.6\textheight]{Images/Cluster_Combi_quad_plot.jpg}
-    \textbf{\caption{Plot of Quadratic score against number of clusters for different distance metrics}}
-    \label{fig:Plot of Quadratic score against number of clusters for different distance metrics}
+    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Combi_quad_plot.jpg}
+    \textbf{\caption{Plot of Quadratic score against number of clusters for different distance metrics. We can see that the optimal choice based on quadratic score is using correlation between time series with 7 custers, giving a quadratic score of -787.27}}
+    \label{fig:Plot of Quadratic score against number of clusters for different distance metrics. We can see that the optimal choice based on quadratic score is using correlation between time series with 7 custers, giving a quadratic score of -787.27}
 \end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Loc_MSE_plot.jpg}
-    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: Euclidean Distance of geographical locations. The optimal number of clusters is 3 with a MSE of 60.10.}}
-    \label{fig:Plot of MSE against number of clusters. Distance metric used: Euclidean Distance of geographical locations. The optimal number of clusters is 3 with a MSE of 60.10.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Loc_quad_plot.jpg}
-    \textbf{\caption{Plot of Quadratic Score against number of clusters. Distance metric used: Euclidean Distance of geographical locations. The optimal number of clusters is 3 with a score of -786.93.}}
-    \label{fig:Plot of Quadratic Score against number of clusters. Distance metric used: Euclidean Distance of geographical locations. The optimal number of clusters is 3 with a score of -786.93.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Corr_MSE_plot.jpg}
-    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: Correlation of time series. The optimal number of clusters is 6 with a MSE of 59.27.}}
-    \label{fig:Plot of MSE against number of clusters. Distance metric used: Correlation of time series. The optimal number of clusters is 6 with a MSE of 59.27.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Corr_quad_plot.jpg}
-    \textbf{\caption{Plot of Quadratic Score against number of clusters. Distance metric used: Correlation of time series. The optimal number of clusters is 7 with a score of -787.27.}}
-    \label{fig:Plot of Quadratic Score against number of clusters. Distance metric used: Correlation of time series. The optimal number of clusters is 7 with a score of -787.27.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_DTW_MSE_plot.jpg}
-    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: DTW of time series. The optimal number of clusters is 8 with a MSE of 60.36.}}
-    \label{fig:Plot of MSE against number of clusters. Distance metric used: Correlation of time series. The optimal number of clusters is 8 with a MSE of 60.36.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_DTW_quad_plot.jpg}
-    \textbf{\caption{Plot of Quadratic Score against number of clusters. Distance metric used: DTW of time series. The optimal number of clusters is 7 with a score of -785.88}}
-    \label{fig:Plot of Quadratic Score against number of clusters. Distance metric used: DTW of time series. The optimal number of clusters is 7 with a score of -785.88}
-\end{figure}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Loc_MSE_plot.jpg}
+%    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: Euclidean Distance of geographical locations. The optimal number of clusters is 3 with a MSE of 60.10.}}
+%    \label{fig:Plot of MSE against number of clusters. Distance metric used: Euclidean Distance of geographical locations. The optimal number of clusters is 3 with a MSE of 60.10.}
+%\end{figure}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Loc_quad_plot.jpg}
+%    \textbf{\caption{Plot of Quadratic Score against number of clusters. Distance metric used: Euclidean Distance of geographical locations. The optimal number of clusters is 3 with a score of -786.93.}}
+%    \label{fig:Plot of Quadratic Score against number of clusters. Distance metric used: Euclidean Distance of geographical locations. The optimal number of clusters is 3 with a score of -786.93.}
+%\end{figure}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Corr_MSE_plot.jpg}
+%    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: Correlation of time series. The optimal number of clusters is 6 with a MSE of 59.27.}}
+%    \label{fig:Plot of MSE against number of clusters. Distance metric used: Correlation of time series. The optimal number of clusters is 6 with a MSE of 59.27.}
+%\end{figure}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_Corr_quad_plot.jpg}
+%    \textbf{\caption{Plot of Quadratic Score against number of clusters. Distance metric used: Correlation of time series. The optimal number of clusters is 7 with a score of -787.27.}}
+%    \label{fig:Plot of Quadratic Score against number of clusters. Distance metric used: Correlation of time series. The optimal number of clusters is 7 with a score of -787.27.}
+%\end{figure}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_DTW_MSE_plot.jpg}
+%    \textbf{\caption{Plot of MSE against number of clusters. Distance metric used: DTW of time series. The optimal number of clusters is 8 with a MSE of 60.36.}}
+%    \label{fig:Plot of MSE against number of clusters. Distance metric used: Correlation of time series. The optimal number of clusters is 8 with a MSE of 60.36.}
+%\end{figure}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=0.95\textwidth, height=0.6\textheight]{Images/Cluster_DTW_quad_plot.jpg}
+%    \textbf{\caption{Plot of Quadratic Score against number of clusters. Distance metric used: DTW of time series. The optimal number of clusters is 7 with a score of -785.88}}
+%    \label{fig:Plot of Quadratic Score against number of clusters. Distance metric used: DTW of time series. The optimal number of clusters is 7 with a score of -785.88}
+%\end{figure}
 
 %\begin{table}[H]
 %\begin{tabular}{|l|l|l|l|l|}
@@ -780,14 +780,17 @@ The table below summarises the results of our models.
 \hline
                                                                       & \multicolumn{2}{c|}{\textbf{Small Dataset}} & \multicolumn{2}{c|}{\textbf{Full Dataset}} \\ \hline
                                                                       & \textbf{MSE}      & \textbf{Quad Score}     & \textbf{MSE}     & \textbf{Quad Score}     \\ \hline
-\textbf{ARIMA}                                                        & 47.60             &                         & 73.29            &                         \\ \hline
+\textbf{ARIMA}                                                        & 46.87             &      -19.12                   & 71.73            &                        -772.45 \\ \hline
 \textbf{GLM}                                                          & 38.16             & -19.90                  & 82.42            & -656.94                 \\ \hline
 \textbf{VAR}                                                          & 47.28             &                         & 82.87            &                         \\ \hline
 \textbf{VARX}                                                         & 45.76             &                         & 68.29            &                         \\ \hline
 \textbf{STAR}                                                         & 39.76             & -20.27                  & 81.50            & -656.32                 \\ \hline
-\textbf{3-step approach (using geographical location)}      & 39.46 &                        -19.28 & 60.11            & -786.93                 \\ \hline
-\textbf{3-step approach (using correlation of time series)} & 40.73             &      -18.28                  & 59.27            & -705.43                 \\ \hline
-\textbf{3-step approach (using DTW of time series)}         & 37.96             &       -19.69                  & 60.36            & -785.25                 \\ \hline
+\textbf{3-step approach (geographical location,VAR)}      & 39.46 &                        -19.28 & 60.11            & -786.93                 \\ \hline
+\textbf{3-step approach (geographical location,STAR)}      & x &                        -x & x            & -x             \\ \hline
+\textbf{3-step approach (correlation of time series,VAR)} & 40.73             &      -18.28                  & 59.27            & -705.43                 \\ \hline
+\textbf{3-step approach (correlation of time series,STAR)} & x &      -x                 & x           & -x              \\ \hline
+\textbf{3-step approach (DTW of time series,VAR)}         & 37.96             &       -19.69                  & 60.36            & -785.25                 \\ \hline
+\textbf{3-step approach (DTW of time series,STAR)}         & x &       -x                  & x          & -x                \\ \hline
 \end{tabular}
 \textbf{\caption{MSE and Quadratic Score of the different methods used in this paper}}
 \end{table}
@@ -911,50 +914,93 @@ Our 3-step approach model display decent MSE result. However, using VAR is still
 \end{figure}
 
 \newpage
-\subsection{MSE result for different cluster size and distance metric}
+\subsection{MSE result from using VAR to make cluster predictions for different cluster size and distance metrics}
 
 \begin{table}[H]
 \centering
 \begin{tabular}{|l|l|l|l|}
 \hline
 \textbf{Cluster Size} & \textbf{Euclidean Distance} & \textbf{Correlation between time series} & \textbf{DTW Distance} \\ \hline
-\textbf{1}                  & 68.67                                              & 68.67                                               & -                                \\ \hline
-\textbf{2}                  & 69.71                                              & 63.48 & 62.96                            \\ \hline
-\textbf{3}                  & \textbf{60.10}                                     & 63.36 & 61.49                            \\ \hline
-\textbf{4}                  & 62.09                                              & 64.26 & 61.28                            \\ \hline
-\textbf{5}                  & 62.20                                              & 60.43 & 61.00                            \\ \hline
-\textbf{6}                  & 62.04                                              & \textbf{59.27} & 61.40                            \\ \hline
-\textbf{7}                  & 62.26                                              & 60.95 & 60.73                            \\ \hline
-\textbf{8}                  & 63.97                                              & 65.34 & \textbf{60.36}                   \\ \hline
-\textbf{9}                  & 64.69                                              & 68.84 & 60.55                            \\ \hline
-\textbf{10}                 & 61.09                                              & 64.61 & 61.37                            \\ \hline
-\textbf{11}                 & 61.80                                              & 62.83 & 63.44                            \\ \hline
-\textbf{12}                 & 64.07                                              & 64.03 & 66.15                            \\ \hline
+\textbf{2}                  & 69.71                                              & 62.83 & 62.96                            \\ \hline
+\textbf{3}                  & \textbf{60.11}                                     & 61.97 & 61.49                            \\ \hline
+\textbf{4}                  & 62.09                                              & 65.51 & 61.28                            \\ \hline
+\textbf{5}                  & 60.28 & 64.31 & 61.00                            \\ \hline
+\textbf{6}                  & 63.35 & \textbf{63.95} & 61.40                            \\ \hline
+\textbf{7}                  & 61.68 & 65.12 & 60.73                            \\ \hline
+\textbf{8}                  & 58.19 & 63.13 & \textbf{60.36}                   \\ \hline
+\textbf{9}                  & 63.27 & 64.50 & 60.55                            \\ \hline
+\textbf{10}                 & 62.55                                              & 58.48 & 61.37                            \\ \hline
+\textbf{11}                 & 59.53                                              & 64.26 & 63.44                            \\ \hline
+\textbf{12}                 & 61.38 & 65.39 & 66.15                            \\ \hline
 \end{tabular}
-\textbf{\caption{MSE with different cluster size and distance metric}}
+\textbf{\caption{MSE result from using VAR to make cluster predictions for different cluster size and distance metrics}}
 \end{table}
 
-\subsection{Quadratic Score for different cluster size and distance metric}
+\subsection{Quadratic Score from using VAR to make cluster predictions for different cluster size and distance metric}
 
 \begin{table}[H]
 \centering
 \begin{tabular}{|l|l|l|l|}
 \hline
 \textbf{Cluster Size} & \textbf{Euclidean Distance} & \textbf{Correlation between time series} & \textbf{DTW Distance} \\ \hline
-\textbf{1}                  & -784.87 & -784.87 & -                                \\ \hline
-\textbf{2}                  & -785.07 & -786.37 & -785.32 \\ \hline
-\textbf{3}                  & \textbf{-786.93} & 786.46 & -785.45 \\ \hline
-\textbf{4}                  & -786.41 & -785.75 & -785.70                            \\ \hline
-\textbf{5}                  & -776.42 & -749.58 & -785.75 \\ \hline
-\textbf{6}                  & -740.16 & -705.43 & -785.67 \\ \hline
-\textbf{7}                  & -786.67                                              & \textbf{-787.28} & \textbf{-785.88} \\ \hline
-\textbf{8}                  & -741.91 & -625.82 & -785.25 \\ \hline
-\textbf{9}                  & -746.62 & -693.53 & -785.45 \\ \hline
-\textbf{10}                 & -785.78 & -737.04 & -784.90                            \\ \hline
-\textbf{11}                 & -786.82 & -786.50 & -784.61 \\ \hline
-\textbf{12}                 & -764.94 & -702.31 & -784.37 \\ \hline
+\textbf{2}                  & -785.07 & -786.50 & -785.32 \\ \hline
+\textbf{3}                  & \textbf{-786.93} & 786.66 & -785.45 \\ \hline
+\textbf{4}                  & -786.41 & -786.06 & -785.70                            \\ \hline
+\textbf{5}                  & -786.44 & -761.14 & -785.75 \\ \hline
+\textbf{6}                  & -776.18 & -741.99 & -785.67 \\ \hline
+\textbf{7}                  & -776.14 & \textbf{-724.84} & \textbf{-785.88} \\ \hline
+\textbf{8}                  & -787.15 & -694.31 & -785.25 \\ \hline
+\textbf{9}                  & -741.26 & -693.53 & -785.45 \\ \hline
+\textbf{10}                 & -777.10 & -678.20 & -784.90                            \\ \hline
+\textbf{11}                 & -776.79 & -653.50 & -784.61 \\ \hline
+\textbf{12}                 & -785.73 & -737.14 & -784.37 \\ \hline
 \end{tabular}
-\textbf{\caption{Quadratic Score with different cluster size and distance metric}}
+\textbf{\caption{Quadratic Score from using VAR to make cluster predictions for different cluster size and distance metric}}
+\end{table}
+
+\newpage
+\subsection{MSE result from using STAR to make cluster predictions for different cluster size and distance metrics}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Cluster Size} & \textbf{Euclidean Distance} & \textbf{Correlation between time series} & \textbf{DTW Distance} \\ \hline
+\textbf{2}                  & 61.92 & 68.10 & 61.43 \\ \hline
+\textbf{3}                  & \textbf{60.91}                                     & 64.58 & 60.52                            \\ \hline
+\textbf{4}                  & 62.40 & 64.01 & 60.99                            \\ \hline
+\textbf{5}                  & 61.14 & 61.35 & 60.34 \\ \hline
+\textbf{6}                  & 60.83 & \textbf{64.03} & 61.38 \\ \hline
+\textbf{7}                  & 58.95 & 63.86 & 60.83                            \\ \hline
+\textbf{8}                  & 63.03                                              & 66.87 & \textbf{59.42}                   \\ \hline
+\textbf{9}                  & 62.06 & 67.95 & 59.00                            \\ \hline
+\textbf{10}                 & 59.08                                              & 61.87 & 58.73                            \\ \hline
+\textbf{11}                 & 61.25                                              & 63.85 & 58.53 \\ \hline
+\textbf{12}                 & 60.15 & 64.60 & 59.37 \\ \hline
+\end{tabular}
+\textbf{\caption{MSE result from using STAR to make cluster predictions for different cluster size and distance metrics}}
+\end{table}
+
+\subsection{Quadratic Score from using STAR to make cluster predictions for different cluster size and distance metric}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Cluster Size} & \textbf{Euclidean Distance} & \textbf{Correlation between time series} & \textbf{DTW Distance} \\ \hline
+\textbf{2}                  & -786.57 & 786.48 & -786.91 \\ \hline
+\textbf{3}                  & \textbf{-753.94} & -786.15 & -786.97 \\ \hline
+\textbf{4}                  & -758.61 & -786.65 & -786.97                            \\ \hline
+\textbf{5}                  & -757.77 & -787.25 & -787.09 \\ \hline
+\textbf{6}                  & -787.01 & -740.66 & -786.93 \\ \hline
+\textbf{7}                  & -760.05 & \textbf{-755.22} & \textbf{-787.00} \\ \hline
+\textbf{8}                  & -760.44 & -699.55 & -787.09 \\ \hline
+\textbf{9}                  & -752.48 & -746.15 & -787.23 \\ \hline
+\textbf{10}                 & -732.82 & -728.37 & -787.25                            \\ \hline
+\textbf{11}                 & -738.39 & -682.46 & -787.19 \\ \hline
+\textbf{12}                 & -741.95 & -647.06 & -787.21 \\ \hline
+\end{tabular}
+\textbf{\caption{Quadratic Score from using STAR to make cluster predictions for different cluster size and distance metric}}
 \end{table}
 
 \newpage

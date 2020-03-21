@@ -1,0 +1,79 @@
+---
+title: "Code for implementing baseline ARIMA Model"
+output: html_notebook
+---
+
+# Load Libraries and dataset
+```{r}
+# Load libraries
+library(tscount)
+library(urca)
+library(tseries)
+library(forecast)
+
+# Load dataset
+df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
+full_df <- read.csv("/home/angps/Documents/Thesis/Data/data.csv")
+
+# TRAIN TEST SPLIT:  Use 198 training data and 6 training data
+train_small_df <- df_atleast_50cts[,1:198]
+test_small_df <- df_atleast_50cts[,199:204]
+train_full_df <- full_df[,1:198]
+test_full_df <- full_df[,199:204]
+```
+
+# Implement function to fit and evaluate ARIMA
+```{r}
+fit_and_evaluate_arima = function(train, test){
+    "
+    Fit and evaluate using auto arima model.
+    Inputs: 
+        train: Training dataset
+        test: Testing dataset
+    Output:
+        Returns a list that stores:
+          MSE: The mean squared error
+          Quad score: Quadratic Score
+    "
+    num_locs = dim(train)[1]  # get number of locations
+    errors <- 0
+    quad_score <- 0
+    for (i in c(1 : num_locs)) {  # go through all locations
+        # fit glm on each location
+        fit <- auto.arima(as.numeric(train[i,]))
+        # predict 6 step ahead
+        pred <- c(forecast(fit, 6)$mean)
+        error <- sum(((as.numeric(test[i,]) - pred)) ^ 2)
+        errors <- errors + error
+        for (j in c(1:6)) {
+            if (isFALSE(is.nan(scoring(test[i,j], pred[j], distr=c("poisson"))['quadratic']))) {
+                quad_score <- quad_score + scoring(test[i,j], pred[j], distr=c("poisson"))['quadratic']
+            }
+        }
+    }
+    return (list("MSE" = errors/6, 'Quadratic(Brier) Score' = quad_score/6))
+}
+```
+
+
+# Apply it on the subset of the dataset 
+```{r}
+# Fit and evaluate on smaller subset of dataset
+result = fit_and_evaluate_arima(train_small_df, test_small_df)
+MSE = result$MSE
+quad_score = result$`Quadratic(Brier) Score`
+
+print(paste0("MSE of fitting ARIMA on smaller subset of dataset: ", MSE))
+print(paste0("Quadratic Score of fitting ARIMA on smaller subset of dataset: ", quad_score))
+```
+
+# Apply it on the whole dataset 
+```{r}
+# Fit and evaluate on the whole dataset
+result = fit_and_evaluate_arima(train_full_df, test_full_df)
+MSE = result$MSE
+quad_score = result$`Quadratic(Brier) Score`
+
+print(paste0("MSE of fitting ARIMA on smaller subset of dataset: ", MSE))
+print(paste0("Quadratic Score of fitting ARIMA on smaller subset of dataset: ", quad_score))
+```

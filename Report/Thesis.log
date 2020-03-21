@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  21 MAR 2020 01:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  21 MAR 2020 15:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -600,176 +600,116 @@ File: Images/Cluster_Combi_MSE_plot.jpg Graphic file (type jpg)
 <use Images/Cluster_Combi_MSE_plot.jpg>
 Package pdftex.def Info: Images/Cluster_Combi_MSE_plot.jpg  used on input line 
 693.
-(pdftex.def)             Requested size: 399.30576pt x 388.81493pt.
+(pdftex.def)             Requested size: 446.27556pt x 388.81493pt.
 [26]
 <Images/Cluster_Combi_quad_plot.jpg, id=118, 481.8pt x 481.8pt>
 File: Images/Cluster_Combi_quad_plot.jpg Graphic file (type jpg)
 <use Images/Cluster_Combi_quad_plot.jpg>
 Package pdftex.def Info: Images/Cluster_Combi_quad_plot.jpg  used on input line
  700.
-(pdftex.def)             Requested size: 399.30576pt x 388.81493pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [27 <./Images/Cluster_Combi_MSE_plot.jpg>]
-<Images/Cluster_Loc_MSE_plot.jpg, id=122, 481.8pt x 481.8pt>
-File: Images/Cluster_Loc_MSE_plot.jpg Graphic file (type jpg)
-<use Images/Cluster_Loc_MSE_plot.jpg>
-Package pdftex.def Info: Images/Cluster_Loc_MSE_plot.jpg  used on input line 70
-7.
 (pdftex.def)             Requested size: 446.27556pt x 388.81493pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [28 <./Images/Cluster_Combi_quad_plot.jpg>]
-<Images/Cluster_Loc_quad_plot.jpg, id=126, 481.8pt x 481.8pt>
-File: Images/Cluster_Loc_quad_plot.jpg Graphic file (type jpg)
-<use Images/Cluster_Loc_quad_plot.jpg>
-Package pdftex.def Info: Images/Cluster_Loc_quad_plot.jpg  used on input line 7
-14.
-(pdftex.def)             Requested size: 446.27556pt x 388.81493pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [29 <./Images/Cluster_Loc_MSE_plot.jpg>]
-<Images/Cluster_Corr_MSE_plot.jpg, id=130, 481.8pt x 481.8pt>
-File: Images/Cluster_Corr_MSE_plot.jpg Graphic file (type jpg)
-<use Images/Cluster_Corr_MSE_plot.jpg>
-Package pdftex.def Info: Images/Cluster_Corr_MSE_plot.jpg  used on input line 7
-21.
-(pdftex.def)             Requested size: 446.27556pt x 388.81493pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [30 <./Images/Cluster_Loc_quad_plot.jpg>]
-<Images/Cluster_Corr_quad_plot.jpg, id=134, 481.8pt x 481.8pt>
-File: Images/Cluster_Corr_quad_plot.jpg Graphic file (type jpg)
-<use Images/Cluster_Corr_quad_plot.jpg>
-Package pdftex.def Info: Images/Cluster_Corr_quad_plot.jpg  used on input line 
-728.
-(pdftex.def)             Requested size: 446.27556pt x 388.81493pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [31 <./Images/Cluster_Corr_MSE_plot.jpg>]
-<Images/Cluster_DTW_MSE_plot.jpg, id=139, 481.8pt x 481.8pt>
-File: Images/Cluster_DTW_MSE_plot.jpg Graphic file (type jpg)
-<use Images/Cluster_DTW_MSE_plot.jpg>
-Package pdftex.def Info: Images/Cluster_DTW_MSE_plot.jpg  used on input line 73
-5.
-(pdftex.def)             Requested size: 446.27556pt x 388.81493pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [32 <./Images/Cluster_Corr_quad_plot.jpg>]
-<Images/Cluster_DTW_quad_plot.jpg, id=143, 481.8pt x 481.8pt>
-File: Images/Cluster_DTW_quad_plot.jpg Graphic file (type jpg)
-<use Images/Cluster_DTW_quad_plot.jpg>
-Package pdftex.def Info: Images/Cluster_DTW_quad_plot.jpg  used on input line 7
-42.
-(pdftex.def)             Requested size: 446.27556pt x 388.81493pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [33 <./Images/Cluster_DTW_MSE_plot.jpg>] [34 <./Images/Cluster_DTW_quad_plot.j
-pg>]
-Overfull \hbox (27.51387pt too wide) in paragraph at lines 779--792
+ [27 <./Images/Cluster_Combi_MSE_plot.jpg>] [28 <./Images/Cluster_Combi_quad_pl
+ot.jpg>]
+Overfull \hbox (31.75188pt too wide) in paragraph at lines 779--795
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 796--797
+Underfull \hbox (badness 10000) in paragraph at lines 799--800
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 798--799
+Underfull \hbox (badness 10000) in paragraph at lines 801--802
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 803--804
+[29]
+Underfull \hbox (badness 10000) in paragraph at lines 806--807
 
  []
 
-[35] [36]
-<Images/distplot_cloud.png, id=156, 578.16pt x 289.08pt>
+[30]
+<Images/distplot_cloud.png, id=131, 578.16pt x 289.08pt>
 File: Images/distplot_cloud.png Graphic file (type png)
 <use Images/distplot_cloud.png>
-Package pdftex.def Info: Images/distplot_cloud.png  used on input line 836.
+Package pdftex.def Info: Images/distplot_cloud.png  used on input line 839.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
-<Images/distplot_gust.png, id=158, 578.16pt x 289.08pt>
+<Images/distplot_gust.png, id=133, 578.16pt x 289.08pt>
 File: Images/distplot_gust.png Graphic file (type png)
 <use Images/distplot_gust.png>
-Package pdftex.def Info: Images/distplot_gust.png  used on input line 843.
+Package pdftex.def Info: Images/distplot_gust.png  used on input line 846.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
-<Images/distplot_humidity.png, id=159, 578.16pt x 289.08pt>
+<Images/distplot_humidity.png, id=134, 578.16pt x 289.08pt>
 File: Images/distplot_humidity.png Graphic file (type png)
 <use Images/distplot_humidity.png>
-Package pdftex.def Info: Images/distplot_humidity.png  used on input line 850.
+Package pdftex.def Info: Images/distplot_humidity.png  used on input line 853.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 
 Underfull \vbox (badness 7468) has occurred while \output is active []
 
- [37 <./Images/distplot_cloud.png> <./Images/distplot_gust.png>]
-<Images/distplot_pressure.png, id=166, 578.16pt x 289.08pt>
+ [31 <./Images/distplot_cloud.png> <./Images/distplot_gust.png>]
+<Images/distplot_pressure.png, id=141, 578.16pt x 289.08pt>
 File: Images/distplot_pressure.png Graphic file (type png)
 <use Images/distplot_pressure.png>
-Package pdftex.def Info: Images/distplot_pressure.png  used on input line 857.
+Package pdftex.def Info: Images/distplot_pressure.png  used on input line 860.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
-<Images/distplot_temp.png, id=167, 578.16pt x 289.08pt>
+<Images/distplot_temp.png, id=142, 578.16pt x 289.08pt>
 File: Images/distplot_temp.png Graphic file (type png)
 <use Images/distplot_temp.png>
-Package pdftex.def Info: Images/distplot_temp.png  used on input line 864.
+Package pdftex.def Info: Images/distplot_temp.png  used on input line 867.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [38 <./Images/distplot_humidity.png> <./Images/distplot_pressure.png>]
-<Images/distplot_wind.png, id=173, 578.16pt x 289.08pt>
+ [32 <./Images/distplot_humidity.png> <./Images/distplot_pressure.png>]
+<Images/distplot_wind.png, id=148, 578.16pt x 289.08pt>
 File: Images/distplot_wind.png Graphic file (type png)
 <use Images/distplot_wind.png>
-Package pdftex.def Info: Images/distplot_wind.png  used on input line 871.
+Package pdftex.def Info: Images/distplot_wind.png  used on input line 874.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
-<Images/wind_mean_demand.jpg, id=174, 578.16pt x 289.08pt>
+<Images/wind_mean_demand.jpg, id=149, 578.16pt x 289.08pt>
 File: Images/wind_mean_demand.jpg Graphic file (type jpg)
 <use Images/wind_mean_demand.jpg>
-Package pdftex.def Info: Images/wind_mean_demand.jpg  used on input line 880.
+Package pdftex.def Info: Images/wind_mean_demand.jpg  used on input line 883.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [39 <./Images/distplot_temp.png> <./Images/distplot_wind.png>]
-<Images/gust_mean_demand.jpg, id=180, 578.16pt x 289.08pt>
+ [33 <./Images/distplot_temp.png> <./Images/distplot_wind.png>]
+<Images/gust_mean_demand.jpg, id=155, 578.16pt x 289.08pt>
 File: Images/gust_mean_demand.jpg Graphic file (type jpg)
 <use Images/gust_mean_demand.jpg>
-Package pdftex.def Info: Images/gust_mean_demand.jpg  used on input line 887.
+Package pdftex.def Info: Images/gust_mean_demand.jpg  used on input line 890.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
-<Images/cloud_mean_demand.jpg, id=181, 578.16pt x 289.08pt>
+<Images/cloud_mean_demand.jpg, id=156, 578.16pt x 289.08pt>
 File: Images/cloud_mean_demand.jpg Graphic file (type jpg)
 <use Images/cloud_mean_demand.jpg>
-Package pdftex.def Info: Images/cloud_mean_demand.jpg  used on input line 894.
+Package pdftex.def Info: Images/cloud_mean_demand.jpg  used on input line 897.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [40 <./Images/wind_mean_demand.jpg> <./Images/gust_mean_demand.jpg>]
-<Images/humidity_mean_demand.jpg, id=185, 578.16pt x 289.08pt>
+ [34 <./Images/wind_mean_demand.jpg> <./Images/gust_mean_demand.jpg>]
+<Images/humidity_mean_demand.jpg, id=160, 578.16pt x 289.08pt>
 File: Images/humidity_mean_demand.jpg Graphic file (type jpg)
 <use Images/humidity_mean_demand.jpg>
 Package pdftex.def Info: Images/humidity_mean_demand.jpg  used on input line 90
-1.
+4.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
-<Images/prec_mean_demand.jpg, id=186, 578.16pt x 289.08pt>
+<Images/prec_mean_demand.jpg, id=161, 578.16pt x 289.08pt>
 File: Images/prec_mean_demand.jpg Graphic file (type jpg)
 <use Images/prec_mean_demand.jpg>
-Package pdftex.def Info: Images/prec_mean_demand.jpg  used on input line 908.
+Package pdftex.def Info: Images/prec_mean_demand.jpg  used on input line 911.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [41 <./Images/cloud_mean_demand.jpg> <./Images/humidity_mean_demand.jpg>] [42 
-<./Images/prec_mean_demand.jpg>] [43] (./Thesis.bbl
+ [35 <./Images/cloud_mean_demand.jpg> <./Images/humidity_mean_demand.jpg>] [36 
+<./Images/prec_mean_demand.jpg>] [37] [38] (./Thesis.bbl
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <6.5> not available
 (Font)              size <6> substituted on input line 15.
@@ -790,20 +730,17 @@ LaTeX Font Warning: Font shape `OML/cmm/b/it' in size <6.5> not available
 LaTeX Font Warning: Font shape `OMS/cmsy/b/n' in size <6.5> not available
 (Font)              size <6> substituted on input line 15.
 
-[44]) [45] (./Thesis.aux)
+[39]) [40] (./Thesis.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.5pt have occurred.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 4196 strings out of 492609
- 56627 string characters out of 6131462
- 128557 words of memory out of 5000000
- 8008 multiletter control sequences out of 15000+600000
+ 4160 strings out of 492609
+ 54906 string characters out of 6131462
+ 128502 words of memory out of 5000000
+ 7978 multiletter control sequences out of 15000+600000
  17918 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,15n,29p,1180b,536s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -825,10 +762,10 @@ ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Thesis.pdf (45 pages, 1792720 bytes).
+Output written on Thesis.pdf (40 pages, 1690540 bytes).
 PDF statistics:
- 267 PDF objects out of 1000 (max. 8388607)
- 160 compressed objects within 2 object streams
+ 245 PDF objects out of 1000 (max. 8388607)
+ 149 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 166 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 136 words of extra memory for PDF output out of 10000 (max. 10000000)
 

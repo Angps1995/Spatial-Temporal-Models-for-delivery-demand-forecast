@@ -27,7 +27,7 @@ lines(xdata2, dtw_mse, col="black", lty=3)
 
 # Adding a legend inside box at the location (2,40) in graph coordinates.
 # Note that the order of plots are maintained in the vectors of attributes.
-legend(1,81,legend=c("Euclidean Distance","Correlation between time series","DTW between time series"), col=c("blue","red","black"),
+legend(1,81,legend=c("Euclidean Distance","Correlation of time series","DTW of time series"), col=c("blue","red","black"),
                                    pch=c("o","*","+"),lty=c(1,2,3), ncol=1)
 
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Cluster_Combi_MSE_plot.jpg");
@@ -58,7 +58,7 @@ lines(xdata2, dtw_quad_score, col="black", lty=3)
 
 # Adding a legend inside box at the location (2,40) in graph coordinates.
 # Note that the order of plots are maintained in the vectors of attributes.
-legend(1,-600,legend=c("Euclidean Distance","Correlation between time series","DTW between time series"), col=c("blue","red","black"),
+legend(1,-600,legend=c("Euclidean Distance","Correlation of time series","DTW of time series"), col=c("blue","red","black"),
                                    pch=c("o","*","+"),lty=c(1,2,3), ncol=1)
 
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Cluster_Combi_quad_plot.jpg");

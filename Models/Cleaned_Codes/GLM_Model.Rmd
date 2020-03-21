@@ -37,6 +37,7 @@ fit_and_evaluate_glm = function(train, test, past_obs, past_mean, link, distr){
           Errors_array: The array of residuals/errors
           Fitted_Values: The array of fitted/predicted values
           MSE: The mean squared error
+          Quad Score: Quadratic Score
     "
     num_locs = dim(train)[1]  # get number of locations
     errors <- 0
