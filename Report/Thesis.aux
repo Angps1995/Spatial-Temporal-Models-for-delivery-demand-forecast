@@ -85,67 +85,72 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Details of STAR models}{20}\protected@file@percent }
 \citation{KURT20152537}
 \citation{Abolfazl2017}
-\citation{Paul2015}
-\citation{Chi2014}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Implementation of STAR model for our dataset}{21}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Results of STAR model}{21}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}3-step Approach}{21}\protected@file@percent }
+\citation{Paul2015}
+\citation{Chi2014}
+\@writefile{toc}{\contentsline {section}{\numberline {8}3-step Approach}{22}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Clustering}{22}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.1}Using longitude/latitude as the distance metric}{22}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.2}Using Correlation Coefficient as the distance metric}{22}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.3}Using Dynamic Time Warping as the distance metric}{22}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.3}Using Dynamic Time Warping as the distance metric}{23}\protected@file@percent }
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Dynamic Time Warping (DTW) Algorithm to form distance matrix}}{23}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Using DTW Matrix to find optimal warping path}}{23}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Using DTW Matrix to find optimal warping path}}{24}\protected@file@percent }
 \citation{Hui2008}
 \citation{Pavel2008}
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces DTW Alignment Plot}}{24}\protected@file@percent }
-\newlabel{fig:DTW Alignment Plot}{{8.1.3}{24}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Predicting total demand for each cluster}{25}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Correlation heatmap for 9 clusters}}{25}\protected@file@percent }
-\newlabel{fig:Correlation heatmap for 9 clusters}{{8.2}{25}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Assigning total cluster demand to individual location}{26}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Results}{26}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Plot of MSE against number of clusters for different distance metrics. We can see that the optimal choice based on MSE would be using the correlation between time series with 6 clusters, giving a MSE of 59.27}}{27}\protected@file@percent }
-\newlabel{fig:Plot of MSE against number of clusters for different distance metrics. We can see that the optimal choice based on MSE would be using the correlation between time series with 6 clusters, giving a MSE of 59.27}{{8.4}{27}}
-\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Plot of Quadratic score against number of clusters for different distance metrics. We can see that the optimal choice based on quadratic score is using correlation between time series with 7 custers, giving a quadratic score of -787.27}}{28}\protected@file@percent }
-\newlabel{fig:Plot of Quadratic score against number of clusters for different distance metrics. We can see that the optimal choice based on quadratic score is using correlation between time series with 7 custers, giving a quadratic score of -787.27}{{8.4}{28}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces DTW Alignment Plot}}{25}\protected@file@percent }
+\newlabel{fig:DTW Alignment Plot}{{8.1.3}{25}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Predicting total demand for each cluster}{26}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Correlation heatmap for 9 clusters}}{26}\protected@file@percent }
+\newlabel{fig:Correlation heatmap for 9 clusters}{{8.2}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Assigning total cluster demand to individual location}{27}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Results}{27}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.5}MSE result from using VAR to make cluster predictions for different cluster size and distance metrics}{28}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces MSE result from using VAR to make cluster predictions for different cluster size and distance metrics}}{28}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.6}Quadratic Score from using VAR to make cluster predictions for different cluster size and distance metric}{28}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Quadratic Score from using VAR to make cluster predictions for different cluster size and distance metric}}{28}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.7}MSE result from using STAR to make cluster predictions for different cluster size and distance metrics}{29}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces MSE result from using STAR to make cluster predictions for different cluster size and distance metrics}}{29}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.8}Quadratic Score from using STAR to make cluster predictions for different cluster size and distance metric}{29}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Quadratic Score from using STAR to make cluster predictions for different cluster size and distance metric}}{29}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.9}Plots of results}{30}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Plot of MSE using the 3-step approach which uses VAR to predict cluster demands. We can see that the optimal choice based on MSE would be using the euclidean distance of the locations with 8 clusters, giving a MSE of 58.19}}{30}\protected@file@percent }
+\newlabel{fig:PPlot of MSE using the 3-step approach which uses VAR to predict cluster demands. We can see that the optimal choice based on MSE would be using the euclidean distance of the locations with 8 clusters, giving a MSE of 58.19}{{8.9}{30}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Plot of Quadratic score using the 3-step approach which uses VAR to predict cluster demands. We can see that the optimal choice based on quadratic score is using euclidean distance of the locations with 8 custers, giving a quadratic score of -787.15}}{31}\protected@file@percent }
+\newlabel{fig:Plot of Quadratic score using the 3-step approach which uses VAR to predict cluster demands. We can see that the optimal choice based on quadratic score is using euclidean distance of the locations with 8 custers, giving a quadratic score of -787.15}{{8.9}{31}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Plot of MSE using the 3-step approach which uses STAR to predict cluster demands. We can see that the optimal choice based on MSE would be using the DTW between time series with 11 clusters, giving a MSE of 58.53}}{32}\protected@file@percent }
+\newlabel{fig:Plot of MSE using the 3-step approach which uses STAR to predict cluster demands. We can see that the optimal choice based on MSE would be using the DTW between time series with 11 clusters, giving a MSE of 58.53}{{8.9}{32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Plot of Quadratic score using the 3-step approach which uses STAR to predict cluster demands. We can see that the optimal choice based on quadratic score is using DTW between time series with 10 custers, giving a quadratic score of -787.25}}{33}\protected@file@percent }
+\newlabel{fig:Plot of Quadratic score using the 3-step approach which uses STAR to predict cluster demands. We can see that the optimal choice based on quadratic score is using DTW between time series with 10 custers, giving a quadratic score of -787.25}{{8.9}{33}}
 \citation{Abolfazl2017}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Results and Conclusion}{29}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces MSE and Quadratic Score of the different methods used in this paper}}{29}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10}Limitations and Future Work}{30}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {11}Appendix}{31}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}Distribution Plots of Exogenous Variables}{31}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Distribution of Cloud}}{31}\protected@file@percent }
-\newlabel{fig:Distribution of Cloud}{{11.1}{31}}
-\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Distribution of Gust}}{31}\protected@file@percent }
-\newlabel{fig:Distribution of Gust}{{11.1}{31}}
-\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Distribution of Humidity}}{32}\protected@file@percent }
-\newlabel{fig:Distribution of Humidity}{{11.1}{32}}
-\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Distribution of Pressure}}{32}\protected@file@percent }
-\newlabel{fig:Distribution of Pressure}{{11.1}{32}}
-\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Distribution of Temperature}}{33}\protected@file@percent }
-\newlabel{fig:Distribution of Temperature}{{11.1}{33}}
-\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces Distribution of Wind}}{33}\protected@file@percent }
-\newlabel{fig:Distribution of Wind}{{11.1}{33}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.2}Mean Demand Against Exogenous Variables}{34}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Mean Demand against Wind}}{34}\protected@file@percent }
-\newlabel{fig:Mean Demand against Wind}{{11.2}{34}}
-\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces Mean Demand against Gust}}{34}\protected@file@percent }
-\newlabel{fig:Mean Demand against Gust}{{11.2}{34}}
-\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces Mean Demand against Cloud}}{35}\protected@file@percent }
-\newlabel{fig:Mean Demand against Cloud}{{11.2}{35}}
-\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces Mean Demand against Humidity}}{35}\protected@file@percent }
-\newlabel{fig:Mean Demand against Humidity}{{11.2}{35}}
-\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces Mean Demand against Precipitation}}{36}\protected@file@percent }
-\newlabel{fig:Mean Demand against Precipitation}{{11.2}{36}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.3}MSE result from using VAR to make cluster predictions for different cluster size and distance metrics}{37}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces MSE result from using VAR to make cluster predictions for different cluster size and distance metrics}}{37}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.4}Quadratic Score from using VAR to make cluster predictions for different cluster size and distance metric}{37}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Quadratic Score from using VAR to make cluster predictions for different cluster size and distance metric}}{37}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.5}MSE result from using STAR to make cluster predictions for different cluster size and distance metrics}{38}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces MSE result from using STAR to make cluster predictions for different cluster size and distance metrics}}{38}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.6}Quadratic Score from using STAR to make cluster predictions for different cluster size and distance metric}{38}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Quadratic Score from using STAR to make cluster predictions for different cluster size and distance metric}}{38}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Results and Conclusion}{34}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces MSE and Quadratic Score of the different methods used in this paper. The MSE is prioritised here, and hence the quadratic score might not be the optimal one.}}{34}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Limitations and Future Work}{35}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11}Appendix}{36}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}Distribution Plots of Exogenous Variables}{36}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Distribution of Cloud}}{36}\protected@file@percent }
+\newlabel{fig:Distribution of Cloud}{{11.1}{36}}
+\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Distribution of Gust}}{36}\protected@file@percent }
+\newlabel{fig:Distribution of Gust}{{11.1}{36}}
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Distribution of Humidity}}{37}\protected@file@percent }
+\newlabel{fig:Distribution of Humidity}{{11.1}{37}}
+\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces Distribution of Pressure}}{37}\protected@file@percent }
+\newlabel{fig:Distribution of Pressure}{{11.1}{37}}
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Distribution of Temperature}}{38}\protected@file@percent }
+\newlabel{fig:Distribution of Temperature}{{11.1}{38}}
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces Distribution of Wind}}{38}\protected@file@percent }
+\newlabel{fig:Distribution of Wind}{{11.1}{38}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.2}Mean Demand Against Exogenous Variables}{39}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces Mean Demand against Wind}}{39}\protected@file@percent }
+\newlabel{fig:Mean Demand against Wind}{{11.2}{39}}
+\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces Mean Demand against Gust}}{39}\protected@file@percent }
+\newlabel{fig:Mean Demand against Gust}{{11.2}{39}}
+\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces Mean Demand against Cloud}}{40}\protected@file@percent }
+\newlabel{fig:Mean Demand against Cloud}{{11.2}{40}}
+\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Mean Demand against Humidity}}{40}\protected@file@percent }
+\newlabel{fig:Mean Demand against Humidity}{{11.2}{40}}
+\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Mean Demand against Precipitation}}{41}\protected@file@percent }
+\newlabel{fig:Mean Demand against Precipitation}{{11.2}{41}}
 \bibstyle{ormsv080}
 \bibdata{ref}
 \bibcite{Baumohl2009}{{1}{2009}{{Baum\IeC {\"o}hl and Ly\IeC {\'o}csa}}{{}}}

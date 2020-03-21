@@ -5,15 +5,14 @@ output: html_notebook
 
 ```{r}
 # define 3 data sets
-num_clust <- c(1,2,3,4,5,6,7,8,9,10,11,12)
-xdata2 <- c(2,3,4,5,6,7,8,9,10,11,12)
-euc_mse <- c(68.67,69.71,60.1,62.09,62.2,62.04,62.26,63.97,64.69,61.09,61.8,64.07)
-corr_mse <- c(68.67,63.48,63.36,64.26,60.43,59.27,60.95,65.34,68.84,64.61,62.83,64.03)
+num_clust <- c(2,3,4,5,6,7,8,9,10,11,12)
+euc_mse <- c(69.71,60.11,62.09,60.28,63.35,61.68,59.19,63.27,62.55,59.53,61.38)
+corr_mse <- c(62.83,61.97,65.51,64.31,63.95,65.12,63.13,64.50,58.48,64.26,65.39)
 dtw_mse <- c(62.96,61.49,61.28,61,61.4,60.73,60.36,60.55,61.37,63.44,66.15)
 
 # plot the first curve by calling plot() function
 # First curve is plotted
-plot(num_clust, euc_mse, type="o", col="blue", pch="o", lty=1, ylim=c(57,82), ylab="MSE", main = 'MSE against different number of clusters ')
+plot(num_clust, euc_mse, type="o", col="blue", pch="o", lty=1, ylim=c(57,82), ylab="MSE", main = 'MSE of 3 step approach (Using VAR)')
 
 # Add second curve to the same plot by calling points() and lines()
 # Use symbol '*' for points.
@@ -22,12 +21,12 @@ lines(num_clust, corr_mse, col="red",lty=2)
 
 # Add Third curve to the same plot by calling points() and lines()
 # Use symbol '+' for points.
-points(xdata2, dtw_mse, col="black",pch="+")
-lines(xdata2, dtw_mse, col="black", lty=3)
+points(num_clust, dtw_mse, col="black",pch="+")
+lines(num_clust, dtw_mse, col="black", lty=3)
 
 # Adding a legend inside box at the location (2,40) in graph coordinates.
 # Note that the order of plots are maintained in the vectors of attributes.
-legend(1,81,legend=c("Euclidean Distance","Correlation of time series","DTW of time series"), col=c("blue","red","black"),
+legend(2,81,legend=c("Euclidean Dist.","Correlation","DTW"), col=c("blue","red","black"),
                                    pch=c("o","*","+"),lty=c(1,2,3), ncol=1)
 
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Cluster_Combi_MSE_plot.jpg");
@@ -36,15 +35,50 @@ dev.off ();
 
 ```{r}
 # define 3 data sets
-num_clust <- c(1,2,3,4,5,6,7,8,9,10,11,12)
-xdata2 <- c(2,3,4,5,6,7,8,9,10,11,12)
-euc_quad_score <- c(-784.87,-785.07, -786.93, -786.41, -776.42, -740.16, -786.67,-741.91, -746.62, -785.78,-786.82,-764.94)
-corr_quad_score <- c(-784.87,-786.37,-786.46, -785.75, -749.58,-705.43,-787.28,-625.82,-693.53,-737.04,-786.50,-702.31)
-dtw_quad_score <- c(-785.32,-785.45,-785.70,-785.75,-785.67,-785.88,-785.25,-785.45,-784.90,-784.61,-784.37)
+num_clust <- c(2,3,4,5,6,7,8,9,10,11,12)
+euc_mse <- c(61.92,60.91,62.4,61.14,60.83,58.95,63.03,62.06,59.08,61.25,60.15)
+corr_mse <- c(68.1,64.58,64.01,61.35,64.03,63.86,66.87,67.95,61.87,63.85,64.60)
+dtw_mse <- c(61.43,60.52,60.99,60.34,61.38,60.83,59.42,59.00,58.73,58.53,59.37)
 
 # plot the first curve by calling plot() function
 # First curve is plotted
-plot(num_clust, euc_quad_score, type="o", col="blue", pch="o", lty=1, ylim=c(-800,-600), ylab="MSE", main = 'Quadratic Score against different number of clusters ')
+plot(num_clust, euc_mse, type="o", col="blue", pch="o", lty=1, ylim=c(57,82), ylab="MSE", main = 'MSE of 3 step approach (Using STAR)')
+
+# Add second curve to the same plot by calling points() and lines()
+# Use symbol '*' for points.
+points(num_clust, corr_mse, col="red", pch="*")
+lines(num_clust, corr_mse, col="red",lty=2)
+
+# Add Third curve to the same plot by calling points() and lines()
+# Use symbol '+' for points.
+points(num_clust, dtw_mse, col="black",pch="+")
+lines(num_clust, dtw_mse, col="black", lty=3)
+
+# Adding a legend inside box at the location (2,40) in graph coordinates.
+# Note that the order of plots are maintained in the vectors of attributes.
+legend(2,81,legend=c("Euclidean Dist.","Correlation","DTW"), col=c("blue","red","black"),
+                                   pch=c("o","*","+"),lty=c(1,2,3), ncol=1)
+
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Cluster_Combi_STAR_MSE_plot.jpg");
+dev.off ();
+```
+
+
+
+
+
+
+
+```{r}
+# define 3 data sets
+num_clust <- c(2,3,4,5,6,7,8,9,10,11,12)
+euc_quad_score <- c(-785.07,-786.93,-786.41,-786.44,-776.18,-776.14,-787.15,-741.26,-777.1,-776.79,-785.73)
+corr_quad_score <- c(-786.5,-786.66,-786.06,-761.14,-741.99,-724.84,-694.31,-693.53,-678.2,-653.5,-737.14)
+dtw_quad_score <- c(-785.32,-785.45,-785.7,-785.75,-785.67,-785.88,-785.25,-785.45,-784.9,-784.61,-784.37)
+
+# plot the first curve by calling plot() function
+# First curve is plotted
+plot(num_clust, euc_quad_score, type="o", col="blue", pch="o", lty=1, ylim=c(-800,-600), ylab="MSE", main = 'Quadratic Score of 3 step approach (Using VAR)')
 
 # Add second curve to the same plot by calling points() and lines()
 # Use symbol '*' for points.
@@ -53,17 +87,55 @@ lines(num_clust, corr_quad_score, col="red",lty=2)
 
 # Add Third curve to the same plot by calling points() and lines()
 # Use symbol '+' for points.
-points(xdata2, dtw_quad_score, col="black",pch="+")
-lines(xdata2, dtw_quad_score, col="black", lty=3)
+points(num_clust, dtw_quad_score, col="black",pch="+")
+lines(num_clust, dtw_quad_score, col="black", lty=3)
 
 # Adding a legend inside box at the location (2,40) in graph coordinates.
 # Note that the order of plots are maintained in the vectors of attributes.
-legend(1,-600,legend=c("Euclidean Distance","Correlation of time series","DTW of time series"), col=c("blue","red","black"),
+legend(2,-600,legend=c("Euclidean Dist.","Correlation","DTW"), col=c("blue","red","black"),
                                    pch=c("o","*","+"),lty=c(1,2,3), ncol=1)
 
 dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Cluster_Combi_quad_plot.jpg");
 dev.off ();
 ```
+
+```{r}
+# define 3 data sets
+num_clust <- c(2,3,4,5,6,7,8,9,10,11,12)
+euc_quad_score <- c(-786.57,-753.94,-758.61,-757.77,-787.01,-760.05,-760.44,-752.48,-732.82,-738.39,-741.95)
+corr_quad_score <- c(-786.48,-786.15,-786.65,-787.25,-740.66,-755.22,-699.55,-746.15,-728.37,-682.46,-647.06)
+dtw_quad_score <- c(-786.91,-786.97,-786.97,-787.09,-786.93,-787,-787.09,-787.23,-787.23,-787.19,-787.21)
+
+# plot the first curve by calling plot() function
+# First curve is plotted
+plot(num_clust, euc_quad_score, type="o", col="blue", pch="o", lty=1, ylim=c(-800,-600), ylab="MSE", main = 'Quadratic Score of 3 step approach (Using STAR)')
+
+# Add second curve to the same plot by calling points() and lines()
+# Use symbol '*' for points.
+points(num_clust, corr_quad_score, col="red", pch="*")
+lines(num_clust, corr_quad_score, col="red",lty=2)
+
+# Add Third curve to the same plot by calling points() and lines()
+# Use symbol '+' for points.
+points(num_clust, dtw_quad_score, col="black",pch="+")
+lines(num_clust, dtw_quad_score, col="black", lty=3)
+
+# Adding a legend inside box at the location (2,40) in graph coordinates.
+# Note that the order of plots are maintained in the vectors of attributes.
+legend(2,-600,legend=c("Euclidean Dist.","Correlation","DTW"), col=c("blue","red","black"),
+                                   pch=c("o","*","+"),lty=c(1,2,3), ncol=1)
+
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Cluster_Combi_STAR_quad_plot.jpg");
+dev.off ();
+```
+
+
+
+
+
+
+
+
 
 
 ```{r}
