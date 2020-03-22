@@ -87,7 +87,7 @@
 % Full title. Sample:
 % \TITLE{Bundling Information Goods of Decreasing Value}
 % Enter the full title:
-\TITLE{NUS Business School Honors Dissertation}
+\TITLE{Spatio-Temporal Models for forecasting food delivery demand}
 
 % Block of authors and their affiliations starts here:
 % NOTE: Authors with same affiliation, if the order of authors allows,
@@ -97,11 +97,11 @@
 			\AUTHOR{Peng Seng Ang}
 			\AFF{National University of Singapore\\
 				\EMAIL{ang.peng.seng@u.nus.edu}}
+			\AUTHOR{Supervised by: Professor He Long}
 	% Enter all authors
 }
 
-\ABSTRACT{Many real industry problems involves spatio-temporal demand prediction, which re-
-quires predicting demand at a certain time across different locations. Most of the
+\ABSTRACT{Many real industry problems involves spatio-temporal demand prediction, which requires predicting demand at a certain time across different locations. Most of the
 demand data are not continuous variables but instead count variables, like number
 of orders and number of transactions. Previous research have mainly explored neural
 network methods for spatio-temporal problems. In this paper, we want to have a more interpretable method and hence will focus on how we can
@@ -122,7 +122,7 @@ This paper would explore the usage of classical statistical methods along with u
 
 \noindent This problem is not only restricted to the abovementioned food provider. With the rise of e-commerce and the food ordering and delivery services, like GrabFood and FoodPanda, demand prediction and driver assignment problem would be an everyday concern for them too. Spatio-temporalal forecasting is also not limited to food delivery, and it has many other applications, like traffic prediction and weather prediction over time. \\
 
-\noindent In reality, demand is never deterministic and hence, having an accurate forecast of demand for the food service providers would help them more effectively and efficiently assign orders to drivers to improve the overall delivery time. As such, the focus of this paper would be to accurately model and forecast the demand at the different locations and time. Currently, most Autoregressive (AR) or Autoregressive Integrated Moving Average (ARIMA) models only consider temporal features when predicting demand. However, we believe including spatial features between the data points might improve forecast accuracy. In this paper, classical time series models, such as Generalized Linear Model (GLM), ARIMA, as well as Vector Autoregressive (VAR) models, that include both spatial and temporal features would be explored. We also introduce a 3-step approach that combined unsupervised learning and classical statistical methods to improve forecast accuracy. 
+\noindent In reality, demand is never deterministic and hence, having an accurate forecast of demand for the food service providers would help them more effectively and efficiently assign orders to drivers to improve the overall delivery time. As such, the focus of this paper would be to accurately model and forecast the demand at the different locations and time. Currently, most Autoregressive (AR) or Autoregressive Integrated Moving Average (ARIMA) models only consider temporal features when predicting demand. However, we believe including spatial features between the data points might improve forecast accuracy. In this paper, classical time series models, such as Generalized Linear Model (GLM), ARIMA, Vector Autoregressive (VAR) as well as Spatio-Temporal Autoregressive (STAR) models, that could include both spatial and temporal features would be explored. We also introduce a 3-step approach that combines unsupervised learning and classical statistical methods to improve forecast accuracy. 
 
 \newpage
 \section{Literature Review}
@@ -198,14 +198,14 @@ We would first do some exploratory analysis and check if there are any interesti
 
 \noindent The scatter plot in Figure 4 visually display a slight positive relationship between temperature and mean demand across all locations whereas Figure 5 visually display a slight negative relationship between pressure and mean demand across all locations. We would explore usage and impact of the exogenous variables in predicting demand in the later portion of this paper. 
 
-
+\newpage
 
 \subsection{Subsetting of data and train-test Split}
 From Figure 1 in Section 3.1, the data is very sparse as there are many locations that have no demand counts for the majority of the time periods. Hence, to get a proof-of-concept model and a better idea of how our models perform, we first subset the dataset into a smaller one where we only consider locations with at least 50 non-zero counts across the time period, leaving us with 42 locations that meet this criteria. After the model is tested on this smaller dataset, we would evaluate the performance and then use the full dataset to test and fit our model. \\
 
-\noindent To prevent overfitting of our model, the dataset was then split into training and test set by considering the first 33 days as the training set and the next 1 day as the test set. A period of 1 day was chosen as the test set duration because we are making a reasonable assumption that this model would only have to be run at the end of the day, hence only required to predict one-day ahead demand. \\
+\noindent To prevent overfitting of our model, the dataset was then split into training and test set by considering the first 33 days as the training set and the next 1 day as the test set. A period of 1 day was chosen as the test set duration because we are making a reasonable assumption that this model would only have to be run at the end of a working day to predict for the next working day, hence only required to predict one-day ahead demand. \\
 
-\noindent Our training set would then have 198 demand data for each location and test set would have 6 demand data for each location. \\
+\noindent Our training set would then have 198 time-step demand data for each location and test set would have 6 time-step demand data for each location. \\
 
 \noindent The following sections of the paper is structured as follows. We first implement a simple baseline ARIMA model in section 4. Section 5 and 6 follow a similar idea to the baseline model, but instead of fitting an ARIMA model on all locations, we fit a Generalized Linear Model (GLM) in Section 5 instead and in section 6, we fit a Vector Autoregressive Model using all the locations as variables. In section 7, we introduce a 3 step modelling approach which would be more interpretable and would also perform the best out of all the models. 
 
@@ -217,24 +217,28 @@ There are 3 key challenges with our dataset:
 	
 	2. Count data as all our values are in integer
 	
-	3. High-dimensional, where we have time series for 839 locations
+	3. High-dimensional, where we have time series for 839 locations \\
+	
+\noindent We will explore different methods to tackle the challenges mentioned in the following sections. 
 
 
 \newpage
 
-\section{Baseline Model}
-In this section, we would build a simple baseline model by just fitting an ARIMA model on all the locations individually. In the later sections of the paper, we would try other approaches and compare the results against the baseline model. 
+\section{Evaluation Metrics}
 
-\subsection{Scoring Metrics Used}
+To evaluate time series models, the traditional way would be to use Root Mean Squared Error (RMSE) or Mean Squared Error (MSE) to monitor the predictive performance. However, since our dataset contains only count data and most of the models used in this paper are producing probabilistic forecast, in fractional numbers, we should also consider other metrics used for evaluation of probabilistic forecasting for count data, as suggested in \cite{Czado2009PredictiveMA}.
+
+\subsection{Mean Squared Error (MSE)}
 The classical metric that would be used for comparison would be Mean Squared Error (MSE), which is calculated by:
 
 \begin{center}
     %$\displaystyle MSE=\frac{1}{(T_2 - T_1 - 1)}\sum_{t=T_1}^{T_2 - 1}\left \| \hat{y}_{t+1} - y_{t+1} \right \|_{2}^{2}$
     $\displaystyle MSE=\frac{1}{n}\sum_{t=1}^{n}\left \| \hat{y}_{t} - y_{t} \right \|_{2}^{2}$
 \end{center}
-where \textit{n} is the number of data points, $\hat{y_t}$ is the predicted value at time t and ${y_t}$ is the actual value at time t. The aim is for our models to minimize the MSE in order to obtain a more accurate fit. \\
+where \textit{n} is the number of data points, $\hat{y_t}$ is the predicted value at time t and ${y_t}$ is the actual value at time t. Our model should aim to minimize the MSE in order to obtain a more accurate fit. \\
 
-\noindent However, our dataset contains only count data and since most of the models used in this paper are producing probabilistic forecast, in fractional numbers, we should also consider other metrics used for evaluation of probabilistic forecasting for count data, as suggested in \cite{Czado2009PredictiveMA}. In this paper, we will also use the quadratic score (qs), which is defined as:
+\subsection{Quadratic Score}
+\noindent In addition to the classical MSE metric, we will also use a proper scoring rule, the quadratic score (qs), to evaluate our predictions. The use of quadratic score in to evaluate time series models for counts was also suggested by \cite{jstor}. Quadratic score can be defined as:
 
 \begin{center}
     $\displaystyle qs(P, x) = -2p_{x} + \left \| p \right \|^{2}$
@@ -247,17 +251,24 @@ where \textit{n} is the number of data points, $\hat{y_t}$ is the predicted valu
     $\displaystyle QS=\frac{1}{n}\sum_{t=1}^{n}qs(P_t,x_t)$
 \end{center}
 
-\noindent where n represents the number of data points, P represents the predicted distribution while x represents actual observed value. We can also compute $\left \| p \right \|^{2} = \sum_{k=0}^{\infty }p_{k}^{2}$ using methods explained in Appendix A of \cite{Czado2009PredictiveMA}. The use of quadratic score in to evaluate time series models for counts was also suggested by \cite{jstor}. Quadratic score is also a strictly proper scoring rule as it follows the property:
+\noindent where n represents the number of data points, P represents the predicted distribution while x represents actual observed value. We can also compute $\left \| p \right \|^{2} = \sum_{k=0}^{\infty }p_{k}^{2}$ using methods explained in Appendix A of \cite{Czado2009PredictiveMA}. Quadratic score is also a strictly proper scoring rule as it follows the property:
 
 \begin{center}
     $\displaystyle qs(x, x) \leq qs(P, x)$
 \end{center}
 
-\noindent For the quadratic score, our model should aim to minimize it.
+\noindent Our model should aim to minimize the quadratic score to provide a sharper fit.
+
+\newpage
+\section{Baseline Model}
+In this section, we would build a simple baseline model by just fitting an ARIMA model on all the locations individually. In the later sections of the paper, we would try other approaches and compare the results against the baseline model. 
+
 
 
 \subsection{ARIMA models}
-Autoregressive Integrated Moving Average (ARIMA) models are one of the most commonly used models for time series (\cite{Asha2016}). ARIMA models are made up of 3 processes, mainly the Autoregressive (AR) process, the Integrated (I) process and the Moving Average (MA) process (\cite{Jamal2018}). The AR process assumes that each observation can be expressed as a linear combination of its past values.  An AR(x) process would mean using x lagged values. The MA process assumes that each observation can be expressed as a linear combination of its current error term as well as its past error terms. The Integrated Process states that the time series can undergo differencing to ensure that the series is stationary. A MA(x) process would mean using x number of past error observations. Hence, an ARIMA model is usually represented by ARIMA(p,d,q), where \textit{p} represents the number of autoregressive terms, \textit{d} represents the number of differences needed for stationarity, and \textit{q} represents the number of lagged forecast errors. 
+Autoregressive Integrated Moving Average (ARIMA) models are one of the most commonly used models for time series (\cite{Asha2016}). ARIMA models are made up of 3 processes, mainly the Autoregressive (AR) process, the Integrated (I) process and the Moving Average (MA) process (\cite{Jamal2018}). The AR process assumes that each observation can be expressed as a linear combination of its past values.  An AR(x) process would mean using x lagged values. The MA process assumes that each observation can be expressed as a linear combination of its current error term as well as its past error terms. The Integrated Process states that the time series can undergo differencing to ensure that the series is stationary. A MA(x) process would mean using x number of past error observations. \\
+
+\noindent Hence, an ARIMA model is usually represented by ARIMA(p,d,q), where \textit{p} represents the number of autoregressive terms, \textit{d} represents the number of differences needed for stationarity, and \textit{q} represents the number of lagged forecast errors. \\
 
 \noindent The general equation of a ARIMA(p,d,q) is: 
 \begin{center}
@@ -266,8 +277,11 @@ $\hat{y_t} = \mu + \sum_{i=1}^{p} \phi_i * y_{t-i} - \sum_{j=1}^{q} \theta_j * e
 
 \noindent where $\hat{y_t}$ refer to the predicted value at time t, $\mu$ refer to a constant, while $\sum_{i=1}^{p} \phi_i * y_{t-i}$ refers to the AR terms and $\sum_{j=1}^{q} \theta_j * e_{t-j}$ refers to the MA terms.
 
+\newpage
 \subsection{Baseline ARIMA Result}
-As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from R was used to implement this. The out-of-sample MSE for this baseline model on the smaller dataset is \textbf{46.87} and the quadratic score is \textbf{-19.12} while the MSE for dataset of all locations is \textbf{71.73} and the quadratic score is \textbf{-772.45}. A sample forecast plot is shown below:
+As a baseline model, each of the locations was assessed individually and a suitable ARIMA model was built for each location. Auto-arima function from R was used to implement this as it would automatically determine if the series is stationary, as well as finding the optimal parameters for p,d and q. \\
+
+\noindent The out-of-sample MSE for this baseline model on the smaller dataset is \textbf{46.87} and the quadratic score is \textbf{-19.12} while the MSE for dataset of all locations is \textbf{71.73} and the quadratic score is \textbf{-772.45}. A sample forecast plot is shown below:
 
 \begin{figure}[H]
     \centering
@@ -295,11 +309,11 @@ The dataset that we are using follows a count time series, which means the obser
 %\noindent where additionally, $\tilde{g}$ represents a transformation function. (remove this?)
 
 \subsection{Model Implementation}
-\noindent As mentioned in section 3.2, we would first assess our model on the smaller dataset before testing it on the full dataset. Using the R package tscount from \cite{Tobias2017}, we fit each of the locations individually by a GLM model. For the parameters, we used the past 6 lagged values as well as the identity function as the link function, with poisson distribution as the conditional distribution. The out-of-sample MSE for this baseline model on the smaller dataset is \textbf{38.16}, which is better than just using ARIMA on the same dataset. The quadratic score for GLM on the smaller dataset is -19.90. \\
+\noindent As mentioned in section 3.2, we would first assess our model on the smaller dataset before testing it on the full dataset. Using the R package tscount from \cite{Tobias2017}, we fit each of the locations individually by a GLM model. For the parameters, we used the past 6 lagged values as well as the identity function as the link function, with poisson distribution as the conditional distribution. The out-of-sample MSE for this baseline model on the smaller dataset is \textbf{38.16}, which is better than just using ARIMA on the same dataset. The quadratic score for GLM on the smaller dataset is \textbf{-19.90}. \\
 
-\noindent The output for GLM model is in a fractional number instead of an integer. Since the output of the GLM model, using poisson distribution, gives the expected value, which might not be an integer. Hence, to convert our predictions to an integer for practical purposes, we round the predictions to the nearest integer since the nearest integer would be the value that is predicted to occur most often in the distribution. \\
+\noindent The output for GLM model is in a fractional number instead of an integer. Since the output of the GLM model, using poisson distribution, gives the expected value, which might not be an integer. Hence, to convert our predictions to an integer for practical purposes, we would round the predictions to the nearest integer since the nearest integer would be the value that is predicted to occur most often in the distribution. \\
 
-\noindent However, when it is implemented on the full dataset, the MSE of the GLM increases to \textbf{82.42}, which is worse than just applying ARIMA on every location, which gives a MSE of 73.29. The quadratic score for GLM on the full dataset is -656.94.
+\noindent However, when it is implemented on the full dataset, the MSE of the GLM increases to \textbf{82.42}, which is worse than just applying ARIMA on every location, which gives a MSE of 73.29. The quadratic score for GLM on the full dataset is \textbf{-656.94}.
 
 \subsection{Model Diagnostics}
 To validate and verify if our fitted model is adequate, model checking would be performed by performing the following residual analysis.		
@@ -342,7 +356,7 @@ Vector Autoregressive (VAR) models are the most commonly used model for multivar
 
 \subsection{Motivation}
 
-As with many spatio-temporal demand prediction, spatial features could be an important feature if there exist spatial correlation. To check if there exist spatial correlation between the locations, a correlation heatmap would be plotted. For clear illustration purposes, instead of showing the matrix of correlation for all 839 locations, only the 42 locations with at least 50 non-zero counts would be shown. 
+As with many spatio-temporal demand prediction, spatial features could be an important feature if there exists spatial correlation. To check if there exist spatial correlation between the locations, a correlation heatmap would be plotted. For clear illustration purposes, instead of showing the matrix of correlation for all 839 locations, only the 42 locations with at least 50 non-zero counts would be shown. 
 
 \newpage
 \begin{figure}[H]
@@ -441,15 +455,15 @@ On the small dataset, the MSE using the VAR model is \textbf{47.28} while the MS
 
 \subsection{Model results and limitations}
 
-We also note that the output for VAR or VARX model is in a fractional number instead of an integer. To convert our predictions to an integer for practical purposes, we round the predictions to the nearest integer. While both VAR and VARX are an improvement from the GLM model and also beats the ARIMA baseline model on the smaller dataset, the VAR model fails to beat the baseline model MSE of 73.29. This might be because in the baseline model, since each location is fitted with an individual ARIMA model, those sparse locations would have predictions of all 0, which would be accurate. In the smaller dataset, since we only used locations that are not sparse (locations with at least 50 non-zero counts), and the VAR/VARX model uses all locations' demand values, the existence of spatial correlation would cause the VAR/VARX model to perform better than the ARIMA. However, using VAR/VARX on the full dataset, which contains locations with sparse demand would not beat the ARIMA model because the presence of non-zero coefficients would cause many predictions to be non-zero, hence producing a more inaccurate prediction as compared to the baseline ARIMA model. \\
+We also note that the output for VAR or VARX model is in a fractional number instead of an integer. To convert our predictions to an integer for practical purposes, we round the predictions to the nearest integer. \\
 
-%\noindent Having noticed the abovementioned problem in locations with sparse demand. the next section would introduce a 3-step approach to fix this issue. 
+\noindent The next section would explore using STAR models as another alternative model that can include spatial features. 
 
 \newpage
 
 \section{Spatio-Temporal Autoregressive Model (STAR)}
 
-\cite{Abolfazl2017} has evaluated ARMA, VAR and Spatio-Temporal Autoregressive (STAR) model to predict taxi demands in New York City and have found that STAR models performs much better. This section would explore the use of STAR models on our dataset. \\
+\cite{Abolfazl2017} has evaluated ARMA, VAR and Spatio-Temporal Autoregressive (STAR) model to predict taxi demands in New York City and have found that STAR models performs much better. This section would explore the use of STAR models on our dataset. 
 
 \subsection{Details of STAR models}
 
@@ -470,7 +484,7 @@ We also note that the output for VAR or VARX model is in a fractional number ins
 
 \noindent The properties state that the sum of the weights for all neighbouring location $j$ for each location $i$ should sum up to 1 and have non-zero values for location i's first order neighbours. We can then combine all regions' weights into $W^{(s)}$, which represents a spatial weight matrix of N x N where N is the number of locations that our dataset has. The matrix would be make up of zeros for its diagonal elements while the rest will be filled with positive numbers. One way to calculate the weights would be to uniformly distribute the weights for every neighbouring location $j$ of location $i$. \\
 
-
+\newpage
 \noindent STAR models of the form STAR($l$,$s$) can then be expressed as: 
 
 \begin{center}
@@ -489,9 +503,14 @@ More details regarding STAR models can be found in \cite{KURT20152537}.
 
 \subsection{Results of STAR model}
 
-On the small dataset, the MSE of the STAR model is \textbf{39.76} and the quadratic score is \textbf{-20.27}. On the full dataset, the MSE of the STAR model is \textbf{81.50} and the quadratic score is \textbf{-656.32}. The MSE of the STAR model is slightly better tha the MSE using VAR model on high-dimensional data, which is similar to what \cite{Abolfazl2017} observed too. However, the MSE of STAR model is still much lower than using the VARX model. 
+On the small dataset, the MSE of the STAR model is \textbf{39.76} and the quadratic score is \textbf{-20.27}. On the full dataset, the MSE of the STAR model is \textbf{81.50} and the quadratic score is \textbf{-656.32}. The MSE of the STAR model is slightly better tha the MSE using VAR model on high-dimensional data, which is similar to what \cite{Abolfazl2017} observed too. However, the MSE of STAR model is still much lower than using the VARX model. \\
 
-\newpage
+\noindent While VAR, VARX and STAR models are an improvement from the GLM model and also beats the ARIMA baseline model on the smaller dataset, the VAR and STAR model fails to beat the baseline model MSE of 71.73. This might be because in the baseline model, since each location is fitted with an individual ARIMA model, those sparse locations would have predictions of all 0, which would be deemed to be more accurate. \\
+
+\noindent In the smaller dataset, since we only used locations that are not sparse (locations with at least 50 non-zero counts), and the VAR/VARX/STAR model uses all locations' demand values, the existence of spatial correlation would cause the VAR/VARX/STAR model to perform better than the ARIMA. However, using VAR/VARX on the full dataset, which contains locations with sparse demand would not beat the ARIMA model because the presence of non-zero coefficients would cause many predictions to be non-zero, hence producing a more inaccurate prediction as compared to the baseline ARIMA model. \\
+
+\noindent Having noticed the abovementioned problem in locations with sparse demand. the next section would introduce a 3-step approach to fix this issue. 
+
 \section{3-step Approach}
 
 In this section, we introduce an alternative 3-step approach. The overall steps are summarised here:
@@ -876,7 +895,7 @@ In this 3-step approach, it is not appropriate to use conventional methods, such
 %\textbf{\caption{MSE for different clustering distance metrics and number of clusters. Bolded results signifying the best result for the respective distance metric.}}
 %\end{table}
 
-\noindent Based on the results, if we prioritised MSE as the main metric, the optimal result could be obtained by clustering the time series into 8 groups using the euclidean distance between their physical locations as the distance metric to give the best MSE of \textbf{58.19}. 
+\noindent Based on the results, if we prioritised MSE as the main metric, the optimal result could be obtained by clustering the time series into 8 groups using the euclidean distance between their physical locations as the distance metric, use VAR to predict cluster demands, and reassign it back to individual locations to give the best MSE of \textbf{58.19}. 
 
 %\subsubsection{Model Diagnostics}
 %
@@ -905,7 +924,7 @@ The table below summarises the results of our models.
 \textbf{VAR}                                                          & 47.28             &   -15.11                      & 82.87            &                         \\ \hline
 \textbf{VARX}                                                         & 45.76             &  -16.23                       & 68.29            &                         \\ \hline
 \textbf{STAR}                                                         & 39.76             & -20.27                  & 81.50            & -656.32                 \\ \hline
-\textbf{3-step approach (geographical location,VAR)}      & 39.46 &                        -19.28 & 58.19            & -787.15                 \\ \hline
+\textbf{3-step approach (geographical location,VAR)}      & 39.46 &                        -19.28 & \textbf{58.19}            & -787.15                 \\ \hline
 \textbf{3-step approach (geographical location,STAR)}      & 37.26 &                        -16.98 & 58.95            & -760.05             \\ \hline
 \textbf{3-step approach (correlation of time series,VAR)} & 40.73             &      -18.28                  & 58.48           & -678.20                 \\ \hline
 \textbf{3-step approach (correlation of time series,STAR)} & 36.81 &      -19.53                 & 61.35           & -787.25              \\ \hline
@@ -915,15 +934,17 @@ The table below summarises the results of our models.
 \textbf{\caption{MSE and Quadratic Score of the different methods used in this paper. The MSE is prioritised here, and hence the quadratic score might not be the optimal one.}}
 \end{table}
 
+\noindent While both MSE and Quadratic scores are important metrics to evaluate our models, it is often hard to find a model that has the minimum for both metrics. In this paper, we would prioritise the MSE due to its predictive performane measure. The optimal model would be to use the 3-step approach with the euclidean distance between geographical locations as the distance metric, and using VAR to predict the clusters' total demand. We can also observe that while the Quadratic score for this model is not the minimum, it is the second minimum, with only a very minute difference of 0.1 (-787.15 vs -787.25). \\ 
 
-\noindent VAR and VARX model performs better than the GLM models on the full dataset, suggesting that the spatial relationship between locations are useful in forecasting. Also, VARX performs better than VAR model in both datasets, suggesting the exogenous variables have some explanatory power and do improve the forecast accuracy. \\
+\noindent Our STAR and VARX models performs better than the GLM models on the full dataset, suggesting that the spatial relationship between locations are useful in forecasting. Also, VARX performs better than VAR model in both datasets, suggesting the exogenous variables have some explanatory power and do improve the forecast accuracy. Applying the 3-step approach also gives a much improved result as compared to just using VAR/VARX or STAR models on all the locations. This might be due to the 3-step approach being more reasonable in dealing with locations with sparse demand due to the aggregation of clusters in the clustering method. In the 3-step approach, our VAR model uses just the 8 clusters as variables to predict the total cluster demand for just 8 clusters, while the original VAR uses all 839 locations as variables to predict for 839 locations, which is more likely to produce a higher error rate.  \\
 
-\noindent Applying the 3-step approach also gives a much improved result as compared to just using VAR on all the locations. This might be due to the 3-step approach being more reasonable in dealing with locations with sparse demand due to the aggregation of clusters in the clustering method. In the 3-step approach, our VAR model uses just the 11 clusters as variables to predict the total cluster demand for just 11 clusters, while the original VAR uses all 839 locations as variables to predict for 839 locations, which is more likely to produce a higher error rate. This is similar to the findings from \cite{Abolfazl2017}, which states that a simple VAR model would not perform as well for high-dimensional data. \\
+\noindent As for the distance metric used for clustering, using euclidean distance between the geographical location gives us the best result. However, using correlation or DTW between the time series to cluster also gives similar results and that would imply that spatial correlation might not only be limited to just purely geographical proximity but also on the time series similarity. Comparing correlation measure and DTW measure, using correlation between the time series as the distance metric gives us the better result. Correlation compares the general shape and trend of the time series regardless of scale, whereas for DTW, it is more effective to compare time series of varying length and speed. 
 
-\noindent As for the distance metric used for clustering, using correlation also gives better results than using euclidean distance between the geo-locations, and this would imply that spatial correlation is not limited to just purely geographical proximity but also on the time series similarity. Comparing correlation measure and DTW measure, using correlation between the time series as the distance metric gives us the best result. Correlation compares the general shape and trend of the time series regardless of scale, whereas for DTW, it is more effective to compare time series of varying length and speed. 
+\section{Conclusion and Future Work}
 
-\section{Limitations and Future Work}
-Our 3-step approach model display decent MSE result. However, using VAR is still technically a linear model and future work could include exploring using non-linear models like neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models that also uses spatial-temporal features. Neural network models are also believed to be able to take into account the non-stationarity of the time series, which would allow our model to be more flexible without the need for differencing. \\
+This paper have attempted to tackle the 3 main challenges of this dataset as mentioned in section 3.3. We have introduced a 3-step approach model to deal with sparse data and counts across multiple locations. The clustering step in the 3-step approach have also attempted to reduce the dimensionality (number of locations used as variables) of our dataset. We have also used probabilistic forecasting methods as well as proper scoring metrics to evaluate our models for count data. For practical purposes, our fractional numbers that is obtained from our predictions could be rounded up to the nearest integer. \\
+
+\noindent Our 3-step approach model display decent MSE result. However, using VAR is still technically a linear model and future work could include exploring using non-linear models like neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models that also uses spatial-temporal features. Neural network models are also believed to be able to take into account the non-stationarity of the time series, which would allow our model to be more flexible without the need for differencing. \\
 
 \noindent Another area that could be explored further would be the method used to assign the total cluster demand to individual locations. Our current method simply used the historical distribution of the total sum of demand of each location over all the locations in that cluster. This would work well if the distribution of the demand for the locations remain relatively constant over time but if the distribution of the locations fluctuates greatly, the current reassignment formula might not be a suitable model. Instead, we could attempt to create another model to predict the distribution of the locations in each cluster in order to get a relatively more stable and reasonable distribution over time. 
 
