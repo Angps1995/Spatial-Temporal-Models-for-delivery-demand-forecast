@@ -103,8 +103,8 @@
 
 \ABSTRACT{Many real industry problems involves spatio-temporal demand prediction, which requires predicting demand at a certain time across different locations. Most of the
 demand data are not continuous variables but instead count variables, like number
-of orders and number of transactions. Previous research have mainly explored neural
-network methods for spatio-temporal problems. In this paper, we want to have a more interpretable method and hence will focus on how we can
+of orders and number of transactions. Previous research have mainly implemented neural
+network methods for spatio-temporal problems. In this paper, we would explore more interpretable method and hence will focus on how we can
 apply classical time series model, such as Vector Autoregressive (VAR), Spatio-Temporal Autoregressive (STAR) models to exploit spatial
 correlations as well as also introduce a 3-step approach to improve forecast accuracy.}
 
@@ -451,13 +451,11 @@ The plots below shows the distribution of our residuals for the VAR model and th
 %Figure 13 and 14 shows that heteroscadasticity occurs at the lower and higher ends of the predicted values, whereas in the middle range, the residuals tend to be roughly randomly scattered.
 
 \subsection{Results}
-On the small dataset, the MSE using the VAR model is \textbf{47.28} while the MSE using the VARX model is \textbf{45.76}. On the full dataset, the MSE using the VAR model  is \textbf{82.87} while the MSE using the VARX model is \textbf{68.29}.Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. 
+On the small dataset, the MSE using the VAR model is \textbf{47.28} while the MSE using the VARX model is \textbf{45.76}. The quadratic score of using the VAR model on the small dataset is \textbf{-15.11} while the MSE using the VARX model is \textbf{-16.23}. On the full dataset, the MSE using the VAR model is \textbf{82.87} while the MSE using the VARX model is \textbf{73.69}. The quadratic score using the VAR model on the full dataset is \textbf{-750.94} while the MSE using the VARX model is \textbf{-727.02}. Since the VARX includes exogenous variables and have a better result compared to the VAR model, it shows that the exogenous variables used do have a moderate amount of explanatory power. 
 
 \subsection{Model results and limitations}
 
-We also note that the output for VAR or VARX model is in a fractional number instead of an integer. To convert our predictions to an integer for practical purposes, we round the predictions to the nearest integer. \\
-
-\noindent The next section would explore using STAR models as another alternative model that can include spatial features. 
+We also note that the output for VAR or VARX model is in a fractional number instead of an integer. To convert our predictions to an integer for practical purposes, we round the predictions to the nearest integer. The next section would explore using STAR models as another alternative model that can include spatial features. 
 
 \newpage
 
@@ -505,15 +503,15 @@ More details regarding STAR models can be found in \cite{KURT20152537}.
 
 On the small dataset, the MSE of the STAR model is \textbf{39.76} and the quadratic score is \textbf{-20.27}. On the full dataset, the MSE of the STAR model is \textbf{81.50} and the quadratic score is \textbf{-656.32}. The MSE of the STAR model is slightly better tha the MSE using VAR model on high-dimensional data, which is similar to what \cite{Abolfazl2017} observed too. However, the MSE of STAR model is still much lower than using the VARX model. \\
 
-\noindent While VAR, VARX and STAR models are an improvement from the GLM model and also beats the ARIMA baseline model on the smaller dataset, the VAR and STAR model fails to beat the baseline model MSE of 71.73. This might be because in the baseline model, since each location is fitted with an individual ARIMA model, those sparse locations would have predictions of all 0, which would be deemed to be more accurate. \\
+\noindent While VAR, VARX and STAR models are an improvement from the GLM model and also beats the ARIMA baseline model on the smaller dataset, the 3 models fail to beat the baseline model MSE of 71.73. This might be because in the baseline model, since each location is fitted with an individual ARIMA model, those sparse locations would have predictions of all 0, which would be deemed to be more accurate. \\
 
-\noindent In the smaller dataset, since we only used locations that are not sparse (locations with at least 50 non-zero counts), and the VAR/VARX/STAR model uses all locations' demand values, the existence of spatial correlation would cause the VAR/VARX/STAR model to perform better than the ARIMA. However, using VAR/VARX on the full dataset, which contains locations with sparse demand would not beat the ARIMA model because the presence of non-zero coefficients would cause many predictions to be non-zero, hence producing a more inaccurate prediction as compared to the baseline ARIMA model. \\
+\noindent In the smaller dataset, since we only used locations that are not sparse (locations with at least 50 non-zero counts), and the VAR/VARX/STAR model uses all locations' demand values, the existence of spatial correlation would cause the VAR/VARX/STAR model to perform better than the ARIMA. However, when using VAR/VARX/STAR models on the full dataset, which contains locations with sparse demand, they would not beat the ARIMA model because the presence of non-zero coefficients would cause many predictions to be non-zero, hence producing a more inaccurate prediction as compared to the baseline ARIMA model. \\
 
 \noindent Having noticed the abovementioned problem in locations with sparse demand. the next section would introduce a 3-step approach to fix this issue. 
 
 \section{3-step Approach}
 
-In this section, we introduce an alternative 3-step approach. The overall steps are summarised here:
+In this section, we introduce an alternative 3-step approach. The overall steps are summarised here: \\
 
 \noindent \textbf{Step 1}. Perform Clustering on the time series using one of the distance metric: 
 
@@ -921,8 +919,8 @@ The table below summarises the results of our models.
                                                                       & \textbf{MSE}      & \textbf{Quad Score}     & \textbf{MSE}     & \textbf{Quad Score}     \\ \hline
 \textbf{ARIMA}                                                        & 46.87             &      -19.12                   & 71.73            &                        -772.45 \\ \hline
 \textbf{GLM}                                                          & 38.16             & -19.90                  & 82.42            & -656.94                 \\ \hline
-\textbf{VAR}                                                          & 47.28             &   -15.11                      & 82.87            &                         \\ \hline
-\textbf{VARX}                                                         & 45.76             &  -16.23                       & 68.29            &                         \\ \hline
+\textbf{VAR}                                                          & 47.28             &   -15.11                      & 82.87            &    -750.94                     \\ \hline
+\textbf{VARX}                                                         & 45.76             &  -16.23                       & 73.69            &     -727.02                    \\ \hline
 \textbf{STAR}                                                         & 39.76             & -20.27                  & 81.50            & -656.32                 \\ \hline
 \textbf{3-step approach (geographical location,VAR)}      & 39.46 &                        -19.28 & \textbf{58.19}            & -787.15                 \\ \hline
 \textbf{3-step approach (geographical location,STAR)}      & 37.26 &                        -16.98 & 58.95            & -760.05             \\ \hline
@@ -942,7 +940,7 @@ The table below summarises the results of our models.
 
 \section{Conclusion and Future Work}
 
-This paper have attempted to tackle the 3 main challenges of this dataset as mentioned in section 3.3. We have introduced a 3-step approach model to deal with sparse data and counts across multiple locations. The clustering step in the 3-step approach have also attempted to reduce the dimensionality (number of locations used as variables) of our dataset. We have also used probabilistic forecasting methods as well as proper scoring metrics to evaluate our models for count data. For practical purposes, our fractional numbers that is obtained from our predictions could be rounded up to the nearest integer. \\
+This paper have attempted to tackle the 3 main challenges of this dataset as mentioned in section 3.3. We have introduced a 3-step approach model to deal with sparse data and counts across multiple locations. The clustering step in the 3-step approach have also attempted to reduce the dimensionality (number of locations used as variables) of our dataset. We have also used probabilistic forecasting methods as well as proper scoring metrics to evaluate our models for count data. For practical purposes, our fractional numbers that is obtained from our predictions could be rounded up to the nearest integer since the nearest integer would be the count value that is expected to occur. \\
 
 \noindent Our 3-step approach model display decent MSE result. However, using VAR is still technically a linear model and future work could include exploring using non-linear models like neural network, such as Long Short-Term Memory (LSTM) models or Convolutional LSTM models that also uses spatial-temporal features. Neural network models are also believed to be able to take into account the non-stationarity of the time series, which would allow our model to be more flexible without the need for differencing. \\
 

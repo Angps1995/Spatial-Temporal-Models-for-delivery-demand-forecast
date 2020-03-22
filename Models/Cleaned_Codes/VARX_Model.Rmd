@@ -8,7 +8,7 @@ output: html_notebook
 library(urca)
 library(BigVAR)
 library(tseries)
-
+library(tscount)
 #Load dataset
 full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
 df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
@@ -138,7 +138,9 @@ varx_error <- result$VARX_Errors
 varx_fitted <- result$VARX_Fitted
 MSE <- result$MSE
 fitted_val <- result$Fitted_Values
+quad_score = result$`Quadratic(Brier) Score`
 print(paste0("MSE of fitting VARX on full dataset: ", MSE))
+print(paste0("Quadratic Score of fitting VARX on full dataset: ", quad_score))
 ```
 
 

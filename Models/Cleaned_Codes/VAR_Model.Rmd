@@ -140,7 +140,9 @@ var_error <- result$VAR_Errors
 var_fitted <- result$VAR_Fitted
 MSE <- result$MSE
 fitted_val <- result$Fitted_Values
-print(paste0("MSE of fitting VAR on small dataset: ", MSE))
+quad_score = result$`Quadratic(Brier) Score`
+print(paste0("MSE of fitting VAR on full dataset: ", MSE))
+print(paste0("Quadratic Score of fitting VAR on full dataset: ", quad_score))
 ```
 
 ```{r}
