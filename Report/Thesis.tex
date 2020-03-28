@@ -31,9 +31,9 @@
 \EquationsNumberedThrough    % Default: (1), (2), ...
 %\EquationsNumberedBySection % (1.1), (1.2), ...
 
-
+%
 %\pagestyle{plain}
-%\setlength{\parskip} {12pt}
+%\setlength{\parskip} {28pt}
 %\setlength{\parindent} {2em}
 %\setlength{\textwidth}{6.5in}
 %\setlength{\oddsidemargin} {0in}
@@ -397,7 +397,7 @@ VAR models can also be extended to include exogenous variables. A VARX(p,s) (wit
     $\displaystyle y_t=v+\sum_{i=1}^{p} \phi_{i}y_{t-i}+\sum_{j=1}^{s} \beta_{j}x_{t-j}+\alpha_t$
 \end{center}
 
-\noindent where $p$ is the number of lagged endogenous variables used, $s$ is the number of lagged exogenous variables used, $y_t$ is the value at time $t$, $v$ is a constant vector, $\phi_i$ are coefficient matrices for endogenous coefficient matrix for $i>0$, $\beta_i$ are coefficient matrices for exogenous coefficient matrix for $i>0$ and $\alpha_t$ are independent and identically distributed random vectors. 
+\noindent where $p$ is the number of lagged endogenous variables used, $s$ is the number of lagged exogenous variables used, $y_t$ is the value at time $t$, $v$ is a constant vector, $\phi_i$ are coefficient matrices for endogenous coefficient matrix for $i>0$, $\beta_j$ are coefficient matrices for exogenous coefficient matrix for $j>0$, $x_{t-j}$ represents the value of the exogenous variables at time t - j, where j is the lagged period for exogenous variables and $\alpha_t$ are independent and identically distributed random vectors. 
 
 \subsection{Implementation of VARX Model on our dataset}
 \noindent Our dataset uses additional exogenous variables like temperature, wind, gust, cloud, humidity, precipitation, pressure as well as one-hot encoding of the day of the week. Our dataset now would have 839 endogenous variables/locations and 13 exogenous variables. Based on performance results and taking computational power limitation into consideration, the optimal number of lag (p) for endogenous variables is 6 and number of lag for exogenous variables is 1. \\
@@ -483,13 +483,13 @@ We also note that the output for VAR or VARX model is in a fractional number ins
 \noindent The properties state that the sum of the weights for all neighbouring location $j$ for each location $i$ should sum up to 1 and have non-zero values for location i's first order neighbours. We can then combine all regions' weights into $W^{(s)}$, which represents a spatial weight matrix of N x N where N is the number of locations that our dataset has. The matrix would be make up of zeros for its diagonal elements while the rest will be filled with positive numbers. One way to calculate the weights would be to uniformly distribute the weights for every neighbouring location $j$ of location $i$. \\
 
 \newpage
-\noindent STAR models of the form STAR($l$,$s$) can then be expressed as: 
+\noindent STAR models of the form STAR($p$,$k$) can then be expressed as: 
 
 \begin{center}
     $\displaystyle y_{t} = \sum_{l=1}^{p}\sum_{s=0}^{k_l}\phi_{ls} W^{(s)}y_{t-l} + \epsilon_{t}$
 \end{center}
 
-\noindent where $l$ represents time lag and $s$ reprsents spatial lag. $y_{t}$ represents the predicted demand at time t, $\phi_{ls}$ represents diagonal matrices, $\epsilon_{t}$ represents white noise with mean vector 0. 
+\noindent where $p$ represents time lag and $k$ reprsents spatial lag. $y_{t}$ represents the predicted demand at time t, $\phi_{ls}$ represents diagonal matrices, $\epsilon_{t}$ represents white noise with mean vector 0. 
 More details regarding STAR models can be found in \cite{KURT20152537}.
 
 
@@ -711,7 +711,7 @@ After we attained the total demand for each cluster, the next step would be to r
     $\displaystyle y_{i} = Y_{C(i)} * \frac{(\sum_{j=1}^{n}x_{ij})}{D_{C(i)}} \: \forall \: i$
 \end{center}
 
-\noindent where $y_i$ represents the predicted demand for location i, $Y_{C(i)}$ represents the predicted total demand of Cluster i, $C(i)$ represents the cluster which location i belongs to, $D_{C(i)}$ represents the total demand (from training set) of the cluster C(i).
+\noindent where $y_i$ represents the predicted demand for location i, $Y_{C(i)}$ represents the predicted total demand of the respective cluster of location i, $C(i)$ represents the cluster which location i belongs to, $D_{C(i)}$ represents the total demand (from training set) of the cluster C(i) and $x_{ij}$ represents the past number orders at location i at time j. 
 
 
 \subsection{Results}
