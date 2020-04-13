@@ -1753,15 +1753,66 @@ summary {
 <h1>Load Libraries and dataset</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0c2NvdW50KVxubGlicmFyeSh0c2VyaWVzKVxubGlicmFyeSh1cmNhKVxubGlicmFyeShmYWN0b2V4dHJhKVxubGlicmFyeSh2YXJzKVxubGlicmFyeShCaWdWQVIpXG5saWJyYXJ5KEJCbWlzYylcbmxpYnJhcnkoYW1hcClcbmxpYnJhcnkoZ3N0YXIpXG5zZXQuc2VlZCgxMjM0KVxuXG4jTG9hZCBkYXRhc2V0XG5mdWxsX2RmIDwtIHJlYWQuY3N2KFwiL2hvbWUvYW5ncHMvRG9jdW1lbnRzL1RoZXNpcy9EYXRhL2Z1bGxfZGZfd2l0aF9leG8uY3N2XCIpXG5kZl9hdGxlYXN0XzUwY3RzIDwtIHJlYWQuY3N2KFwiL2hvbWUvYW5ncHMvRG9jdW1lbnRzL1RoZXNpcy9EYXRhL2RmXz49NTBfd2l0aF9leG8uY3N2XCIpXG5kZl9hdGxlYXN0XzUwY3RzX2VuZG8gPC0gcmVhZC5jc3YoXCIvaG9tZS9hbmdwcy9Eb2N1bWVudHMvVGhlc2lzL0RhdGEvZGF0YV8+PTUwY3RzLmNzdlwiKVxubG9jX2RmIDwtIHJlYWQuY3N2KFwiL2hvbWUvYW5ncHMvRG9jdW1lbnRzL1RoZXNpcy9EYXRhL2xvY2F0aW9uX21hcC5jc3ZcIilcbiMgaW5kZXggd2hlcmUgbG9jYXRpb25zIGhhdmUgYXQgbGVhc3QgNTAgbm9uLXplcm8gY291bnRzXG5pbmRleF9sb2NfYXRsZWFzdDUwIDwtIGMoMTksICAyMywgIDM4LCAgNDMsICA0NCwgIDUzLCAgNTgsICA2MiwgIDc5LCAgODksICA5MCwgIDkzLCAgOTgsXG4gICAgICAgICAgICAxMDUsIDEwOSwgMTExLCAxMjMsIDE0MSwgMTU1LCAxNTksIDE2MiwgMTYzLCAyMzMsIDI0MSwgMjQzLCAzMDEsXG4gICAgICAgICAgICAzNjgsIDM5NywgNDEzLCA0NDEsIDUxMSwgNTU5LCA1NzcsIDY4MCwgNjg0LCA2ODgsIDY5NiwgNzA3LCA3MzIsXG4gICAgICAgICAgICA3NTMsIDc3NywgNzk1KSAgXG5taW5pX2xvY19kZiA8LSBsb2NfZGZbaW5kZXhfbG9jX2F0bGVhc3Q1MCxdXG5yb3duYW1lcyhtaW5pX2xvY19kZikgPC0gbWluaV9sb2NfZGYkbG9jYXRpb25cbnJvd25hbWVzKGxvY19kZikgPC0gbG9jX2RmJGxvY2F0aW9uXG5cbiMgU3BsaXQgdG8gdHJhaW5pbmcvdGVzdGluZ1xudHJhaW5fc21hbGwgPC0gZGZfYXRsZWFzdF81MGN0c19lbmRvWywxOjE5OF1cbnRlc3Rfc21hbGwgPC0gZGZfYXRsZWFzdF81MGN0c19lbmRvWywxOTk6MjA0XVxudHJhaW5fZnVsbCA8LSBmdWxsX2RmWzE6ODM5LDE6MTk4XVxudGVzdF9mdWxsIDwtIGZ1bGxfZGZbMTo4MzksMTk5OjIwNF1cbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0c2NvdW50KVxubGlicmFyeSh0c2VyaWVzKVxuYGBgIn0= -->
 <pre class="r"><code>library(tscount)
-library(tseries)
-library(urca)
-library(factoextra)
-library(vars)
-library(BigVAR)
-library(BBmisc)
-library(amap)
+library(tseries)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2Qgb3ZlcndyaXR0ZW4gYnkgJ3h0cyc6XG4gIG1ldGhvZCAgICAgZnJvbVxuICBhcy56b28ueHRzIHpvbyBcblJlZ2lzdGVyZWQgUzMgbWV0aG9kIG92ZXJ3cml0dGVuIGJ5ICdxdWFudG1vZCc6XG4gIG1ldGhvZCAgICAgICAgICAgIGZyb21cbiAgYXMuem9vLmRhdGEuZnJhbWUgem9vIFxuXG4gICAg4oCYdHNlcmllc+KAmSB2ZXJzaW9uOiAwLjEwLTQ3XG5cbiAgICDigJh0c2VyaWVz4oCZIGlzIGEgcGFja2FnZSBmb3IgdGltZSBzZXJpZXMgYW5hbHlzaXMgYW5kIGNvbXB1dGF0aW9uYWwgZmluYW5jZS5cblxuICAgIFNlZSDigJhsaWJyYXJ5KGhlbHA9XCJ0c2VyaWVzXCIp4oCZIGZvciBkZXRhaWxzLlxuIn0= -->
+<pre><code>Registered S3 method overwritten by 'xts':
+  method     from
+  as.zoo.xts zoo 
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+
+    ‘tseries’ version: 0.10-47
+
+    ‘tseries’ is a package for time series analysis and computational finance.
+
+    See ‘library(help=&quot;tseries&quot;)’ for details.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh1cmNhKVxubGlicmFyeShmYWN0b2V4dHJhKVxuYGBgIn0= -->
+<pre class="r"><code>library(urca)
+library(factoextra)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBnZ3Bsb3QyXG5SZWdpc3RlcmVkIFMzIG1ldGhvZCBvdmVyd3JpdHRlbiBieSAnZHBseXInOlxuICBtZXRob2QgICAgICAgICAgIGZyb21cbiAgcHJpbnQucm93d2lzZV9kZiAgICAgXG5XZWxjb21lISBXYW50IHRvIGxlYXJuIG1vcmU/IFNlZSB0d28gZmFjdG9leHRyYS1yZWxhdGVkIGJvb2tzIGF0IGh0dHBzOi8vZ29vLmdsL3ZlM1dCYVxuIn0= -->
+<pre><code>Loading required package: ggplot2
+Registered S3 method overwritten by 'dplyr':
+  method           from
+  print.rowwise_df     
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh2YXJzKVxuYGBgIn0= -->
+<pre class="r"><code>library(vars)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBNQVNTXG5Mb2FkaW5nIHJlcXVpcmVkIHBhY2thZ2U6IHN0cnVjY2hhbmdlXG5Mb2FkaW5nIHJlcXVpcmVkIHBhY2thZ2U6IHpvb1xuXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYem9v4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0cyBhcmUgbWFza2VkIGZyb20g4oCYcGFja2FnZTpiYXNl4oCZOlxuXG4gICAgYXMuRGF0ZSwgYXMuRGF0ZS5udW1lcmljXG5cbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogc2FuZHdpY2hcbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogbG10ZXN0XG4ifQ== -->
+<pre><code>Loading required package: MASS
+Loading required package: strucchange
+Loading required package: zoo
+
+Attaching package: ‘zoo’
+
+The following objects are masked from ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+Loading required package: sandwich
+Loading required package: lmtest</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShCaWdWQVIpXG5saWJyYXJ5KEJCbWlzYylcbmBgYCJ9 -->
+<pre class="r"><code>library(BigVAR)
+library(BBmisc)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYQkJtaXNj4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6YmFzZeKAmTpcblxuICAgIGlzRkFMU0VcbiJ9 -->
+<pre><code>
+Attaching package: ‘BBmisc’
+
+The following object is masked from ‘package:base’:
+
+    isFALSE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShhbWFwKVxubGlicmFyeShnc3RhcilcbnNldC5zZWVkKDEyMzQpXG5cbiNMb2FkIGRhdGFzZXRcbmZ1bGxfZGYgPC0gcmVhZC5jc3YoXCIvaG9tZS9hbmdwcy9Eb2N1bWVudHMvVGhlc2lzL0RhdGEvZnVsbF9kZl93aXRoX2V4by5jc3ZcIilcbmRmX2F0bGVhc3RfNTBjdHMgPC0gcmVhZC5jc3YoXCIvaG9tZS9hbmdwcy9Eb2N1bWVudHMvVGhlc2lzL0RhdGEvZGZfPj01MF93aXRoX2V4by5jc3ZcIilcbmRmX2F0bGVhc3RfNTBjdHNfZW5kbyA8LSByZWFkLmNzdihcIi9ob21lL2FuZ3BzL0RvY3VtZW50cy9UaGVzaXMvRGF0YS9kYXRhXz49NTBjdHMuY3N2XCIpXG5sb2NfZGYgPC0gcmVhZC5jc3YoXCIvaG9tZS9hbmdwcy9Eb2N1bWVudHMvVGhlc2lzL0RhdGEvbG9jYXRpb25fbWFwLmNzdlwiKVxuIyBpbmRleCB3aGVyZSBsb2NhdGlvbnMgaGF2ZSBhdCBsZWFzdCA1MCBub24temVybyBjb3VudHNcbmluZGV4X2xvY19hdGxlYXN0NTAgPC0gYygxOSwgIDIzLCAgMzgsICA0MywgIDQ0LCAgNTMsICA1OCwgIDYyLCAgNzksICA4OSwgIDkwLCAgOTMsICA5OCxcbiAgICAgICAgICAgIDEwNSwgMTA5LCAxMTEsIDEyMywgMTQxLCAxNTUsIDE1OSwgMTYyLCAxNjMsIDIzMywgMjQxLCAyNDMsIDMwMSxcbiAgICAgICAgICAgIDM2OCwgMzk3LCA0MTMsIDQ0MSwgNTExLCA1NTksIDU3NywgNjgwLCA2ODQsIDY4OCwgNjk2LCA3MDcsIDczMixcbiAgICAgICAgICAgIDc1MywgNzc3LCA3OTUpICBcbm1pbmlfbG9jX2RmIDwtIGxvY19kZltpbmRleF9sb2NfYXRsZWFzdDUwLF1cbnJvd25hbWVzKG1pbmlfbG9jX2RmKSA8LSBtaW5pX2xvY19kZiRsb2NhdGlvblxucm93bmFtZXMobG9jX2RmKSA8LSBsb2NfZGYkbG9jYXRpb25cblxuIyBTcGxpdCB0byB0cmFpbmluZy90ZXN0aW5nXG50cmFpbl9zbWFsbCA8LSBkZl9hdGxlYXN0XzUwY3RzX2VuZG9bLDE6MTk4XVxudGVzdF9zbWFsbCA8LSBkZl9hdGxlYXN0XzUwY3RzX2VuZG9bLDE5OToyMDRdXG50cmFpbl9mdWxsIDwtIGZ1bGxfZGZbMTo4MzksMToxOThdXG50ZXN0X2Z1bGwgPC0gZnVsbF9kZlsxOjgzOSwxOTk6MjA0XVxuYGBgIn0= -->
+<pre class="r"><code>library(amap)
 library(gstar)
 set.seed(1234)
 

@@ -46,7 +46,7 @@ fit_and_evaluate_arima = function(train, test){
         error <- sum(((as.numeric(test[i,]) - pred)) ^ 2)
         errors <- errors + error
         for (j in c(1:6)) {
-            if (isFALSE(is.nan(scoring(test[i,j], pred[j], distr=c("poisson"))['quadratic']))) {
+            if (isFALSE(is.nan(suppressWarnings(scoring(test[i,j], pred[j], distr=c("poisson"))['quadratic'])))) {
                 quad_score <- quad_score + scoring(test[i,j], pred[j], distr=c("poisson"))['quadratic']
             }
         }
