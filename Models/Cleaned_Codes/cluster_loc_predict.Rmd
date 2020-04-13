@@ -18,6 +18,7 @@ set.seed(1234)
 
 #Load dataset
 full_df <- read.csv("/home/angps/Documents/Thesis/Data/full_df_with_exo.csv")
+rec_df <- read.csv("/home/angps/Documents/Thesis/Data/recovered_df.csv")
 df_atleast_50cts <- read.csv("/home/angps/Documents/Thesis/Data/df_>=50_with_exo.csv")
 df_atleast_50cts_endo <- read.csv("/home/angps/Documents/Thesis/Data/data_>=50cts.csv")
 loc_df <- read.csv("/home/angps/Documents/Thesis/Data/location_map.csv")
@@ -305,7 +306,7 @@ dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Cluster_Loc_q
 dev.off ();
 ```
 
-# Apply on full dataset (STAR) (Try clustering groups 2-12)
+# Apply on full dataset  (STAR) (Try clustering groups 2-12)
 
 ```{r eval=FALSE}
 clusters <- c(2:12)
@@ -327,5 +328,49 @@ dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Cluster_STAR_
 dev.off ();
 ```
 
+
+# Apply on full dataset using recovered data (VAR) (Try clustering groups 2-12)
+
+```{r eval=FALSE}
+clusters <- c(2:12)
+MSE <- c()
+quad_score <- c()
+for (i in clusters) {
+    res <- get_clustering_by_loc_result(num_clust=i, loc_df = loc_df, ori_df = full_df[1:839,], train_df = rec_df, pred_method='VAR')
+    MSE <-c(MSE, res$MSE)
+    quad_score <- c(quad_score, res$quad_score)
+}
+plot(clusters, MSE, main="MSE against different number of clusters",cex.main=1.2, cex.lab=1.3)
+lines(clusters, MSE)
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Cluster_rec_Loc_MSE_plot.jpg");
+dev.off ();
+
+plot(clusters, quad_score, main="Quad Score against different number of clusters",cex.main=1.2, cex.lab=1.3)
+lines(clusters,quad_score)
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Cluster_rec_Loc_quad_plot.jpg");
+dev.off ();
+```
+
+# Apply on full dataset using recovered data (STAR) (Try clustering groups 2-12)
+
+```{r eval=FALSE}
+clusters <- c(2:12)
+MSE <- c()
+quad_score <- c()
+for (i in clusters) {
+    res <- get_clustering_by_loc_result(num_clust=i, loc_df = loc_df, ori_df = full_df[1:839,], train_df = rec_df, pred_method='STAR')
+    MSE <-c(MSE, res$MSE)
+    quad_score <- c(quad_score, res$quad_score)
+}
+plot(clusters, MSE, main="MSE against different number of clusters",cex.main=1.2, cex.lab=1.3)
+lines(clusters, MSE)
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Cluster_rec_STAR_Loc_MSE_plot.jpg");
+dev.off ();
+
+plot(clusters, quad_score, main="Quad Score against different number of clusters",cex.main=1.2, cex.lab=1.3)
+lines(clusters,quad_score)
+dev.copy(jpeg,filename="/home/angps/Documents/Thesis/Report/Images/Cluster_rec_STAR_Loc_quad_plot.jpg");
+dev.off ();
+```
 
 
