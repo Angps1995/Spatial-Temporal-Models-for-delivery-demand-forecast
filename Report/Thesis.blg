@@ -3,161 +3,162 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: Thesis.aux
 The style file: ormsv080.bst
 Database file #1: ref.bib
-You're missing a field name---line 334 of file ref.bib
+You're missing a field name---line 363 of file ref.bib
  : 
  : %abstract = {Includes index. Compendium of Hydrogen Energy Volume 4: Hydrogen Use, Safety and the Hydrogen Economy focuses on the uses of hydrogen. As many experts believe the hydrogen economy will, at some point, replace the fossil fuel economy as the primary source of the world's energy, this book investigates the uses of this energy, from transport, to stationary and portable applications, with final sections discussing the difficulties and possibilities of the widespread adoption of the hydrogen economy. Written by both leading academics in the fields of sustainable energy and experts from the world of industryPart.},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 346 of file ref.bib
+You're missing a field name---line 375 of file ref.bib
  : 
  : %doi = {10.1016/j.energy.2015.11.023},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 361 of file ref.bib
+You're missing a field name---line 390 of file ref.bib
  : 
  : %  title={CO2 emissions from fuel combustion-highlights},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 367 of file ref.bib
+You're missing a field name---line 396 of file ref.bib
  : 
  : %author = {Huss, Arno and Maas, Heiko and Hass, Heinz},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 379 of file ref.bib
+You're missing a field name---line 408 of file ref.bib
  : 
  : % howpublished  = "{InsideEVs (Jun. 2016), ``Monthly plug-In sales scorecard," [Online]. Available: http://insideevs.com/monthly-plug-in-sales-scorecard/, accessed July 12, 2016}",
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 383 of file ref.bib
+You're missing a field name---line 412 of file ref.bib
  : 
  : %  title={Hydrogen fueling infrastructure assessment},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 390 of file ref.bib
+You're missing a field name---line 419 of file ref.bib
  : 
  : % howpublished  = "{California Fuel Cell Partnership (July 2014), ``A California road map: the commercialization of hydrogen fuel cell vehicles, 2014 update: hydrogen progress, priorities and opportunities," [Online]. Available: http://www.advancedtransportationcenter.org/fuels/hydrogen/caroadmap-commercialization-of-fcev-progressreport2014-final/, accessed October 11, 2016}",
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 394 of file ref.bib
+You're missing a field name---line 423 of file ref.bib
  : 
  : % howpublished  = "{H2USA (April 2015), ``H2USA, Department of Energy announce new tools for hydrogen
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 399 of file ref.bib
+You're missing a field name---line 428 of file ref.bib
  : 
  : %  title={Fuel cell electric vehicles and hydrogen infrastructure: status 2012},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 410 of file ref.bib
+You're missing a field name---line 439 of file ref.bib
  : 
  : %  title={Fuel cell and battery electric vehicles compared},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 421 of file ref.bib
+You're missing a field name---line 450 of file ref.bib
  : 
  : %author = {Koponen, Joonas},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 429 of file ref.bib
+You're missing a field name---line 458 of file ref.bib
  : 
  : % abstract = {Beginning with Hodgson (Geogr.Anal.22(1990) 270), several researchers have been developing a new kind of location-allocation model for "flow capturing." Instead of locating central facilities to serve demand at fixed points in space, their models aim to serve demand consisting of origin-destination flows along their shortest paths. This paper extends flow-capturing models to optimal location of refueling facilities for alternative-fuel (alt-fuel) vehicles, such as hydrogen fuel cells or natural gas. Existing flow-capturing models assume that if a flow passes just one facility along its path, it is covered. This assumption does not carry over to vehicle refueling because of the limited range of vehicles. For refueling, it may be necessary to stop at more than one facility in order to successfully refuel the entire path, depending on the vehicle range, the path length, and the node spacing. The Flow Refueling Location Model (FRLM) optimally locates p refueling stations on a network so as to maximize the total flow volume refueled. This paper presents a mixed-integer programming formulation for the nodes-only version of the problem, as well as an algorithm for determining all combinations of nodes that can refuel a given path. A greedy-adding approach is demonstrated to be suboptimal, and the tradeoff curve between number of facilities and flow volume refueled is shown to be nonconvex. ?? 2004 Elsevier Ltd. All rights reserved.},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 446 of file ref.bib
+You're missing a field name---line 475 of file ref.bib
  : 
  : % abstract = {Serious environmental and economic problems of using fossil fuels in transportation sections force managers to think of alternative fuels such as hydrogen, ethanol, biodiesel, natural gas, or electricity. Meanwhile, lack of fuel network infrastructures is a major problem, which needs to be investigated considering the number and optimal location of alternative fuel stations. In the literature, two different flow-based demand modeling concepts (the maximum cover and set cover) have been proposed for solving this problem. Because of the huge number of combinations of fuel stations for covering the flow of each path, the models are impractical for the real size problems. In this paper, the flow refueling location model was reformulated and a flexible mixed-integer linear programming model was presented, which was able to obtain an optimal solution much faster than the previous set cover version. The model also could be solved in the maximum cover form in a reasonable time on the large-sized networks.},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 464 of file ref.bib
+You're missing a field name---line 493 of file ref.bib
  : 
  : % abstract = {Increased interest in alternative fuels is attributable, in part, to rising oil prices and increasing concern about global warming. A lack of a refueling infrastructure, however, has inhibited the adoption of alternative-fuel vehicles. Little economic incentive exists to mass-produce alternative-fuel vehicles until a network of stations exists that can refuel a reasonable number of trips. The flow refueling location model (FRLM) was developed to minimize the investment necessary to create a refueling infrastructure by optimizing the location of fueling stations. The original uncapacitated FRLM assumes that the presence of a refueling station is sufficient to serve all flows passing through a node, regardless of their volume. This article introduces the capacitated flow refueling location model that limits the number of vehicles refueled at each station. It also introduces a modified objective function maximizing vehicle-miles traveled instead of trips, applies both models to an intercity network for Arizona, and formulates several other extensions.},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 482 of file ref.bib
+You're missing a field name---line 511 of file ref.bib
  : 
  : % abstract = {Electric vehicles (EVs) have been proposed as a key technology to help cut down the massive greenhouse gas emissions from the transportation sector. Unfortunately, because of the limited capacity of batteries, typical EVs can only travel for about 100 miles on a single charge and require hours to be recharged. The industry has proposed a novel solution centered around the use of “swapping stations,” at which depleted batteries can be exchanged for recharged ones in the middle of long trips. The possible success of this solution hinges on the ability of the charging service provider to deploy a cost-effective infrastructure network, given only limited information regarding adoption rates. We develop robust optimization models that aid the planning process for deploying battery-swapping infrastructure. Using these models, we study the potential impacts of battery standardization and technology advancements on the optimal infrastructure deployment strategy.},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 510 of file ref.bib
+You're missing a field name---line 539 of file ref.bib
  : 
  : % author = {Zhang, Hongcai and Moura, Scott J. and Hu, Zechun and Song, Yonghua},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 520 of file ref.bib
+You're missing a field name---line 549 of file ref.bib
  : 
  : % author = {Zhang, Hongcai and Moura, Scott and Hu, Zechun and Qi, Wei and Song, Yonghua},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 527 of file ref.bib
+You're missing a field name---line 556 of file ref.bib
  : 
  : % annote = {已阅，非常重要。
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 547 of file ref.bib
+You're missing a field name---line 576 of file ref.bib
  : 
  : % annote = {同时考虑交通和电网。
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 568 of file ref.bib
+You're missing a field name---line 597 of file ref.bib
  : 
  : % abstract = {This paper studies the problem of multistage place- ment of electric vehicle (EV) charging stations with incremental EV penetration rates. A nested logit model is employed to analyze the charging preference of the individual consumer (EV owner) and predict the aggregated charging demand at the charging stations. The EV charging industry is modeled as an oligopoly where the entire market is dominated by a few charging ser- vice providers (oligopolists). At the beginning of each planning stage, an optimal placement policy for each service provider is obtained through analyzing strategic interactions in a Bayesian game. To derive the optimal placement policy, we consider both the transportation network graph and the electric power net- work graph. A simulation software—the EV Virtual City 1.0—is developed using Java to investigate the interactions among the consumers (EV owner), the transportation network graph, the electric power network graph, and the charging stations. Through a series of experiments using the geographic and demographic data from the city of the San Pedro District of Los Angeles, CA, USA, we show that the charging station placement is highly consistent with the heatmap of the traffic flow. In addition, we observe a spatial economic phenomenon that service providers prefer clustering instead of separation in the EV charging market.},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 586 of file ref.bib
+You're missing a field name---line 615 of file ref.bib
  : 
  : %  title={Hydrogen station cost estimates: comparing hydrogen station cost calculator results with other recent estimates},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 593 of file ref.bib
+You're missing a field name---line 622 of file ref.bib
  : 
  : %  title={Hydrogen Storage Cost Analysis, Preliminary Results},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 601 of file ref.bib
+You're missing a field name---line 630 of file ref.bib
  : 
  : %  title={Hydrogen pathways: Updated cost, well-to-wheels energy use, and emissions for the current technology status of ten hydrogen production, delivery, and distribution scenarios},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 609 of file ref.bib
+You're missing a field name---line 638 of file ref.bib
  : 
  : % howpublished  = "{2016 Mirai Product Information, [Online]. Available: https://pressroom.toyota.com/releases/2016+toyota+mirai+fuel+cell+pro duct.download, accessed October 13, 2016}",
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 613 of file ref.bib
+You're missing a field name---line 642 of file ref.bib
  : 
  : % author        = "Zhang, Hongcai and Moura, Scott J. and Hu, Zechun and Qi, Wei, and Song, Yonghua",
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 623 of file ref.bib
+You're missing a field name---line 652 of file ref.bib
  : 
  : % author        = "PG\&E",
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 632 of file ref.bib
+You're missing a field name---line 661 of file ref.bib
  : 
  : % title={Summary of travel trends: 2009 national household travel survey},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 638 of file ref.bib
+You're missing a field name---line 667 of file ref.bib
  : 
  : % howpublished  = "{A. Elgowainy and K. Reddi. ``2015 DOE hydrogen and fuel cells program
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 643 of file ref.bib
+You're missing a field name---line 672 of file ref.bib
  : 
  : % abstract = {The optimal power flow (OPF) problem determines a network operating point that minimizes a certain objective such as generation cost or power loss. It is nonconvex. We prove that a global optimum of OPF can be obtained by solving a second-order cone program, under a mild condition after shrinking the OPF feasible set slightly, for radial power networks. The condition can be checked a priori, and holds for the IEEE 13, 34, 37, 123-bus networks and two real-world networks.},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 664 of file ref.bib
+You're missing a field name---line 693 of file ref.bib
  : 
  : % author        = "IBM",
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-You're missing a field name---line 671 of file ref.bib
+You're missing a field name---line 700 of file ref.bib
  : 
  : % author = {Zhang, Hongcai and Moura, Scott and Hu, Zechun and Qi, Wei and Song, Yonghua},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "Sheng2018"
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--empty booktitle in Hilde2000
 Warning--empty pages in Hilde2000
@@ -167,8 +168,6 @@ Warning--empty booktitle in Asha2016
 Warning--empty pages in Asha2016
 Warning--empty booktitle in Marina2016
 Warning--empty pages in Marina2016
-Warning--empty booktitle in Sheng2018
-Warning--empty pages in Sheng2018
 Warning--empty journal in William2017
 Warning--can't use both author and editor fields in Nunes2015
 Warning--empty chapter and pages in Nunes2015
@@ -180,43 +179,43 @@ Warning--empty booktitle in Zhijie1998
 Warning--empty pages in Zhijie1998
 You've used 27 entries,
             3236 wiz_defined-function locations,
-            861 strings with 10203 characters,
-and the built_in function-call counts, 15860 in all, are:
-= -- 1263
+            864 strings with 10235 characters,
+and the built_in function-call counts, 15852 in all, are:
+= -- 1264
 > -- 669
 < -- 15
 + -- 235
 - -- 198
-* -- 1134
-:= -- 2499
-add.period$ -- 117
+* -- 1132
+:= -- 2498
+add.period$ -- 118
 call.type$ -- 27
 change.case$ -- 200
 chr.to.int$ -- 27
-cite$ -- 46
-duplicate$ -- 1246
-empty$ -- 1210
+cite$ -- 44
+duplicate$ -- 1247
+empty$ -- 1207
 format.name$ -- 285
-if$ -- 3142
+if$ -- 3140
 int.to.chr$ -- 1
 int.to.str$ -- 1
 missing$ -- 255
-newline$ -- 156
+newline$ -- 157
 num.names$ -- 108
-pop$ -- 538
+pop$ -- 535
 preamble$ -- 1
 purify$ -- 174
 quote$ -- 0
-skip$ -- 398
+skip$ -- 397
 stack$ -- 0
 substring$ -- 653
-swap$ -- 535
+swap$ -- 537
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 237
-warning$ -- 19
+warning$ -- 17
 while$ -- 99
 width$ -- 0
-write$ -- 372
+write$ -- 374
 (There were 31 error messages)

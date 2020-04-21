@@ -15,6 +15,7 @@ library(BBmisc)
 library(dtw)
 library(TSclust)
 library(dtwclust)
+library(gstar)
 set.seed(1234)
 
 #Load dataset

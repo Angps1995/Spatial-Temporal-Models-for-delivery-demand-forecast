@@ -88,10 +88,11 @@ Liboschik, Tobias, Konstantinos Fokianos, Roland Fried. 2017.
 \newblock \doi{10.18637/jss.v082.i05}.
 \newblock \urlprefix\url{https://www.jstatsoft.org/v082/i05}.
 
-\bibitem[{Liu et~al.(2018)Liu, He, and Shen}]{Sheng2018}
-Liu, Sheng~Rui, Long He, Zuo-Jun~Max Shen. 2018.
+\bibitem[{Liu et~al.(2020)Liu, He, and Shen}]{liu2020time}
+Liu, Sheng, Long He, Zuo-Jun~Max Shen. 2020.
 \newblock On-time last mile delivery: Order assignment with travel time
   predictors.
+\newblock {\it Management Science\/} .
 
 \bibitem[{Lu and Chang(2014)}]{Chi2014}
 Lu, Chi-Jie, Chi-Chang Chang. 2014.

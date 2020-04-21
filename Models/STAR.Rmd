@@ -25,6 +25,18 @@ test_full_df <- t(full_df[,199:204])
 ```{r}
 
 fit_and_evaluate_star = function(train, test, ar_term, ma_term){
+    "
+    Fit and evaluate using STAR model.
+    Inputs: 
+        train: Training dataset
+        test: Testing dataset
+        ar_term: AR term
+        ma_term: MA term
+    Output:
+        Returns a list that stores:
+          MSE: The mean squared error
+          Quad Score: Quadratic Score
+    "
     num_per_train = dim(train)[1]
     num_loc_train = dim(train)[2]
     

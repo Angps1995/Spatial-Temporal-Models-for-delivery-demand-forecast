@@ -3,6 +3,7 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 % Natbib setup for author-year style
+\usepackage{textcomp}
 \usepackage{natbib}
 \usepackage[justification=centering]{caption}
 \usepackage{color}
@@ -102,15 +103,15 @@
 }
 
 \ABSTRACT{Many real industry problems involves spatio-temporal demand prediction, which requires predicting demand at a certain time across different locations. Most of the
-demand data are not continuous variables but instead count variables, like number
-of orders and number of transactions. Previous research have mainly implemented neural
-network methods for spatio-temporal problems. In this paper, we would explore more interpretable method and hence will focus on how we can
-apply classical time series model, such as Vector Autoregressive (VAR), Spatio-Temporal Autoregressive (STAR) models to exploit spatial
+demand data are not continuous variables but are instead count variables, like the number
+of orders and number of transactions. Previous research studies have mainly implemented neural
+network methods for spatio-temporal problems. In this paper however, we would explore more interpretable methods and hence will focus on how we can
+apply classical time series models, such as Vector Autoregressive (VAR), Spatio-Temporal Autoregressive (STAR) models to exploit spatial
 correlations as well as also introduce a 3-step approach to improve forecast accuracy.}
 
 
 % Fill in data. If unknown, outcomment the field
-\KEYWORDS{spatio-temporal demand prediction, time series}
+\KEYWORDS{Spatio-temporal demand prediction, Time Series, Clustering, Vector Autoregressive models, Spatio-Temporal Autoregressive models}
 \maketitle
 
 % Text of your paper here
@@ -118,9 +119,9 @@ correlations as well as also introduce a 3-step approach to improve forecast acc
 \newpage
 \section{Introduction}
 
-This paper would explore the usage of classical statistical methods along with unsupervised learning methods, like clustering, for the purpose of spatio-temporal forecasting. Spatio-Temporal forecasting can be defined as forecasting a future value at a given location and a given time. The motivation for this paper comes from \cite{Sheng2018}, where the focus is to optimise assignments of lunch delivery orders to drivers in order to minimize the total delay of all drivers. In reality, demand is never deterministic and by having a more accurate approach to forecast the demand, the lunch delivery company could more effectively and efficiently assign orders to drivers to improve the overall delivery time. \\
+This paper would explore the usage of classical statistical methods along with unsupervised learning methods, like clustering, for the purpose of spatio-temporal forecasting. Spatio-Temporal forecasting can be defined as forecasting a future value at a given location and a given time. The motivation for this paper comes from \cite{liu2020time}, where the focus is to optimise assignments of lunch delivery orders to drivers in order to minimize the total delay of all drivers. In reality, demand is never deterministic and by having a more accurate approach to forecast the demand, the lunch delivery company could more effectively and efficiently assign orders to drivers to improve the overall delivery time. \\
 
-\noindent The dataset used in both \cite{Sheng2018} and this paper are from a food service provider in China that allows customer to place orders before a cutoff time in the day (e.g 10.00am) and the customer can expect to recieve their orders by a deadline (e.g anytime from 10.30am to 11.45am). \\
+\noindent The dataset used in both \cite{liu2020time} and this paper are from a food service provider in China that allows customer to place orders before a cutoff time in the day (e.g 10.00am) and the customer can expect to recieve their orders by a deadline (e.g anytime from 10.30am to 11.45am). \\
 
 \noindent This problem is not only restricted to the abovementioned food provider. With the rise of e-commerce and the food ordering and delivery services, like GrabFood and FoodPanda, demand prediction and driver assignment problem would be an everyday concern for them too. Spatio-temporalal forecasting is also not limited to food delivery, and it has many other applications, like traffic prediction and weather prediction over time. \\
 
@@ -131,7 +132,7 @@ This paper would explore the usage of classical statistical methods along with u
 
 \noindent Spatio-temporal demand prediction has slowly gained popularity over the years with the rise of deep learning. There are various research on different deep learning methods used for spatio-temporal demand prediction. One example would be \cite{Wang2018}, where they applied deep spatio-temporal convolutional Long Short-Term Memory (LSTM) methods for traffic demand prediction. In their paper, they used the passenger flow to build a spatial correlation matrix as well as the time taken to travel between stations to form a time cost matrix. The 2 matrices are then used as spatial features and would be combined with temporal time series features to pass through their LSTM network. \\
 
-\noindent While most existing research regarding spatio-temporal forecasting makes use of deep learning methods, this paper would be focus only on using classical statistical method instead as the dataset we are using is small and classical methods are relatively more interpretable than deep learning neural networks. Another example of using classical time series methods for spatio-temporal forecasting would be \cite{Abolfazl2017}, where they proposed using generalized spatio-temporal autoregressive (STAR) model for predicting taxi demands across locations in New York City. \cite{KURT20152537} also provides the background and theoretical details of STAR models, which they used on a dataset of regional bank deposits. STAR models originated from the 1980s but has been relatively silent during that period due to lack of relevant datasets. We will attempt to use STAR models in this paper as explained in section 7. \\
+\noindent While most existing research regarding spatio-temporal forecasting makes use of deep learning methods, this paper would be focus only on using classical statistical method instead as the dataset we are using is small and classical methods are relatively more interpretable than deep learning neural networks. Another example of using classical time series methods for spatio-temporal forecasting would be \cite{Abolfazl2017}, where they proposed using generalized spatio-temporal autoregressive (STAR) model for predicting taxi demands across locations in New York City. \cite{KURT20152537} also provides the background and theoretical details of STAR models, which they used on a dataset of regional bank deposits. STAR models originated from the 1980s but has been relatively silent during that period due to lack of relevant datasets. We will attempt to use STAR models in this paper as explained in section 8. \\
 
 \noindent \cite{Marina2016} describes and shows how they implemented a network autoregressive moving average model to model the number of cases of Mumps in UK counties. In their example, they also showed that they might achieve a better result by modelling the series separately as univariate time series, also suggested in \cite{Nunes2015} since the neighbouring counties does not provide a substantial amount of explanatory power.  Other related literature includes \cite{Xavier2005} where they propose a model building strategy for spatially sparse but temporally rich data. \\
 
@@ -206,7 +207,7 @@ We would first do some exploratory analysis and check if there are any interesti
 
 \newpage
 
-\subsection{Subsetting of data and train-test Split}
+\subsection{Subsetting of data and train-test split}
 From Figure 1 in Section 3.1, the data is very sparse as there are many locations that have no demand counts for the majority of the time periods. Hence, to get a proof-of-concept model and a better idea of how our models perform, we first subset the dataset into a smaller one where we only consider locations with at least 50 non-zero counts across the time period, leaving us with 42 locations that meet this criteria. After the model is tested on this smaller dataset, we would evaluate the performance and then use the model to fit on the full dataset to evaluate its final performance. \\
 
 \noindent To prevent overfitting of our model, the dataset was then split into training and test set by considering the first 33 days as the training set and the next 1 day as the test set. A period of 1 day was chosen as the test set duration because we are making a reasonable assumption that this model would only have to be run at the end of a working day to predict for the next working day, hence only required to predict one-day ahead demand. \\
@@ -242,15 +243,20 @@ The classical metric that would be used for comparison would be Mean Squared Err
     %$\displaystyle MSE=\frac{1}{(T_2 - T_1 - 1)}\sum_{t=T_1}^{T_2 - 1}\left \| \hat{y}_{t+1} - y_{t+1} \right \|_{2}^{2}$
     $\displaystyle MSE=\frac{1}{n}\sum_{t=1}^{n}\left \| \hat{y}_{t} - y_{t} \right \|_{2}^{2}$
 \end{center}
-where \textit{n} is the number of data points, $\hat{y_t}$ is the predicted value at time t and ${y_t}$ is the actual value at time t. Our model should aim to minimize the MSE in order to obtain a more accurate fit. \\
+where $n$ is the number of data points, $\hat{y_t}$ is the predicted value at time $t$ and ${y_t}$ is the actual value at time $t$. Our model should aim to minimize the MSE in order to obtain a more accurate fit. \\
 
 \subsection{Quadratic Score}
-\noindent In addition to the classical MSE metric, we will also use a proper scoring rule, the quadratic score (qs), to evaluate our predictions. The use of quadratic score in to evaluate time series models for counts was also suggested by \cite{jstor}. Quadratic score can be defined as: \\
+\noindent Calibration refers to the statistical consistency between forecasts and actual observations while sharpness represents the concentration of the predicted distribution and as mentioned in \cite{Czado2009PredictiveMA}, proper scoring rules would ensure that we address both calibration and sharpness of the forecast while the classical metric MSE do not. Hence, in addition to the classical MSE metric, we will also use a proper scoring rule, the quadratic score (qs), to evaluate our predictions. The usage of quadratic score to evaluate time series models for counts was also suggested by \cite{jstor}. Quadratic score can be defined as: 
 
 \begin{center}
     $\displaystyle qs(P, x) = -2p_{x} + \left \| p \right \|^{2}$
 \end{center} 
 
+\noindent where $P$ represents the predicted distribution, $x$ represents the actual observed value, $p_x$ represents the probability mass at the observed count $x$ and we can compute $\left \| p \right \|^{2} = \sum_{k=0}^{\infty }p_{k}^{2}$ using methods explained in Appendix A of \cite{Czado2009PredictiveMA}. Quadratic score is also a proper scoring rule as it follows the property: \\
+
+\begin{center}
+    $\displaystyle qs(x, x) \leq qs(P, x)$
+\end{center} 
 
 \noindent In this paper, we will calculate and report the quadratic score (QS) of our models by this formula: \\
 
@@ -259,14 +265,7 @@ where \textit{n} is the number of data points, $\hat{y_t}$ is the predicted valu
 \end{center} 
 
 
-\noindent where n represents the number of data points, P represents the predicted distribution while x represents actual observed value. We can also compute $\left \| p \right \|^{2} = \sum_{k=0}^{\infty }p_{k}^{2}$ using methods explained in Appendix A of \cite{Czado2009PredictiveMA}. Quadratic score is also a proper scoring rule as it follows the property: \\
-
-\begin{center}
-    $\displaystyle qs(x, x) \leq qs(P, x)$
-\end{center} 
-
-
-\noindent Our model should aim to minimize the quadratic score to provide a sharper fit.
+\noindent where n represents the number of data points. We should aim to minimize the quadratic score to provide a sharper fit.
 
 \newpage
 \section{Baseline Model}
@@ -285,7 +284,7 @@ Autoregressive Integrated Moving Average (ARIMA) models are one of the most comm
 $\hat{y_t} = \mu + \sum_{i=1}^{p} \phi_i * y_{t-i} - \sum_{j=1}^{q} \theta_j * e_{t-j}$
 \end{center}
 
-\noindent where $\hat{y_t}$ refer to the predicted value at time t, $\mu$ refer to a constant, while $\sum_{i=1}^{p} \phi_i * y_{t-i}$ refers to the AR terms and $\sum_{j=1}^{q} \theta_j * e_{t-j}$ refers to the MA terms.
+\noindent where $\hat{y_t}$ refer to the predicted value at time $t$, $\mu$ refer to a constant, while $\sum_{i=1}^{p} \phi_i * y_{t-i}$ refers to the AR terms and $\sum_{j=1}^{q} \theta_j * e_{t-j}$ refers to the MA terms.
 
 \newpage
 \subsection{Baseline ARIMA Result}
@@ -311,7 +310,7 @@ The dataset that we are using follows a count time series, which means the obser
     $\displaystyle g(\lambda_t)= \eta^T X_t$
 \end{center}
 
-\noindent where $g$ represents a link function, and $\lambda_t = E(Y_t | F_{t-1})$, where $F_{t-1}$ represents the historical values up to time t, which is the conditional mean of the time series . $\eta$ represents a parameter vector that corresponds to the covariates and $X_t$ represents the a vector of the values of the previous time steps in the time series.
+\noindent where $g$ represents a link function, and $\lambda_t = E(Y_t | F_{t-1})$, where $F_{t-1}$ represents the historical values up to time $t$, which is the conditional mean of the time series . $\eta$ represents a parameter vector that corresponds to the covariates and $X_t$ represents the a vector of the values of the previous time steps in the time series.
 
 %\noindent Using the R package from \cite{Tobias2017}, the GLM used would be an %extension of the above equation and can be expressed in the form of:
 
@@ -322,7 +321,7 @@ The dataset that we are using follows a count time series, which means the obser
 %\noindent where additionally, $\tilde{g}$ represents a transformation function. (remove this?)
 
 \subsection{Model Implementation}
-\noindent As mentioned in section 3.2, we would first assess our model on the smaller dataset before testing it on the full dataset. Using the R package tscount from \cite{Tobias2017}, we fit each of the locations individually by a GLM model. For the parameters, we used the past \textbf{6} lagged values as well as the \textbf{identity function} as the link function, with poisson distribution as the conditional distribution. The out-of-sample MSE for this baseline model on the smaller dataset is \textbf{38.16}, which is better than just using ARIMA on the same dataset. The quadratic score for GLM on the smaller dataset is \textbf{-19.90}. \\
+\noindent As mentioned in section 3.2, we would first assess our model on the smaller dataset before testing it on the full dataset. Using the R package tscount from \cite{Tobias2017}, we fit each of the locations individually by a GLM model. For the parameters, we used the past \textbf{6} lagged values as well as the \textbf{identity function} as the link function, with \textbf{poisson distribution} as the conditional distribution. The out-of-sample MSE for this baseline model on the smaller dataset is \textbf{38.16}, which is better than just using ARIMA on the same dataset. The quadratic score for GLM on the smaller dataset is \textbf{-19.90}. \\
 
 \noindent The output for GLM model is in a fractional number instead of an integer. The reason is because the output of the GLM model, using poisson distribution, gives the expected value which might not be an integer. Hence, to convert our predictions to an integer for practical purposes, we would round the predictions to the nearest integer since the nearest integer would be the value that is predicted to occur most often in the distribution. \\
 
@@ -390,7 +389,7 @@ For a univariate time series, it is important for the time series to be transfor
 
 To test for stationarity, we would be performing the standard ADF test to test for stationarity. The result of the ADF test showed that time series of certain locations are not stationary. We then take the first difference of each series and after differencing, ADF test was performed on each series the time series of each location have been checked and are stationary. It is noted that while it is possible to perform differencing on every series, it might cause over-differencing, leading to inaccurate results, as mentioned in \cite{Ruey2014}. \\
 
-\noindent After we applied a differencing order of 1 to the dataset, BigVAR Library in R was used to fit a VAR model with a selected p of 12, representing the usage of 12 lagged values, using time series of every location as predictors. The results for the VAR model is discussed in the later subsection. 
+\noindent After we applied a differencing order of 1 to the dataset, BigVAR Library in R was used to fit a VAR model with a selected $p$ of 12, representing the usage of 12 lagged values, using time series of every location as predictors. The results for the VAR model is discussed in the later subsection. 
 
 
 \subsubsection{Cointegration}
@@ -410,7 +409,7 @@ VAR models can also be extended to include exogenous variables. A VARX(p,s) (wit
     $\displaystyle y_t=v+\sum_{i=1}^{p} \phi_{i}y_{t-i}+\sum_{j=1}^{s} \beta_{j}x_{t-j}+\alpha_t$
 \end{center}
 
-\noindent where $p$ is the number of past endogenous variables used, $s$ is the number of past exogenous variables used, $y_t$ is the value at time $t$, $v$ is a constant vector, $\phi_i$ are coefficient matrices for endogenous coefficient matrix for $i>0$, $\beta_j$ are coefficient matrices for exogenous coefficient matrix for $j>0$, $x_{t-j}$ represents the value of the exogenous variables at time t - j, where j is the lagged period for exogenous variables and $\alpha_t$ are independent and identically distributed random vectors. 
+\noindent where $p$ is the number of past endogenous variables used, $s$ is the number of past exogenous variables used, $y_t$ is the value at time $t$, $v$ is a constant vector, $\phi_i$ are coefficient matrices for endogenous coefficient matrix for $i>0$, $\beta_j$ are coefficient matrices for exogenous coefficient matrix for $j>0$, $x_{t-j}$ represents the value of the exogenous variables at time $t$ - $j$, where $j$ is the lagged period for exogenous variables and $\alpha_t$ are independent and identically distributed random vectors. 
 
 \subsection{Implementation of VARX Model on our dataset}
 \noindent Our dataset uses additional exogenous variables like temperature, wind, gust, cloud, humidity, precipitation, pressure as well as one-hot encoding of the day of the week. Our dataset now would have 839 endogenous variables/locations and 13 exogenous variables. Based on performance results and taking computational power limitation into consideration, the optimal number of lag (p) that was chosen for endogenous variables is 6 and number of lag for exogenous variables is 1. \\
@@ -493,7 +492,7 @@ We also note that the output for VAR or VARX model is in a fractional number ins
     $\displaystyle \sum_{j} w_{ij}^{(s)} = 1$
 \end{center}
 
-\noindent The properties state that the sum of the weights for all neighbouring location $j$ for each location $i$ should sum up to 1 and have non-zero values for location i's first order neighbours. We can then combine all regions' weights into $W^{(s)}$, which represents a spatial weight matrix of N x N where N is the number of locations that our dataset has. The matrix would be make up of zeros for its diagonal elements while the rest will be filled with positive numbers. One way to calculate the weights would be to uniformly distribute the weights for every neighbouring location $j$ of location $i$. \\
+\noindent The properties state that the sum of the weights for all neighbouring location $j$ for each location $i$ should sum up to 1 and have non-zero values for location $i$'s first order neighbours. We can then combine all regions' weights into $W^{(s)}$, which represents a spatial weight matrix of N x N where N is the number of locations that our dataset has. The matrix would be make up of zeros for its diagonal elements while the rest will be filled with positive numbers. One way to calculate the weights would be to uniformly distribute the weights for every neighbouring location $j$ of location $i$. \\
 
 \newpage
 \noindent STAR models of the form STAR($p$,$k$) can then be expressed as: \\
@@ -502,7 +501,7 @@ We also note that the output for VAR or VARX model is in a fractional number ins
     $\displaystyle y_{t} = \sum_{l=1}^{p}\sum_{s=0}^{k_l}\phi_{ls} W^{(s)}y_{t-l} + \epsilon_{t}$
 \end{center}
 
-\noindent where $p$ represents time lag and $k$ reprsents spatial lag. $y_{t}$ represents the predicted demand at time t, $\phi_{ls}$ represents diagonal matrices, $\epsilon_{t}$ represents white noise with mean vector 0. 
+\noindent where $p$ represents time lag and $k$ reprsents spatial lag. $y_{t}$ represents the predicted demand at time $t$, $\phi_{ls}$ represents diagonal matrices, $\epsilon_{t}$ represents white noise with mean vector 0. 
 More details regarding STAR models can be found in \cite{KURT20152537}.
 
 
@@ -510,7 +509,7 @@ More details regarding STAR models can be found in \cite{KURT20152537}.
 
 \noindent In this paper, we assume that spatial relationships remain constant throughout the time periods and we leave computing spatial relationships that differ over time to be explored in future research. We also assume that for all locations, their first-order neighbourhood set would include all other locations. For this paper, we only take into account the first-order neighbourhood. To calculate the weight matrix, we uniformly distribute the weights for all neighbouring locations of each location. \\
 
-\noindent The package 'gstar' from R was used to implement the STAR model. STAR(5,1) was used for the smaller dataset while STAR(1,1) was used on the full dataset.
+\noindent The package $'$gstar$'$ from R was used to implement the STAR model. STAR(5,1) was used for the smaller dataset while STAR(1,1) was used on the full dataset.
 
 \subsection{Results of STAR model}
 
@@ -590,7 +589,7 @@ $r_{xy} = \frac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
 {\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2(y_i - \overline{y})^2}} $
 \end{center}
 
-\noindent where $r_{xy}$ represents the correlation coefficient between time series x and y, $x_i$ and $y_i$ represents points in time i for time series x and y respectively and $\overline{x}$ and $\overline{y}$ represents the mean value for time series x and y.  
+\noindent where $r_{xy}$ represents the correlation coefficient between time series $x$ and $y$, $x_i$ and $y_i$ represents points in time i for time series $x$ and $y$ respectively and $\overline{x}$ and $\overline{y}$ represents the mean value for time series $x$ and $y$.  
 
 \subsubsection{Using Dynamic Time Warping as the distance metric}
 \hfill\\
@@ -692,7 +691,7 @@ $\forall x  \exists i \ni  x\:\epsilon \: C(i)$
 $D_{C(i)} ={\sum_{l\epsilon C(i)}\sum_{j=1}^{n}x_{lj}}$ 
 \end{center}
 
-\noindent The first equation states that every location $x$ will belong to one cluster. The second equation states that we obtain each cluster's time series by summing the past demand values at each time period of each location in the cluster.  $D_{C(i)}$ represents the total demand (from training set) of the cluster C(i) and $x_{ij}$ represents the training set demand value at location i at time j. \\
+\noindent The first equation states that every location $x$ will belong to one cluster. The second equation states that we obtain each cluster's time series by summing the past demand values at each time period of each location in the cluster.  $D_{C(i)}$ represents the total demand (from training set) of the cluster C(i) and $x_{ij}$ represents the training set demand value at location $i$ at time $j$. \\
 
 \noindent We then take a look at the correlation heatmap of the clusters.
 
@@ -728,7 +727,7 @@ After we attained the total demand for each cluster, the next step would be to r
 
 \noindent  \\
 
-\noindent where $y_i$ represents the predicted demand for location i, $Y_{C(i)}$ represents the predicted total demand of the respective cluster of location i, $C(i)$ represents the cluster which location i belongs to, $D_{C(i)}$ represents the total demand (from training set) of the cluster C(i) and $x_{ij}$ represents the past number orders at location i at time j. 
+\noindent where $y_i$ represents the predicted demand for location $i$, $Y_{C(i)}$ represents the predicted total demand of the respective cluster of location $i$, $C(i)$ represents the cluster which location $i$ belongs to, $D_{C(i)}$ represents the total demand (from training set) of the cluster C(i) and $x_{ij}$ represents the past number orders at location $i$ at time $j$. 
 
 
 \subsection{Results}

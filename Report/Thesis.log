@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  29 MAR 2020 16:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.6.19)  1 APR 2020 00:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -230,13 +230,170 @@ Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 \ALC@tlm=\skip48
 \algorithmicindent=\skip49
 )
-(./natbib.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2018/08/11 v2.0j Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+Now handling font encoding TS1 ...
+... processing UTF-8 mapping file for font encoding TS1
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu
+File: ts1enc.dfu 2018/10/05 v1.2f UTF-8 support for inputenc
+   defining Unicode char U+00A2 (decimal 162)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00A4 (decimal 164)
+   defining Unicode char U+00A5 (decimal 165)
+   defining Unicode char U+00A6 (decimal 166)
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00A8 (decimal 168)
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AC (decimal 172)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00AF (decimal 175)
+   defining Unicode char U+00B0 (decimal 176)
+   defining Unicode char U+00B1 (decimal 177)
+   defining Unicode char U+00B2 (decimal 178)
+   defining Unicode char U+00B3 (decimal 179)
+   defining Unicode char U+00B4 (decimal 180)
+   defining Unicode char U+00B5 (decimal 181)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+00B9 (decimal 185)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+00BC (decimal 188)
+   defining Unicode char U+00BD (decimal 189)
+   defining Unicode char U+00BE (decimal 190)
+   defining Unicode char U+00D7 (decimal 215)
+   defining Unicode char U+00F7 (decimal 247)
+   defining Unicode char U+0192 (decimal 402)
+   defining Unicode char U+02C7 (decimal 711)
+   defining Unicode char U+02D8 (decimal 728)
+   defining Unicode char U+02DD (decimal 733)
+   defining Unicode char U+0E3F (decimal 3647)
+   defining Unicode char U+2016 (decimal 8214)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+203B (decimal 8251)
+   defining Unicode char U+203D (decimal 8253)
+   defining Unicode char U+2044 (decimal 8260)
+   defining Unicode char U+204E (decimal 8270)
+   defining Unicode char U+2052 (decimal 8274)
+   defining Unicode char U+20A1 (decimal 8353)
+   defining Unicode char U+20A4 (decimal 8356)
+   defining Unicode char U+20A6 (decimal 8358)
+   defining Unicode char U+20A9 (decimal 8361)
+   defining Unicode char U+20AB (decimal 8363)
+   defining Unicode char U+20AC (decimal 8364)
+   defining Unicode char U+20B1 (decimal 8369)
+   defining Unicode char U+2103 (decimal 8451)
+   defining Unicode char U+2116 (decimal 8470)
+   defining Unicode char U+2117 (decimal 8471)
+   defining Unicode char U+211E (decimal 8478)
+   defining Unicode char U+2120 (decimal 8480)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2126 (decimal 8486)
+   defining Unicode char U+2127 (decimal 8487)
+   defining Unicode char U+212E (decimal 8494)
+   defining Unicode char U+2190 (decimal 8592)
+   defining Unicode char U+2191 (decimal 8593)
+   defining Unicode char U+2192 (decimal 8594)
+   defining Unicode char U+2193 (decimal 8595)
+   defining Unicode char U+2329 (decimal 9001)
+   defining Unicode char U+232A (decimal 9002)
+   defining Unicode char U+2422 (decimal 9250)
+   defining Unicode char U+25E6 (decimal 9702)
+   defining Unicode char U+25EF (decimal 9711)
+   defining Unicode char U+266A (decimal 9834)
+   defining Unicode char U+FEFF (decimal 65279)
+))
+LaTeX Info: Redefining \oldstylenums on input line 334.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 349.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 350.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 351.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 352.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 353.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 354.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 355.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 356.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 357.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 358.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 359.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 360.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 361.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 362.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 363.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 364.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 365.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 366.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 367.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 368.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 369.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 370.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 371.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 372.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 373.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 374.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 375.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 376.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 377.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 378.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 379.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 380.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 381.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 382.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 383.
+Package textcomp Info: Setting lmtt sub-encoding to TS1/0 on input line 384.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 385.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 386.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 387.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 388.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 389.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 390.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 391.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 392.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 393.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 394.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 395.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 396.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 397.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 398.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 399.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 400.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 401.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 402.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 403.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 404.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 405.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
+) (./natbib.sty
 Package: natbib 2000/07/24 7.0a (PWD)
 \bibhang=\skip50
 \bibsep=\skip51
 LaTeX Info: Redefining \cite on input line 508.
 \c@NAT@ctr=\count113
-) (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
@@ -352,18 +509,24 @@ e
 (./Thesis.aux)
 \openout1 = `Thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 56.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 56.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 56.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -384,53 +547,53 @@ Package caption Info: End \AtBeginDocument code.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 121--122
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 123--124
+Underfull \hbox (badness 10000) in paragraph at lines 124--125
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 125--126
+Underfull \hbox (badness 10000) in paragraph at lines 126--127
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 132--133
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 134--135
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--137
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 138--139
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 144--145
+Underfull \hbox (badness 10000) in paragraph at lines 145--146
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 146--147
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
 \OT1/cmr/m/n/11 To include other exoge-nous vari-ables, data from World Weather
  Online
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 146--147
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
 
  []
 
@@ -438,69 +601,64 @@ Underfull \hbox (badness 10000) in paragraph at lines 146--147
 <Images/example_all_ts.jpg, id=22, 1156.32pt x 578.16pt>
 File: Images/example_all_ts.jpg Graphic file (type jpg)
 <use Images/example_all_ts.jpg>
-Package pdftex.def Info: Images/example_all_ts.jpg  used on input line 156.
+Package pdftex.def Info: Images/example_all_ts.jpg  used on input line 157.
 (pdftex.def)             Requested size: 399.2837pt x 181.43324pt.
 <Images/example_ts.jpg, id=23, 867.24pt x 433.62pt>
 File: Images/example_ts.jpg Graphic file (type jpg)
 <use Images/example_ts.jpg>
-Package pdftex.def Info: Images/example_ts.jpg  used on input line 164.
+Package pdftex.def Info: Images/example_ts.jpg  used on input line 165.
 (pdftex.def)             Requested size: 469.75827pt x 226.80699pt.
 <Images/boxplot_counts.jpg, id=24, 578.16pt x 289.08pt>
 File: Images/boxplot_counts.jpg Graphic file (type jpg)
 <use Images/boxplot_counts.jpg>
-Package pdftex.def Info: Images/boxplot_counts.jpg  used on input line 172.
+Package pdftex.def Info: Images/boxplot_counts.jpg  used on input line 173.
 (pdftex.def)             Requested size: 469.75385pt x 291.61119pt.
  [5 <./Images/example_all_ts.jpg> <./Images/example_ts.jpg>] [6 <./Images/boxpl
 ot_counts.jpg>]
 <Images/spatial_demand.jpg, id=32, 1011.78pt x 578.16pt>
 File: Images/spatial_demand.jpg Graphic file (type jpg)
 <use Images/spatial_demand.jpg>
-Package pdftex.def Info: Images/spatial_demand.jpg  used on input line 182.
+Package pdftex.def Info: Images/spatial_demand.jpg  used on input line 183.
 (pdftex.def)             Requested size: 469.76266pt x 485.99515pt.
 <Images/temp_mean_demand.jpg, id=33, 578.16pt x 289.08pt>
 File: Images/temp_mean_demand.jpg Graphic file (type jpg)
 <use Images/temp_mean_demand.jpg>
-Package pdftex.def Info: Images/temp_mean_demand.jpg  used on input line 192.
+Package pdftex.def Info: Images/temp_mean_demand.jpg  used on input line 193.
 (pdftex.def)             Requested size: 446.26086pt x 207.36551pt.
  [7 <./Images/spatial_demand.jpg>]
 <Images/pressure_mean_demand.jpg, id=38, 578.16pt x 289.08pt>
 File: Images/pressure_mean_demand.jpg Graphic file (type jpg)
 <use Images/pressure_mean_demand.jpg>
-Package pdftex.def Info: Images/pressure_mean_demand.jpg  used on input line 19
-9.
+Package pdftex.def Info: Images/pressure_mean_demand.jpg  used on input line 20
+0.
 (pdftex.def)             Requested size: 446.26086pt x 207.36551pt.
  [8 <./Images/temp_mean_demand.jpg> <./Images/pressure_mean_demand.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 210--211
+Underfull \hbox (badness 10000) in paragraph at lines 211--212
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 212--213
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 214--215
+Underfull \hbox (badness 10000) in paragraph at lines 215--216
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 227--228
+Underfull \hbox (badness 10000) in paragraph at lines 228--229
 
  []
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 239--240
+Underfull \hbox (badness 10000) in paragraph at lines 240--241
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 245--246
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 248--249
+Underfull \hbox (badness 10000) in paragraph at lines 246--247
 
  []
 
@@ -510,47 +668,47 @@ Underfull \hbox (badness 10000) in paragraph at lines 255--256
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--263
+Underfull \hbox (badness 10000) in paragraph at lines 261--262
 
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 278--279
+Underfull \hbox (badness 10000) in paragraph at lines 277--278
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 280--281
+Underfull \hbox (badness 10000) in paragraph at lines 279--280
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 282--283
+Underfull \hbox (badness 10000) in paragraph at lines 281--282
 
  []
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 292--293
+Underfull \hbox (badness 10000) in paragraph at lines 291--292
 
  []
 
 <Images/forecast_example.jpg, id=58, 578.16pt x 289.08pt>
 File: Images/forecast_example.jpg Graphic file (type jpg)
 <use Images/forecast_example.jpg>
-Package pdftex.def Info: Images/forecast_example.jpg  used on input line 298.
+Package pdftex.def Info: Images/forecast_example.jpg  used on input line 297.
 (pdftex.def)             Requested size: 469.75499pt x 234.8769pt.
 [12 <./Images/forecast_example.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 308--309
+Underfull \hbox (badness 10000) in paragraph at lines 307--308
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 325--326
+Underfull \hbox (badness 10000) in paragraph at lines 324--325
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 327--328
+Underfull \hbox (badness 10000) in paragraph at lines 326--327
 
  []
 
@@ -558,10 +716,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 327--328
 <Images/Full_GLM_resids.jpg, id=66, 481.8pt x 481.8pt>
 File: Images/Full_GLM_resids.jpg Graphic file (type jpg)
 <use Images/Full_GLM_resids.jpg>
-Package pdftex.def Info: Images/Full_GLM_resids.jpg  used on input line 339.
+Package pdftex.def Info: Images/Full_GLM_resids.jpg  used on input line 338.
 (pdftex.def)             Requested size: 469.77148pt x 453.61252pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 336--342
+Underfull \hbox (badness 10000) in paragraph at lines 335--341
 
  []
 
@@ -569,15 +727,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 336--342
 File: Images/Full_GLM_resids_vs_fitted.jpg Graphic file (type jpg)
 <use Images/Full_GLM_resids_vs_fitted.jpg>
 Package pdftex.def Info: Images/Full_GLM_resids_vs_fitted.jpg  used on input li
-ne 350.
+ne 349.
 (pdftex.def)             Requested size: 375.81718pt x 324.01pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--353
+Underfull \hbox (badness 10000) in paragraph at lines 346--352
 
  []
 
 [14 <./Images/Full_GLM_resids.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 362--363
+Underfull \hbox (badness 10000) in paragraph at lines 361--362
 
  []
 
@@ -585,25 +743,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 362--363
 <Images/heatmap.jpg, id=77, 1445.4pt x 1445.4pt>
 File: Images/heatmap.jpg Graphic file (type jpg)
 <use Images/heatmap.jpg>
-Package pdftex.def Info: Images/heatmap.jpg  used on input line 377.
+Package pdftex.def Info: Images/heatmap.jpg  used on input line 376.
 (pdftex.def)             Requested size: 469.74944pt x 486.00397pt.
  [17 <./Images/heatmap.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 391--392
+Underfull \hbox (badness 10000) in paragraph at lines 390--391
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 401--403
+Underfull \hbox (badness 10000) in paragraph at lines 400--402
 
  []
 
 [18]
-Underfull \hbox (badness 10000) in paragraph at lines 407--408
+Underfull \hbox (badness 10000) in paragraph at lines 406--407
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 416--417
+Underfull \hbox (badness 10000) in paragraph at lines 415--416
 
  []
 
@@ -612,82 +770,82 @@ Underfull \hbox (badness 10000) in paragraph at lines 416--417
 File: Images/Full_VAR_diff_resids.jpg Graphic file (type jpg)
 <use Images/Full_VAR_diff_resids.jpg>
 Package pdftex.def Info: Images/Full_VAR_diff_resids.jpg  used on input line 43
-2.
+1.
 (pdftex.def)             Requested size: 375.81718pt x 272.16603pt.
  [20 <./Images/Full_VAR_diff_resids.jpg>]
 <Images/Full_VARX_diff_resids.jpg, id=92, 481.8pt x 481.8pt>
 File: Images/Full_VARX_diff_resids.jpg Graphic file (type jpg)
 <use Images/Full_VARX_diff_resids.jpg>
 Package pdftex.def Info: Images/Full_VARX_diff_resids.jpg  used on input line 4
-40.
+39.
 (pdftex.def)             Requested size: 375.81718pt x 272.16603pt.
  [21 <./Images/Full_VARX_diff_resids.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 481--482
+Underfull \hbox (badness 10000) in paragraph at lines 480--481
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--484
+Underfull \hbox (badness 10000) in paragraph at lines 482--483
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 496--497
+Underfull \hbox (badness 10000) in paragraph at lines 495--496
 
  []
 
 [22]
-Underfull \hbox (badness 10000) in paragraph at lines 499--500
+Underfull \hbox (badness 10000) in paragraph at lines 498--499
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 511--512
+Underfull \hbox (badness 10000) in paragraph at lines 510--511
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 517--518
+Underfull \hbox (badness 10000) in paragraph at lines 516--517
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 519--520
+Underfull \hbox (badness 10000) in paragraph at lines 518--519
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 521--522
+Underfull \hbox (badness 10000) in paragraph at lines 520--521
 
  []
 
 [23]
-Underfull \hbox (badness 10000) in paragraph at lines 527--528
+Underfull \hbox (badness 10000) in paragraph at lines 526--527
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 535--536
+Underfull \hbox (badness 10000) in paragraph at lines 534--535
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 539--540
+Underfull \hbox (badness 10000) in paragraph at lines 538--539
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 541--542
+Underfull \hbox (badness 10000) in paragraph at lines 540--541
 
  []
 
 [24]
-Underfull \hbox (badness 10000) in paragraph at lines 585--587
+Underfull \hbox (badness 10000) in paragraph at lines 584--586
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 596--598
+Underfull \hbox (badness 10000) in paragraph at lines 595--597
 
  []
 
@@ -695,15 +853,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 596--598
 <Images/DTW_Plot.jpg, id=115, 481.8pt x 481.8pt>
 File: Images/DTW_Plot.jpg Graphic file (type jpg)
 <use Images/DTW_Plot.jpg>
-Package pdftex.def Info: Images/DTW_Plot.jpg  used on input line 669.
+Package pdftex.def Info: Images/DTW_Plot.jpg  used on input line 668.
 (pdftex.def)             Requested size: 375.81718pt x 324.01pt.
  [27 <./Images/DTW_Plot.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 685--686
+Underfull \hbox (badness 10000) in paragraph at lines 684--685
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 695--696
+Underfull \hbox (badness 10000) in paragraph at lines 694--695
 
  []
 
@@ -711,30 +869,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 695--696
 File: Images/cluster_corr_heatmap.jpg Graphic file (type jpg)
 <use Images/cluster_corr_heatmap.jpg>
 Package pdftex.def Info: Images/cluster_corr_heatmap.jpg  used on input line 70
-1.
+0.
 (pdftex.def)             Requested size: 469.76266pt x 401.75607pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 706--707
+Underfull \hbox (badness 10000) in paragraph at lines 705--706
 
  []
 
 [28 <./Images/cluster_corr_heatmap.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 714--715
+Underfull \hbox (badness 10000) in paragraph at lines 713--714
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 721--722
+Underfull \hbox (badness 10000) in paragraph at lines 720--721
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 723--724
+Underfull \hbox (badness 10000) in paragraph at lines 722--723
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 729--730
+Underfull \hbox (badness 10000) in paragraph at lines 728--729
 
  []
 
@@ -743,13 +901,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 729--730
 File: Images/Cluster_Combi_MSE_plot.jpg Graphic file (type jpg)
 <use Images/Cluster_Combi_MSE_plot.jpg>
 Package pdftex.def Info: Images/Cluster_Combi_MSE_plot.jpg  used on input line 
-833.
+832.
 (pdftex.def)             Requested size: 469.77148pt x 388.81493pt.
 <Images/Cluster_Combi_quad_plot.jpg, id=137, 481.8pt x 481.8pt>
 File: Images/Cluster_Combi_quad_plot.jpg Graphic file (type jpg)
 <use Images/Cluster_Combi_quad_plot.jpg>
 Package pdftex.def Info: Images/Cluster_Combi_quad_plot.jpg  used on input line
- 840.
+ 839.
 (pdftex.def)             Requested size: 469.77148pt x 388.81493pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -759,7 +917,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: Images/Cluster_Combi_STAR_MSE_plot.jpg Graphic file (type jpg)
 <use Images/Cluster_Combi_STAR_MSE_plot.jpg>
 Package pdftex.def Info: Images/Cluster_Combi_STAR_MSE_plot.jpg  used on input 
-line 847.
+line 846.
 (pdftex.def)             Requested size: 469.77148pt x 388.81493pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -769,34 +927,34 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: Images/Cluster_Combi_STAR_quad_plot.jpg Graphic file (type jpg)
 <use Images/Cluster_Combi_STAR_quad_plot.jpg>
 Package pdftex.def Info: Images/Cluster_Combi_STAR_quad_plot.jpg  used on input
- line 854.
+ line 853.
 (pdftex.def)             Requested size: 469.77148pt x 388.81493pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [35 <./Images/Cluster_Combi_STAR_MSE_plot.jpg>] [36 <./Images/Cluster_Combi_ST
 AR_quad_plot.jpg>]
-Overfull \hbox (33.21855pt too wide) in paragraph at lines 934--950
+Overfull \hbox (33.21855pt too wide) in paragraph at lines 933--949
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 953--954
+Underfull \hbox (badness 10000) in paragraph at lines 952--953
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 955--956
+Underfull \hbox (badness 10000) in paragraph at lines 954--955
 
  []
 
 [37]
-Underfull \hbox (badness 10000) in paragraph at lines 961--962
+Underfull \hbox (badness 10000) in paragraph at lines 960--961
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 963--964
+Underfull \hbox (badness 10000) in paragraph at lines 962--963
 
  []
 
@@ -804,17 +962,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 963--964
 <Images/distplot_cloud.png, id=159, 578.16pt x 289.08pt>
 File: Images/distplot_cloud.png Graphic file (type png)
 <use Images/distplot_cloud.png>
-Package pdftex.def Info: Images/distplot_cloud.png  used on input line 996.
+Package pdftex.def Info: Images/distplot_cloud.png  used on input line 995.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 <Images/distplot_gust.png, id=161, 578.16pt x 289.08pt>
 File: Images/distplot_gust.png Graphic file (type png)
 <use Images/distplot_gust.png>
-Package pdftex.def Info: Images/distplot_gust.png  used on input line 1003.
+Package pdftex.def Info: Images/distplot_gust.png  used on input line 1002.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 <Images/distplot_humidity.png, id=162, 578.16pt x 289.08pt>
 File: Images/distplot_humidity.png Graphic file (type png)
 <use Images/distplot_humidity.png>
-Package pdftex.def Info: Images/distplot_humidity.png  used on input line 1010.
+Package pdftex.def Info: Images/distplot_humidity.png  used on input line 1009.
 
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 
@@ -824,13 +982,13 @@ Underfull \vbox (badness 7468) has occurred while \output is active []
 <Images/distplot_pressure.png, id=168, 578.16pt x 289.08pt>
 File: Images/distplot_pressure.png Graphic file (type png)
 <use Images/distplot_pressure.png>
-Package pdftex.def Info: Images/distplot_pressure.png  used on input line 1017.
+Package pdftex.def Info: Images/distplot_pressure.png  used on input line 1016.
 
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 <Images/distplot_temp.png, id=169, 578.16pt x 289.08pt>
 File: Images/distplot_temp.png Graphic file (type png)
 <use Images/distplot_temp.png>
-Package pdftex.def Info: Images/distplot_temp.png  used on input line 1024.
+Package pdftex.def Info: Images/distplot_temp.png  used on input line 1023.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -839,12 +997,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <Images/distplot_wind.png, id=175, 578.16pt x 289.08pt>
 File: Images/distplot_wind.png Graphic file (type png)
 <use Images/distplot_wind.png>
-Package pdftex.def Info: Images/distplot_wind.png  used on input line 1031.
+Package pdftex.def Info: Images/distplot_wind.png  used on input line 1030.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 <Images/wind_mean_demand.jpg, id=176, 578.16pt x 289.08pt>
 File: Images/wind_mean_demand.jpg Graphic file (type jpg)
 <use Images/wind_mean_demand.jpg>
-Package pdftex.def Info: Images/wind_mean_demand.jpg  used on input line 1040.
+Package pdftex.def Info: Images/wind_mean_demand.jpg  used on input line 1039.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -853,12 +1011,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <Images/gust_mean_demand.jpg, id=182, 578.16pt x 289.08pt>
 File: Images/gust_mean_demand.jpg Graphic file (type jpg)
 <use Images/gust_mean_demand.jpg>
-Package pdftex.def Info: Images/gust_mean_demand.jpg  used on input line 1047.
+Package pdftex.def Info: Images/gust_mean_demand.jpg  used on input line 1046.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 <Images/cloud_mean_demand.jpg, id=183, 578.16pt x 289.08pt>
 File: Images/cloud_mean_demand.jpg Graphic file (type jpg)
 <use Images/cloud_mean_demand.jpg>
-Package pdftex.def Info: Images/cloud_mean_demand.jpg  used on input line 1054.
+Package pdftex.def Info: Images/cloud_mean_demand.jpg  used on input line 1053.
 
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 
@@ -869,12 +1027,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: Images/humidity_mean_demand.jpg Graphic file (type jpg)
 <use Images/humidity_mean_demand.jpg>
 Package pdftex.def Info: Images/humidity_mean_demand.jpg  used on input line 10
-61.
+60.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 <Images/prec_mean_demand.jpg, id=188, 578.16pt x 289.08pt>
 File: Images/prec_mean_demand.jpg Graphic file (type jpg)
 <use Images/prec_mean_demand.jpg>
-Package pdftex.def Info: Images/prec_mean_demand.jpg  used on input line 1068.
+Package pdftex.def Info: Images/prec_mean_demand.jpg  used on input line 1067.
 (pdftex.def)             Requested size: 281.85406pt x 194.40158pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -908,10 +1066,10 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 5267 strings out of 492609
- 75646 string characters out of 6131462
- 151614 words of memory out of 5000000
- 9078 multiletter control sequences out of 15000+600000
+ 5785 strings out of 492609
+ 83138 string characters out of 6131462
+ 154417 words of memory out of 5000000
+ 9585 multiletter control sequences out of 15000+600000
  17610 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,15n,38p,1128b,621s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -933,7 +1091,7 @@ ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Thesis.pdf (46 pages, 1736734 bytes).
+Output written on Thesis.pdf (46 pages, 1737771 bytes).
 PDF statistics:
  266 PDF objects out of 1000 (max. 8388607)
  162 compressed objects within 2 object streams
